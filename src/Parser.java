@@ -345,6 +345,15 @@ public class Parser implements ParserInterface {
 					accordingly. 
 				*/
 				
+				/*
+				 *TODO for each instruction block:
+				 *	-create a string of binary code
+				 *	-add to it with each succeeding operand and stuff
+				 *	-add to infoholder object 
+				 */
+				
+				
+				
 				//parsing for the "load immediate" instruction
 				if(insOp.compareToIgnoreCase("LUI") == 0)
 				{
