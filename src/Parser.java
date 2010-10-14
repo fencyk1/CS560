@@ -80,14 +80,14 @@ public class Parser implements ParserInterface {
 					if (size < 3) {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
 					else {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("too many parameters");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -100,7 +100,7 @@ public class Parser implements ParserInterface {
 					if ( programName.compareTo(line.get(1)) != 0) {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("invalid program name");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -111,14 +111,14 @@ public class Parser implements ParserInterface {
 					if (size < 2) {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
 					else {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("too many parameters");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -144,7 +144,7 @@ public class Parser implements ParserInterface {
 					else {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("invalid opperand");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 						//put nop in data
@@ -154,7 +154,7 @@ public class Parser implements ParserInterface {
 				else if (size == 1){
 					ErrorData error = new ErrorData();
 					int code = errorsPossible.getErrorCode("missing parameter");
-					String message = errorsPossible.getErrorMessage(Integer.toString(code));
+					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,code, message);
 					errorsFound.add(error);
 					//put nop in data
@@ -163,7 +163,7 @@ public class Parser implements ParserInterface {
 				else {
 					ErrorData error = new ErrorData();
 					int code = errorsPossible.getErrorCode("too many parameters");
-					String message = errorsPossible.getErrorMessage(Integer.toString(code));
+					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,code, message);
 					errorsFound.add(error);
 					//put nop in data
@@ -206,7 +206,7 @@ public class Parser implements ParserInterface {
 							else {
 								ErrorData error = new ErrorData();
 								int code = errorsPossible.getErrorCode("invalid opperand");
-								String message = errorsPossible.getErrorMessage(Integer.toString(code));
+								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,code, message);
 								errorsFound.add(error);
 								//put nop in data
@@ -216,7 +216,7 @@ public class Parser implements ParserInterface {
 						else {
 							ErrorData error = new ErrorData();
 							int code = errorsPossible.getErrorCode("data not binary");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 							//put nop in data
@@ -227,7 +227,7 @@ public class Parser implements ParserInterface {
 					else {
 						ErrorData error = new ErrorData();
 						int code = errorsPossible.getErrorCode("missing quotes");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 						//put nop in data
@@ -237,7 +237,7 @@ public class Parser implements ParserInterface {
 				else if (size == 1){
 					ErrorData error = new ErrorData();
 					int code = errorsPossible.getErrorCode("missing parameter");
-					String message = errorsPossible.getErrorMessage(Integer.toString(code));
+					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,code, message);
 					errorsFound.add(error);
 					//put nop in data
@@ -246,7 +246,7 @@ public class Parser implements ParserInterface {
 				else {
 					ErrorData error = new ErrorData();
 					int code = errorsPossible.getErrorCode("too many parameters");
-					String message = errorsPossible.getErrorMessage(Integer.toString(code));
+					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,code, message);
 					errorsFound.add(error);
 				}
@@ -276,7 +276,7 @@ public class Parser implements ParserInterface {
 				if (size > 1){
 					ErrorData error = new ErrorData();
 					int code = errorsPossible.getErrorCode("too many parameters");
-					String message = errorsPossible.getErrorMessage(Integer.toString(code));
+					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,code, message);
 					errorsFound.add(error);
 				}
@@ -303,7 +303,7 @@ public class Parser implements ParserInterface {
 			else {
 				ErrorData error = new ErrorData();
 				int code = errorsPossible.getErrorCode("missing label");
-				String message = errorsPossible.getErrorMessage(Integer.toString(code));
+				String message = errorsPossible.getErrorMessage(code);
 				error.add(lineNumber,code, message);
 				errorsFound.add(error);
 				//put nop in data
@@ -317,7 +317,6 @@ public class Parser implements ParserInterface {
 		//check if first token is an instruction
 		else if ( commands.hasInstruction(token.toLowerCase()))
 		{
-			
 			/*
 			 * For the instructions, the parser will filter by the type of instruction,
 			 * then by the actual instruction itself. This algorithm is more efficiency
@@ -326,16 +325,19 @@ public class Parser implements ParserInterface {
 			
 			
 			// this variable holds the type of instruction for parser filtering.
-			String insType = commands.getInstructionType(token);
+			String insType = commands.getInstructionType(token.toLowerCase());
 
 			// this variable holds the opcode for the instruction to be parsed
 			String insOp = commands.getInstructionOpcode(line.get(1));
+			
+			// save the number of operands for future parsing use
+			int opsCount = line.size() - 2;
 			
 			/* 
 			 * Check for what type the instruction belongs to. According to the 
 			 * type of instruction, different procedures are followed.
 			 */
-			if (insType == "I-Type")
+			if (insType.compareToIgnoreCase("I-Type") == 0)
 			{
 				/*
 					I-type instructions will be parsed here. This is where the parser
@@ -344,18 +346,18 @@ public class Parser implements ParserInterface {
 				*/
 				
 				//parsing for the "load immediate" instruction
-				if(insOp.compareToIgnoreCase"LUI")
+				if(insOp.compareToIgnoreCase("LUI") == 0)
 				{
 					
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -363,6 +365,36 @@ public class Parser implements ParserInterface {
 					else if (opsCount == 2)
 					{
 						
+						// checking if the register is legal
+						String reg1 = line.get(2); 
+						
+						// first, check if the register to be stored is register zero
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+							// if so, generate the corresponding error
+							SmallErrorData error = new SmallErrorData();
+							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber, code, message);
+							errorsFound.add(error);
+						}
+						
+						// next, check for invalid syntax with the register format, can only be register 1 - 7 for storing values
+						else if (!((reg1 == "$r1") || (reg1 == "$R1") || 
+								   (reg1 == "$r2") || (reg1 == "$R2") ||
+								   (reg1 == "$r3") || (reg1 == "$R3") ||
+								   (reg1 == "$r4") || (reg1 == "$R4") ||
+								   (reg1 == "$r5") || (reg1 == "$R5") ||
+								   (reg1 == "$r6") || (reg1 == "$R6") ||
+								   (reg1 == "$r7") || (reg1 == "$R7") ))
+						{
+							SmallErrorData error = new SmallErrorData();
+							String code = errorsPossible.getErrorCode("improper register syntax");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber, code, message);
+							errorsFound.add(error);
+						}
+						
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -370,32 +402,28 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
-					
-					
-					
-				}
 				
-				
+				//parsing for the "add immediate" instruction
 				if(insOp.compareToIgnoreCase("ADDI") == 0)
 				{
 					// TODO check each field; operand format: reg, reg, imm
 					// otherwise produce error: illegal operands
 					
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -410,25 +438,26 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				
 				}
 				
+				//parsing for the "add immediate unsigned" instruction
 				else if(insOp.compareToIgnoreCase("ADDIU") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -443,24 +472,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "subtract immediate" instruction
 				else if(insOp.compareToIgnoreCase("SUBI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -475,24 +505,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "subtract immediate unsigned" instruction
 				else if(insOp.compareToIgnoreCase("SUBIU") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -507,24 +538,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "multiply immediate" instruction
 				else if(insOp.compareToIgnoreCase("MULI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -539,24 +571,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "multiply immediate unsigned" instruction
 				else if(insOp.compareToIgnoreCase("MULIU") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -571,24 +604,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "divide immediate" instruction
 				else if(insOp.compareToIgnoreCase("DIVI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -603,24 +637,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "divide immediate unsigned" instruction
 				else if(insOp.compareToIgnoreCase("DIVIU") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -635,24 +670,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "or immediate" instruction
 				else if(insOp.compareToIgnoreCase("ORI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -667,24 +703,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}	
 				}
 				
+				//parsing for the "exclusive or immediate" instruction
 				else if(insOp.compareToIgnoreCase("XORI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -699,24 +736,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "nor immediate" instruction
 				else if(insOp.compareToIgnoreCase("NORI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -731,24 +769,24 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}	
 				}
-				
+				//parsing for the "and immediate" instruction
 				else if(insOp.compareToIgnoreCase("ANDI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -763,24 +801,25 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
 				}
 				
+				//parsing for the "set register values" instruction
 				else if(insOp.compareToIgnoreCase("SRV") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
 						SmallErrorData error = new SmallErrorData();
-						int code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 					}
@@ -796,8 +835,8 @@ public class Parser implements ParserInterface {
 					{		
 						
 							SmallErrorData error = new SmallErrorData();
-							int code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 					}
@@ -818,28 +857,1010 @@ public class Parser implements ParserInterface {
 				}
 			}
 			
-			else if (insType == "Reg2Reg2Reg")
+			// Reg2Reg2Reg instructions will be parsed here
+			else if (insType.compareToIgnoreCase("Reg2Reg2Reg") == 0)
 			{
-				// Reg2Reg2Reg instructions will be parsed here
+			
+				// "" commands parsed here
+				if (insOp.compareToIgnoreCase("NOR") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						// parse the thing ..... 
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+			
+				// "power" commands parsed here
+				if (insOp.compareToIgnoreCase("PWR") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// "shift left logical" commands parsed here
+				if (insOp.compareToIgnoreCase("SLL") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// "shift right logical" commands parsed here
+				if (insOp.compareToIgnoreCase("SRL") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+			
+				// "shift right arithmetic" commands parsed here
+				if (insOp.compareToIgnoreCase("SRA") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+			
+				// "and" commands parsed here
+				if (insOp.compareToIgnoreCase("AND") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+			
+				// "or" commands parsed here
+				if (insOp.compareToIgnoreCase("OR") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+			
+			
+				// "xor" commands parsed here
+				if (insOp.compareToIgnoreCase("XOR") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// "Nor" commands parsed here
+				if (insOp.compareToIgnoreCase("NOR") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// "jump register" commands will be parsed here
+				if (insOp.compareToIgnoreCase("JR") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 1)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 1)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// dump commands will be parsed here
+				if (insOp.compareToIgnoreCase("DUMP") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
 			}
 			
-			else if (insType == "S-Type")
+			// S-Type instructions will be parsed here
+			else if (insType.compareToIgnoreCase("S-Type"))
 			{
-				// S-Type instructions will be parsed here
+				
+				
+				// parse the Jump On Equal instruction
+				 if(insOp.compareToIgnoreCase("JEQ") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("too many parameters");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+				}
+				
+				// parse the Jump Not Equal instruction
+				else  if(insOp.compareToIgnoreCase("JNE") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Jump Greather Than instruction
+				else  if(insOp.compareToIgnoreCase("JGT") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Jump Less Than instruction
+				else  if(insOp.compareToIgnoreCase("JLT") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Jump Less than Or Equal instruction
+				else  if(insOp.compareToIgnoreCase("JLE") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Jump And Link instruction
+				else  if(insOp.compareToIgnoreCase("JAL") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Add Register and Storage instruction
+				else  if(insOp.compareToIgnoreCase("ADDS") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Subtract Register and Storage instruction
+				else  if(insOp.compareToIgnoreCase("SUBS") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Multiply Register and Storage instruction
+				else  if(insOp.compareToIgnoreCase("MULS") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parse the Divide Register and Storage instruction
+				else  if(insOp.compareToIgnoreCase("DIVS") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 3)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 3)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "load address of word into register" instruction
+				else  if(insOp.compareToIgnoreCase("LA") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "store address in word" instruction
+				else  if(insOp.compareToIgnoreCase("SA") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "and register to storage" instruction
+				else  if(insOp.compareToIgnoreCase("ANDS") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "or register to storage" instruction
+				else  if(insOp.compareToIgnoreCase("LA") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
 			}
-			
-			else if (insType == "Jump")
+			// Jump instructions will be parsed here
+			else if (insType.compareToIgnoreCase("Jump"))
 			{
-				// Jump instructions will be parsed here
+				
+				//parsing for the HALT instruction 
+				if(insOp.compareToIgnoreCase("HALT") == 0)
+				{
+					
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 1)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 1)
+					{
+					
+						// this object saves the value of the integer value in the hald instruction
+						int haltAt = line.get(2);
+						
+						// checking bound limit for integer value
+						if (!(0 <= haltAt && haltAt <= 255))
+						{
+							SmallErrorData error = new SmallErrorData();
+							
+							//The range violation shows what the bounds should have been.
+							String code= errorsPossible.getErrorCode("halt value range violation (0 <= n <= 255)");
+							
+							// adds the error to the list of errors found for future printing out.
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
 			}
-			
-			else if (insType == "IO-Type")
+			// IO-Type instructions will be parsed here
+			else if (insType.compareToIgnoreCase("IO-Type"))
 			{
-				// IO-Type instructions will be parsed here
+			
+				// parsing for INN instruction
+				if(insOp.compareToIgnoreCase("INN") == 0)
+				{
+	
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for INC instruction 
+				else if(insOp.compareToIgnoreCase("INC") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for OUTN instruction
+				else if(insOp.compareToIgnoreCase("OUTN") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for OUTC instruction
+				else if(insOp.compareToIgnoreCase("OUTC") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						String code= errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							String code= errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
 			}
 		}
 		//token must be a symbol. handle it
-		else {{
+		else {
 			//check if it is defined
 			if (symbols.symbolIsDefined(token)){
 				
@@ -854,8 +1875,8 @@ public class Parser implements ParserInterface {
 					//if it isn't a label
 					else {
 						ErrorData error = new ErrorData();
-						int code = errorsPossible.getErrorCode("unknown symbol");
-						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						String code= errorsPossible.getErrorCode("unknown symbol");
+						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 						//put nop in data
@@ -864,8 +1885,8 @@ public class Parser implements ParserInterface {
 				}
 				else {
 					ErrorData error = new ErrorData();
-					int code = errorsPossible.getErrorCode("unknown command");
-					String message = errorsPossible.getErrorMessage(Integer.toString(code));
+					String code= errorsPossible.getErrorCode("unknown command");
+					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,code, message);
 					errorsFound.add(error);
 					//put nop in data
