@@ -1,3 +1,18 @@
 #ErrorCode	ErrorType	ErrorMessage
 # below is format example
-0	divideByZero	"Attempt to divid by Zero"
+0	divideByZero	"Attempt to divide by Zero"
+1	data not hex	"The data is not in the correct format"
+2	misplaced label	"The label is not in a valid location or argument"
+3	invalid location	"The location is out of range"
+4	invalid boolean	"The boolean is formatted incorrectly"
+5	invalid integer	"The integer does not meet requirements"
+6	variable already defined "The external variable already exists within the program"
+7	missing label	"There is a required label that isn't present"
+8	unknown symbol	"This symbol is not recognized"
+9	unknown command	"This command is not recognized"
+10	missing parameter	"There is a required parameter absent"
+11	too many parameters	"There are too many items in the operand field
+12	invalid program name	"The program name at start does not match the program name at end"
+13	invalid operand	"This operand is not valid"
+14	missing quotes "There are required single quotes not present"
+15	data not binary "The binary data is formatted incorrectly"
