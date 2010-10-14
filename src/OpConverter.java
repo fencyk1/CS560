@@ -108,21 +108,29 @@ public class OpConverter implements Converter {
 	}
 
 	@Override
-	public String decimalToHex(int decimal) {
+	public String decimalToHex(String decimal) {
+		
+		//Convert the string into an integer.
+		int dec = Integer.parseInt(decimal);
 		//Return the hex string.
-		return Integer.toHexString(decimal);
+		return Integer.toHexString(dec);
 	}
 
 	@Override
-	public int binaryToDecimal(String binary) {
-		// Call the private helper method to convert.
-		return this.binToDec(binary);
+	public String binaryToDecimal(String binary) {
+		
+		// Convert the binary string into a decimal integer, then convert
+		// the decimal integer into a String and return.
+		return Integer.toString(this.binToDec(binary));
 	}
 
 	@Override
-	public String decimalToBinary(int decimal) {
+	public String decimalToBinary(String decimal) {
+		
+		//Convert the string into an integer.
+		int dec = Integer.parseInt(decimal);
 		//Return the binary string.
-		return Integer.toBinaryString(decimal);
+		return Integer.toBinaryString(dec);
 	}
 	
 	public String asciiToBinary(String ascii) {

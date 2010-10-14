@@ -1,6 +1,6 @@
 /**
  * The representation of the Symbols, represented by a String named label, <br />
- * an Int named location representing the location in source, and boolean <br />
+ * an Int named location representing the location in memory, and boolean <br />
  * named usage representing how it is used.
  * 
  * NOTE: DO NOT CONFUSE THE SYMBOL'S NAME IN JAVA WITH ITS LABEL IN SAL560!!
@@ -20,7 +20,7 @@ public interface Symbol {
 	/**
 	 * Sets the location of the symbol.
 	 * 
-	 * @param loc The location given to the symbol.
+	 * @param loc The location given to the symbol in memory.
 	 */
 	void setLocation (int loc);
 	

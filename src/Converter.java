@@ -28,7 +28,7 @@ public interface Converter {
 	 * @param decimal The decimal integer to be converted to hex.
 	 * @return The hex equivalent of the decimal integer input in String format.
 	 */
-	String decimalToHex(int decimal);
+	String decimalToHex(String decimal);
 	
 	/**
 	 * Converts a binary number into a decimal integer.
@@ -36,7 +36,7 @@ public interface Converter {
 	 * @param binary The binary number to be converted into decimal representation.
 	 * @return The decimal equivalent of the binary input in int format.
 	 */
-	int binaryToDecimal(String binary);
+	String binaryToDecimal(String binary);
 	
 	/**
 	 * Converts a decimal integer into a binary number.
@@ -44,7 +44,7 @@ public interface Converter {
 	 * @param decimal The decimal integer to be converted into binary representation.
 	 * @return The binary equivalent of the decimal input in String format.
 	 */
-	String decimalToBinary(int decimal);
+	String decimalToBinary(String decimal);
 	
 	/**
 	 * Converts an ascii string into its binary representation.
