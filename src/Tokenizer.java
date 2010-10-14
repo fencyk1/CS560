@@ -93,7 +93,7 @@ public class Tokenizer implements TokenizerInterface {
 	@Override
 	public void tokenizeComment(String line) {
 		// The delimiter to be used with the tokenizer.
-		String delim = "//";
+		String delim = "|";
 		// Create a new tokenizer using <line> and <delim> for params.
 		StringTokenizer comment = new StringTokenizer(line, delim);
 		// Set <i> to be the number of tokens formed from <line>.
@@ -113,9 +113,8 @@ public class Tokenizer implements TokenizerInterface {
 	@Override
 	public void tokenizeSpace(String line) {
 		// The delimiter to be used with the tokenizer.
-		String delim = " ";
-		// Create a new tokenizer using <line> and <delim> for params.
-		StringTokenizer space = new StringTokenizer(line, delim);
+		// Create a new tokenizer using <line> for the param.
+		StringTokenizer space = new StringTokenizer(line);
 		// Set <i> to be the number of tokens formed from <line>.
 		int i = space.countTokens();
 		// Create a new temporary array to store the tokens.
