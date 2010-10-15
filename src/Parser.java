@@ -3,7 +3,7 @@ import java.util.List;
 
 /**
  * 
- * @author Mike
+ * @author Mike and Kyle
  *
  */
 public class Parser implements ParserInterface {
@@ -18,7 +18,7 @@ public class Parser implements ParserInterface {
 	private int lc;
 	private InfoHolder outputData;
 	private static final String NOPBINARY = "00001000000000000000000000000000";
-	
+
 	
 	
 
@@ -63,6 +63,7 @@ public class Parser implements ParserInterface {
 	public Boolean parse(ArrayList<String> line, int lineNumber) {
 		int size = line.size();
 		String token = line.get(0);
+		
 		
 		//check if first token is a directive
 		if (directives.hasDirective(token.toLowerCase())){
