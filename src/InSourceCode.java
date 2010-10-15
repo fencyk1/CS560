@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 public class InSourceCode implements InSourceCodeInterface {
 
 	//member variable
-	private ArrayList<String> source = new ArrayList<String>();
+	public ArrayList<String> source = new ArrayList<String>();
 	
 	//constructor
 	public InSourceCode ()
