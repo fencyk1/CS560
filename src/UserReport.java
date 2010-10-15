@@ -30,7 +30,10 @@ public class UserReport implements UserReportInterface {
 				
 				//the error entry at the line
 				errorEntry = foundErrorsTable.search(i+1);
-				
+
+
+				// in below line the ErrorData entry is in initialized
+                                // need to get the error. Before I turn it into a string
 				SourceCodeArray.source.add(i+1, errorEntry.output(ErrorData entry));
 				i = i+2;
 			}
