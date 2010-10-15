@@ -26,7 +26,7 @@ public class UserReport implements UserReportInterface {
 			{
 
 				//error object to hold error message
-				ErrorOut errorEntry = new ErrorOut();
+				ErrorData errorEntry = new ErrorData();
 				
 				//the error entry at the line
 				errorEntry = foundErrorsTable.search(i+1);
