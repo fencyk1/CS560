@@ -13,7 +13,7 @@ public interface ErrorOutInterface {
 	 * 
 	 * @param erroneousEntry The error data to be added to the master list.
 	 */
-	void add(ErrorDataInterface erroneousEntry);
+	void add(ErrorData erroneousEntry);
 	
 	/**
 	 * Searches through the master list of errors and returns the error <br />
@@ -24,7 +24,7 @@ public interface ErrorOutInterface {
 	 * @param lineNumber The line where the error exists at.
 	 * @return The error at the line number.
 	 */
-	ErrorDataInterface search(int lineNumber);
+	ErrorData search(int lineNumber);
 	
 	/**
 	 * Returns whether or not the error exists in the master list.
@@ -32,7 +32,7 @@ public interface ErrorOutInterface {
 	 * @param err The error whose existence is in question.
 	 * @return True iff the error exists in the master list, false otherwise.
 	 */
-	boolean errorExists(ErrorDataInterface err);
+	boolean errorExists(ErrorData err);
 	
 	/**
 	 * Returns a string with a formatted message including the Error Code <br />
@@ -41,7 +41,7 @@ public interface ErrorOutInterface {
 	 * @param entry The error whose information you want outputted.
 	 * @return A string with all data components from the requested ErrorData object.
 	 */
-	String output(ErrorDataInterface entry);
+	String output(ErrorData entry);
 	
 	/**
 	 * Determines whether or not an error exists at a certain line.

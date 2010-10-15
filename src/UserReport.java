@@ -33,7 +33,7 @@ public class UserReport implements UserReportInterface {
 
 
 				// output errorEntry as a sting to the array.
-				SourceCodeArray.source.add(i+1, errorEntry.output(ErrorData errorEntry));
+				SourceCodeArray.source.add(i+1, foundErrorsTable.output(errorEntry));
 				i = i+2;
 			}
 			else
