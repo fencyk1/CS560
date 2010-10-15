@@ -1,0 +1,9 @@
+missing label
+unknown symbol
+unknown command
+missing parameter
+too many parameters
+invalid program name		program name at start does not match program name at end
+invalid opperand
+missing quotes
+data not binary

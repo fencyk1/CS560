@@ -1,3 +1,0 @@
-#ErrorCode	ErrorType	ErrorMessage
-# below is format example
-0	divideByZero	"Attempt to divid by Zero"

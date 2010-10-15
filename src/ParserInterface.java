@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 
 
 /**
@@ -19,11 +21,41 @@ public interface ParserInterface {
 
 	/**
 	 * This method will check the line for syntax and errors. If it contains
-	 * an error it will be added to the ErrorOut object
+	 * an error it will be added to the error table. If a symbol is undefined it will be added to an internal list
 	 * 
-	 * @param line is the line of code after it has been tokenized. It should be an array of strings with each string being one token.
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 *  
+	 * @return returns a boolean value of true if and only if it parses the .end directive
 	 */
-	void parse(String[] line);
+	Boolean parse(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This will return the collection of undefined variables
+	 * 
+	 * @return ArrayList<String> of undefined variables
+	 */
+	ArrayList<String> getUndefinedVariables();
+	
+	/**
+	 * This will return an object containing all the symbols the
+	 * parser found along with their usage.
+	 * 
+	 * @return completed symbol table of type Symbol
+	 */
+	SymbolTable getSymbols();
+	
+	/**
+	 * This will return an InfoHolder collection of the code converted into binary.
+	 * 
+	 * @return InfoHolder containing line numbers and binary data
+	 */
+	InfoHolder getBinaryData();
+	
 	
 	
 }
