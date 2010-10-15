@@ -1,4 +1,5 @@
-import java.io.File;
+import java.io.*;
+import java.util.StringTokenizer;
 
 
 public class UserReport implements UserReportInterface {
@@ -45,13 +46,33 @@ public class UserReport implements UserReportInterface {
 	 * This outputs the ArrayList<String> member variable to a file with the name as given in the parameter. Each index of the Array becomes its own line of output in the file. 
 	 * 
 	 */
-	public void outputUserReport (File outputFileName)
+	public void outputUserReport (InSourceCode SourceCodeArray, File outputFileName) throws IOException
 	{
+		
+		
 		//open up out put to a file of the name UserReport
 		//while array size > i=0
 		//print line
 		//iterate i
 		//close output
+		
+		
+		//get input from file, normally that file will be directives.tbl and be located in the src directory of the code
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(outputFileName)));
+		
+		
+		int i = 0;
+		
+		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
+		while (SourceCodeArray.source.size() > i)
+		{
+
+			out.println(SourceCodeArray.source.get(i));
+			
+		}
+		
+		//close the input
+		out.close();
 	}
 
 

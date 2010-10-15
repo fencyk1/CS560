@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 
 /**
  * 
@@ -27,8 +28,9 @@ public interface UserReportInterface
 	 * @param outputFileName
 	 * 
 	 * This outputs the ArrayList<String> member variable to a file with the name as given in the parameter. Each index of the Array becomes its own line of output in the file. 
+	 * @throws IOException 
 	 * 
 	 */
-	void outputUserReport (File outputFileName);
+	void outputUserReport (InSourceCode SourceCodeArray, File outputFileName) throws IOException;
 	
 }
