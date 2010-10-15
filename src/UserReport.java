@@ -14,7 +14,7 @@ public class UserReport implements UserReportInterface {
 		int i = 0;
 		
 		//iterate throught the source code looking into the foundErrorsTable for errors at each line. if they exist then add them in at that index plus 1
-		while (SourceCodeArray.source.size() > j)
+		while (SourceCodeArray.source.size() > i)
 		{
 			//if error at line is in table
 			//add to array at that index plus 1
@@ -35,5 +35,6 @@ public class UserReport implements UserReportInterface {
 		//iterate i
 		//close output
 	}
+
 
 }

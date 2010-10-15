@@ -59,6 +59,8 @@ public class DirectiveTable implements DirectiveTableInterface {
 		
 		//close the input
 		input.close();
+		
+		//this.importTable(tableFileName);
 	}
 	
 	
