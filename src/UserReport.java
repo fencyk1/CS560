@@ -9,7 +9,7 @@ public class UserReport implements UserReportInterface {
 	 * this Array by merging the source code with the errors found in the source code. This maintains the source code in full but just adds the associated errors.
 	 * The method doesnt return a value. Instead it stores the ArrayList<String>  as a member variable.
 	 */
-	public void createUserReport (InSourceCode SourceCodeArray, ErrorOutInterface foundErrorsTable)
+	public void createUserReport (InSourceCode SourceCodeArray, ErrorOut foundErrorsTable)
 	{
 		int i = 0;
 		
@@ -20,6 +20,24 @@ public class UserReport implements UserReportInterface {
 			//add to array at that index plus 1
 			//j+2
 			//else j+1
+			//check to see if there is an error at the line. note source code line starts at 1 and array starts at 0
+			if (foundErrorsTable.errorAtLine(i+1) == true)
+			{
+
+				//error object to hold error message
+				ErrorOut errorEntry = new ErrorOut();
+				
+				//the error entry at the line
+				errorEntry = foundErrorsTable.search(i+1);
+				
+				SourceCodeArray.source.add(i+1, errorEntry.output(ErrorData entry));
+				i = i+2;
+			}
+			else
+			{
+				i++;
+			}
+
 		}
 	}
 	
