@@ -7,11 +7,11 @@ import java.util.ArrayList;
  * @author Jeff W
  *
  */
-public class SymbolTableClass implements SymbolTableInterface {
+public class SymbolTable implements SymbolTableInterface {
 	private ArrayList<SymbolInterface> symTable;
 	
 	//Default constructor initializes the representation record.
-	public SymbolTableClass() {
+	public SymbolTable() {
 		this.symTable = new ArrayList<SymbolInterface>();
 	}
 	

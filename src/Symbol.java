@@ -7,14 +7,14 @@
  * @author Jeff W
  *
  */
-public class SymbolClass implements SymbolInterface {
+public class Symbol implements SymbolInterface {
 	private String label;
 	private int location;
 	private int length;
 	private String usage;
 	
 	//Default constructor initializing values.
-	public SymbolClass() {
+	public Symbol() {
 		this.label = new String();
 		this.location = 0;
 		this.length = 32;
@@ -22,7 +22,7 @@ public class SymbolClass implements SymbolInterface {
 	}
 	
 	//Constructor taking necessary/always available parameters.
-	public SymbolClass(String name, int loc, int length) {
+	public Symbol(String name, int loc, int length) {
 		this.label = name;
 		this.location = loc;
 		this.length = length;

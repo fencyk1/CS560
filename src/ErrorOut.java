@@ -6,11 +6,11 @@ import java.util.ArrayList;
  * 
  * @author Jeff W
  */
-public class ErrorOutClass implements ErrorOutInterface {
+public class ErrorOut implements ErrorOutInterface {
 	private ArrayList<ErrorDataInterface> errorList;
 	
 	//Default constructor initializing the arraylist.
-	public ErrorOutClass () {
+	public ErrorOut () {
 		 this.errorList = new ArrayList<ErrorDataInterface>();
 	}
 	

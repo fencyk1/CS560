@@ -365,7 +365,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -382,7 +382,7 @@ public class Parser implements ParserInterface {
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 							// if so, generate the corresponding error
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code = errorsPossible.getErrorCode("cannot store value in register zero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber, code, message);
@@ -398,7 +398,7 @@ public class Parser implements ParserInterface {
 								   (reg1 == "$r6") || (reg1 == "$R6") ||
 								   (reg1 == "$r7") || (reg1 == "$R7") ))
 						{
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code = errorsPossible.getErrorCode("improper register syntax");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber, code, message);
@@ -411,7 +411,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -431,7 +431,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -447,7 +447,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -465,7 +465,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -481,7 +481,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -498,7 +498,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -514,7 +514,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -531,7 +531,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -547,7 +547,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -564,7 +564,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -580,7 +580,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -597,7 +597,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -613,7 +613,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -630,7 +630,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -646,7 +646,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -663,7 +663,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -679,7 +679,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -696,7 +696,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -712,7 +712,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -729,7 +729,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -745,7 +745,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -762,7 +762,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -778,7 +778,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -794,7 +794,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -810,7 +810,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -827,7 +827,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -844,7 +844,7 @@ public class Parser implements ParserInterface {
 					else 
 					{		
 						
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -878,7 +878,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -895,7 +895,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -910,7 +910,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -926,7 +926,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -941,7 +941,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -957,7 +957,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -972,7 +972,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -988,7 +988,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1003,7 +1003,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1019,7 +1019,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1034,7 +1034,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1050,7 +1050,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1065,7 +1065,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1081,7 +1081,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1097,7 +1097,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1113,7 +1113,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1128,7 +1128,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1144,7 +1144,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1159,7 +1159,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 1)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code = errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1175,7 +1175,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1190,7 +1190,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1206,7 +1206,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1230,7 +1230,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1246,7 +1246,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("too many parameters");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1263,7 +1263,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1279,7 +1279,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1296,7 +1296,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1312,7 +1312,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1329,7 +1329,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1345,7 +1345,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1362,7 +1362,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1378,7 +1378,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1395,7 +1395,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1411,7 +1411,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1428,7 +1428,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1444,7 +1444,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1461,7 +1461,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1477,7 +1477,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1494,7 +1494,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1510,7 +1510,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1527,7 +1527,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1543,7 +1543,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1560,7 +1560,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1576,7 +1576,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1593,7 +1593,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1609,7 +1609,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1626,7 +1626,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1642,7 +1642,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1659,7 +1659,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1675,7 +1675,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1697,7 +1697,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 1)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1713,7 +1713,7 @@ public class Parser implements ParserInterface {
 						// checking bound limit for integer value
 						if (!(0 <= haltAt && haltAt <= 255))
 						{
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							
 							//The range violation shows what the bounds should have been.
 							String code= errorsPossible.getErrorCode("halt value range violation (0 <= n <= 255)");
@@ -1729,7 +1729,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1751,7 +1751,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1767,7 +1767,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1782,7 +1782,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1798,7 +1798,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1813,7 +1813,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1829,7 +1829,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);
@@ -1844,7 +1844,7 @@ public class Parser implements ParserInterface {
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
-						ErrorDataClass error = new ErrorDataClass();
+						ErrorData error = new ErrorData();
 						String code= errorsPossible.getErrorCode("missing parameter");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,code, message);
@@ -1860,7 +1860,7 @@ public class Parser implements ParserInterface {
 					// error in the errortable
 					else 
 					{		
-							ErrorDataClass error = new ErrorDataClass();
+							ErrorData error = new ErrorData();
 							String code= errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,code, message);

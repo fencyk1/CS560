@@ -7,9 +7,9 @@ import java.io.UnsupportedEncodingException;
  * @author Jeff Wolfe
  *
  */
-public class ConverterClass implements ConverterInterface {
+public class Converter implements ConverterInterface {
 
-	public ConverterClass() {
+	public Converter() {
 		//No fields, it's a utility class.
 	}
 	

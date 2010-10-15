@@ -4,13 +4,13 @@
  * 
  * @author Jeff W
  */
-public class ErrorDataClass implements ErrorDataInterface {
+public class ErrorData implements ErrorDataInterface {
 	private int lineNumber;
 	private int errorCode;
 	private String errorMessage;
 	
 	//Default constructor which sets values to useless numbers.
-	public ErrorDataClass() {
+	public ErrorData() {
 		this.lineNumber = 0;
 		this.errorCode = 0;
 		this.errorMessage = null;
@@ -18,7 +18,7 @@ public class ErrorDataClass implements ErrorDataInterface {
 	
 	//Constructor that functions in the same way as the add method really,
 	//but since it's already documented I'm not going to redact it yet.
-	public ErrorDataClass(int lineNumber, int errorCode, String errorMessage) {
+	public ErrorData(int lineNumber, int errorCode, String errorMessage) {
 		this.lineNumber = lineNumber;
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;
