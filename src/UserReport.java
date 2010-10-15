@@ -50,16 +50,8 @@ public class UserReport implements UserReportInterface {
 	{
 		
 		
-		//open up out put to a file of the name UserReport
-		//while array size > i=0
-		//print line
-		//iterate i
-		//close output
-		
-		
 		//get input from file, normally that file will be directives.tbl and be located in the src directory of the code
 		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(outputFileName)));
-		
 		
 		int i = 0;
 		
@@ -68,7 +60,7 @@ public class UserReport implements UserReportInterface {
 		{
 
 			out.println(SourceCodeArray.source.get(i));
-			
+			i++;
 		}
 		
 		//close the input
