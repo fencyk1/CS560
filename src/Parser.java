@@ -1844,11 +1844,12 @@ public class Parser implements ParserInterface {
 						binEnc.concat(converter.hexToBinary("33"));
 						binEnc.concat("00");
 						binEnc = binEnc + reg1.charAt(2);
-						//binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00000");
 						binEnc.concat(converter.decimalToBinary(imm));
 						
-						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -1935,7 +1936,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("10"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2020,7 +2032,17 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("11"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2104,7 +2126,17 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("12"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2122,8 +2154,6 @@ public class Parser implements ParserInterface {
 				//parsing for the "subtract immediate unsigned" instruction
 				else if(insOp.compareToIgnoreCase("SUBIU") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -2188,7 +2218,17 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("13"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2206,8 +2246,6 @@ public class Parser implements ParserInterface {
 				//parsing for the "multiply immediate" instruction
 				else if(insOp.compareToIgnoreCase("MULI") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -2272,7 +2310,17 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("14"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2356,7 +2404,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("15"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2440,7 +2499,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("16"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2524,7 +2594,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("17"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc)
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2608,8 +2689,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
 						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("34"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2691,8 +2782,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
 						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("35"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2710,8 +2811,6 @@ public class Parser implements ParserInterface {
 				//parsing for the "nor immediate" instruction
 				else if(insOp.compareToIgnoreCase("NORI") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -2776,7 +2875,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("37"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2793,8 +2903,6 @@ public class Parser implements ParserInterface {
 				//parsing for the "and immediate" instruction
 				else if(insOp.compareToIgnoreCase("ANDI") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -2859,7 +2967,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("37"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2943,7 +3062,18 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse immediate value
+
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("3D"));
+						binEnc.concat("00");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 					}
 					
 					// if too many operands, produce the corresponding 
