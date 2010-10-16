@@ -1785,7 +1785,7 @@ public class Parser implements ParserInterface {
 			 * Check for what type the instruction belongs to. According to the 
 			 * type of instruction, different procedures are followed.
 			 */
-			if (insType.compareToIgnoreCase("I-Type"))
+			if (insType.compareToIgnoreCase("I-Type") == 0)
 			{
 				/*
 					I-type instructions will be parsed here. This is where the parser
@@ -1794,12 +1794,10 @@ public class Parser implements ParserInterface {
 				*/
 				
 				//parsing for the "load immediate" instruction
-				if(insOp.compareToIgnoreCase"LUI")
+				if(insOp.compareToIgnoreCase("LUI") == 0)
 				{
 					
 					// check the number of operands 
-					int opsCount = line.size() - 2;
-					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
 					{
@@ -1813,7 +1811,7 @@ public class Parser implements ParserInterface {
 					else if (opsCount == 2)
 					{
 						String reg1 = line.get(2); 
-						if (reg1 == "$r0")
+						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
 						int code = errorsPossible.getErrorCode("cannot store value in register zero");
@@ -1822,6 +1820,20 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -1857,6 +1869,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -1891,6 +1912,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -1924,6 +1954,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -1957,6 +1996,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -1990,6 +2038,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2023,6 +2080,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2056,6 +2122,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2089,6 +2164,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2122,6 +2206,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2155,6 +2248,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2188,6 +2290,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2220,6 +2331,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2253,6 +2373,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2302,10 +2431,79 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 					}
 					
+					// if the number of operands is correct,  
+					// parse them each for register errors
 					else if (opsCount == 3)
 					{
-						// parse the thing ..... 
 						
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String reg3 = line.get(4);
+						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg3 == "$r1" || reg3 == "$R1" ||
+							 reg3 == "$r2" || reg3 == "$R2" ||
+							 reg3 == "$r3" || reg3 == "$R3" ||
+							 reg3 == "$r4" || reg3 == "$R4" ||
+							 reg3 == "$r5" || reg3 == "$R5" ||
+							 reg3 == "$r6" || reg3 == "$R6" ||
+							 reg3 == "$r7" || reg3 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2336,6 +2534,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2367,6 +2574,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2398,6 +2614,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2429,6 +2654,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2460,6 +2694,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2491,6 +2734,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2523,6 +2775,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2554,6 +2815,15 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
 					}
 					
@@ -2585,7 +2855,30 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 1)
 					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
 						
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
