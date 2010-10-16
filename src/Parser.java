@@ -1811,6 +1811,8 @@ public class Parser implements ParserInterface {
 					else if (opsCount == 2)
 					{
 						String reg1 = line.get(2); 
+						String imm = line.get(3);
+						
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -1834,6 +1836,7 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
+						//TODO parse the immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -1869,7 +1872,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -1879,6 +1888,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -1912,7 +1957,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -1922,6 +1973,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -1954,7 +2041,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -1964,6 +2057,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -1996,7 +2125,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2006,6 +2141,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2038,7 +2209,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2048,6 +2225,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2080,7 +2293,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2090,6 +2309,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2122,7 +2377,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2132,6 +2393,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2164,7 +2461,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2174,6 +2477,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2206,7 +2545,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2215,6 +2560,43 @@ public class Parser implements ParserInterface {
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 						
 					}
 					
@@ -2248,7 +2630,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2257,6 +2645,43 @@ public class Parser implements ParserInterface {
 						error.add(lineNumber,code, message);
 						errorsFound.add(error);
 						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 						
 					}
 					
@@ -2290,7 +2715,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2300,6 +2731,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2331,7 +2798,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2341,6 +2814,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2373,7 +2882,13 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						
+						// store the string representing each operand
 						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String imm = line.get(4);
+						
+						// if the first register is r0, give an error
 						if (reg1 == "$r0" || reg1 == "$R0")
 						{
 						SmallErrorData error = new SmallErrorData();
@@ -2383,6 +2898,42 @@ public class Parser implements ParserInterface {
 						errorsFound.add(error);
 						}
 						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse immediate value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -2398,19 +2949,87 @@ public class Parser implements ParserInterface {
 					}
 				}
 				
+				// "outni" instructions parsed here
 				else if(insOp.compareToIgnoreCase("OUTNI") == 0)
 				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
 					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+						// store the string representing each operand
+						String num = line.get(2); 
+						String imm = line.get(3);
+						
+						
+						//TODO parse immediate value
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
 				}
-				else if(insOp.compareToIgnoreCase("OUTCI") == 0)
-				{
-					
 				}
 				
-				else
+				// "outci" instructions parsed here
+				else if(insOp.compareToIgnoreCase("OUTCI") == 0)
 				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
 					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+						// store the string representing each operand
+						String num = line.get(2); 
+						String imm = line.get(3);
+						
+						
+						//TODO parse immediate value
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
 				}
+				
+				
+
 			}
 			
 			// Reg2Reg2Reg instructions will be parsed here
@@ -3908,6 +4527,60 @@ public class Parser implements ParserInterface {
 					}
 				}
 				
+				// "jump" commands will be parsed here
+				if (insOp.compareToIgnoreCase("J") == 0)
+				{
+				
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 1)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 1)
+					{
+						String reg1 = line.get(2); 
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
 				// dump commands will be parsed here
 				if (insOp.compareToIgnoreCase("DUMP") == 0)
 				{
@@ -3924,7 +4597,11 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+						String amt1 = line.get(2);
+						String amt2 = line.get(3);
+						String amt3 = line.get(4);
 						
+						// TODO parse these? ..... 
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -3965,6 +4642,57 @@ public class Parser implements ParserInterface {
 					else if (opsCount == 3)
 					{
 						
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
+						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -3997,7 +4725,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4030,7 +4809,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4063,7 +4893,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4096,7 +4977,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4129,7 +5061,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4162,7 +5145,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4195,7 +5229,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4228,7 +5313,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4261,7 +5397,58 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 3)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String reg2 = line.get(3);
+						String addr = line.get(4);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						if(!(reg2 == "$r1" || reg2 == "$R1" ||
+							 reg2 == "$r2" || reg2 == "$R2" ||
+							 reg2 == "$r3" || reg2 == "$R3" ||
+							 reg2 == "$r4" || reg2 == "$R4" ||
+							 reg2 == "$r5" || reg2 == "$R5" ||
+							 reg2 == "$r6" || reg2 == "$R6" ||
+							 reg2 == "$r7" || reg2 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4294,7 +5481,304 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "load word address" instruction
+				else  if(insOp.compareToIgnoreCase("LW") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
+						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "store word address " instruction
+				else  if(insOp.compareToIgnoreCase("SW") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
+						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "load negaticve word " instruction
+				else  if(insOp.compareToIgnoreCase("LNW") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
+						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+					}
+				}
+				
+				// parsing for the "load word immediate " instruction
+				else  if(insOp.compareToIgnoreCase("LWI") == 0)
+				{
+					// check the number of operands 
+					int opsCount = line.size() - 2;
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
+						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4327,7 +5811,40 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4360,7 +5877,40 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4376,7 +5926,7 @@ public class Parser implements ParserInterface {
 				}
 				
 				// parsing for the "or register to storage" instruction
-				else  if(insOp.compareToIgnoreCase("LA") == 0)
+				else  if(insOp.compareToIgnoreCase("ORS") == 0)
 				{
 					// check the number of operands 
 					int opsCount = line.size() - 2;
@@ -4393,7 +5943,40 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+
+						// store the string representing each operand
+						String reg1 = line.get(2); 
+						String addr = line.get(3);
 						
+						// if the first register is r0, give an error
+						if (reg1 == "$r0" || reg1 == "$R0")
+						{
+						SmallErrorData error = new SmallErrorData();
+						int code = errorsPossible.getErrorCode("cannot store value in register zero");
+						String message = errorsPossible.getErrorMessage(Integer.toString(code));
+						error.add(lineNumber,code, message);
+						errorsFound.add(error);
+						}
+						
+						// checking for correct register usage [only between 1 and 7 allowed]
+						else if(!(reg1 == "$r1" || reg1 == "$R1" ||
+								  reg1 == "$r2" || reg1 == "$R2" ||
+								  reg1 == "$r3" || reg1 == "$R3" ||
+								  reg1 == "$r4" || reg1 == "$R4" ||
+								  reg1 == "$r5" || reg1 == "$R5" ||
+								  reg1 == "$r6" || reg1 == "$R6" ||
+								  reg1 == "$r7" || reg1 == "$R7" ))
+						{
+							
+							// if trying to use an incorrect register number, give an error
+							SmallErrorData error = new SmallErrorData();
+							int code = errorsPossible.getErrorCode("invalid register syntax");
+							String message = errorsPossible.getErrorMessage(Integer.toString(code));
+							error.add(lineNumber,code, message);
+							errorsFound.add(error);
+						}
+					
+						//TODO parse address value
 					}
 					
 					// if too many operands, produce the corresponding 
