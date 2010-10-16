@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author Mike
+ * @author Mike and Kyle
  *
  */
 public class Parser implements ParserInterface {
@@ -3129,7 +3129,7 @@ public class Parser implements ParserInterface {
 				}
 				}
 				
-				// "outci" instructions parsed here
+				// "outci" instructions parsed here				
 				else if(insOp.compareToIgnoreCase("OUTCI") == 0)
 				{
 					// check the number of operands 
@@ -4761,8 +4761,7 @@ public class Parser implements ParserInterface {
 			// S-Type instructions will be parsed here
 			else if (insType.compareToIgnoreCase("S-Type"))
 			{
-				
-				
+			
 				// parse the Jump On Equal instruction
 				 if(insOp.compareToIgnoreCase("JEQ") == 0)
 				{
@@ -4832,7 +4831,27 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("20"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4916,7 +4935,25 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("21"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5000,7 +5037,25 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("22"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5084,7 +5139,24 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("23"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5168,13 +5240,30 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("24"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
 					// error in the errortable
 					else 
-					{		
+					{							
 							ErrorData error = new ErrorData();
 							int code = errorsPossible.getErrorCode("too many parameters");
 							String message = errorsPossible.getErrorMessage(Integer.toString(code));
@@ -5252,7 +5341,24 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("07"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5336,7 +5442,24 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("1A"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5420,7 +5543,24 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("1B"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5504,7 +5644,24 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("1C"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5588,7 +5745,24 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
 						}
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("1D"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc = binEnc + reg2.charAt(2);
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(len));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5654,7 +5828,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						//TODO parse address value LA (opc 38)
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5720,7 +5894,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						//TODO parse address value opc 30
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5786,7 +5960,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						//TODO parse address value opc 27
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5852,7 +6026,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						//TODO parse address value opc 31
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5918,7 +6092,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						//TODO parse address value opc 32
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5984,7 +6158,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						//TODO parse address value opc 39
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6170,6 +6344,17 @@ public class Parser implements ParserInterface {
 							String message = errorsPossible.getErrorMessage(Integer.toString(code));
 							error.add(lineNumber,code, message);
 							errorsFound.add(error);
+						}
+					
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("08"));
+						binEnc.concat("00000000");
+						// TODO modify for bit count
+						binEnc.concat(converter.decimalToBinary(haltAt));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
 						}
 					}
 					
