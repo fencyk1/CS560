@@ -97,16 +97,11 @@ public class Tokenizer implements TokenizerInterface {
 		// Create a new tokenizer using <line> and <delim> for params.
 		StringTokenizer comment = new StringTokenizer(line, delim);
 		// Set <i> to be the number of tokens formed from <line>.
-		int i = comment.countTokens();
 		// Create a new temporary array to store the tokens.
-		commentArray = new ArrayList<String>(i);
-		
-		// Adds each token from the tokenizer into the temporary array.
-		while (comment.countTokens() > 0)
-		{
-			// Adds a token to the array in the order they appear in the input.
-			commentArray.add((i - comment.countTokens()), comment.nextToken());
-		}
+		commentArray = new ArrayList<String>(1);
+			
+		// Adds a token to the array in the order they appear in the input.
+		commentArray.add(comment.nextToken());
 	}
 
 	// Takes in a string and tokenizes the string by spaces.
