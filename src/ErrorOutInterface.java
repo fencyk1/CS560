@@ -13,7 +13,7 @@ public interface ErrorOutInterface {
 	 * 
 	 * @param erroneousEntry The error data to be added to the master list.
 	 */
-	void add(ErrorData erroneousEntry);
+	void add(ErrorDataInterface erroneousEntry);
 	
 	/**
 	 * Searches through the master list of errors and returns the error <br />
@@ -24,7 +24,7 @@ public interface ErrorOutInterface {
 	 * @param lineNumber The line where the error exists at.
 	 * @return The error at the line number.
 	 */
-	ErrorData search(int lineNumber);
+	ErrorDataInterface search(int lineNumber);
 	
 	/**
 	 * Returns whether or not the error exists in the master list.

@@ -32,7 +32,7 @@ public interface ParserInterface {
 	 *  
 	 * @return returns a boolean value of true if and only if it parses the .end directive
 	 */
-	Boolean parse(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	Boolean parse(ArrayList<String> line, int lineNumber, ErrorOutInterface errorsFound);
 	
 	/**
 	 * This will return the collection of undefined variables
