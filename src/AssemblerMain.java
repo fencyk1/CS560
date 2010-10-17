@@ -38,14 +38,14 @@ public class AssemblerMain {
 		ArrayList<String> sourceArray = sourceCodeFile.getSourceCodeArray();
 		
 		//create errorOut object
-		ErrorOutInterface errorsFound = new ErrorOut();
+		ErrorOut errorsFound = new ErrorOut();
 		
 		
 		// create tokenizer
 		Tokenizer tokenizer = new Tokenizer();
 		
 		//create parser
-		ParserInterface parser = new Parser(errorsTable, directivesTable, instructionsTable);
+		Parser parser = new Parser(errorsTable, directivesTable, instructionsTable);
 		
 		//create end boolean
 		boolean endOfProgram = false;
