@@ -80,6 +80,7 @@ public class ErrorOut implements ErrorOutInterface {
 				break;
 			}
 		
+			counter++;
 		}
 		
 		return exists;
