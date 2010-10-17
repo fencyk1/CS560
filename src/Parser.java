@@ -3074,85 +3074,6 @@ public class Parser implements ParserInterface {
 					}
 				}
 				
-				// "outni" instructions parsed here
-				else if(insOp.compareToIgnoreCase("OUTNI") == 0)
-				{
-					
-					
-					// if not enough operands, produce an error in the error table
-					if (opsCount < 2)
-					{
-						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(code);
-						error.add(lineNumber,Integer.parseInt(code), message);
-						errorsFound.add(error);
-					}
-					
-					else if (opsCount == 2)
-					{
-						
-						// store the string representing each operand
-						String num = line.get(2); 
-						String imm = line.get(3);
-						
-						
-						//TODO parse immediate value
-					}
-					
-					// if too many operands, produce the corresponding 
-					// error in the errortable
-					else 
-					{		
-							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(code);
-							error.add(lineNumber,Integer.parseInt(code), message);
-							errorsFound.add(error);
-					}
-				}
-			
-				
-				// "outci" instructions parsed here				
-				else if(insOp.compareToIgnoreCase("OUTCI") == 0)
-				{
-					
-					
-					// if not enough operands, produce an error in the error table
-					if (opsCount < 2)
-					{
-						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("missing parameter");
-						String message = errorsPossible.getErrorMessage(code);
-						error.add(lineNumber,Integer.parseInt(code), message);
-						errorsFound.add(error);
-					}
-					
-					else if (opsCount == 2)
-					{
-						
-						// store the string representing each operand
-						String num = line.get(2); 
-						String imm = line.get(3);
-						
-						
-						//TODO parse immediate value
-					}
-					
-					// if too many operands, produce the corresponding 
-					// error in the errortable
-					else 
-					{		
-							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("too many parameters");
-							String message = errorsPossible.getErrorMessage(code);
-							error.add(lineNumber,Integer.parseInt(code), message);
-							errorsFound.add(error);
-					}
-				}
-				
-				
-
 			}
 		
 			// Reg2Reg2Reg instructions will be parsed here
@@ -5098,7 +5019,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5208,7 +5129,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5318,7 +5239,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5428,7 +5349,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5538,7 +5459,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5648,7 +5569,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5758,7 +5679,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5868,7 +5789,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5977,7 +5898,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6087,7 +6008,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6176,7 +6097,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6265,7 +6186,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6355,7 +6276,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6446,7 +6367,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6537,7 +6458,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6628,7 +6549,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6719,7 +6640,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6810,7 +6731,7 @@ public class Parser implements ParserInterface {
 						{
 							// if trying to use an incorrect register number, give an error
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("undefined symbol");
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6975,7 +6896,35 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+						String num = line.get(2);
+						String addr = line.get(3);
 						
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLocation(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("20"));
+						binEnc.concat("01001");
+						
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -7006,7 +6955,35 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+						String num = line.get(2);
+						String addr = line.get(3);
 						
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLocation(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("20"));
+						binEnc.concat("01001");
+						
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -7037,7 +7014,35 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+						String num = line.get(2);
+						String addr = line.get(3);
 						
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLocation(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("20"));
+						binEnc.concat("01001");
+						
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -7068,6 +7073,137 @@ public class Parser implements ParserInterface {
 					
 					else if (opsCount == 2)
 					{
+						String num = line.get(2);
+						String addr = line.get(3);
+						
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLocation(addr);
+						
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("20"));
+						binEnc.concat("01001");
+						
+						binEnc.concat("00");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("This symbol is not recognized");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
+					}
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+					}
+				}
+			
+		
+				// "outni" instructions parsed here
+				else if(insOp.compareToIgnoreCase("OUTNI") == 0)
+				{
+					
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						ErrorData error = new ErrorData();
+						String code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,Integer.parseInt(code), message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+						// store the string representing each operand
+						String num = line.get(2); 
+						String imm = line.get(3);
+						
+						
+						// create the binary encoding
+						binEnc = converter.hexToBinary("20");
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(num));
+						binEnc.concat(converter.decimalToBinary(imm));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						// else 
+						// {
+							// // if trying to use an incorrect register number, give an error
+							// ErrorData error = new ErrorData();
+							// String code = errorsPossible.getErrorCode("This symbol is not recognized");
+							// String message = errorsPossible.getErrorMessage(code);
+							// error.add(lineNumber,Integer.parseInt(code), message);
+							// errorsFound.add(error);
+						// }
+						
+						//TODO parse immediate value
+					
+					
+					// if too many operands, produce the corresponding 
+					// error in the errortable
+					else 
+					{		
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("too many parameters");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+					}
+				
+				}
+				
+				// "outci" instructions parsed here				
+				else if(insOp.compareToIgnoreCase("OUTCI") == 0)
+				{
+					
+					
+					// if not enough operands, produce an error in the error table
+					if (opsCount < 2)
+					{
+						ErrorData error = new ErrorData();
+						String code = errorsPossible.getErrorCode("missing parameter");
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,Integer.parseInt(code), message);
+						errorsFound.add(error);
+					}
+					
+					else if (opsCount == 2)
+					{
+						
+						// store the string representing each operand
+						String num = line.get(2); 
+						String imm = line.get(3);
+						
+						// create the binary encoding
+						binEnc = converter.hexToBinary("20");
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(num));
+						binEnc.concat(converter.decimalToBinary(imm));
 						
 					}
 					
@@ -7082,12 +7218,22 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 					}
 				}
-			}
+				
+			}	
+			
+
+		}
 		
-		
-		}	
-		
-		// TODO parse for label
+		 // token isn't an instruction, it must be a symbol; 
+		 // remove it from the line and parse the rest of the line
+		 else 
+		{
+			token = line.remove(0);
+			boolean parseRec = parse(line,lineNumber,errorsFound);
+			Symbol sym = new Symbol(token,lc,32);
+			symbols.defineSymbol(sym);
+		}
+
 		return endOfProgram;
 		
 	}

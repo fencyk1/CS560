@@ -16,3 +16,5 @@
 13	invalidOperand	"This operand is not valid"
 14	missingQuotes "There are required single quotes not present"
 15	dataNotBinary "The binary data is formatted incorrectly"
+16  storeValueInRegZero  "cannot store value in register zero"
+17  wrongRegSyntax  "invalid register syntax"
