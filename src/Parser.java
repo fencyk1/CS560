@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * 
  * @author Mike and Kyle
- *
+ * 
  */
 public class Parser implements ParserInterface {
 	private DirectiveTableInterface directives;
@@ -17,42 +17,42 @@ public class Parser implements ParserInterface {
 	private InfoHolder outputData;
 	private static final String NOPBINARY = "00001000000000000000000000000000";
 	private Converter converter;
-	
-	
-	
 
-	
-	
 	/**
-	 * The constructor takes in the master error list,
-	 * the directives list, and the instructions list. It stores these in private
-	 * variables. It then creates a symbol table(type SymbolTable).
+	 * The constructor takes in the master error list, the directives list, and
+	 * the instructions list. It stores these in private variables. It then
+	 * creates a symbol table(type SymbolTable).
 	 * 
-	 * @param errorOut is the list of all errors found in the source code
-	 * @param errorT is the master list of all possible errors
-	 * @param directiveT is the master list of all the directives
-	 * @param instructT is the master list of all the instructions
+	 * @param errorOut
+	 *            is the list of all errors found in the source code
+	 * @param errorT
+	 *            is the master list of all possible errors
+	 * @param directiveT
+	 *            is the master list of all the directives
+	 * @param instructT
+	 *            is the master list of all the instructions
 	 */
-	public Parser(ErrorTable errorT, DirectiveTableInterface directiveT, InstructTableInterface instructT){
+	public Parser(ErrorTable errorT, DirectiveTableInterface directiveT,
+			InstructTableInterface instructT) {
 		commands = instructT;
 		directives = directiveT;
-		errorsPossible = errorT;		
-		
-		//set end of program flag to false
+		errorsPossible = errorT;
+
+		// set end of program flag to false
 		endOfProgram = false;
-		
-		//initialize undefinedVariables
+
+		// initialize undefinedVariables
 		undefinedVariables = new ArrayList<String>();
-		
-		//make symbol table here
+
+		// make symbol table here
 		symbols = new SymbolTable();
-		
-		//make InfoHolder to store binary data
+
+		// make InfoHolder to store binary data
 		outputData = new InfoHolder();
-		
-		//create converter object
+
+		// create converter object
 		converter = new Converter();
-		
+
 	}
 
 	/**
@@ -1202,7 +1202,7 @@ public class Parser implements ParserInterface {
 									
 									
 									//if it is hex, check value
-									if ( hexFlag){
+									if (hexFlag){
 										
 										//convert to int and then check range
 										int decValue = converter.binaryToDecimal(converter.hexToBinary(value));
@@ -1779,7 +1779,7 @@ public class Parser implements ParserInterface {
 			String insOp = commands.getInstructionOpcode(line.get(1));
 			
 			// save the number of operands for future parsing use
-			int opsCount = line.size() - 2;
+			 int opsCount = line.size() - 2;
 			
 			// the binary encoding for the instruction
 			String binEnc = null;
@@ -1867,10 +1867,6 @@ public class Parser implements ParserInterface {
 				//parsing for the "add immediate" instruction
 				if(insOp.compareToIgnoreCase("ADDI") == 0)
 				{
-					// TODO check each field; operand format: reg, reg, imm
-					// otherwise produce error: illegal operands
-					
-
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -4004,6 +4000,15 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
 						}
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("01"));
+						binEnc.concat("00");
+						binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
+						binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
+						binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
+						binEnc.concat("000000");
+						binEnc.concat(converter.decimalToBinary("1B"));
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -4017,14 +4022,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 					}
 					
-					// create the binary encoding
-					binEnc.concat(converter.hexToBinary("01"));
-					binEnc.concat("00");
-					binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
-					binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
-					binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-					binEnc.concat("000000");
-					binEnc.concat(converter.decimalToBinary("1B"));
+					
 				}
 				
 				// "nor" commands parsed here
@@ -4318,7 +4316,7 @@ public class Parser implements ParserInterface {
 						binEnc.concat("00");
 						binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 						binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
-						binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
+						//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
 						binEnc.concat(converter.decimalToBinary(imm));
 						binEnc.concat(converter.decimalToBinary("20"));
 					}
@@ -4408,7 +4406,7 @@ public class Parser implements ParserInterface {
 						binEnc.concat("00");
 						binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 						binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
-						binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
+						//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
 						binEnc.concat(converter.decimalToBinary(imm));
 						binEnc.concat(converter.decimalToBinary("02"));
 					}
@@ -4948,8 +4946,8 @@ public class Parser implements ParserInterface {
 						binEnc.concat(converter.hexToBinary("06"));
 						binEnc.concat("00");
 						binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
-						binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
-						binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
+						//binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
+						//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
 						binEnc.concat("000000");
 						binEnc.concat(converter.decimalToBinary("18"));
 					}
@@ -5004,14 +5002,12 @@ public class Parser implements ParserInterface {
 			}
 			
 			// S-Type instructions will be parsed here
-			else if (insType.compareToIgnoreCase("S-Type"))
+			else if (insType.compareToIgnoreCase("S-Type") == 0)
 			{
 			
 				// parse the Jump On Equal instruction
 				 if(insOp.compareToIgnoreCase("JEQ") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5082,8 +5078,8 @@ public class Parser implements ParserInterface {
 						// if addr is in the symbol table, pull that value and encode it
 						if(symbols.symbolIsDefined(addr))
 						{
-							int len = symbols.GetLength(addr);
-						}
+							int len = symbols.GetLocation(addr);
+						
 						
 						// create the binary encoding
 						binEnc.concat(converter.hexToBinary("20"));
@@ -5091,14 +5087,22 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
 						
-						
-						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -5116,8 +5120,7 @@ public class Parser implements ParserInterface {
 				// parse the Jump Not Equal instruction
 				else  if(insOp.compareToIgnoreCase("JNE") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5186,8 +5189,7 @@ public class Parser implements ParserInterface {
 						// if addr is in the symbol table, pull that value and encode it
 						if(symbols.symbolIsDefined(addr))
 						{
-							int len = symbols.GetLength(addr);
-						
+							int len = symbols.GetLocation(addr);
 						
 						// create the binary encoding
 						binEnc.concat(converter.hexToBinary("21"));
@@ -5195,11 +5197,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5295,11 +5307,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5318,8 +5340,7 @@ public class Parser implements ParserInterface {
 				// parse the Jump Less Than instruction
 				else  if(insOp.compareToIgnoreCase("JLT") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5396,11 +5417,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5419,8 +5450,7 @@ public class Parser implements ParserInterface {
 				// parse the Jump Less than Or Equal instruction
 				else  if(insOp.compareToIgnoreCase("JLE") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5497,11 +5527,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5520,8 +5560,7 @@ public class Parser implements ParserInterface {
 				// parse the Jump And Link instruction
 				else  if(insOp.compareToIgnoreCase("JAL") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5598,11 +5637,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5621,8 +5670,7 @@ public class Parser implements ParserInterface {
 				// parse the Add Register and Storage instruction
 				else  if(insOp.compareToIgnoreCase("ADDS") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5699,11 +5747,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5722,8 +5780,7 @@ public class Parser implements ParserInterface {
 				// parse the Subtract Register and Storage instruction
 				else  if(insOp.compareToIgnoreCase("SUBS") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5800,11 +5857,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5823,8 +5890,6 @@ public class Parser implements ParserInterface {
 				// parse the Multiply Register and Storage instruction
 				else  if(insOp.compareToIgnoreCase("MULS") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -5901,11 +5966,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -5924,8 +5999,7 @@ public class Parser implements ParserInterface {
 				// parse the Divide Register and Storage instruction
 				else  if(insOp.compareToIgnoreCase("DIVS") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -6002,11 +6076,21 @@ public class Parser implements ParserInterface {
 						binEnc = binEnc + reg1.charAt(2);
 						binEnc = binEnc + reg2.charAt(2);
 						binEnc.concat("00");
-						binEnc.concat(converter.decimalToBinary(len));
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 						
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
 						}
 					}
 					
@@ -6025,8 +6109,6 @@ public class Parser implements ParserInterface {
 				// parsing for the "load address of word into register" instruction
 				else  if(insOp.compareToIgnoreCase("LA") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6072,8 +6154,33 @@ public class Parser implements ParserInterface {
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
 						}
-					
-						//TODO parse address value LA (opc 38)
+
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("38"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6091,8 +6198,6 @@ public class Parser implements ParserInterface {
 				// parsing for the "load word address" instruction
 				else  if(insOp.compareToIgnoreCase("LW") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6139,7 +6244,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value opc 30
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("30"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6157,8 +6287,7 @@ public class Parser implements ParserInterface {
 				// parsing for the "store word address " instruction
 				else  if(insOp.compareToIgnoreCase("SW") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
+					
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6205,7 +6334,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value opc 27
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("27"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6224,7 +6378,7 @@ public class Parser implements ParserInterface {
 				else  if(insOp.compareToIgnoreCase("LNW") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6271,7 +6425,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value opc 31
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("31"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6290,7 +6469,7 @@ public class Parser implements ParserInterface {
 				else  if(insOp.compareToIgnoreCase("LWI") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6337,7 +6516,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value opc 32
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("32"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6356,7 +6560,7 @@ public class Parser implements ParserInterface {
 				else  if(insOp.compareToIgnoreCase("SA") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6403,7 +6607,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value opc 39
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("39"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6422,7 +6651,7 @@ public class Parser implements ParserInterface {
 				else  if(insOp.compareToIgnoreCase("ANDS") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6469,7 +6698,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("3A"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6488,7 +6742,7 @@ public class Parser implements ParserInterface {
 				else  if(insOp.compareToIgnoreCase("ORS") == 0)
 				{
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6535,7 +6789,32 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
-						//TODO parse address value
+						// if addr is in the symbol table, pull that value and encode it
+						if(symbols.symbolIsDefined(addr))
+						{
+							int len = symbols.GetLength(addr);
+						
+						// create the binary encoding
+						binEnc.concat(converter.hexToBinary("3B"));
+						binEnc.concat("01");
+						binEnc = binEnc + reg1.charAt(2);
+						binEnc.concat("00000");
+						binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+						
+						// put data into the infoholder for future use
+						lc++;
+						outputData.AddLine(lc, binEnc);
+						}
+						
+						else 
+						{
+							// if trying to use an incorrect register number, give an error
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("undefined symbol");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+						}
 					}
 					
 					// if too many operands, produce the corresponding 
@@ -6551,7 +6830,7 @@ public class Parser implements ParserInterface {
 				}
 			}
 			// Jump instructions will be parsed here
-			else if (insType.compareToIgnoreCase("Jump"))
+			else if (insType.compareToIgnoreCase("Jump") == 0)
 			{
 				
 				//parsing for the HALT instruction 
@@ -6559,7 +6838,7 @@ public class Parser implements ParserInterface {
 				{
 					
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 1)
@@ -6588,28 +6867,37 @@ public class Parser implements ParserInterface {
 						if(haltAt.charAt(0) == '*')
 						{
 							
-							boolean star = true;
+							star = true;
 							// adds binary at lc to numeric value to be
 							if(haltAt.charAt(1) == '-')
 							{
 								String vin = outputData.findBinaryByLC(lc, 0);
-								value = converter.binaryToDecimal(vin) - int (haltAt.substring(2,haltAt.length-1));
+								value = Integer.parseInt(converter.binaryToDecimal(vin)) 
+								- Integer.parseInt(haltAt.substring(2,haltAt.length()-1));
 							}
 							
 							// subtract numeric value from binary representation at lc
 							else if (haltAt.charAt(1) == '+')
 							{
 								String vin = outputData.findBinaryByLC(lc, 0);
-								value = converter.binaryToDecimal(vin) + int (haltAt.substring(2,haltAt.length-1));
+								value = Integer.parseInt(converter.binaryToDecimal(vin)) 
+								- Integer.parseInt(haltAt.substring(2,haltAt.length()-1));
 							}
-							
-							// TODO give syntax error if neither sign is seen
+							// if neither case is present, give error
+							else 
+							{
+							ErrorData error = new ErrorData();
+							String code = errorsPossible.getErrorCode("invalid star syntax");
+							String message = errorsPossible.getErrorMessage(code);
+							error.add(lineNumber,Integer.parseInt(code), message);
+							errorsFound.add(error);
+							}
 						}
 						
 						// if the operand isn't a label, check to see if it is a number 
-						else if (!(symbols.symbolIsDefined(haltAt.charAt(0))))
+						else if (!(symbols.symbolIsDefined(haltAt)))
 						{
-							for (int i; i<haltAt.length; i++)
+							for (int i; i<haltAt.length(); i++)
 							{
 								if (!Character.isDigit(haltAt.charAt(i)));
 								{
@@ -6618,14 +6906,14 @@ public class Parser implements ParserInterface {
 								}
 								if(errd)
 								{
-									i = haltAt.length;
+									i = haltAt.length();
 								}
 							}
 						}
 						if (!errd)
 						{
 						// checking bound limit for integer value
-						if (!(0 <= haltAt && haltAt <= 255))
+						if (!(0 <= Integer.parseInt(haltAt) && Integer.parseInt(haltAt) <= 255))
 						{
 							ErrorData error = new ErrorData();
 							
@@ -6665,7 +6953,7 @@ public class Parser implements ParserInterface {
 			}
 			
 			// IO-Type instructions will be parsed here
-			else if (insType.compareToIgnoreCase("IO-Type"))
+			else if (insType.compareToIgnoreCase("IO-Type") == 0)
 			{
 			
 				// parsing for INN instruction
@@ -6673,7 +6961,7 @@ public class Parser implements ParserInterface {
 				{
 	
 					// check the number of operands 
-					int opsCount = line.size() - 2;
+					 
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 2)
@@ -6798,14 +7086,15 @@ public class Parser implements ParserInterface {
 		
 		
 		}	
+		
+		// TODO parse for label
 		return endOfProgram;
 		
 	}
 
-	
 	@Override
-	public ArrayList<String> getUndefinedVariables(){
-	
+	public ArrayList<String> getUndefinedVariables() {
+
 		return undefinedVariables;
 	}
 
@@ -6815,13 +7104,8 @@ public class Parser implements ParserInterface {
 	}
 
 	@Override
-	
 	public InfoHolder getBinaryData() {
 		return outputData;
 	}
-	
-	
 
 }
-
-
