@@ -2338,8 +2338,6 @@ public class Parser implements ParserInterface {
 				//parsing for the "multiply immediate unsigned" instruction
 				else if(insOp.compareToIgnoreCase("MULIU") == 0)
 				{
-					// check the number of operands 
-					int opsCount = line.size() - 2;
 					
 					// if not enough operands, produce an error in the error table
 					if (opsCount < 3)
@@ -4832,11 +4830,13 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 
+						// if the memRef section is 
+						
 						// if addr is in the symbol table, pull that value and encode it
 						if(symbols.symbolIsDefined(addr))
 						{
 							int len = symbols.GetLength(addr);
-						
+						}
 						
 						// create the binary encoding
 						binEnc.concat(converter.hexToBinary("20"));
@@ -4849,7 +4849,7 @@ public class Parser implements ParserInterface {
 						// put data into the infoholder for future use
 						lc++;
 						outputData.AddLine(lc, binEnc);
-						}
+						
 						
 						
 					}
@@ -6332,6 +6332,45 @@ public class Parser implements ParserInterface {
 						// this object saves the value of the integer value in the hald instruction
 						int haltAt = line.get(2);
 						
+						// holds value for * operation if it applies
+						int value = 0;
+						
+						//boolean for iterative error checking
+						boolean errd = false;
+						
+						if(haltAt.chatAt(0) == '*')
+						{
+							
+							// adds binary at lc to numeric value to be
+							if(haltAt.chatAt(1) == '-')
+							{
+								String vin = outputData.findBinaryByLC(lc, 0);
+								value = converter.binaryToDecimal(vin) - int (haltAt.substring(2,haltAt.length-1));
+							}
+							
+							// subtract numeric value from binary representation at lc
+							else if (haltAt.chatAt(1) == '+')
+							{
+								String vin = outputData.findBinaryByLC(lc, 0);
+								value = converter.binaryToDecimal(vin) + int (haltAt.substring(2,haltAt.length-1));
+							}
+							
+							// give syntax error if neither sign is seen
+						}
+						
+						// if the operand isn't a label, check to see if it is a number 
+						else if (!(symbols.symbolIsDefined(haltAt.charAt(0))))
+						{
+							for (int i; i<haltAt.length; i++)
+							{
+								if (!Character.isDigit(haltAt.charAt(i)));
+								{
+									// give error here
+									errd = true;
+								}
+							}
+						}
+						
 						// checking bound limit for integer value
 						if (!(0 <= haltAt && haltAt <= 255))
 						{
@@ -6346,6 +6385,7 @@ public class Parser implements ParserInterface {
 							errorsFound.add(error);
 						}
 					
+						
 						// create the binary encoding
 						binEnc.concat(converter.hexToBinary("08"));
 						binEnc.concat("00000000");
