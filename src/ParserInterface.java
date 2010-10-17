@@ -47,7 +47,7 @@ public interface ParserInterface {
 	 * 
 	 * @return completed symbol table of type Symbol
 	 */
-	SymbolTable getSymbols();
+	SymbolTableInterface getSymbols();
 	
 	/**
 	 * This will return an InfoHolder collection of the code converted into binary.
