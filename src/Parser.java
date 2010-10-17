@@ -1000,7 +1000,7 @@ public class Parser implements ParserInterface {
 					{
 						
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 2)
@@ -1045,7 +1045,7 @@ public class Parser implements ParserInterface {
 						// otherwise produce error: illegal operands
 						
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1079,7 +1079,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("ADDIU") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1112,7 +1112,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("SUBI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1145,7 +1145,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("SUBIU") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1178,7 +1178,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("MULI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1211,7 +1211,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("MULIU") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1244,7 +1244,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("DIVI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1277,7 +1277,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("DIVIU") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1310,7 +1310,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("ORI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1343,7 +1343,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("XORI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1376,7 +1376,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("NORI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1408,7 +1408,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("ANDI") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1441,7 +1441,7 @@ public class Parser implements ParserInterface {
 					else if(insOp.compareToIgnoreCase("SRV") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1844,7 +1844,7 @@ public class Parser implements ParserInterface {
 					 if(insOp.compareToIgnoreCase("JEQ") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1877,7 +1877,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("JNE") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1910,7 +1910,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("JGT") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1943,7 +1943,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("JLT") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -1976,7 +1976,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("JLE") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -2009,7 +2009,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("JAL") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -2042,7 +2042,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("ADDS") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -2075,7 +2075,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("SUBS") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -2108,7 +2108,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("MULS") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -2141,7 +2141,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("DIVS") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 3)
@@ -2174,7 +2174,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("LA") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 2)
@@ -2207,7 +2207,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("SA") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 2)
@@ -2240,7 +2240,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("ANDS") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 2)
@@ -2273,7 +2273,7 @@ public class Parser implements ParserInterface {
 					else  if(insOp.compareToIgnoreCase("LA") == 0)
 					{
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 2)
@@ -2311,7 +2311,7 @@ public class Parser implements ParserInterface {
 					{
 						
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 1)
@@ -2365,7 +2365,7 @@ public class Parser implements ParserInterface {
 					{
 		
 						// check the number of operands 
-						int opsCount = line.size() - 2;
+						opsCount = line.size() - 2;
 						
 						// if not enough operands, produce an error in the error table
 						if (opsCount < 2)
