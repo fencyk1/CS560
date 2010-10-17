@@ -8339,7 +8339,7 @@ public class Parser implements ParserInterface {
 						// if the operand isn't a label, check to see if it is a number 
 						else if (!(symbols.symbolIsDefined(haltAt)))
 						{
-							for (int i; i<haltAt.length(); i++)
+							for (int i =0; i<haltAt.length(); i++)
 							{
 								if (!Character.isDigit(haltAt.charAt(i)));
 								{
