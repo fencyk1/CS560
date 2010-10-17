@@ -7,15 +7,15 @@ import java.util.ArrayList;
  * @author Jeff W
  */
 public class ErrorOut implements ErrorOutInterface {
-	private ArrayList<ErrorDataInterface> errorList;
+	private ArrayList<ErrorData> errorList;
 	
 	//Default constructor initializing the arraylist.
 	public ErrorOut () {
-		 this.errorList = new ArrayList<ErrorDataInterface>();
+		 this.errorList = new ArrayList<ErrorData>();
 	}
 	
 	@Override
-	public void add(ErrorDataInterface erroneousEntry) {
+	public void add(ErrorData erroneousEntry) {
 		//As long as the error does not already exist in the database, add it.
 		//That is to say, multiple errors of the same type can exist inside
 		//of the database, but multiple ErrorData objects with the same java-name
@@ -28,7 +28,7 @@ public class ErrorOut implements ErrorOutInterface {
 	}
 
 	@Override
-	public ErrorDataInterface search(int lineNumber) {
+	public ErrorData search(int lineNumber) {
 		int counter = 0;
 		int line;
 		
