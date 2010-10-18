@@ -4419,17 +4419,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("22"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("22");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -4529,17 +4529,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("23"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("23");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -4639,17 +4639,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("24"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("24");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -4749,17 +4749,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("07"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("07");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -4859,17 +4859,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("1A"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("1A");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -4969,17 +4969,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("1B"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("1B");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5078,17 +5078,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("1C"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("1C");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5188,17 +5188,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLength(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("1D"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("1D");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5278,16 +5278,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("38"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("38");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5367,16 +5367,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("30"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("30");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5457,16 +5457,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("27"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("27");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5548,16 +5548,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("31"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("31");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5639,16 +5639,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("32"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("32");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5730,16 +5730,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("39"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("39");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5821,16 +5821,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("3A"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("3A");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -5912,16 +5912,16 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLength(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("3B"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("3B");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc.concat("00000");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -6046,10 +6046,10 @@ public class Parser implements ParserInterface {
 						
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("08"));
-							binEnc.concat("00000000");
+							binEnc = converter.hexToBinary("08");
+							binEnc = binEnc.concat("00000000");
 							// TODO modify for bit count
-							binEnc.concat(converter.decimalToBinary(haltAt));
+							binEnc = binEnc.concat(converter.decimalToBinary(haltAt));
 							
 							// put data into the infoholder for future use
 							lc++;
@@ -6101,16 +6101,16 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLocation(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("20"));
-							binEnc.concat("01001");
+								// create the binary encoding
+								binEnc = converter.hexToBinary("20");
+								binEnc = binEnc.concat("01001");
 							
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -6160,16 +6160,16 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLocation(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("20"));
-							binEnc.concat("01001");
+								// create the binary encoding
+								binEnc = converter.hexToBinary("20");
+								binEnc = binEnc.concat("01001");
 							
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -6219,16 +6219,16 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLocation(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("20"));
-							binEnc.concat("01001");
+								// create the binary encoding
+								binEnc = converter.hexToBinary("20");
+								binEnc = binEnc.concat("01001");
 							
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -6278,16 +6278,16 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLocation(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("20"));
-							binEnc.concat("01001");
+								// create the binary encoding
+								binEnc = converter.hexToBinary("20");
+								binEnc = binEnc.concat("01001");
 							
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -6339,9 +6339,9 @@ public class Parser implements ParserInterface {
 							
 							// create the binary encoding
 							binEnc = converter.hexToBinary("20");
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(num));
-							binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat("00000");
+							binEnc = binEnc.concat(converter.decimalToBinary(num));
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
 							
 							// put data into the infoholder for future use
 							lc++;
@@ -6398,9 +6398,9 @@ public class Parser implements ParserInterface {
 							
 							// create the binary encoding
 							binEnc = converter.hexToBinary("20");
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(num));
-							binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat("00000");
+							binEnc = binEnc.concat(converter.decimalToBinary(num));
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
 							
 						}
 						
