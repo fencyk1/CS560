@@ -15,7 +15,7 @@ public class AssemblerMain {
 	/**
 	 * @param args
 	 */
-	public static void main(File sourceFile) {
+	public static void main(File sourceFile, File outputFile) {
 		
 		
 		// Bring in files
@@ -96,10 +96,15 @@ public class AssemblerMain {
 		UserReport userReport = new UserReport();
 		
 		//create user report
-		//userReport.createUserReport(sourceArray, errorsFound);
+		userReport.createUserReport(sourceCodeFile, errorsFound);
 		
 		//create output file
-		//userReport.outputUserReport(sourceArray, outputFileName);
+		try {
+			userReport.outputUserReport(sourceCodeFile, outputFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 
