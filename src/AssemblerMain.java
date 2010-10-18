@@ -1,5 +1,9 @@
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**\
@@ -14,48 +18,35 @@ public class AssemblerMain {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(File sourceFile, File outputFile) {
+	public static void main(File sourceFile) throws IOException {
 		
 		
 		// Bring in files
 		
 		//import instruction tabel and create object
 		InstructTable instructionsTable = new InstructTable();
-		try {
-			instructionsTable.importTable(new File ("instructions.tbl"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
+		instructionsTable.importTable(new File ("instructions.tbl"));
+		
 		
 		//import directive table and create object
 		DirectiveTable directivesTable = new DirectiveTable();
-		try {
-			directivesTable.importTable(new File ("directives.tbl"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		directivesTable.importTable(new File ("directives.tbl"));
+
 		
 		//import error table and create object
 		ErrorTable errorsTable = new ErrorTable();
-		try {
-			errorsTable.importTable(new File ("error.tbl"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
+		errorsTable.importTable(new File ("error.tbl"));
+
 		
 	
 		//import source file and create object
 		InSourceCode sourceCodeFile = new InSourceCode();
-		try {
-			sourceCodeFile.importSourceCode(sourceFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		sourceCodeFile.importSourceCode(sourceFile);
+
 		ArrayList<String> sourceArray = sourceCodeFile.getSourceCodeArray();
 		
 		//create errorOut object
@@ -99,15 +90,28 @@ public class AssemblerMain {
 		userReport.createUserReport(sourceCodeFile, errorsFound);
 		
 		//create output file
-		try {
-			userReport.outputUserReport(sourceCodeFile, outputFile);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		File outputFile = new File("outputFile.txt");
+		
+		//if the outputfile doesn't exist, create it
+		if (!outputFile.exists())
+		{
+			outputFile.createNewFile();
 		}
 		
-		
+		//create the user report
+		userReport.outputUserReport(sourceCodeFile, outputFile);
 
+		//create intermediate file
+		File intermediate = new File("intermediate.txt");
+		
+		//if the intermediate doesn't exist, create it
+		if (!intermediate.exists())
+		{
+			intermediate.createNewFile();
+		}
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(intermediate)));
+		
+		
 	}
 
 }
