@@ -1038,11 +1038,11 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("33"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("33");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + reg1.charAt(2);
-							binEnc.concat("00000");
-							binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat("00000");
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
 							
 							// put data into the infoholder for future use
 							lc++;
@@ -2153,12 +2153,12 @@ public class Parser implements ParserInterface {
 							}
 
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("37"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("37");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + reg1.charAt(2);
 							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat("00");
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
 							
 							// put data into the infoholder for future use
 							lc++;
@@ -2246,12 +2246,12 @@ public class Parser implements ParserInterface {
 							}
 
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("3D"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("3D");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + reg1.charAt(2);
 							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat("00");
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
 							
 							// put data into the infoholder for future use
 							lc++;
@@ -2364,13 +2364,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("20"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("20"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -2472,13 +2472,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("21"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("21"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -2580,13 +2580,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("22"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("22"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -2688,13 +2688,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("23"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("23"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -2796,13 +2796,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("18"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("18"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -2904,13 +2904,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("19"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("19"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3012,13 +3012,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("1A"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("1A"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3120,13 +3120,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("1B"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("1B"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3232,13 +3232,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("02"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("02");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("27"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("27"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3340,13 +3340,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("1C"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("1C"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3430,13 +3430,13 @@ public class Parser implements ParserInterface {
 							}
 
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("02"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("02");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat(converter.decimalToBinary(imm));
-							binEnc.concat(converter.decimalToBinary("20"));
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat(converter.decimalToBinary("20"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3520,13 +3520,13 @@ public class Parser implements ParserInterface {
 							}
 
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("01"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("01");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat(converter.decimalToBinary(imm));
-							binEnc.concat(converter.decimalToBinary("02"));
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat(converter.decimalToBinary("02"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3610,13 +3610,13 @@ public class Parser implements ParserInterface {
 							}
 
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("02"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("02");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat(converter.decimalToBinary(imm));
-							binEnc.concat(converter.decimalToBinary("18"));
+							binEnc = binEnc.concat(converter.decimalToBinary(imm));
+							binEnc = binEnc.concat(converter.decimalToBinary("18"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3718,13 +3718,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("02"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("02");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("24"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("24"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3826,13 +3826,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("02"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("02");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("25"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("25"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3935,13 +3935,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("02"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("02");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("26"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("26"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3998,13 +3998,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("03"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("03");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 						//	binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 						//	binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000000000");
-							binEnc.concat(converter.decimalToBinary("08"));
+							binEnc = binEnc.concat("000000000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("08"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -4061,13 +4061,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("06"));
-							binEnc.concat("00");
+							binEnc = converter.hexToBinary("06");
+							binEnc = binEnc.concat("00");
 							binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
 							//binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							//binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
-							binEnc.concat("000000");
-							binEnc.concat(converter.decimalToBinary("18"));
+							binEnc = binEnc.concat("000000");
+							binEnc = binEnc.concat(converter.decimalToBinary("18"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -4199,17 +4199,17 @@ public class Parser implements ParserInterface {
 								int len = symbols.GetLocation(addr);
 							
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("20"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("20");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
@@ -4309,17 +4309,17 @@ public class Parser implements ParserInterface {
 							{
 								int len = symbols.GetLocation(addr);
 							
-							// create the binary encoding
-							binEnc.concat(converter.hexToBinary("21"));
-							binEnc.concat("01");
-							binEnc = binEnc + reg1.charAt(2);
-							binEnc = binEnc + reg2.charAt(2);
-							binEnc.concat("00");
-							binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
+								// create the binary encoding
+								binEnc = converter.hexToBinary("21");
+								binEnc = binEnc.concat("01");
+								binEnc = binEnc + reg1.charAt(2);
+								binEnc = binEnc + reg2.charAt(2);
+								binEnc = binEnc.concat("00");
+								binEnc = binEnc.concat(converter.decimalToBinary(Integer.toString(len)));
 							
-							// put data into the infoholder for future use
-							lc++;
-							outputData.AddLine(lc, binEnc);
+								// put data into the infoholder for future use
+								lc++;
+								outputData.AddLine(lc, binEnc);
 							}
 							
 							else 
