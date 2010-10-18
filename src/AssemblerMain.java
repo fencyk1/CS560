@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**\
@@ -14,27 +15,47 @@ public class AssemblerMain {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(File sourceFile) {
 		
 		
 		// Bring in files
 		
 		//import instruction tabel and create object
 		InstructTable instructionsTable = new InstructTable();
-		instructionsTable.importTable(new File ("instructions.tbl"));
+		try {
+			instructionsTable.importTable(new File ("instructions.tbl"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		//import directive table and create object
 		DirectiveTable directivesTable = new DirectiveTable();
-		directivesTable.importTable(new File ("directives.tbl"));
+		try {
+			directivesTable.importTable(new File ("directives.tbl"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		//import error table and create object
 		ErrorTable errorsTable = new ErrorTable();
-		errorsTable.importTable(new File ("error.tbl"));
+		try {
+			errorsTable.importTable(new File ("error.tbl"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	
 		//import source file and create object
 		InSourceCode sourceCodeFile = new InSourceCode();
-		sourceCodeFile.importSourceCode(new File (sourceFile);
+		try {
+			sourceCodeFile.importSourceCode(sourceFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<String> sourceArray = sourceCodeFile.getSourceCodeArray();
 		
 		//create errorOut object
@@ -69,6 +90,18 @@ public class AssemblerMain {
 			
 			
 		}
+		
+		
+		//create user report object
+		UserReport userReport = new UserReport();
+		
+		//create user report
+		//userReport.createUserReport(sourceArray, errorsFound);
+		
+		//create output file
+		//userReport.outputUserReport(sourceArray, outputFileName);
+		
+		
 
 	}
 
