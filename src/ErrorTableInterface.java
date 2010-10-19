@@ -13,6 +13,7 @@ public interface ErrorTableInterface
 	/**
 	 * import the error table text file into a data structure.
 	 * @throws IOException 
+	 * @param File tableFileName is the name of the file to be imported
 	 */
 	void importTable (File tableFileName) throws IOException;
 	
@@ -29,7 +30,7 @@ public interface ErrorTableInterface
 	/**
 	 * 
 	 * @param errorCode
-	 * @return 
+	 * @return the string that represents the error message associate with the error code
 	 * 
 	 * When given an error code this returns its associated error message. Return String "no error message for that code" if that error code doesnt exist
 	 */
@@ -38,7 +39,7 @@ public interface ErrorTableInterface
 	/**
 	 * 
 	 * @param errorCode
-	 * @return
+	 * @return the string that represents the error type associate with the error code
 	 * 
 	 * Get the Error type based on an error code. This returns a string. It returns the string "no error type for that code" if the error code doesnt exist in the object.
 	 */
@@ -47,7 +48,7 @@ public interface ErrorTableInterface
 	/**
 	 * 
 	 * @param errorMessage
-	 * @return
+	 * @return the string that represents the error code associate with the error message
 	 * 
 	 * Get the Error code based on an error message. This returns a string. It returns the string "no error code for that message" if the error message doesnt exist in the object.
 	 */
