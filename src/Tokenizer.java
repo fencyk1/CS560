@@ -18,6 +18,9 @@ public class Tokenizer implements TokenizerInterface {
 	// A temporary array list for storage of comma tokens.
 	private ArrayList<String> commaArray;
 	
+	public Tokenizer() {
+		this.tokenArray = new ArrayList<String>();
+	}
 	/* The main method of the Tokenizer class. This method will take in a line
 	 * from the parser and tokenize it by comments, spaces, then commas, and 
 	 * return the created tokens via an array list of Strings. 
