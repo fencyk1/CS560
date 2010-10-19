@@ -158,6 +158,24 @@ public class AssemblerMain {
 		out.close();
 		
 		
+		
+		//create Symbols file
+		File symbols = new File("Symbols.txt");
+		
+		//if the Symbols doesn't exist, create it
+		if (!symbols.exists())
+		{
+			symbols.createNewFile();
+		}
+		PrintWriter symbolsOut = new PrintWriter (new BufferedWriter(new FileWriter(symbols)));
+		
+		//print symbol table onto symbols
+		String foundSymbols = parser.getSymbols().outputTable();
+		symbolsOut.print(foundSymbols);
+		
+		//close symbols file
+		symbolsOut.close();
+		
 	}
 
 }
