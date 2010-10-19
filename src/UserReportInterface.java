@@ -14,8 +14,8 @@ public interface UserReportInterface
 	
 	/**
 	 * 
-	 * @param SourceCodeArray
-	 * @param foundErrorsTable
+	 * @param SourceCodeArray is the array of source code modeled on an array
+	 * @param foundErrorsTable is a list of errors found by the parser
 	 * 
 	 * This method creates an ArrayList of strings. Each index is associated with a line of output. That output will eventually be to a file in the second pass. It creates
 	 * this Array by merging the source code with the errors found in the source code. This maintains the source code in full but just adds the associated errors.
@@ -25,7 +25,9 @@ public interface UserReportInterface
 	
 	/**
 	 * 
-	 * @param outputFileName
+	 * @param outputFileName is the output file with the source code merged with errors under the line that the error is found
+	 * @param SourceCodeArray is the array of source code modeled on an array
+	 * @param foundErrorsTable is a list of errors found by the parser
 	 * 
 	 * This outputs the ArrayList<String> member variable to a file with the name as given in the parameter. Each index of the Array becomes its own line of output in the file. 
 	 * @throws IOException 

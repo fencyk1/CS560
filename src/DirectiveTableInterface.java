@@ -17,6 +17,7 @@ public interface DirectiveTableInterface
 	 * 
 	 * import the directive text file into a data structure.
 	 * @throws IOException 
+	 * @param File tableFileName is the name of the file to be imported
 	 */
 	void importTable (File tableFileName) throws IOException;
 	
@@ -24,12 +25,13 @@ public interface DirectiveTableInterface
 	 * 
 	 * When given an directive it returns a boolean if the error code exists in the data structure. Return is true if directive 
 	 * exists. False otherwise.
+	 * @param String directiveName is the name of the directive to check to see if it exists
 	 */
 	Boolean hasDirective (String directiveName);
 	
 	/**
 	 * 
-	 * @param directiveName
+	 * @param directiveName is the name of the directive to see if the directive impacts memory
 	 * @return
 	 * 
 	 * Returns true if the directive name impacts memory. ie it is one word or longer. otherwise it returns false.

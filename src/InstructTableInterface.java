@@ -16,10 +16,14 @@ public interface InstructTableInterface
 	 * 
 	 * import the MOT text file into a data structure.
 	 * @throws IOException 
+	 * @param File tableFileName is the name of the file to be imported
 	 */
 	void importTable (File tableFileName) throws IOException;
 	
 	/**
+	 * @param instructionName is the name to instruction to look up to see if it exists
+	 * @return is a true false to based on if the instruction exists (true) or not(false)
+	 * 
 	 * 
 	 * When given an instruction it returns a boolean if the error code exists in the data structure. Return is true if instruction 
 	 * exists. False otherwise.
@@ -28,8 +32,8 @@ public interface InstructTableInterface
 	
 	/**
 	 * 
-	 * @param instructionName
-	 * @return
+	 * @param instructionName is the name to instruction to look up and find its associated instruction type
+	 * @return is a string that represents the instruction type based on the instruction name
 	 * 
 	 * Get the instruction type based on the instruction name. This returns a string. It returns the string "instruction type not present" if the instruction name doesnt exist in the object.
 	 */
@@ -37,8 +41,8 @@ public interface InstructTableInterface
 	
 	/**
 	 * 
-	 * @param instructionName
-	 * @return
+	 * @param instructionName is the name to instruction to look up and find its associated instruction opcode
+	 * @return is a string that represents the instruction opcode based on the instruction name
 	 * 
 	 * Get the opcode based on the instruction name. This returns a string. It returns the string "opcode not present" if the instruction name doesnt exist in the object.
 	 */
@@ -46,8 +50,8 @@ public interface InstructTableInterface
 	
 	/**
 	 * 
-	 * @param functionCode
-	 * @return
+	 * @param instructionName is the name to instruction to look up and find its associated function code 
+	 * @return is a string that represents the function code based on the instruction name
 	 * 
 	 * Get the function code based on the instruction name. This returns a string. It returns the string "function code not present" if the instruction name doesnt exist in the object. It 
 	 * returns the string "NA" is the code is not applicable.
