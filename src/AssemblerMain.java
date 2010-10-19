@@ -20,7 +20,7 @@ public class AssemblerMain {
 	 * @param args
 	 * @throws IOException 
 	 */
-	public static void main(File sourceFile) throws IOException {
+	public static void main(String[] args) throws IOException {
 		
 		
 		// Bring in files
@@ -45,6 +45,15 @@ public class AssemblerMain {
 	
 		//import source file and create object
 		InSourceCode sourceCodeFile = new InSourceCode();
+		File sourceFile = new File(args[0]);
+		
+		//check if sourceFile is real
+		if (! sourceFile.exists())
+		{
+			System.out.println("invalid file");
+			
+		}
+		
 		sourceCodeFile.importSourceCode(sourceFile);
 
 		ArrayList<String> sourceArray = sourceCodeFile.getSourceCodeArray();
