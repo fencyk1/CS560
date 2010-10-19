@@ -73,8 +73,39 @@ public class Parser implements ParserInterface {
 					
 					//if syntax is correct, set program name and lc start point
 					programName = line.get(1);
-					int startPoint = Integer.parseInt(line.get(2));
-					lc = startPoint;
+					
+					//check if int is valid
+					boolean intFlag = true;
+					
+					//check if each char is a digit
+					for ( int inc = 0; inc < line.get(2).length(); inc ++ )
+					{
+						
+						// if NOT between 48 and 57 intFlag = false
+						if (  !(line.get(2).charAt(inc) >= 48 && line.get(2).charAt(inc) <= 57))
+						{
+								intFlag = false;
+						}
+					}
+					
+					//if valid int, set start point
+					if (intFlag)
+					{
+						int startPoint = Integer.parseInt(line.get(2));
+						lc = startPoint;
+					}
+					
+					//else set error
+					else
+					{
+						ErrorData error = new ErrorData();
+						String code = errorsPossible.getErrorCode("invalidInteger");
+						
+						//add the errorData object to errorsFound
+						String message = errorsPossible.getErrorMessage(code);
+						error.add(lineNumber,Integer.parseInt(code), message);
+						errorsFound.add(error);
+					}
 					
 				}
 				
