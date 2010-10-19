@@ -586,7 +586,7 @@ public class Parser implements ParserInterface {
 			{
 				
 				//check syntax
-				if ((size > 1) && (size < 10))
+				if ((size == 2))
 				{
 					
 					//complete in pass 2
@@ -6908,7 +6908,7 @@ public class Parser implements ParserInterface {
 						{
 							
 							//check syntax
-							if ((size > 1) && (size < 11))
+							if (size == 3)
 							{
 								
 								//complete in pass 2
@@ -7099,7 +7099,7 @@ public class Parser implements ParserInterface {
 						{
 							
 							//check syntax
-							if ((size > 1) && (size < 9))
+							if (size == 3)
 							{
 								
 								//complete in pass 2
