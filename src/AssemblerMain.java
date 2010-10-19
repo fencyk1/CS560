@@ -111,6 +111,43 @@ public class AssemblerMain {
 		}
 		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(intermediate)));
 		
+		//create a info holder object
+		InfoHolder info = parser.getBinaryData();
+		
+		//create header for intermediate file of the form
+		// "Line  LC    Binary"
+		out.println("Line  LC    Binary");
+		
+		//iterate through info holder object
+		for (int inc = 0; inc < lineNum; inc ++)
+		{
+			
+			//check for LC = 0
+			int line = info.findLineByLC(inc, 0);
+			
+			//make sure LC exists, and then print to file
+			if (! (line == -1))
+			{
+				
+				//print line number followed by four spaces
+				out.print(line);
+				out.print("    ");
+				
+				//print LC followed by four spaces
+				out.print(inc);
+				out.print("    ");
+				
+				//print binary and end line
+				out.println(info.findBinaryByLine(line));
+				
+			}
+			
+			
+		}
+		
+		//close the output file for the intermediate object
+		out.close();
+		
 		
 	}
 
