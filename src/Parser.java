@@ -87,11 +87,11 @@ public class Parser implements ParserInterface {
 					//get the correct error code depending on the violation of syntax
 					if (size < 3)
 					{
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					//add the errorData object to errorsFound
@@ -114,7 +114,7 @@ public class Parser implements ParserInterface {
 					if ( programName.compareTo(line.get(1)) != 0)
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("invalid program name");
+						String code = errorsPossible.getErrorCode("invalidProgramName");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -130,11 +130,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size < 2)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -154,7 +154,7 @@ public class Parser implements ParserInterface {
 				if (size > 1)
 				{
 					ErrorData error = new ErrorData();
-					String code = errorsPossible.getErrorCode("too many parameters");
+					String code = errorsPossible.getErrorCode("tooManyParameters");
 					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,Integer.parseInt(code), message);
 					errorsFound.add(error);
@@ -170,7 +170,7 @@ public class Parser implements ParserInterface {
 				if (size > 1)
 				{
 					ErrorData error = new ErrorData();
-					String code = errorsPossible.getErrorCode("too many parameters");
+					String code = errorsPossible.getErrorCode("tooManyParameters");
 					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,Integer.parseInt(code), message);
 					errorsFound.add(error);
@@ -200,7 +200,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("invalid operand");
+						String code = errorsPossible.getErrorCode("invalidOperand");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -219,11 +219,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -296,7 +296,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("missing quotes");
+						String code = errorsPossible.getErrorCode("missingQuotes");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -310,11 +310,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size < 2)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -386,7 +386,7 @@ public class Parser implements ParserInterface {
 							else
 							{
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid operand");
+								String code = errorsPossible.getErrorCode("invalidOperand");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -397,7 +397,7 @@ public class Parser implements ParserInterface {
 						else
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("data not hex");
+							String code = errorsPossible.getErrorCode("dataNotHex");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -409,7 +409,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("missing quotes");
+						String code = errorsPossible.getErrorCode("missingQuotes");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -423,11 +423,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size < 2)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -481,7 +481,7 @@ public class Parser implements ParserInterface {
 							else
 							{
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid operand");
+								String code = errorsPossible.getErrorCode("invalidOperand");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -492,7 +492,7 @@ public class Parser implements ParserInterface {
 						else
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("data not binary");
+							String code = errorsPossible.getErrorCode("dataNotBinary");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -504,7 +504,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("missing quotes");
+						String code = errorsPossible.getErrorCode("missingQuotes");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -518,11 +518,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size < 2)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -567,11 +567,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size < 2)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -600,11 +600,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -641,11 +641,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -686,7 +686,7 @@ public class Parser implements ParserInterface {
 						else
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("variable already defined");
+							String code = errorsPossible.getErrorCode("variableAlreadyDefined");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -702,11 +702,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -724,7 +724,7 @@ public class Parser implements ParserInterface {
 				if (size > 1)
 				{
 					ErrorData error = new ErrorData();
-					String code = errorsPossible.getErrorCode("too many parameters");
+					String code = errorsPossible.getErrorCode("tooManyParameters");
 					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,Integer.parseInt(code), message);
 					errorsFound.add(error);
@@ -812,11 +812,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -859,7 +859,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("invalid integer");
+						String code = errorsPossible.getErrorCode("invalidInteger");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -873,11 +873,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -910,7 +910,7 @@ public class Parser implements ParserInterface {
 					if (errFlag)
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("invalid boolean");
+						String code = errorsPossible.getErrorCode("invalidBoolean");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -924,11 +924,11 @@ public class Parser implements ParserInterface {
 					String code;
 					if (size == 1)
 					{	
-						code = errorsPossible.getErrorCode("missing parameter");
+						code = errorsPossible.getErrorCode("missingParameter");
 					}
 					else
 					{
-						code = errorsPossible.getErrorCode("too many parameters");
+						code = errorsPossible.getErrorCode("tooManyParameters");
 					}
 					
 					String message = errorsPossible.getErrorMessage(code);
@@ -943,7 +943,7 @@ public class Parser implements ParserInterface {
 			else
 			{
 				ErrorData error = new ErrorData();
-				String code = errorsPossible.getErrorCode("missing label");
+				String code = errorsPossible.getErrorCode("missingLabel");
 				String message = errorsPossible.getErrorMessage(code);
 				error.add(lineNumber,Integer.parseInt(code), message);
 				errorsFound.add(error);
@@ -1002,7 +1002,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1016,7 +1016,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1031,7 +1031,7 @@ public class Parser implements ParserInterface {
 									  reg1 == "$r7" || reg1 == "$R7" ))
 							{
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1054,7 +1054,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1069,7 +1069,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1087,7 +1087,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1105,7 +1105,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1123,7 +1123,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1147,7 +1147,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1164,7 +1164,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1182,7 +1182,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1200,7 +1200,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1218,7 +1218,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1241,7 +1241,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1257,7 +1257,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1275,7 +1275,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1293,7 +1293,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1311,7 +1311,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1334,7 +1334,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1349,7 +1349,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1367,7 +1367,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1385,7 +1385,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1403,7 +1403,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1426,7 +1426,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1441,7 +1441,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1459,7 +1459,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1477,7 +1477,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1495,7 +1495,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1518,7 +1518,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1533,7 +1533,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1551,7 +1551,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1569,7 +1569,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1587,7 +1587,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1611,7 +1611,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1627,7 +1627,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1645,7 +1645,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1663,7 +1663,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1681,7 +1681,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1705,7 +1705,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1721,7 +1721,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1739,7 +1739,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1757,7 +1757,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1775,7 +1775,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1799,7 +1799,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1814,7 +1814,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1832,7 +1832,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1850,7 +1850,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1868,7 +1868,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1892,7 +1892,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1907,7 +1907,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1925,7 +1925,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -1943,7 +1943,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1961,7 +1961,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -1985,7 +1985,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2000,7 +2000,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2018,7 +2018,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2036,7 +2036,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2054,7 +2054,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2078,7 +2078,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2092,7 +2092,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2110,7 +2110,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2128,7 +2128,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2146,7 +2146,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2170,7 +2170,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2185,7 +2185,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2203,7 +2203,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2221,7 +2221,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2239,7 +2239,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2264,7 +2264,7 @@ public class Parser implements ParserInterface {
 						{		
 							
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2285,7 +2285,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2303,7 +2303,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2321,7 +2321,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2339,7 +2339,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2357,7 +2357,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2378,7 +2378,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2393,7 +2393,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2411,7 +2411,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2429,7 +2429,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2447,7 +2447,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2465,7 +2465,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2486,7 +2486,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2501,7 +2501,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2519,7 +2519,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2537,7 +2537,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2555,7 +2555,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2573,7 +2573,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2594,7 +2594,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2609,7 +2609,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2627,7 +2627,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2645,7 +2645,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2663,7 +2663,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2681,7 +2681,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2702,7 +2702,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2717,7 +2717,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2735,7 +2735,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2753,7 +2753,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2771,7 +2771,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2789,7 +2789,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2810,7 +2810,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2825,7 +2825,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2843,7 +2843,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2861,7 +2861,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2879,7 +2879,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2897,7 +2897,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2918,7 +2918,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2933,7 +2933,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2951,7 +2951,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -2969,7 +2969,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -2987,7 +2987,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3005,7 +3005,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3026,7 +3026,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3041,7 +3041,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3059,7 +3059,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3077,7 +3077,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3095,7 +3095,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3113,7 +3113,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3134,7 +3134,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3151,7 +3151,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3171,7 +3171,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3189,7 +3189,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3207,7 +3207,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3225,7 +3225,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3246,7 +3246,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3261,7 +3261,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3279,7 +3279,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3297,7 +3297,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3315,7 +3315,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3333,7 +3333,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3354,7 +3354,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3369,7 +3369,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3387,7 +3387,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3405,7 +3405,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3423,7 +3423,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3444,7 +3444,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3459,7 +3459,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3477,7 +3477,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3495,7 +3495,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3513,7 +3513,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3534,7 +3534,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3549,7 +3549,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3567,7 +3567,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3585,7 +3585,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3603,7 +3603,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3624,7 +3624,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3639,7 +3639,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3657,7 +3657,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3675,7 +3675,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3693,7 +3693,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3711,7 +3711,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3732,7 +3732,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3747,7 +3747,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3765,7 +3765,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3783,7 +3783,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3801,7 +3801,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3819,7 +3819,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3840,7 +3840,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3856,7 +3856,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3874,7 +3874,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3892,7 +3892,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3910,7 +3910,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3928,7 +3928,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3949,7 +3949,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -3964,7 +3964,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 1)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3976,7 +3976,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -3991,7 +3991,7 @@ public class Parser implements ParserInterface {
 									  reg1 == "$r7" || reg1 == "$R7" ))
 							{
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4012,7 +4012,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4027,7 +4027,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 1)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4039,7 +4039,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4054,7 +4054,7 @@ public class Parser implements ParserInterface {
 									  reg1 == "$r7" || reg1 == "$R7" ))
 							{
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4075,7 +4075,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4090,7 +4090,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4110,7 +4110,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4131,7 +4131,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4149,7 +4149,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4167,7 +4167,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4185,7 +4185,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4216,7 +4216,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4228,7 +4228,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("too many parameters");
+							String code = errorsPossible.getErrorCode("tooManyParameters");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4244,7 +4244,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4262,7 +4262,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4280,7 +4280,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4298,7 +4298,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4326,7 +4326,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4338,7 +4338,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4353,7 +4353,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4371,7 +4371,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4389,7 +4389,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4407,7 +4407,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4436,7 +4436,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4448,7 +4448,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4464,7 +4464,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4482,7 +4482,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4500,7 +4500,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4518,7 +4518,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4546,7 +4546,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4558,7 +4558,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4574,7 +4574,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4592,7 +4592,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4610,7 +4610,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4628,7 +4628,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4656,7 +4656,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4668,7 +4668,7 @@ public class Parser implements ParserInterface {
 						else 
 						{							
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4684,7 +4684,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4702,7 +4702,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4720,7 +4720,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4738,7 +4738,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4766,7 +4766,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4778,7 +4778,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4794,7 +4794,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4812,7 +4812,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4830,7 +4830,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4848,7 +4848,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4876,7 +4876,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4888,7 +4888,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4904,7 +4904,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4922,7 +4922,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -4940,7 +4940,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4958,7 +4958,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4986,7 +4986,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -4998,7 +4998,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5013,7 +5013,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5031,7 +5031,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5049,7 +5049,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5067,7 +5067,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5095,7 +5095,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5107,7 +5107,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5123,7 +5123,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 3)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5141,7 +5141,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5159,7 +5159,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5177,7 +5177,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5205,7 +5205,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5217,7 +5217,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5232,7 +5232,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5249,7 +5249,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5267,7 +5267,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5294,7 +5294,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5306,7 +5306,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5321,7 +5321,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5338,7 +5338,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5356,7 +5356,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5383,7 +5383,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5395,7 +5395,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5411,7 +5411,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5428,7 +5428,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5446,7 +5446,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5473,7 +5473,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5485,7 +5485,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5502,7 +5502,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5519,7 +5519,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5537,7 +5537,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5564,7 +5564,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5576,7 +5576,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5593,7 +5593,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5610,7 +5610,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5628,7 +5628,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5655,7 +5655,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5667,7 +5667,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5684,7 +5684,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5701,7 +5701,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5719,7 +5719,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5746,7 +5746,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5758,7 +5758,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5775,7 +5775,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5792,7 +5792,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5810,7 +5810,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5837,7 +5837,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5849,7 +5849,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5866,7 +5866,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5883,7 +5883,7 @@ public class Parser implements ParserInterface {
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("cannot store value in register zero");
+							String code = errorsPossible.getErrorCode("storeValueInRegZero");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -5901,7 +5901,7 @@ public class Parser implements ParserInterface {
 								
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("invalid register syntax");
+								String code = errorsPossible.getErrorCode("wrongRegSyntax");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5928,7 +5928,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5940,7 +5940,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -5962,7 +5962,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 1)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6036,7 +6036,7 @@ public class Parser implements ParserInterface {
 								ErrorData error = new ErrorData();
 								
 								//The range violation shows what the bounds should have been.
-								String code = errorsPossible.getErrorCode("halt value range violation (0 <= n <= 255)");
+								String code = errorsPossible.getErrorCode("haltViolation");
 								
 								// adds the error to the list of errors found for future printing out.
 								String message = errorsPossible.getErrorMessage(code);
@@ -6063,7 +6063,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6085,7 +6085,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6117,7 +6117,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6129,7 +6129,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6144,7 +6144,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6176,7 +6176,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6188,7 +6188,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6203,7 +6203,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6235,7 +6235,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6247,7 +6247,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6262,7 +6262,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6294,7 +6294,7 @@ public class Parser implements ParserInterface {
 							{
 								// if trying to use an incorrect register number, give an error
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								String code = errorsPossible.getErrorCode("unknownSymbol");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6306,7 +6306,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6323,7 +6323,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6352,7 +6352,7 @@ public class Parser implements ParserInterface {
 							// {
 								// // if trying to use an incorrect register number, give an error
 								// ErrorData error = new ErrorData();
-								// String code = errorsPossible.getErrorCode("This symbol is not recognized");
+								// String code = errorsPossible.getErrorCode("unknownSymbol");
 								// String message = errorsPossible.getErrorMessage(code);
 								// error.add(lineNumber,Integer.parseInt(code), message);
 								// errorsFound.add(error);
@@ -6366,7 +6366,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6383,7 +6383,7 @@ public class Parser implements ParserInterface {
 						if (opsCount < 2)
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("missing parameter");
+							String code = errorsPossible.getErrorCode("missingParameter");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -6409,7 +6409,7 @@ public class Parser implements ParserInterface {
 						else 
 						{		
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -6487,7 +6487,7 @@ public class Parser implements ParserInterface {
 								else
 								{
 									ErrorData error = new ErrorData();
-									String code = errorsPossible.getErrorCode("invalid operand");
+									String code = errorsPossible.getErrorCode("invalidOperand");
 									String message = errorsPossible.getErrorMessage(code);
 									error.add(lineNumber,Integer.parseInt(code), message);
 									errorsFound.add(error);
@@ -6502,11 +6502,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size == 2)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -6598,7 +6598,7 @@ public class Parser implements ParserInterface {
 								else
 								{
 									ErrorData error = new ErrorData();
-									String code = errorsPossible.getErrorCode("missing quotes");
+									String code = errorsPossible.getErrorCode("missingQuotes");
 									String message = errorsPossible.getErrorMessage(code);
 									error.add(lineNumber,Integer.parseInt(code), message);
 									errorsFound.add(error);
@@ -6612,11 +6612,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -6689,7 +6689,7 @@ public class Parser implements ParserInterface {
 										else
 										{
 											ErrorData error = new ErrorData();
-											String code = errorsPossible.getErrorCode("invalid operand");
+											String code = errorsPossible.getErrorCode("invalidOperand");
 											String message = errorsPossible.getErrorMessage(code);
 											error.add(lineNumber,Integer.parseInt(code), message);
 											errorsFound.add(error);
@@ -6700,7 +6700,7 @@ public class Parser implements ParserInterface {
 									else
 									{
 										ErrorData error = new ErrorData();
-										String code = errorsPossible.getErrorCode("data not hex");
+										String code = errorsPossible.getErrorCode("dataNotHex");
 										String message = errorsPossible.getErrorMessage(code);
 										error.add(lineNumber,Integer.parseInt(code), message);
 										errorsFound.add(error);
@@ -6712,7 +6712,7 @@ public class Parser implements ParserInterface {
 								else
 								{
 									ErrorData error = new ErrorData();
-									String code = errorsPossible.getErrorCode("missing quotes");
+									String code = errorsPossible.getErrorCode("missingQuotes");
 									String message = errorsPossible.getErrorMessage(code);
 									error.add(lineNumber,Integer.parseInt(code), message);
 									errorsFound.add(error);
@@ -6726,11 +6726,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -6794,7 +6794,7 @@ public class Parser implements ParserInterface {
 										else
 										{
 											ErrorData error = new ErrorData();
-											String code = errorsPossible.getErrorCode("invalid operand");
+											String code = errorsPossible.getErrorCode("invalidOperand");
 											String message = errorsPossible.getErrorMessage(code);
 											error.add(lineNumber,Integer.parseInt(code), message);
 											errorsFound.add(error);
@@ -6805,7 +6805,7 @@ public class Parser implements ParserInterface {
 									else
 									{
 										ErrorData error = new ErrorData();
-										String code = errorsPossible.getErrorCode("data not binary");
+										String code = errorsPossible.getErrorCode("dataNotBinary");
 										String message = errorsPossible.getErrorMessage(code);
 										error.add(lineNumber,Integer.parseInt(code), message);
 										errorsFound.add(error);
@@ -6817,7 +6817,7 @@ public class Parser implements ParserInterface {
 								else
 								{
 									ErrorData error = new ErrorData();
-									String code = errorsPossible.getErrorCode("missing quotes");
+									String code = errorsPossible.getErrorCode("missingQuotes");
 									String message = errorsPossible.getErrorMessage(code);
 									error.add(lineNumber,Integer.parseInt(code), message);
 									errorsFound.add(error);
@@ -6831,11 +6831,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -6890,11 +6890,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -6921,11 +6921,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size == 1)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -6943,7 +6943,7 @@ public class Parser implements ParserInterface {
 							if (size > 2)
 							{
 								ErrorData error = new ErrorData();
-								String code = errorsPossible.getErrorCode("too many parameters");
+								String code = errorsPossible.getErrorCode("tooManyParameters");
 								String message = errorsPossible.getErrorMessage(code);
 								error.add(lineNumber,Integer.parseInt(code), message);
 								errorsFound.add(error);
@@ -7009,7 +7009,7 @@ public class Parser implements ParserInterface {
 								else
 								{
 									ErrorData error = new ErrorData();
-									String code = errorsPossible.getErrorCode("invalid integer");
+									String code = errorsPossible.getErrorCode("invalidInteger");
 									String message = errorsPossible.getErrorMessage(code);
 									error.add(lineNumber,Integer.parseInt(code), message);
 									errorsFound.add(error);
@@ -7023,11 +7023,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3 )
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -7081,11 +7081,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -7112,11 +7112,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size == 1)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -7159,7 +7159,7 @@ public class Parser implements ParserInterface {
 								else
 								{
 									ErrorData error = new ErrorData();
-									String code = errorsPossible.getErrorCode("invalid location");
+									String code = errorsPossible.getErrorCode("invalidLocation");
 									String message = errorsPossible.getErrorMessage(code);
 									error.add(lineNumber,Integer.parseInt(code), message);
 									errorsFound.add(error);
@@ -7175,11 +7175,11 @@ public class Parser implements ParserInterface {
 								String code;
 								if (size < 3)
 								{	
-									code = errorsPossible.getErrorCode("missing parameter");
+									code = errorsPossible.getErrorCode("missingParameter");
 								}
 								else
 								{
-									code = errorsPossible.getErrorCode("too many parameters");
+									code = errorsPossible.getErrorCode("tooManyParameters");
 								}
 								
 								String message = errorsPossible.getErrorMessage(code);
@@ -7195,7 +7195,7 @@ public class Parser implements ParserInterface {
 						else
 						{
 							ErrorData error = new ErrorData();
-							String code = errorsPossible.getErrorCode("misplaced label");
+							String code = errorsPossible.getErrorCode("misplacedLabel");
 							String message = errorsPossible.getErrorMessage(code);
 							error.add(lineNumber,Integer.parseInt(code), message);
 							errorsFound.add(error);
@@ -7208,7 +7208,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("\"This symbol is not recognized");
+						String code = errorsPossible.getErrorCode("unknownSymbol");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);
@@ -7217,7 +7217,7 @@ public class Parser implements ParserInterface {
 				else
 				{
 					ErrorData error = new ErrorData();
-					String code = errorsPossible.getErrorCode("unknown command");
+					String code = errorsPossible.getErrorCode("unknownCommand");
 					String message = errorsPossible.getErrorMessage(code);
 					error.add(lineNumber,Integer.parseInt(code), message);
 					errorsFound.add(error);

@@ -11,10 +11,11 @@
 8	unknownSymbol	"This symbol is not recognized"
 9	unknownCommand	"This command is not recognized"
 10	missingParameter	"There is a required parameter absent"
-11	tooManyParameters	"There are too many items in the operand field
+11	tooManyParameters	"There are too many items in the operand field"
 12	invalidProgramName	"The program name at start does not match the program name at end"
 13	invalidOperand	"This operand is not valid"
 14	missingQuotes "There are required single quotes not present"
 15	dataNotBinary "The binary data is formatted incorrectly"
 16  storeValueInRegZero  "cannot store value in register zero"
-17  wrongRegSyntax  "invalid register syntax"
+17	wrongRegSyntax  "invalid register syntax"
+18	haltViolation	"halt value range violation (0 <= n <= 255)"
