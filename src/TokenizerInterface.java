@@ -37,4 +37,11 @@ interface TokenizerInterface {
 	 * @param line The line of code to be tokenized.
 	 */
 	void tokenizeComma(String line);
+	
+	/**
+	 * 
+	 * @param line The .start line has to be tokenized by :
+	 * @return Returns an ArrayList of tokens representing the .start line.
+	 */
+	ArrayList<String> tokenizeStart (String line);
 }

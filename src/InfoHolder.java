@@ -21,6 +21,12 @@ import java.util.List;
 		 */
 		public int findLineByLC (int finder, int start) {
 			
+			//Added a checking component, in the event that LCcounts.size is 
+			//zero at teh start of this call.
+			if (start == LCcounts.size()) 
+			{
+				return -1;
+			}
 			//iterative searching for the LC counter,s [next, if multiple] location
 			while (!(LCcounts.get(start) == finder)) {
 				start++;
