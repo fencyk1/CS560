@@ -7208,7 +7208,7 @@ public class Parser implements ParserInterface {
 					else
 					{
 						ErrorData error = new ErrorData();
-						String code = errorsPossible.getErrorCode("unknown symbol");
+						String code = errorsPossible.getErrorCode("\"This symbol is not recognized");
 						String message = errorsPossible.getErrorMessage(code);
 						error.add(lineNumber,Integer.parseInt(code), message);
 						errorsFound.add(error);

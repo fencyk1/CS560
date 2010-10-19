@@ -75,7 +75,7 @@ public class AssemblerMain {
 		int lineNum = 0;
 		
 		//tokeize and parse
-		while (endOfProgram == false)
+		while (endOfProgram == false && lineNum < sourceArray.size())
 		{
 			ArrayList<String> line;
 			//tokenize

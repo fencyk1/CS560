@@ -17,51 +17,61 @@ public class Tokenizer implements TokenizerInterface {
 	private ArrayList<String> spaceArray;
 	// A temporary array list for storage of comma tokens.
 	private ArrayList<String> commaArray;
+	// A temporary array list for storage of start tokens.
+	private ArrayList<String> startArray;
 	
+	public Tokenizer() {
+		this.tokenArray = new ArrayList<String>();
+	}
 	/* The main method of the Tokenizer class. This method will take in a line
 	 * from the parser and tokenize it by comments, spaces, then commas, and 
 	 * return the created tokens via an array list of Strings. 
 	 */
 	@Override
 	public ArrayList<String> tokenizeLine(String line) {
-		// Seperate the line into tokens based on a comment
-		tokenizeComment(line);
-		//Create the temp variables which will store position in the arrays.
-		int i = 0, j = 0, k = 0;
-		// Temporary String object to store tokens.
-		String temp;
-		
-		// Loop that will tokenize each token created by tokenizeComment.
-		while(commentArray.size() > i)
+		if (line.length() > 0)
 		{
-			// Grab the token from the array.
-			temp = commentArray.get(i);
-			// Tokenize the selected token by spaces.
-			tokenizeSpace(temp);
-			j = 0;
 			
-			// Loop that will tokenize each token created by tokenizeSpace.
-			while(spaceArray.size() > j)
+			
+			// Seperate the line into tokens based on a comment
+			tokenizeComment(line);
+			//Create the temp variables which will store position in the arrays.
+			int i = 0, j = 0, k = 0;
+			// Temporary String object to store tokens.
+			String temp;
+		
+			// Loop that will tokenize each token created by tokenizeComment.
+			while(commentArray.size() > i)
 			{
 				// Grab the token from the array.
-				temp = spaceArray.get(j);
-				// Tokenize the token by commas.
-				tokenizeComma(temp);
-				k = 0;
-				
-				// Loop that takes each token from the commaArray and adds it
-				// to the tokenArray to be output to the caller.
-				while(commaArray.size() > k)
+				temp = commentArray.get(i);
+				// Tokenize the selected token by spaces.
+				tokenizeSpace(temp);
+				j = 0;
+			
+				// Loop that will tokenize each token created by tokenizeSpace.
+				while(spaceArray.size() > j)
 				{
 					// Grab the token from the array.
-					temp = commaArray.get(k);
-					// Add the token to the return array.
-					tokenArray.add(temp);
-					k++;
+					temp = spaceArray.get(j);
+					// Tokenize the token by commas.
+					tokenizeComma(temp);
+					k = 0;
+				
+					// Loop that takes each token from the commaArray and adds it
+					// to the tokenArray to be output to the caller.
+					while(commaArray.size() > k)
+					{
+						// Grab the token from the array.
+						temp = commaArray.get(k);
+						// Add the token to the return array.
+						tokenArray.add(temp);
+						k++;
+					}
+					j++;
 				}
-				j++;
+				i++;
 			}
-			i++;
 		}
 		// Return the array containing all of the tokens retrieved from the
 		// line in order of occurrence in the line.
@@ -121,6 +131,26 @@ public class Tokenizer implements TokenizerInterface {
 			// Adds a token to the array in the order they appear in the input.
 			spaceArray.add((i - space.countTokens()), space.nextToken());
 		}
+	}
+	
+	public ArrayList<String> tokenizeStart(String line) {
+		// The delimiter to be used with the tokenizer.
+		String delim = ":";
+		// Create a new tokenizer using <line> and <delim> for params.
+		StringTokenizer start = new StringTokenizer(line, delim);
+		// Create a new temporary array to store the tokens.
+		startArray = new ArrayList<String>(1);
+		
+		// Set <i> to be the number of tokens formed from <line>.
+		int i = start.countTokens();
+		
+		// Adds each token from the tokenizer into the temporary array.
+		while (start.countTokens() > 0)
+		{
+			// Adds a token to the array in the order they appear in the input.
+			startArray.add((i - start.countTokens()), start.nextToken());
+		}
+		return startArray;
 	}
 	
 }
