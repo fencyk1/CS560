@@ -70,9 +70,20 @@ import java.util.List;
 		// You give it anLC and a binary String to add to the table.
 		// It does the adding so that you have new elements to use.
 		public void AddLine(int LC, String bin){
-			int newNum = (lineNums.get(lineNums.size()-1)) + 1;
+			
+			int newNum;
+			
+			if (lineNums.size() > 0)
+			{
+				newNum = (lineNums.get(lineNums.size()-1)) + 1;
+			}
+			else
+			{
+				newNum = 1;
+			}
 			lineNums.add(newNum);
 			LCcounts.add(LC);
 			binReps.add(bin);
+			
 		}
 	}

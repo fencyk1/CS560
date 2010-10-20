@@ -154,9 +154,9 @@ public class ErrorTable implements ErrorTableInterface {
 	public String getErrorCode (String theErrorMessage)
 	{
 		
-		if(errorCodes.containsKey(theErrorMessage) == true)
+		if(errorValue.containsKey(theErrorMessage) == true)
 		{
-			return errorCodes.getProperty(theErrorMessage);
+			return errorValue.getProperty(theErrorMessage);
 		}
 		
 		return "no error code for that message";

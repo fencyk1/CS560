@@ -38,7 +38,7 @@ R	1	21	addu
 R	1	22	sub
 R	1	23	subu
 R	1	1A	div
-R	1	1B	"divu
+R	1	1B	divu
 R	1	1C	pwr
 R	2	0	sll
 R	2	2	srl

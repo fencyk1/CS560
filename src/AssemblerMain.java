@@ -38,8 +38,8 @@ public class AssemblerMain {
 		
 		//import error table and create object
 		ErrorTable errorsTable = new ErrorTable();
-
-		errorsTable.importTable(new File ("error.tbl"));
+		File error = new File ("error.tbl");
+		errorsTable.importTable(error);
 
 		
 	
@@ -77,7 +77,7 @@ public class AssemblerMain {
 		//tokeize and parse
 		while (endOfProgram == false && lineNum < sourceArray.size())
 		{
-			ArrayList<String> line;
+			ArrayList<String> line = null;
 			//tokenize
 			line = tokenizer.tokenizeLine(sourceArray.get(lineNum));
 			

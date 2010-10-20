@@ -1004,10 +1004,10 @@ public class Parser implements ParserInterface {
 				String insType = commands.getInstructionType(token.toLowerCase());
 
 				// this variable holds the opcode for the instruction to be parsed
-				String insOp = commands.getInstructionOpcode(line.get(1));
+				String insOp = commands.getInstructionOpcode(line.get(0));
 				
 				// save the number of operands for future parsing use
-				 int opsCount = line.size() - 2;
+				 int opsCount = line.size() - 1;
 				
 				// the binary encoding for the instruction
 				String binEnc = null;
@@ -1025,7 +1025,7 @@ public class Parser implements ParserInterface {
 					*/
 					
 					//parsing for the "load immediate" instruction
-					if(insOp.compareToIgnoreCase("LUI") == 0)
+					if(token.compareToIgnoreCase("LUI") == 0)
 					{
 						
 						// check the number of operands 
@@ -1093,7 +1093,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "add immediate" instruction
-					if(insOp.compareToIgnoreCase("ADDI") == 0)
+					if(token.compareToIgnoreCase("ADDI") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -1187,7 +1187,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "add immediate unsigned" instruction
-					else if(insOp.compareToIgnoreCase("ADDIU") == 0)
+					else if(token.compareToIgnoreCase("ADDIU") == 0)
 					{
 
 						
@@ -1280,7 +1280,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "subtract immediate" instruction
-					else if(insOp.compareToIgnoreCase("SUBI") == 0)
+					else if(token.compareToIgnoreCase("SUBI") == 0)
 					{
 						
 						
@@ -1373,7 +1373,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "subtract immediate unsigned" instruction
-					else if(insOp.compareToIgnoreCase("SUBIU") == 0)
+					else if(token.compareToIgnoreCase("SUBIU") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -1465,7 +1465,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "multiply immediate" instruction
-					else if(insOp.compareToIgnoreCase("MULI") == 0)
+					else if(token.compareToIgnoreCase("MULI") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -1557,7 +1557,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "multiply immediate unsigned" instruction
-					else if(insOp.compareToIgnoreCase("MULIU") == 0)
+					else if(token.compareToIgnoreCase("MULIU") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -1650,7 +1650,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "divide immediate" instruction
-					else if(insOp.compareToIgnoreCase("DIVI") == 0)
+					else if(token.compareToIgnoreCase("DIVI") == 0)
 					{
 
 						
@@ -1744,7 +1744,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "divide immediate unsigned" instruction
-					else if(insOp.compareToIgnoreCase("DIVIU") == 0)
+					else if(token.compareToIgnoreCase("DIVIU") == 0)
 					{
 						
 						
@@ -1838,7 +1838,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "or immediate" instruction
-					else if(insOp.compareToIgnoreCase("ORI") == 0)
+					else if(token.compareToIgnoreCase("ORI") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -1931,7 +1931,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "exclusive or immediate" instruction
-					else if(insOp.compareToIgnoreCase("XORI") == 0)
+					else if(token.compareToIgnoreCase("XORI") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -2024,7 +2024,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "nor immediate" instruction
-					else if(insOp.compareToIgnoreCase("NORI") == 0)
+					else if(token.compareToIgnoreCase("NORI") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -2116,7 +2116,7 @@ public class Parser implements ParserInterface {
 						}	
 					}
 					//parsing for the "and immediate" instruction
-					else if(insOp.compareToIgnoreCase("ANDI") == 0)
+					else if(token.compareToIgnoreCase("ANDI") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -2209,7 +2209,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					//parsing for the "set register values" instruction
-					else if(insOp.compareToIgnoreCase("SRV") == 0)
+					else if(token.compareToIgnoreCase("SRV") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -2309,7 +2309,7 @@ public class Parser implements ParserInterface {
 				{
 				
 					// "add" instructions parsed here
-					if (insOp.compareToIgnoreCase("ADD") == 0)
+					if (token.compareToIgnoreCase("ADD") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -2417,7 +2417,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "add unsigned" commands parsed here
-					if (insOp.compareToIgnoreCase("ADDU") == 0)
+					if (token.compareToIgnoreCase("ADDU") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -2525,7 +2525,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "subtract" commands parsed here
-					if (insOp.compareToIgnoreCase("SUB") == 0)
+					if (token.compareToIgnoreCase("SUB") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -2633,7 +2633,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "subtract" commands parsed here
-					if (insOp.compareToIgnoreCase("SUBU") == 0)
+					if (token.compareToIgnoreCase("SUBU") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -2741,7 +2741,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "multiply" commands parsed here
-					if (insOp.compareToIgnoreCase("MUL") == 0)
+					if (token.compareToIgnoreCase("MUL") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -2849,7 +2849,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "multiply unsigned" commands parsed here
-					if (insOp.compareToIgnoreCase("MULU") == 0)
+					if (token.compareToIgnoreCase("MULU") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -2957,7 +2957,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "dvide" commands parsed here
-					if (insOp.compareToIgnoreCase("DIV") == 0)
+					if (token.compareToIgnoreCase("DIV") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3065,7 +3065,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "divide unsigned" commands parsed here
-					if (insOp.compareToIgnoreCase("DIVU") == 0)
+					if (token.compareToIgnoreCase("DIVU") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3175,7 +3175,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "nor" commands parsed here
-					if (insOp.compareToIgnoreCase("NOR") == 0)
+					if (token.compareToIgnoreCase("NOR") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3285,7 +3285,7 @@ public class Parser implements ParserInterface {
 					}
 				
 					// "power" commands parsed here
-					if (insOp.compareToIgnoreCase("PWR") == 0)
+					if (token.compareToIgnoreCase("PWR") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3393,7 +3393,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "shift left logical" commands parsed here
-					if (insOp.compareToIgnoreCase("SLL") == 0)
+					if (token.compareToIgnoreCase("SLL") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3483,7 +3483,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "shift right logical" commands parsed here
-					if (insOp.compareToIgnoreCase("SRL") == 0)
+					if (token.compareToIgnoreCase("SRL") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3573,7 +3573,7 @@ public class Parser implements ParserInterface {
 					}
 				
 					// "shift right arithmetic" commands parsed here
-					if (insOp.compareToIgnoreCase("SRA") == 0)
+					if (token.compareToIgnoreCase("SRA") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3663,7 +3663,7 @@ public class Parser implements ParserInterface {
 					}
 				
 					// "and" commands parsed here
-					if (insOp.compareToIgnoreCase("AND") == 0)
+					if (token.compareToIgnoreCase("AND") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3771,7 +3771,7 @@ public class Parser implements ParserInterface {
 					}
 				
 					// "or" commands parsed here
-					if (insOp.compareToIgnoreCase("OR") == 0)
+					if (token.compareToIgnoreCase("OR") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3880,7 +3880,7 @@ public class Parser implements ParserInterface {
 				
 				
 					// "xor" commands parsed here
-					if (insOp.compareToIgnoreCase("XOR") == 0)
+					if (token.compareToIgnoreCase("XOR") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -3988,7 +3988,7 @@ public class Parser implements ParserInterface {
 					}
 						
 					// "jump register" commands will be parsed here
-					if (insOp.compareToIgnoreCase("JR") == 0)
+					if (token.compareToIgnoreCase("JR") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -4051,7 +4051,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "jump" commands will be parsed here
-					if (insOp.compareToIgnoreCase("J") == 0)
+					if (token.compareToIgnoreCase("J") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -4114,7 +4114,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// dump commands will be parsed here
-					if (insOp.compareToIgnoreCase("DUMP") == 0)
+					if (token.compareToIgnoreCase("DUMP") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -4155,7 +4155,7 @@ public class Parser implements ParserInterface {
 				{
 				
 					// parse the Jump On Equal instruction
-					 if(insOp.compareToIgnoreCase("JEQ") == 0)
+					 if(token.compareToIgnoreCase("JEQ") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -4267,7 +4267,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Jump Not Equal instruction
-					else  if(insOp.compareToIgnoreCase("JNE") == 0)
+					else  if(token.compareToIgnoreCase("JNE") == 0)
 					{
 						
 						
@@ -4377,7 +4377,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Jump Greather Than instruction
-					else  if(insOp.compareToIgnoreCase("JGT") == 0)
+					else  if(token.compareToIgnoreCase("JGT") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -4487,7 +4487,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Jump Less Than instruction
-					else  if(insOp.compareToIgnoreCase("JLT") == 0)
+					else  if(token.compareToIgnoreCase("JLT") == 0)
 					{
 						
 						
@@ -4597,7 +4597,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Jump Less than Or Equal instruction
-					else  if(insOp.compareToIgnoreCase("JLE") == 0)
+					else  if(token.compareToIgnoreCase("JLE") == 0)
 					{
 						
 						
@@ -4707,7 +4707,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Jump And Link instruction
-					else  if(insOp.compareToIgnoreCase("JAL") == 0)
+					else  if(token.compareToIgnoreCase("JAL") == 0)
 					{
 						
 						
@@ -4817,7 +4817,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Add Register and Storage instruction
-					else  if(insOp.compareToIgnoreCase("ADDS") == 0)
+					else  if(token.compareToIgnoreCase("ADDS") == 0)
 					{
 						
 						
@@ -4927,7 +4927,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Subtract Register and Storage instruction
-					else  if(insOp.compareToIgnoreCase("SUBS") == 0)
+					else  if(token.compareToIgnoreCase("SUBS") == 0)
 					{
 						
 						
@@ -5037,7 +5037,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Multiply Register and Storage instruction
-					else  if(insOp.compareToIgnoreCase("MULS") == 0)
+					else  if(token.compareToIgnoreCase("MULS") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -5146,7 +5146,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parse the Divide Register and Storage instruction
-					else  if(insOp.compareToIgnoreCase("DIVS") == 0)
+					else  if(token.compareToIgnoreCase("DIVS") == 0)
 					{
 						
 						
@@ -5256,7 +5256,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "load address of word into register" instruction
-					else  if(insOp.compareToIgnoreCase("LA") == 0)
+					else  if(token.compareToIgnoreCase("LA") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -5345,7 +5345,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "load word address" instruction
-					else  if(insOp.compareToIgnoreCase("LW") == 0)
+					else  if(token.compareToIgnoreCase("LW") == 0)
 					{
 						
 						// if not enough operands, produce an error in the error table
@@ -5434,7 +5434,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "store word address " instruction
-					else  if(insOp.compareToIgnoreCase("SW") == 0)
+					else  if(token.compareToIgnoreCase("SW") == 0)
 					{
 						
 						
@@ -5524,7 +5524,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "load negaticve word " instruction
-					else  if(insOp.compareToIgnoreCase("LNW") == 0)
+					else  if(token.compareToIgnoreCase("LNW") == 0)
 					{
 						// check the number of operands 
 						 
@@ -5615,7 +5615,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "load word immediate " instruction
-					else  if(insOp.compareToIgnoreCase("LWI") == 0)
+					else  if(token.compareToIgnoreCase("LWI") == 0)
 					{
 						// check the number of operands 
 						 
@@ -5706,7 +5706,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "store address in word" instruction
-					else  if(insOp.compareToIgnoreCase("SA") == 0)
+					else  if(token.compareToIgnoreCase("SA") == 0)
 					{
 						// check the number of operands 
 						 
@@ -5797,7 +5797,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "and register to storage" instruction
-					else  if(insOp.compareToIgnoreCase("ANDS") == 0)
+					else  if(token.compareToIgnoreCase("ANDS") == 0)
 					{
 						// check the number of operands 
 						 
@@ -5888,7 +5888,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for the "or register to storage" instruction
-					else  if(insOp.compareToIgnoreCase("ORS") == 0)
+					else  if(token.compareToIgnoreCase("ORS") == 0)
 					{
 						// check the number of operands 
 						 
@@ -5983,7 +5983,7 @@ public class Parser implements ParserInterface {
 				{
 					
 					//parsing for the HALT instruction 
-					if(insOp.compareToIgnoreCase("HALT") == 0)
+					if(token.compareToIgnoreCase("HALT") == 0)
 					{
 						
 						// check the number of operands 
@@ -6106,7 +6106,7 @@ public class Parser implements ParserInterface {
 				{
 				
 					// parsing for INN instruction
-					if(insOp.compareToIgnoreCase("INN") == 0)
+					if(token.compareToIgnoreCase("INN") == 0)
 					{
 		
 						// check the number of operands 
@@ -6168,7 +6168,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for INC instruction 
-					else if(insOp.compareToIgnoreCase("INC") == 0)
+					else if(token.compareToIgnoreCase("INC") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -6227,7 +6227,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for OUTN instruction
-					else if(insOp.compareToIgnoreCase("OUTN") == 0)
+					else if(token.compareToIgnoreCase("OUTN") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -6286,7 +6286,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// parsing for OUTC instruction
-					else if(insOp.compareToIgnoreCase("OUTC") == 0)
+					else if(token.compareToIgnoreCase("OUTC") == 0)
 					{
 					
 						// if not enough operands, produce an error in the error table
@@ -6346,7 +6346,7 @@ public class Parser implements ParserInterface {
 				
 			
 					// "outni" instructions parsed here
-					else if(insOp.compareToIgnoreCase("OUTNI") == 0)
+					else if(token.compareToIgnoreCase("OUTNI") == 0)
 					{
 						
 						
@@ -6406,7 +6406,7 @@ public class Parser implements ParserInterface {
 					}
 					
 					// "outci" instructions parsed here				
-					else if(insOp.compareToIgnoreCase("OUTCI") == 0)
+					else if(token.compareToIgnoreCase("OUTCI") == 0)
 					{
 						
 						
