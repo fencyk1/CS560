@@ -10,8 +10,10 @@ import java.util.*;
 public class ErrorTable implements ErrorTableInterface {
 
 	/*
-	 * member variables. The table is modeled on three properties objects. Properties objects have a key and a value. The key in both will be the error code. The value in the first one
-	 * will be the error type. In the second it will be the Error Message. The third properties object will hold the key the is a String with the error message and the value will be the error code
+	 * member variables. The table is modeled on three properties objects. Properties objects have a key and a value. 
+	 * The key in the first two will be the error code. The value in the first one
+	 * will be the error type. In the second it will be the Error Message. 
+	 * The third properties object key will hold a String with the error message and the value will be the error code
 	 */
 	private Properties errorValue = new Properties();
 	private Properties errorMessage = new Properties();
@@ -42,7 +44,7 @@ public class ErrorTable implements ErrorTableInterface {
 				
 				//remove the error message from the string. Do this by getting the index of the first '"'
 				int messageIndex = newLine.indexOf("\"");
-				String message = newLine.substring(messageIndex, newLine.length()-1 );
+				String message = newLine.substring(messageIndex-1, newLine.length()-1 );
 				
 				//variables for the error code and the error type
 				String errorCode, errorType;
@@ -54,7 +56,7 @@ public class ErrorTable implements ErrorTableInterface {
 				errorType = lineTokens.nextToken();
 				
 				//populate the properties objects with the error code, error type and error message
-				errorValue.setProperty(errorCode, errorType);
+				errorValue.setProperty(errorType, errorCode);
 				errorMessage.setProperty(errorCode, message);
 				errorCodes.setProperty(message, errorCode);
 			}
@@ -86,7 +88,7 @@ public class ErrorTable implements ErrorTableInterface {
 				
 				//remove the error message from the string. Do this by getting the index of the first '"'
 				int messageIndex = newLine.indexOf("\"");
-				String message = newLine.substring(messageIndex, newLine.length()-1 );
+				String message = newLine.substring(messageIndex-1, newLine.length()-1 );
 				
 				//variables for the error code and the error type
 				String errorCode, errorType;
@@ -98,7 +100,7 @@ public class ErrorTable implements ErrorTableInterface {
 				errorType = lineTokens.nextToken();
 				
 				//populate the properties objects with the error code, error type and error message
-				errorValue.setProperty(errorCode, errorType);
+				errorValue.setProperty(errorType, errorCode);
 				errorMessage.setProperty(errorCode, message);
 				errorCodes.setProperty(message, errorCode);
 			}
@@ -114,7 +116,7 @@ public class ErrorTable implements ErrorTableInterface {
 	@Override
 	public Boolean hasErrorType(String errorCode) 
 	{
-		return (errorValue.containsKey(errorCode));
+		return (errorMessage.containsKey(errorCode));
 	}
 
 	/*
@@ -132,34 +134,35 @@ public class ErrorTable implements ErrorTableInterface {
 		return "no error message for that code";
 	}
 
-	/* 
-	 * check the errorValue member variable to see if it has a error typpe based on the error code. If it does, return a string of that error type.
-	 * Return String "no error type for that code" if that error code doesnt exist
-	 */
-	@Override
-	public String getErrorType (String errorCode) 
-	{
-		if(errorValue.containsKey(errorCode) == true)
-		{
-			return errorValue.getProperty(errorCode);
-		}
-		
-		return "no error type for that code";
-	}
+//	/* 
+//	 * check the errorValue member variable to see if it has a error typpe based on the error code. If it does, return a string of that error type.
+//	 * Return String "no error type for that code" if that error code doesnt exist
+//	 */
+//	@Override
+//	public String getErrorType (String errorCode) 
+//	{
+//		if(errorValue.containsKey(errorCode) == true)
+//		{
+//			return errorValue.getProperty(errorCode);
+//		}
+//		
+//		return "no error type for that code";
+//	}
 	
 	/*
 	 * 
-	 * Get the Error code based on an error message. This returns a string. It returns the string "no error code for that message" if the error message doesnt exist in the object.
+	 * Get the Error code based on an error message. This returns a string. 
+	 * It returns the string "no error code for that type" if the error type doesnt exist in the object.
 	 */
-	public String getErrorCode (String theErrorMessage)
+	public String getErrorCode (String theErrorType)
 	{
 		
-		if(errorValue.containsKey(theErrorMessage) == true)
+		if(errorValue.containsKey(theErrorType) == true)
 		{
-			return errorValue.getProperty(theErrorMessage);
+			return errorValue.getProperty(theErrorType);
 		}
 		
-		return "no error code for that message";
+		return "no error code for that type";
 	}
 
 }

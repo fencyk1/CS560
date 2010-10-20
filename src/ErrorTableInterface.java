@@ -36,21 +36,22 @@ public interface ErrorTableInterface
 	 */
 	String getErrorMessage (String errorCode);
 	
-	/**
-	 * 
-	 * @param errorCode
-	 * @return the string that represents the error type associate with the error code
-	 * 
-	 * Get the Error type based on an error code. This returns a string. It returns the string "no error type for that code" if the error code doesnt exist in the object.
-	 */
-	String getErrorType (String errorCode);
+//	/**
+//	 * 
+//	 * @param errorCode
+//	 * @return the string that represents the error type associate with the error code
+//	 * 
+//	 * Get the Error type based on an error code. This returns a string. It returns the string "no error type for that code" if the error code doesnt exist in the object.
+//	 */
+//	String getErrorType (String errorCode);
 	
 	/**
 	 * 
 	 * @param errorMessage
-	 * @return the string that represents the error code associate with the error message
+	 * @return the string that represents the error code associate with the error type
 	 * 
-	 * Get the Error code based on an error message. This returns a string. It returns the string "no error code for that message" if the error message doesnt exist in the object.
+	 * Get the Error code based on an error type. This returns a string. It returns the string "no error code for that type" if the error type doesnt exist in the object.
+	 * It will also return the error code if given the error type
 	 */
 	String getErrorCode (String theErrorMessage);
 	
