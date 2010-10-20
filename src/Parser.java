@@ -686,7 +686,7 @@ public class Parser implements ParserInterface {
 			}
 			
 			//ext directive
-			else if (token.compareToIgnoreCase("exp") == 0)
+			else if (token.compareToIgnoreCase("ext") == 0)
 			{
 				
 				//check syntax
@@ -748,7 +748,7 @@ public class Parser implements ParserInterface {
 			}
 			
 			//nop directive
-			else if (token.compareToIgnoreCase(".start") == 0)
+			else if (token.compareToIgnoreCase("nop") == 0)
 			{
 				
 				//check for extra parameters
@@ -2974,9 +2974,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3049,7 +3049,7 @@ public class Parser implements ParserInterface {
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
 							binEnc = binEnc.concat("000000");
-							binEnc = binEnc.concat(converter.decimalToBinary("1A"));
+							binEnc = binEnc.concat(converter.hexToBinary("1A"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3157,7 +3157,7 @@ public class Parser implements ParserInterface {
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
 							binEnc = binEnc.concat("000000");
-							binEnc = binEnc.concat(converter.decimalToBinary("1B"));
+							binEnc = binEnc.concat(converter.hexToBinary("1B"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3377,7 +3377,7 @@ public class Parser implements ParserInterface {
 							binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
 							binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
 							binEnc = binEnc.concat("000000");
-							binEnc = binEnc.concat(converter.decimalToBinary("1C"));
+							binEnc = binEnc.concat(converter.hexToBinary("1C"));
 						}
 						
 						// if too many operands, produce the corresponding 
@@ -3713,13 +3713,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									  reg2.equals("$r2") || reg2.equals("$R2") ||
+									  reg2.equals("$r3") || reg2.equals("$R3") ||
+									  reg2.equals("$r4") || reg2.equals("$R4") ||
+									  reg2.equals("$r5") || reg2.equals("$R5") ||
+									  reg2.equals("$r6") || reg2.equals("$R6") ||
+									  reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3731,13 +3731,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									  reg3.equals("$r2") || reg3.equals("$R2") ||
+									  reg3.equals("$r3") || reg3.equals("$R3") ||
+									  reg3.equals("$r4") || reg3.equals("$R4") ||
+									  reg3.equals("$r5") || reg3.equals("$R5") ||
+									  reg3.equals("$r6") || reg3.equals("$R6") ||
+									  reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3821,13 +3821,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									  reg2.equals("$r2") || reg2.equals("$R2") ||
+									  reg2.equals("$r3") || reg2.equals("$R3") ||
+									  reg2.equals("$r4") || reg2.equals("$R4") ||
+									  reg2.equals("$r5") || reg2.equals("$R5") ||
+									  reg2.equals("$r6") || reg2.equals("$R6") ||
+									  reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -6548,7 +6548,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//str.data with label
-						else if (token.compareToIgnoreCase("str.data") == 0)
+						else if (line.get(1).compareToIgnoreCase("str.data") == 0)
 						{
 							if (size == 3)
 							{
@@ -6660,7 +6660,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//hex.data with label
-						else if (token.compareToIgnoreCase("hex.data") == 0)
+						else if (line.get(1).compareToIgnoreCase("hex.data") == 0)
 						{
 							
 							//check number of parameters
@@ -6772,7 +6772,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//bin.data with label
-						else if (token.compareToIgnoreCase("bin.data") == 0)
+						else if (line.get(1).compareToIgnoreCase("bin.data") == 0)
 						{
 							
 							//check number of parameters
@@ -6877,7 +6877,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//adr.data with label
-						else if (token.compareToIgnoreCase("adr.data") == 0)
+						else if (line.get(1).compareToIgnoreCase("adr.data") == 0)
 						{
 							
 							//check syntax
@@ -6935,7 +6935,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//adr.exp with label
-						else if (token.compareToIgnoreCase("adr.exp") == 0)
+						else if (line.get(1).compareToIgnoreCase("adr.exp") == 0)
 						{
 							
 							//check syntax
@@ -6967,7 +6967,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//nop with label
-						else if (token.compareToIgnoreCase("nop") == 0)
+						else if (line.get(1).compareToIgnoreCase("nop") == 0)
 						{
 							
 							//check for extra parameters
@@ -6997,7 +6997,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//mem.skip with label
-						else if (token.compareToIgnoreCase("mem.skip") == 0)
+						else if (line.get(1).compareToIgnoreCase("mem.skip") == 0)
 						{
 							
 							//check syntax
@@ -7068,7 +7068,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//equ with label
-						else if (token.compareToIgnoreCase("equ") == 0)
+						else if (line.get(1).compareToIgnoreCase("equ") == 0)
 						{
 							
 							//check syntax
@@ -7126,7 +7126,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//equ.exp with label
-						else if (token.compareToIgnoreCase("equ.exp") == 0)
+						else if (line.get(1).compareToIgnoreCase("equ.exp") == 0)
 						{
 							
 							//check syntax
@@ -7158,7 +7158,7 @@ public class Parser implements ParserInterface {
 						}
 						
 						//reset.lc with label
-						else if (token.compareToIgnoreCase("reset.lc") == 0)
+						else if (line.get(1).compareToIgnoreCase("reset.lc") == 0)
 						{
 							
 							//if there are the correct number of arguments

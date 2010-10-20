@@ -48,8 +48,8 @@ R	2	25	or
 R	2	26	xor
 R	2	27	nor
 R	3	8	jr
-I	3D	-	SRV
-R	3F	-	DUMP
+I	3D	-	srv
+R	3F	-	dump
 IO	4	0	inn
 IO	4	1	inc
 IO	4	10	outn
