@@ -10,18 +10,16 @@ import java.util.StringTokenizer;
  */
 public class Tokenizer implements TokenizerInterface {
 	// The array list that will be passed back to the method caller.
-	private ArrayList<String> tokenArray = new ArrayList<String>();
+	private ArrayList<String> tokenArray;
 	// A temporary array list for storage of comment tokens.
 	private ArrayList<String> commentArray;
 	// A temporary array list for storage of space tokens.
 	private ArrayList<String> spaceArray;
 	// A temporary array list for storage of comma tokens.
 	private ArrayList<String> commaArray;
-	// A temporary array list for storage of start tokens.
-	private ArrayList<String> startArray;
 	
 	public Tokenizer() {
-		this.tokenArray = new ArrayList<String>();
+		
 	}
 	/* The main method of the Tokenizer class. This method will take in a line
 	 * from the parser and tokenize it by comments, spaces, then commas, and 
@@ -31,8 +29,9 @@ public class Tokenizer implements TokenizerInterface {
 	public ArrayList<String> tokenizeLine(String line) {
 		if (line.length() > 0)
 		{
-			
-			
+			// Create a new array to store the tokens from this line.
+			// This should cause tokens to only be stored for each line tokenized.
+			this.tokenArray = new ArrayList<String>();
 			// Seperate the line into tokens based on a comment
 			tokenizeComment(line);
 			//Create the temp variables which will store position in the arrays.
@@ -131,26 +130,6 @@ public class Tokenizer implements TokenizerInterface {
 			// Adds a token to the array in the order they appear in the input.
 			spaceArray.add((i - space.countTokens()), space.nextToken());
 		}
-	}
-	
-	public ArrayList<String> tokenizeStart(String line) {
-		// The delimiter to be used with the tokenizer.
-		String delim = ":";
-		// Create a new tokenizer using <line> and <delim> for params.
-		StringTokenizer start = new StringTokenizer(line, delim);
-		// Create a new temporary array to store the tokens.
-		startArray = new ArrayList<String>(1);
-		
-		// Set <i> to be the number of tokens formed from <line>.
-		int i = start.countTokens();
-		
-		// Adds each token from the tokenizer into the temporary array.
-		while (start.countTokens() > 0)
-		{
-			// Adds a token to the array in the order they appear in the input.
-			startArray.add((i - start.countTokens()), start.nextToken());
-		}
-		return startArray;
 	}
 	
 }

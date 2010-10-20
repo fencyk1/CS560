@@ -38,10 +38,4 @@ interface TokenizerInterface {
 	 */
 	void tokenizeComma(String line);
 	
-	/**
-	 * 
-	 * @param line The .start line has to be tokenized by :
-	 * @return Returns an ArrayList of tokens representing the .start line.
-	 */
-	ArrayList<String> tokenizeStart (String line);
 }
