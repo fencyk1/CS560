@@ -1041,8 +1041,8 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 2)
 						{
-							String reg1 = line.get(2); 
-							String imm = line.get(3);
+							String reg1 = line.get(1); 
+							String imm = line.get(2);
 							
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
@@ -1110,9 +1110,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1205,9 +1205,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1298,9 +1298,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1390,9 +1390,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1482,9 +1482,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1574,9 +1574,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1668,9 +1668,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1762,9 +1762,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1855,9 +1855,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -1948,9 +1948,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2041,9 +2041,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2133,9 +2133,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2226,9 +2226,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2326,9 +2326,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2434,9 +2434,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2542,9 +2542,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2650,9 +2650,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2758,9 +2758,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -2866,9 +2866,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3082,9 +3082,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3194,9 +3194,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3302,9 +3302,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3410,9 +3410,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3500,9 +3500,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3590,9 +3590,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String imm = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String imm = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3680,9 +3680,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3788,9 +3788,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -3897,9 +3897,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String reg3 = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String reg3 = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4003,7 +4003,7 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 1)
 						{
-							String reg1 = line.get(2); 
+							String reg1 = line.get(1); 
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
@@ -4066,7 +4066,7 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 1)
 						{
-							String reg1 = line.get(2); 
+							String reg1 = line.get(1); 
 							if (reg1 == "$r0" || reg1 == "$R0")
 							{
 							ErrorData error = new ErrorData();
@@ -4129,9 +4129,9 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 3)
 						{
-							String amt1 = line.get(2);
-							String amt2 = line.get(3);
-							String amt3 = line.get(4);
+							String amt1 = line.get(1);
+							String amt2 = line.get(2);
+							String amt3 = line.get(3);
 							
 							// TODO parse these? ..... 
 						}
@@ -4172,9 +4172,9 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4285,9 +4285,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4394,9 +4394,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4505,9 +4505,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4615,9 +4615,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4725,9 +4725,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4835,9 +4835,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -4945,9 +4945,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5054,9 +5054,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5164,9 +5164,9 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String reg2 = line.get(3);
-							String addr = line.get(4);
+							String reg1 = line.get(1); 
+							String reg2 = line.get(2);
+							String addr = line.get(3);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5273,8 +5273,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5362,8 +5362,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5452,8 +5452,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5543,8 +5543,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5634,8 +5634,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5725,8 +5725,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5816,8 +5816,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -5907,8 +5907,8 @@ public class Parser implements ParserInterface {
 						{
 
 							// store the string representing each operand
-							String reg1 = line.get(2); 
-							String addr = line.get(3);
+							String reg1 = line.get(1); 
+							String addr = line.get(2);
 							
 							// if the first register is r0, give an error
 							if (reg1 == "$r0" || reg1 == "$R0")
@@ -6003,7 +6003,7 @@ public class Parser implements ParserInterface {
 						{
 						
 							// this object saves the value of the integer value in the hald instruction
-							String haltAt = line.get(2);
+							String haltAt = line.get(1);
 							
 							// holds value for * operation if it applies
 							int value = 0;
@@ -6124,8 +6124,8 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 2)
 						{
-							String num = line.get(2);
-							String addr = line.get(3);
+							String num = line.get(1);
+							String addr = line.get(2);
 							
 							if(symbols.symbolIsDefined(addr))
 							{
@@ -6183,8 +6183,8 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 2)
 						{
-							String num = line.get(2);
-							String addr = line.get(3);
+							String num = line.get(1);
+							String addr = line.get(2);
 							
 							if(symbols.symbolIsDefined(addr))
 							{
@@ -6242,8 +6242,8 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 2)
 						{
-							String num = line.get(2);
-							String addr = line.get(3);
+							String num = line.get(1);
+							String addr = line.get(2);
 							
 							if(symbols.symbolIsDefined(addr))
 							{
@@ -6301,8 +6301,8 @@ public class Parser implements ParserInterface {
 						
 						else if (opsCount == 2)
 						{
-							String num = line.get(2);
-							String addr = line.get(3);
+							String num = line.get(1);
+							String addr = line.get(2);
 							
 							if(symbols.symbolIsDefined(addr))
 							{
@@ -6364,8 +6364,8 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String num = line.get(2); 
-							String imm = line.get(3);
+							String num = line.get(1); 
+							String imm = line.get(2);
 							
 							
 							// create the binary encoding
@@ -6424,8 +6424,8 @@ public class Parser implements ParserInterface {
 						{
 							
 							// store the string representing each operand
-							String num = line.get(2); 
-							String imm = line.get(3);
+							String num = line.get(1); 
+							String imm = line.get(2);
 							
 							// create the binary encoding
 							binEnc = converter.hexToBinary("20");
