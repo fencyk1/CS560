@@ -147,7 +147,7 @@ public class AssemblerMain {
 				out.print("    ");
 				
 				//print binary and end line
-				out.println(info.findBinaryByLine(line));
+				out.println(info.findBinaryByLC(inc, 0));
 				
 			}
 			
