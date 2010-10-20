@@ -1143,13 +1143,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1423,13 +1423,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1515,13 +1515,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1607,13 +1607,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1701,13 +1701,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1795,13 +1795,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1888,13 +1888,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -1981,13 +1981,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2074,13 +2074,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2166,13 +2166,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2259,13 +2259,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2359,13 +2359,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2377,13 +2377,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2467,13 +2467,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2485,13 +2485,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2575,13 +2575,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2593,13 +2593,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2683,13 +2683,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2701,13 +2701,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2791,13 +2791,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2809,13 +2809,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2899,13 +2899,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -2917,13 +2917,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3007,13 +3007,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3025,13 +3025,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3115,13 +3115,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3133,13 +3133,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3227,13 +3227,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3245,13 +3245,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3335,13 +3335,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3353,13 +3353,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3443,13 +3443,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3533,13 +3533,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3623,13 +3623,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3839,13 +3839,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3930,13 +3930,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -3948,13 +3948,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg3 == "$r1" || reg3 == "$R1" ||
-								 reg3 == "$r2" || reg3 == "$R2" ||
-								 reg3 == "$r3" || reg3 == "$R3" ||
-								 reg3 == "$r4" || reg3 == "$R4" ||
-								 reg3 == "$r5" || reg3 == "$R5" ||
-								 reg3 == "$r6" || reg3 == "$R6" ||
-								 reg3 == "$r7" || reg3 == "$R7" ))
+							if(!(reg3.equals("$r1") || reg3.equals("$R1") ||
+									 reg3.equals("$r2") || reg3.equals("$R2") ||
+									 reg3.equals("$r3") || reg3.equals("$R3") ||
+									 reg3.equals("$r4") || reg3.equals("$R4") ||
+									 reg3.equals("$r5") || reg3.equals("$R5") ||
+									 reg3.equals("$r6") || reg3.equals("$R6") ||
+									 reg3.equals("$r7") || reg3.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4205,13 +4205,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4318,13 +4318,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4427,13 +4427,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4538,13 +4538,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4648,13 +4648,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4758,13 +4758,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4868,13 +4868,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -4978,13 +4978,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -5087,13 +5087,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
@@ -5197,13 +5197,13 @@ public class Parser implements ParserInterface {
 							}
 							
 							// checking for correct register usage [only between 1 and 7 allowed]
-							if(!(reg2 == "$r1" || reg2 == "$R1" ||
-								 reg2 == "$r2" || reg2 == "$R2" ||
-								 reg2 == "$r3" || reg2 == "$R3" ||
-								 reg2 == "$r4" || reg2 == "$R4" ||
-								 reg2 == "$r5" || reg2 == "$R5" ||
-								 reg2 == "$r6" || reg2 == "$R6" ||
-								 reg2 == "$r7" || reg2 == "$R7" ))
+							if(!(reg2.equals("$r1") || reg2.equals("$R1") ||
+									 reg2.equals("$r2") || reg2.equals("$R2") ||
+									 reg2.equals("$r3") || reg2.equals("$R3") ||
+									 reg2.equals("$r4") || reg2.equals("$R4") ||
+									 reg2.equals("$r5") || reg2.equals("$R5") ||
+									 reg2.equals("$r6") || reg2.equals("$R6") ||
+									 reg2.equals("$r7") || reg2.equals("$R7") ))
 							{
 								
 								// if trying to use an incorrect register number, give an error
