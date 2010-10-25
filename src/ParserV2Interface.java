@@ -405,5 +405,36 @@ public interface ParserV2Interface {
 	 */
 	void parseSUBIUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
-	
+	/**
+	 * This method will parse the muli command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseMULICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+
+	/**
+	 * This method will parse the muliu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseMULIUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+
+
+
+
+
+
+
+
+
 }
