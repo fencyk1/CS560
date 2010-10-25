@@ -587,6 +587,50 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check syntax
+		if ( line.size() == 2)
+		{
+			String label = line.get(1);
+			
+			//check if symbol is defined
+			if (symbols.symbolIsDefined(label))
+			{
+				//if it is, add to data
+				outputData.AddLine(lc, String.valueOf(symbols.GetLocation(label)));
+				
+				//increase the lc by 1 word
+				lc++;
+			}
+			
+			//if not already defined
+			else
+			{
+				undefinedVariables.add(label);
+			}
+			
+			
+		}
+		
+		//if the syntax is incorrect, generate errorData object and add to errorsFound
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() < 2)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
+		
+		
 	}
 
 	@Override
@@ -594,12 +638,74 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check syntax
+		if ((line.size() == 2))
+		{
+			
+			//complete in pass 2
+			
+		}
+		
+		//if invalid syntax
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() == 1)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
 	}
 
 	@Override
 	public void parseEntDirective(ArrayList<String> line, int lineNumber,
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
+		
+		//check syntax
+		if ((line.size() > 1) && (line.size() < 6))
+		{
+			
+			//check if variables are defined
+			for (int inc = 1; inc < line.size(); inc ++)
+			{
+				
+				//if not defined add to undefinedVariables
+				if ( !(symbols.symbolIsDefined(line.get(inc) ) ) )
+				{
+					undefinedVariables.add(line.get(inc));
+				}
+			}
+			
+		}
+		
+		//if invalid syntax
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() == 1)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
 		
 	}
 
@@ -608,6 +714,61 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check syntax
+		if ((line.size() > 1) && (line.size() < 6))
+		{
+			
+			//check if variables are defined
+			//if they are, flag error
+			//if not, add them to table
+			for (int inc = 1; inc < line.size(); inc ++)
+			{
+				
+				//if not defined add to symbol table
+				if ( !(symbols.symbolIsDefined(line.get(inc) ) ) )
+				{
+
+					//create symbol
+					Symbol newSymbol = new Symbol();
+					newSymbol.setLabel(line.get(inc));
+					newSymbol.setLocation(99999);
+					newSymbol.setUsage("ext");
+					
+					//enter symbol in symbol table
+					symbols.defineSymbol(newSymbol);
+				}
+				
+				//if they are already defined add error
+				else
+				{
+					ErrorData error = new ErrorData();
+					String code = errorsPossible.getErrorCode("variableAlreadyDefined");
+					String message = errorsPossible.getErrorMessage(code);
+					error.add(lineNumber,Integer.parseInt(code), message);
+					errorsFound.add(error);
+				}
+			}
+			
+		}
+		
+		//if invalid syntax
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() == 1)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
 	}
 
 	@Override
@@ -615,6 +776,21 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check for extra parameters
+		if (line.size() > 1)
+		{
+			ErrorData error = new ErrorData();
+			String code = errorsPossible.getErrorCode("tooManyParameters");
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
+		
+		//put nop in data
+		outputData.AddLine(lc, NOPBINARY);
+		
+		//increase the lc by 1 word
+		lc++;
 	}
 
 	@Override
@@ -622,6 +798,87 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check syntax
+		if (line.size() == 2)
+		{
+			
+			//check if mem location is valid
+			String value = line.get(1);
+			
+			//check if defined symbol
+			//if it is, create new symbol object for exec.start
+			if ( symbols.symbolIsDefined(value))
+			{
+				//create symbol
+				Symbol newSymbol = new Symbol();
+				newSymbol.setLabel("exec.start");
+				newSymbol.setLocation(symbols.GetLocation(value));
+				newSymbol.setUsage("exec.start");
+				
+				//enter symbol in symbol table
+				symbols.defineSymbol(newSymbol);
+			}
+			
+			//else check if integer
+			else
+			{
+				boolean intFlag = true;
+				
+				//check if each char is a digit
+				for ( int inc = 0; inc < value.length(); inc ++ )
+				{
+					
+					// if NOT between 48 and 57 intFlag = false
+					if (  !(value.charAt(inc) >= 48 && value.charAt(inc) <= 57))
+					{
+							intFlag = false;
+					}
+				}
+				
+				//if valid integer, set into symbol table
+				if (intFlag && ((Integer.parseInt(value) + lc) < 65536 ) && (Integer.parseInt(value) > 0))
+				{
+					
+					//create symbol
+					Symbol newSymbol = new Symbol();
+					newSymbol.setLabel("exec.start");
+					newSymbol.setLocation(Integer.parseInt(value));
+					newSymbol.setUsage("exec.start");
+					
+					//enter symbol in symbol table
+					symbols.defineSymbol(newSymbol);
+					
+				}
+				
+				//if not integer, then assume it is undefined symbol
+				//and add to to undefinedVariables list
+				else
+				{
+					undefinedVariables.add(value);
+				}
+			}
+			
+			
+		}
+		
+		//if bad syntax, add error
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() == 1)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
 	}
 
 	@Override
@@ -629,6 +886,60 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check syntax
+		if (line.size() == 2)
+		{
+			
+			//check if mem location is valid
+			String value = line.get(1);
+			
+			//check if integer
+			boolean intFlag = true;
+			for ( int inc = 0; inc < value.length(); inc ++ )
+			{
+				
+				// if NOT between 48 and 57 intFlag = false
+				if (  !(value.charAt(inc) >= 48 && value.charAt(inc) <= 57))
+				{
+						intFlag = false;
+				}
+			}
+			
+			//if valid integer, move lc
+			if (intFlag && ((Integer.parseInt(value) + lc) < 65536 ) && (Integer.parseInt(value) > 0))
+			{
+				lc = lc + Integer.parseInt(value);
+			}
+			
+			//else add error
+			else
+			{
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("invalidInteger");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+		}
+		
+		//if bad syntax, add error
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() == 1)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
 	}
 
 	@Override
@@ -657,6 +968,50 @@ public class ParserV2 implements ParserV2Interface{
 			ErrorOut errorsFound) {
 		// TODO Auto-generated method stub
 		
+		//check syntax
+		if (line.size() == 2)
+		{
+			
+			//check if number is valid
+			String value = line.get(1);
+			Boolean errFlag = true;
+			if (value.length() == 1  ) 
+			{
+				if ( (value.charAt(0) == '0') || (value.charAt(0) == 1))
+				{
+					errFlag = false;
+				}
+			}
+			
+			//if there is error, add it to errorsFound
+			if (errFlag)
+			{
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("invalidBoolean");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+		}
+		
+		//if bad syntax, add error
+		else
+		{
+			ErrorData error = new ErrorData();
+			String code;
+			if (line.size() == 1)
+			{	
+				code = errorsPossible.getErrorCode("missingParameter");
+			}
+			else
+			{
+				code = errorsPossible.getErrorCode("tooManyParameters");
+			}
+			
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
 	}
 
 	@Override
