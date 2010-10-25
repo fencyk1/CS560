@@ -2116,7 +2116,185 @@ public class ParserV2 implements ParserV2Interface{
 		}
 	}
 	
-	
+	public void parseSRVCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound)
+	{
+		
+		// if not enough operands, produce an error in the error table
+		if (line.size() < 4)
+		{
+			ErrorData error = new ErrorData();
+			String code = errorsPossible.getErrorCode("missingParameter");
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
+		
+		else if (line.size() == 4)
+		{
+			
+			// store the string representing each operand
+			String reg1 = line.get(1); 
+			String reg2 = line.get(2);
+			String imm = line.get(3);
+			
+			// if the first register is r0, give an error
+			if (reg1.equals("$0"))
+			{
+			ErrorData error = new ErrorData();
+			String code = errorsPossible.getErrorCode("storeValueInRegZero");
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+			}
+			
+			// checking for correct register usage [only between 1 and 7 allowed]
+			else if(!(reg1.equals("$1") || reg1.equals("$2") ||
+					  reg1.equals("$3") || reg1.equals("$4") ||
+					  reg1.equals("$5") || reg1.equals("$6") || reg1.equals("$7") ))
+			{
+				
+				// if trying to use an incorrect register number, give an error
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("wrongRegSyntax");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+			
+			// checking for correct register usage
+			if(!(reg2.equals("$0") ||  reg2.equals("$1") ||
+					 reg2.equals("$2") || reg2.equals("$3") || reg2.equals("$4") ||
+					 reg2.equals("$5") || reg2.equals("$6") || reg2.equals("$7")))
+			{
+				
+				// if trying to use an incorrect register number, give an error
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("wrongRegSyntax");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+
+			// create the binary encoding
+			String binEnc = converter.hexToBinary("3D");
+			binEnc = binEnc.concat("00");
+			binEnc = binEnc + reg1.charAt(2);
+			binEnc = binEnc + reg2.charAt(2);
+			binEnc = binEnc.concat("00");
+			binEnc = binEnc.concat(converter.decimalToBinary(imm));
+			
+			// put data into the infoholder for future use
+			lc++;
+			outputData.AddLine(lc, binEnc);
+		}
+		
+		// if too many operands, produce the corresponding 
+		// error in the errortable
+		else 
+		{		
+			
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("tooManyParameters");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+		}
+	}
+
+	public void parseADDCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound)
+	{
+		
+		// if not enough operands, produce an error in the error table
+		if (line.size() < 4)
+		{
+			ErrorData error = new ErrorData();
+			String code = errorsPossible.getErrorCode("missingParameter");
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+		}
+		
+		else if (line.size() == 4)
+		{
+			
+			// store the string representing each operand
+			String reg1 = line.get(1); 
+			String reg2 = line.get(2);
+			String reg3 = line.get(3);
+			
+			// if the first register is r0, give an error
+			if (reg1.equals("$0"))
+			{
+			ErrorData error = new ErrorData();
+			String code = errorsPossible.getErrorCode("storeValueInRegZero");
+			String message = errorsPossible.getErrorMessage(code);
+			error.add(lineNumber,Integer.parseInt(code), message);
+			errorsFound.add(error);
+			}
+			
+			// checking for correct register usage [only between 1 and 7 allowed]
+			else if(!(reg1.equals("$1") || reg1.equals("$2") ||
+					  reg1.equals("$3") || reg1.equals("$4") ||
+					  reg1.equals("$5") || reg1.equals("$6") || reg1.equals("$7") ))
+			{
+				
+				// if trying to use an incorrect register number, give an error
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("wrongRegSyntax");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+			
+			// checking for correct register usage [only between 1 and 7 allowed]
+			if(!(reg2.equals("$0") ||  reg2.equals("$1") ||
+					 reg2.equals("$2") || reg2.equals("$3") || reg2.equals("$4") ||
+					 reg2.equals("$5") || reg2.equals("$6") || reg2.equals("$7")))
+			{
+				
+				// if trying to use an incorrect register number, give an error
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("wrongRegSyntax");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+			
+			// checking for correct register usage [only between 1 and 7 allowed]
+			if(!(reg3.equals("$0") ||  reg3.equals("$1") ||
+					 reg3.equals("$2") || reg3.equals("$3") || reg3.equals("$4") ||
+					 reg3.equals("$5") || reg3.equals("$6") || reg3.equals("$7")))
+			{
+				
+				// if trying to use an incorrect register number, give an error
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("wrongRegSyntax");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+			}
+			
+			// create the binary encoding
+			String binEnc = converter.hexToBinary("01");
+			binEnc = binEnc.concat("00");
+			binEnc = binEnc + converter.decimalToBinary(reg1.substring(2));
+			binEnc = binEnc + converter.decimalToBinary(reg2.substring(2));
+			binEnc = binEnc + converter.decimalToBinary(reg3.substring(2));
+			binEnc = binEnc.concat("000000");
+			binEnc = binEnc.concat(converter.decimalToBinary("20"));
+		}
+		
+		// if too many operands, produce the corresponding 
+		// error in the errortable
+		else 
+		{		
+				ErrorData error = new ErrorData();
+				String code = errorsPossible.getErrorCode("tooManyParameters");
+				String message = errorsPossible.getErrorMessage(code);
+				error.add(lineNumber,Integer.parseInt(code), message);
+				errorsFound.add(error);
+		}
+	}
 	
 	
 
