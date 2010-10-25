@@ -585,5 +585,45 @@ public interface ParserV2Interface {
 	 */
 	void parseMULUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
+	/**
+	 * This method will parse the div command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseDIVCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This method will parse the divu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseDIVUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This method will parse the nor command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseNORCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	
+	
+	
+	
 	
 }
