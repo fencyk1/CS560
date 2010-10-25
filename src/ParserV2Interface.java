@@ -525,9 +525,29 @@ public interface ParserV2Interface {
 	 */
 	void parseADDCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
+	/**
+	 * This method will parse the addu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseADDUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
-	
-	
+	/**
+	 * This method will parse the addu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseSUBCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
 	
 	
