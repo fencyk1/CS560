@@ -368,4 +368,42 @@ public interface ParserV2Interface {
 	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
 	 */
 	void parseADDICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This method will parse the addiu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseADDIUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This method will parse the subi command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseSUBICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This method will parse the subiu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseSUBIUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	
 }
