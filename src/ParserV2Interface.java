@@ -345,5 +345,27 @@ public interface ParserV2Interface {
 	 */
 	void parseIOTypeCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
+	/**
+	 * This method will parse the LUI command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseLUICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 	
+	/**
+	 * This method will parse the addi command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseADDICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 }
