@@ -441,10 +441,67 @@ public interface ParserV2Interface {
 	 */
 	void parseDIVICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 
+	/**
+	 * This method will parse the diviu command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseDIVIUCommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 
+	/**
+	 * This method will parse the ori command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseORICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 
+	/**
+	 * This method will parse the xori command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseXORICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
 
-
-
-
+	/**
+	 * This method will parse the nori command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseNORICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	/**
+	 * This method will parse the andi command
+	 * 
+	 * @param line is the line of code after it has been tokenized. It should be an arraylist
+	 *  of strings with each string being one token.
+	 *  
+	 * @param lineNumber is the number of the line being parsed in int form
+	 * 
+	 * @param errorsFound is the current list of all errors found in the file in an ErrorOut object
+	 */
+	void parseANDICommand(ArrayList<String> line, int lineNumber, ErrorOut errorsFound);
+	
+	
+	
+	
 }
