@@ -1,5 +1,5 @@
 
-public class CompilerMain {
+public class AssemblerMain {
 
 	/**
 	 * @param args
