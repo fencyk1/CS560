@@ -34,38 +34,7 @@ public class InstructTable implements InstructTableInterface {
 	//This constructor will immediately call the import code on the object. It is the equivalent of calling the constructor and the importTable method in the same line
 	public InstructTable(File tableFileName) throws IOException
 	{
-		//get input from file, normally that file will be instructions.tbl and be located in the src directory of the code, here it will be hard coded
-		BufferedReader input = new BufferedReader(new FileReader(tableFileName));
-		String newLine;
-		
-		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
-		while ((newLine = input.readLine()) != null)
-		{
-			//if the char at [0] is NOT '#' then it is not a comment. parse the line and populate the properties objects. otherwise it is assumed to be a comment. 
-			//The only reason this works is because we control the content of the tables
-			if (newLine.charAt(0) != '#')
-			{
-				
-				//variables for the instruction type, opcode, function code and the instruction
-				String instructType, opcode,functionCode, instruction;
-				
-				//tokenize the string to get the first 4 tokens (ie instruction type, opcode, function code and instruction)
-				StringTokenizer lineTokens = new StringTokenizer (newLine);
-				
-				instructType = lineTokens.nextToken();
-				opcode = lineTokens.nextToken();
-				functionCode = lineTokens.nextToken();
-				instruction = lineTokens.nextToken();
-				
-				//populate the properties objects with the instruction type, opcode, function code and instruction
-				instructionType.setProperty(instruction, instructType);
-				instructionOpcode.setProperty(instruction,opcode);
-				instructionFunctionCode.setProperty(instruction,functionCode);
-			}
-		}
-		
-		//close the input
-		input.close();
+		this.importTable(tableFileName);
 	}
 	
 	

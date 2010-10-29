@@ -1,0 +1,45 @@
+<<<<<<< HEAD:directives
+#Directives		Impacts memory
+#impacts memory is true if directive is one word or longer
+.start			false
+.end			false
+.data			true
+.text			true
+int.data		true
+str.data		true
+hex.data		true
+bin.data		true
+adr.data		true
+adr.exp			true
+ent				false
+ext				false
+nop				true
+exec.start		false
+mem.skip		true		
+equ				false
+equ.exp			false
+reset.lc		true
+debug			false
+=======
+#Directives		Impacts memory
+#impacts memory is true if directive is one word or longer
+.start			false
+.end			false
+.data			true
+.text			true
+int.data		true
+str.data		true
+hex.data		true
+bin.data		true
+adr.data		true
+adr.exp			true
+ent				false
+ext				false
+nop				true
+exec.start		false
+mem.skip		true		
+equ				false
+equ.exp			false
+reset.lc		true
+debug			false
+>>>>>>> 280fdd88008eab2ac7b02527b2386eb0c5784695:directives.tbl
