@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+
+import org.xml.sax.Parser;
 public class AssemblerMain {
 
 	/**
@@ -40,7 +42,20 @@ public class AssemblerMain {
 		
 		//Create parser.
 		
-		Parser parser = new Parser();
+		SourceCodeParser parser = new SourceCodeParser();
+		
+		//Create a new counter object.
+		int i = 0;
+		//Create a new arraylist for storage for the tokenizer.
+		ArrayList<String> line = new ArrayList<String>();
+		
+		//Tokenize the source code and send to the Parser.
+		while (sourceCode.source.size() > i)
+		{
+			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
+			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn);
+			i++;
+		}
 		
 		//Create intermediate file, symbol table, user report (src+errors)
 		
