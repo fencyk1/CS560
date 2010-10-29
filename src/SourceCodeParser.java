@@ -162,7 +162,179 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		// parse it.
 		else if (!line.get(0).equalsIgnoreCase(".data"))
 		{
-			
+			if (line.get(1).equalsIgnoreCase("int.data"))
+			{
+				//Create a new symbol to store the int.data label
+				Symbol intDotData = new Symbol();
+				intDotData.setLabel(line.get(0));
+				intDotData.setLength(32);
+				intDotData.setLocation(lineCounter);
+				intDotData.setUsage("int.data");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(intDotData);
+				//Remove the int.data label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseIntDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);		
+			}
+			else if (line.get(1).equalsIgnoreCase("str.data"))
+			{
+				//Create a new symbol to store the str.data label
+				Symbol strDotData = new Symbol();
+				strDotData.setLabel(line.get(0));
+				strDotData.setLength(32);
+				strDotData.setLocation(lineCounter);
+				strDotData.setUsage("str.data");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(strDotData);
+				//Remove the str.data label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseStrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);		
+			}
+			else if (line.get(1).equalsIgnoreCase("hex.data"))
+			{
+				//Create a new symbol to store the hex.data label
+				Symbol hexDotData = new Symbol();
+				hexDotData.setLabel(line.get(0));
+				hexDotData.setLength(32);
+				hexDotData.setLocation(lineCounter);
+				hexDotData.setUsage("hex.data");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(hexDotData);
+				//Remove the hex.data label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseHexDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("bin.data"))
+			{
+				//Create a new symbol to store the bin.data label
+				Symbol binDotData = new Symbol();
+				binDotData.setLabel(line.get(0));
+				binDotData.setLength(32);
+				binDotData.setLocation(lineCounter);
+				binDotData.setUsage("bin.data");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(binDotData);
+				//Remove the bin.data label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseBinDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("adr.data"))
+			{
+				//Create a new symbol to store the adr.data label
+				Symbol adrDotData = new Symbol();
+				adrDotData.setLabel(line.get(0));
+				adrDotData.setLength(32);
+				adrDotData.setLocation(lineCounter);
+				adrDotData.setUsage("adr.data");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(adrDotData);
+				//Remove the adr.data label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}	
+			else if (line.get(1).equalsIgnoreCase("adr.exp"))
+			{
+				//Create a new symbol to store the adr.exp label
+				Symbol adrDotExp = new Symbol();
+				adrDotExp.setLabel(line.get(0));
+				adrDotExp.setLength(32);
+				adrDotExp.setLocation(lineCounter);
+				adrDotExp.setUsage("adr.exp");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(adrDotExp);
+				//Remove the adr.exp label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("mem.skip"))
+			{
+				//Create a new symbol to store the mem.skip label
+				Symbol memDotSkip = new Symbol();
+				memDotSkip.setLabel(line.get(0));
+				memDotSkip.setLength(32);
+				memDotSkip.setLocation(lineCounter);
+				memDotSkip.setUsage("mem.skip");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(memDotSkip);
+				//Remove the mem.skip label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			//If the token contains none of the aforementioned directives,
+			//check spot 0, in case they don't have labels.
+			if (line.get(0).equalsIgnoreCase("int.data"))
+			{
+				//Send remaining line to be parsed
+				parseIntDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);		
+			}
+			else if (line.get(0).equalsIgnoreCase("str.data"))
+			{
+				//Send remaining line to be parsed
+				parseStrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);		
+			}
+			else if (line.get(0).equalsIgnoreCase("hex.data"))
+			{
+				//Send remaining line to be parsed
+				parseHexDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("bin.data"))
+			{
+				//Send remaining line to be parsed
+				parseBinDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("adr.data"))
+			{
+				//Send remaining line to be parsed
+				parseAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}	
+			else if (line.get(0).equalsIgnoreCase("adr.exp"))
+			{
+				//Send remaining line to be parsed
+				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("mem.skip"))
+			{
+				//Send remaining line to be parsed
+				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else
+			{
+				//Create an error because the directive in the .data section
+				//cannot be parsed
+				ErrorData invalidDirective = new ErrorData();
+				invalidDirective.add(lineCounter, 6, "directive syntax invalid");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidDirective);
+			}
 		}
 
 	}
