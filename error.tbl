@@ -6,3 +6,4 @@
 3	rogueLine	".data and/or .text and/or .start never defined"
 4	programNameIncorrect	"Program Names do not match up"
 5	dotDataExtra	".data line should stand alone"
+6	invalidDirective	"directive syntax invalid"
