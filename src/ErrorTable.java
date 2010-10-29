@@ -29,41 +29,7 @@ public class ErrorTable implements ErrorTableInterface {
 	//This constructor will immediately call the import code on the object. It is the equivalent of calling the constructor and the importTable method in the same line
 	public ErrorTable(File tableFileName) throws IOException
 	{
-		
-		//get input from file, normally that file will be error.tbl and be located in the src directory of the code
-		BufferedReader input = new BufferedReader(new FileReader(tableFileName));
-		String newLine;
-		
-		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
-		while ((newLine = input.readLine()) != null)
-		{
-			//if the char at [0] is NOT '#' then it is not a comment. parse the line and populate the properties objects. otherwise it is assumed to be a comment. 
-			//The only reason this works is because we control the content of the tables
-			if (newLine.charAt(0) != '#')
-			{
-				
-				//remove the error message from the string. Do this by getting the index of the first '"'
-				int messageIndex = newLine.indexOf("\"");
-				String message = newLine.substring(messageIndex-1, newLine.length()-1 );
-				
-				//variables for the error code and the error type
-				String errorCode, errorType;
-				
-				//tokenize the string to get the first 2 tokens (ie the error code and error type)
-				StringTokenizer lineTokens = new StringTokenizer (newLine);
-				
-				errorCode = lineTokens.nextToken();
-				errorType = lineTokens.nextToken();
-				
-				//populate the properties objects with the error code, error type and error message
-				errorValue.setProperty(errorType, errorCode);
-				errorMessage.setProperty(errorCode, message);
-				errorCodes.setProperty(message, errorCode);
-			}
-		}
-		
-		//close the input
-		input.close();
+		this.importTable(tableFileName);
 	}
 	
 	
