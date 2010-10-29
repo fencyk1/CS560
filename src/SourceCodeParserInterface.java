@@ -19,7 +19,7 @@ public interface SourceCodeParserInterface {
 	 * @param directIn
 	 */
 	void parseLine(ArrayList<String> line, ErrorOut errorsFound, SymbolTable symbolsFound,
-			ErrorTable errorIn, InstructTable instructIn, DirectiveTable directIn );
+			ErrorTable errorIn, InstructTable instructIn, DirectiveTable directIn, int lineNumber );
 	
 	
 }

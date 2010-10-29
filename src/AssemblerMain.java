@@ -1,7 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-import org.xml.sax.Parser;
 public class AssemblerMain {
 
 	/**
@@ -53,7 +52,7 @@ public class AssemblerMain {
 		while (sourceCode.source.size() > i)
 		{
 			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
-			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn);
+			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1);
 			i++;
 		}
 		
