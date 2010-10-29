@@ -148,51 +148,504 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		// TODO Auto-generated method stub
+		//If the line is a .data, but it has more than one token, throw an error
+		if (line.get(0).equalsIgnoreCase(".data") && line.size() != 1)
+		{
+			//Create an error because .data line is followed by extra code
+			ErrorData dotDataExtra = new ErrorData();
+			dotDataExtra.add(lineCounter, 5, ".data line should stand alone");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(dotDataExtra);
+		}
+		// If the line is in the .data section but is not the .data line,
+		// parse it.
+		else if (!line.get(0).equalsIgnoreCase(".data"))
+		{
+			
+		}
 
 	}
 
 	private void parseDotText(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 
-	private void parseRType(ArrayList<String> line, ErrorOut errorsFound,
+	private void encodeRType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private void parseJType(ArrayList<String> line, ErrorOut errorsFound,
+	private void encodeJType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private void parseIType(ArrayList<String> line, ErrorOut errorsFound,
+	private void encodeIType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private void parseSType(ArrayList<String> line, ErrorOut errorsFound,
+	private void encodeSType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private void parseIOType(ArrayList<String> line, ErrorOut errorsFound,
+	private void encodeIOType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private void parseIntDotData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseStrDotData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseHexDotData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseBinDotData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseMemSkip(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseEnt(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseExt(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseNop(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseExecStart(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseEqu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseEquExp(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseResetLC(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDebug(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAddi(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAddiu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSubi(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSubiu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseMuli(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseMuliu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDivi(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDiviu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJeq(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJne(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJgt(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJlt(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJle(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSW(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseLw(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseLnw(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseLwi(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseLui(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOri(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseXori(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseNori(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAndi(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseLa(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSa(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAnds(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOrs(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJ(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJal(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseHalt(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseMul(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseMulu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAdd(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAddu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSub(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSubu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDiv(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDivu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parsePwr(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSll(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSrl(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSra(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAnd(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOr(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseXor(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseNor(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseJr(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSrv(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDump(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseInn(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseInc(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOutn(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOutc(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOutni(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseOutci(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseAdds(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseSubs(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseMuls(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+	}
+	
+	private void parseDivs(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
 	}
 
 }
