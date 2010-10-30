@@ -1884,11 +1884,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		if (!(stringHolder.charAt(0) == '\'') || !(stringHolder.charAt(stringHolder.length()-1) == '\''))
 		{
 			//Create an error regarding invalid String.
-			ErrorData invalidInteger = new ErrorData();
-			invalidInteger.add(lineCounter, 12, "String value is not valid (Must start and end with a ' character)");
+			ErrorData invalidString = new ErrorData();
+			invalidString.add(lineCounter, 12, "String value is not valid (Must start and end with a ' character)");
 			
 			//Add it to the ErrorOut table.
-			errorsFound.add(invalidInteger);
+			errorsFound.add(invalidString);
 		}
 		// Otherwise, we check the content for ' and then send the rest to the
 		// encoder method
@@ -1931,12 +1931,136 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		// A String object to hold the Hex data
+		String hexHolder = line.get(1);
+		
+		// Check the first and last characters for '; check the length is 
+		// between 1 and 8 characters then throw an invalid hex value error.
+		if (!(hexHolder.charAt(0) == '\'') || !(hexHolder.charAt(hexHolder.length()-1) == '\'')
+				|| (hexHolder.length() < 3) || (hexHolder.length() > 10))
+		{
+			//Create an error regarding invalid Hex syntax.
+			ErrorData invalidHexSyntax = new ErrorData();
+			invalidHexSyntax.add(lineCounter, 14, "Hex value is not valid (Must start and end with a ' character)");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidHexSyntax);
+		}
+		else
+		{
+			// Generic counter variable
+			int i = 0;
+			
+			// Remove the quotes for easier error checking
+			hexHolder = hexHolder.substring(1, hexHolder.length() - 1);
+			
+			while ((hexHolder.length() > i))
+			{
+				// Create a 1 character long substring representing the Hex
+				// character at the index i.
+				String hexChar = hexHolder.substring(i, i + 1);
+				
+				// Check the character to make sure it falls within the range of
+				// valid hex values (0-F) and if it doesn't, throw an invalid HexValue error.
+				if (!(hexChar.substring(i, i + 1).equalsIgnoreCase("0")) 
+						&& !(hexChar.equalsIgnoreCase("1")) 
+						&& !(hexChar.equalsIgnoreCase("2"))
+						&& !(hexChar.equalsIgnoreCase("3"))
+						&& !(hexChar.equalsIgnoreCase("4"))
+						&& !(hexChar.equalsIgnoreCase("5"))
+						&& !(hexChar.equalsIgnoreCase("6"))
+						&& !(hexChar.equalsIgnoreCase("7"))
+						&& !(hexChar.equalsIgnoreCase("8"))
+						&& !(hexChar.equalsIgnoreCase("9"))
+						&& !(hexChar.equalsIgnoreCase("A"))
+						&& !(hexChar.equalsIgnoreCase("B"))
+						&& !(hexChar.equalsIgnoreCase("C"))
+						&& !(hexChar.equalsIgnoreCase("D"))
+						&& !(hexChar.equalsIgnoreCase("E"))
+						&& !(hexChar.equalsIgnoreCase("F")))
+				{
+					//Create an error regarding invalid Hex syntax.
+					ErrorData invalidHexSyntax = new ErrorData();
+					invalidHexSyntax.add(lineCounter, 14, "Hex value is not valid (Must start and end with a ' character)");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidHexSyntax);
+				}
+			}
+			// *********************************
+			// Check for Hex values out of bounds
+			// *********************************
+			if (true)
+			{
+				//Holder if for out of bounds checking
+			}
+			else
+			{
+				// Send the hex number to be encoded.
+				encodeHexData(line, errorsFound, symbolsFound, errorIn, instructIn,
+						directIn, lineCounter);
+			}
+		}
+		
 	}
 	
 	private void parseBinDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		// A String object to hold the Binary data
+		String binHolder = line.get(1);
+		
+		// Check the first and last characters for '; check the length is 
+		// between 1 and 8 characters then throw an invalid hex value error.
+		if (!(binHolder.charAt(0) == '\'') || !(binHolder.charAt(binHolder.length()-1) == '\'')
+				|| (binHolder.length() < 3) || (binHolder.length() > 34))
+		{
+			//Create an error regarding invalid Binary syntax.
+			ErrorData invalidBinSyntax = new ErrorData();
+			invalidBinSyntax.add(lineCounter, 14, "Binary value is not valid (Must start and end with a ' character and only consist of 0's and/or 1's)");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidBinSyntax);
+		}
+		else
+		{
+			// Generic counter variable
+			int i = 0;
+			
+			// Creates a flag that changes to false if the binary number is not
+			// in the correct format. Should make encoding easier.
+			Boolean encodable = true;
+			
+			// Remove the quotes for easier error checking
+			binHolder = binHolder.substring(1, binHolder.length() - 1);
+			
+			while ((binHolder.length() > i))
+			{
+				// Create a 1 character long substring representing the Hex
+				// character at the index i.
+				String binChar = binHolder.substring(i, i + 1);
+				
+				// Check the character to make sure it falls within the range of
+				// valid hex values (0-F) and if it doesn't, throw an invalid HexValue error.
+				if (!(binChar.substring(i, i + 1).equalsIgnoreCase("0")) 
+						&& !(binChar.equalsIgnoreCase("1")))
+				{
+					//Create an error regarding invalid Binary syntax.
+					ErrorData invalidBinSyntax = new ErrorData();
+					invalidBinSyntax.add(lineCounter, 14, "Binary value is not valid (Must start and end with a ' character and only consist of 0's and/or 1's)");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidBinSyntax);
+					
+					encodable = false;
+				}
+			}
+			
+			// Send the binary number to be encoded.
+			encodeBinData(line, errorsFound, symbolsFound, errorIn, instructIn,
+					directIn, lineCounter);
+		}
 	}
 	
 	private void parseAdrDotData(ArrayList<String> line, ErrorOut errorsFound,

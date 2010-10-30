@@ -12,5 +12,6 @@
 9	invalidLine				"instruction syntax invalid"
 10	invalidInteger			"Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)"
 11	integerOutOfBounds		"Integers must be between -65536 and 65535"
-12	invalidInteger			"String value is not valid (Must start and end with a ' character)"
+12	invalidString			"String value is not valid (Must start and end with a ' character)"
 13	singleQuoteError		"String cannot contain a ' character in its content"
+14	invalidHexSyntax		"Hex value is not valid (Must start and end with a ' character)"
