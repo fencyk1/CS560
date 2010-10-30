@@ -1,9 +1,12 @@
 #ErrorCode	ErrorType	ErrorMessage
 # below is format example
-0	duplicateStart	"Duplicate start directive detected"
+0	duplicateStart			"Duplicate start directive detected"
 1	invalidStartingLocation	"Staring location is not valid"
 2	largeStartingLocation	"Staring location is too large"
-3	rogueLine	".data and/or .text and/or .start never defined"
+3	rogueLine				".data and/or .text and/or .start never defined"
 4	programNameIncorrect	"Program Names do not match up"
-5	dotDataExtra	".data line should stand alone"
-6	invalidDirective	"directive syntax invalid"
+5	dotDataExtra			".data line should stand alone"
+6	invalidDirective		"directive syntax invalid"
+7	dotTextExtra 			".text line should stand alone"
+8	syntaxError				"Syntax error"
+9	invalidLine				"instruction syntax invalid"

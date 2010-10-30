@@ -148,6 +148,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+
 		//If the line is a .data, but it has more than one token, throw an error
 		if (line.get(0).equalsIgnoreCase(".data") && line.size() != 1)
 		{
@@ -158,9 +159,10 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Add it to the ErrorOut table.
 			errorsFound.add(dotDataExtra);
 		}
+		
 		// If the line is in the .data section but is not the .data line,
 		// parse it.
-		else if (!line.get(0).equalsIgnoreCase(".data"))
+		else if (!line.get(0).equalsIgnoreCase(".data") && line.size() > 1)
 		{
 			if (line.get(1).equalsIgnoreCase("int.data"))
 			{
@@ -278,7 +280,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Remove the mem.skip label from the line
 				line.remove(0);
 				//Send remaining line to be parsed
-				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+				parseMemSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter);
 			}
 			//If the token contains none of the aforementioned directives,
@@ -322,7 +324,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			else if (line.get(0).equalsIgnoreCase("mem.skip"))
 			{
 				//Send remaining line to be parsed
-				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+				parseMemSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter);
 			}
 			else
@@ -336,14 +338,1401 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidDirective);
 			}
 		}
+		else
+		{
+			//Create an error because the directive in the .data section
+			//cannot be parsed
+			ErrorData syntaxError = new ErrorData();
+			syntaxError.add(lineCounter, 8, "Syntax error");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(syntaxError);
+		}
 
 	}
 
 	private void parseDotText(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
 
+		//If the line is a .text, but it has more than one token, throw an error
+		if (line.get(0).equalsIgnoreCase(".text") && line.size() != 1)
+		{
+			//Create an error because .data line is followed by extra code
+			ErrorData dotTextExtra = new ErrorData();
+			dotTextExtra.add(lineCounter, 7, ".text line should stand alone");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(dotTextExtra);
+		}
+		// If the line is in the .data section but is not the .data line,
+		// parse it.
+		else if (!line.get(0).equalsIgnoreCase(".text") && line.size() > 1)
+		{
+			if (line.get(1).equalsIgnoreCase("addi"))
+			{
+				//Create a new symbol to store the addi label
+				Symbol addi = new Symbol();
+				addi.setLabel(line.get(0));
+				addi.setLength(32);
+				addi.setLocation(lineCounter);
+				addi.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(addi);
+				//Remove the addi label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("addiu"))
+			{
+				//Create a new symbol to store the addiu label
+				Symbol addiu = new Symbol();
+				addiu.setLabel(line.get(0));
+				addiu.setLength(32);
+				addiu.setLocation(lineCounter);
+				addiu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(addiu);
+				//Remove the addiu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAddiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("subi"))
+			{
+				//Create a new symbol to store the subi label
+				Symbol subi = new Symbol();
+				subi.setLabel(line.get(0));
+				subi.setLength(32);
+				subi.setLocation(lineCounter);
+				subi.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(subi);
+				//Remove the subi label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSubi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("subiu"))
+			{
+				//Create a new symbol to store the subiu label
+				Symbol subiu = new Symbol();
+				subiu.setLabel(line.get(0));
+				subiu.setLength(32);
+				subiu.setLocation(lineCounter);
+				subiu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(subiu);
+				//Remove the subiu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSubiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("muli"))
+			{
+				//Create a new symbol to store the muli label
+				Symbol muli = new Symbol();
+				muli.setLabel(line.get(0));
+				muli.setLength(32);
+				muli.setLocation(lineCounter);
+				muli.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(muli);
+				//Remove the muli label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseMuli(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("muliu"))
+			{
+				//Create a new symbol to store the muliu label
+				Symbol muliu = new Symbol();
+				muliu.setLabel(line.get(0));
+				muliu.setLength(32);
+				muliu.setLocation(lineCounter);
+				muliu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(muliu);
+				//Remove the muliu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseMuliu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("divi"))
+			{
+				//Create a new symbol to store the divi label
+				Symbol divi = new Symbol();
+				divi.setLabel(line.get(0));
+				divi.setLength(32);
+				divi.setLocation(lineCounter);
+				divi.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(divi);
+				//Remove the divi label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseDivi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("diviu"))
+			{
+				//Create a new symbol to store the diviu label
+				Symbol diviu = new Symbol();
+				diviu.setLabel(line.get(0));
+				diviu.setLength(32);
+				diviu.setLocation(lineCounter);
+				diviu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(diviu);
+				//Remove the diviu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseDiviu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jeq"))
+			{
+				//Create a new symbol to store the jeq label
+				Symbol jeq = new Symbol();
+				jeq.setLabel(line.get(0));
+				jeq.setLength(32);
+				jeq.setLocation(lineCounter);
+				jeq.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jeq);
+				//Remove the jeq label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJeq(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jne"))
+			{
+				//Create a new symbol to store the jne label
+				Symbol jne = new Symbol();
+				jne.setLabel(line.get(0));
+				jne.setLength(32);
+				jne.setLocation(lineCounter);
+				jne.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jne);
+				//Remove the jne label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJne(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jgt"))
+			{
+				//Create a new symbol to store the jgt label
+				Symbol jgt = new Symbol();
+				jgt.setLabel(line.get(0));
+				jgt.setLength(32);
+				jgt.setLocation(lineCounter);
+				jgt.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jgt);
+				//Remove the jgt label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJgt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jlt"))
+			{
+				//Create a new symbol to store the jlt label
+				Symbol jlt = new Symbol();
+				jlt.setLabel(line.get(0));
+				jlt.setLength(32);
+				jlt.setLocation(lineCounter);
+				jlt.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jlt);
+				//Remove the jlt label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJlt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jle"))
+			{
+				//Create a new symbol to store the jle label
+				Symbol jle = new Symbol();
+				jle.setLabel(line.get(0));
+				jle.setLength(32);
+				jle.setLocation(lineCounter);
+				jle.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jle);
+				//Remove the jle label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJle(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("sw"))
+			{
+				//Create a new symbol to store the sw label
+				Symbol sw = new Symbol();
+				sw.setLabel(line.get(0));
+				sw.setLength(32);
+				sw.setLocation(lineCounter);
+				sw.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(sw);
+				//Remove the sw label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("lw"))
+			{
+				//Create a new symbol to store the lw label
+				Symbol lw = new Symbol();
+				lw.setLabel(line.get(0));
+				lw.setLength(32);
+				lw.setLocation(lineCounter);
+				lw.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(lw);
+				//Remove the lw label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseLw(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("lnw"))
+			{
+				//Create a new symbol to store the lnw label
+				Symbol lnw = new Symbol();
+				lnw.setLabel(line.get(0));
+				lnw.setLength(32);
+				lnw.setLocation(lineCounter);
+				lnw.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(lnw);
+				//Remove the lnw label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseLnw(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("lwi"))
+			{
+				//Create a new symbol to store the lwi label
+				Symbol lwi = new Symbol();
+				lwi.setLabel(line.get(0));
+				lwi.setLength(32);
+				lwi.setLocation(lineCounter);
+				lwi.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(lwi);
+				//Remove the lwi label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseLwi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("lui"))
+			{
+				//Create a new symbol to store the lui label
+				Symbol lui = new Symbol();
+				lui.setLabel(line.get(0));
+				lui.setLength(32);
+				lui.setLocation(lineCounter);
+				lui.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(lui);
+				//Remove the lui label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseLui(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("ori"))
+			{
+				//Create a new symbol to store the ori label
+				Symbol ori = new Symbol();
+				ori.setLabel(line.get(0));
+				ori.setLength(32);
+				ori.setLocation(lineCounter);
+				ori.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(ori);
+				//Remove the ori label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOri(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("xori"))
+			{
+				//Create a new symbol to store the xori label
+				Symbol xori = new Symbol();
+				xori.setLabel(line.get(0));
+				xori.setLength(32);
+				xori.setLocation(lineCounter);
+				xori.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(xori);
+				//Remove the xori label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseXori(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("nori"))
+			{
+				//Create a new symbol to store the nori label
+				Symbol nori = new Symbol();
+				nori.setLabel(line.get(0));
+				nori.setLength(32);
+				nori.setLocation(lineCounter);
+				nori.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(nori);
+				//Remove the nori label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseNori(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("andi"))
+			{
+				//Create a new symbol to store the andi label
+				Symbol andi = new Symbol();
+				andi.setLabel(line.get(0));
+				andi.setLength(32);
+				andi.setLocation(lineCounter);
+				andi.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(andi);
+				//Remove the andi label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAndi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("la"))
+			{
+				//Create a new symbol to store the la label
+				Symbol la = new Symbol();
+				la.setLabel(line.get(0));
+				la.setLength(32);
+				la.setLocation(lineCounter);
+				la.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(la);
+				//Remove the la label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseLa(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("sa"))
+			{
+				//Create a new symbol to store the sa label
+				Symbol sa = new Symbol();
+				sa.setLabel(line.get(0));
+				sa.setLength(32);
+				sa.setLocation(lineCounter);
+				sa.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(sa);
+				//Remove the sa label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSa(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("ands"))
+			{
+				//Create a new symbol to store the ands label
+				Symbol ands = new Symbol();
+				ands.setLabel(line.get(0));
+				ands.setLength(32);
+				ands.setLocation(lineCounter);
+				ands.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(ands);
+				//Remove the ands label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAnds(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("ors"))
+			{
+				//Create a new symbol to store the ors label
+				Symbol ors = new Symbol();
+				ors.setLabel(line.get(0));
+				ors.setLength(32);
+				ors.setLocation(lineCounter);
+				ors.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(ors);
+				//Remove the ors label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOrs(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("j"))
+			{
+				//Create a new symbol to store the j label
+				Symbol j = new Symbol();
+				j.setLabel(line.get(0));
+				j.setLength(32);
+				j.setLocation(lineCounter);
+				j.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(j);
+				//Remove the j label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJ(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jal"))
+			{
+				//Create a new symbol to store the jal label
+				Symbol jal = new Symbol();
+				jal.setLabel(line.get(0));
+				jal.setLength(32);
+				jal.setLocation(lineCounter);
+				jal.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jal);
+				//Remove the jal label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJal(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("halt"))
+			{
+				//Create a new symbol to store the halt label
+				Symbol halt = new Symbol();
+				halt.setLabel(line.get(0));
+				halt.setLength(32);
+				halt.setLocation(lineCounter);
+				halt.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(halt);
+				//Remove the halt label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseHalt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("mul"))
+			{
+				//Create a new symbol to store the mul label
+				Symbol mul = new Symbol();
+				mul.setLabel(line.get(0));
+				mul.setLength(32);
+				mul.setLocation(lineCounter);
+				mul.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(mul);
+				//Remove the mul label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseMul(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("mulu"))
+			{
+				//Create a new symbol to store the lwi label
+				Symbol mulu = new Symbol();
+				mulu.setLabel(line.get(0));
+				mulu.setLength(32);
+				mulu.setLocation(lineCounter);
+				mulu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(mulu);
+				//Remove the mulu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseMulu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("add"))
+			{
+				//Create a new symbol to store the add label
+				Symbol add = new Symbol();
+				add.setLabel(line.get(0));
+				add.setLength(32);
+				add.setLocation(lineCounter);
+				add.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(add);
+				//Remove the add label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAdd(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("addu"))
+			{
+				//Create a new symbol to store the addu label
+				Symbol addu = new Symbol();
+				addu.setLabel(line.get(0));
+				addu.setLength(32);
+				addu.setLocation(lineCounter);
+				addu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(addu);
+				//Remove the addu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAddu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("sub"))
+			{
+				//Create a new symbol to store the sub label
+				Symbol sub = new Symbol();
+				sub.setLabel(line.get(0));
+				sub.setLength(32);
+				sub.setLocation(lineCounter);
+				sub.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(sub);
+				//Remove the sub label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSub(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("subu"))
+			{
+				//Create a new symbol to store the subu label
+				Symbol subu = new Symbol();
+				subu.setLabel(line.get(0));
+				subu.setLength(32);
+				subu.setLocation(lineCounter);
+				subu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(subu);
+				//Remove the subu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSubu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("div"))
+			{
+				//Create a new symbol to store the div label
+				Symbol div = new Symbol();
+				div.setLabel(line.get(0));
+				div.setLength(32);
+				div.setLocation(lineCounter);
+				div.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(div);
+				//Remove the div label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseDiv(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("divu"))
+			{
+				//Create a new symbol to store the divu label
+				Symbol divu = new Symbol();
+				divu.setLabel(line.get(0));
+				divu.setLength(32);
+				divu.setLocation(lineCounter);
+				divu.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(divu);
+				//Remove the divu label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseDivu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("pwr"))
+			{
+				//Create a new symbol to store the pwr label
+				Symbol pwr = new Symbol();
+				pwr.setLabel(line.get(0));
+				pwr.setLength(32);
+				pwr.setLocation(lineCounter);
+				pwr.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(pwr);
+				//Remove the pwr label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parsePwr(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("sll"))
+			{
+				//Create a new symbol to store the sll label
+				Symbol sll = new Symbol();
+				sll.setLabel(line.get(0));
+				sll.setLength(32);
+				sll.setLocation(lineCounter);
+				sll.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(sll);
+				//Remove the sll label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("srl"))
+			{
+				//Create a new symbol to store the srl label
+				Symbol srl = new Symbol();
+				srl.setLabel(line.get(0));
+				srl.setLength(32);
+				srl.setLocation(lineCounter);
+				srl.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(srl);
+				//Remove the srl label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSrl(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("sra"))
+			{
+				//Create a new symbol to store the sra label
+				Symbol sra = new Symbol();
+				sra.setLabel(line.get(0));
+				sra.setLength(32);
+				sra.setLocation(lineCounter);
+				sra.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(sra);
+				//Remove the sra label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSra(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("and"))
+			{
+				//Create a new symbol to store the and label
+				Symbol and = new Symbol();
+				and.setLabel(line.get(0));
+				and.setLength(32);
+				and.setLocation(lineCounter);
+				and.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(and);
+				//Remove the and label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAnd(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("or"))
+			{
+				//Create a new symbol to store the or label
+				Symbol or = new Symbol();
+				or.setLabel(line.get(0));
+				or.setLength(32);
+				or.setLocation(lineCounter);
+				or.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(or);
+				//Remove the or label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOr(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("xor"))
+			{
+				//Create a new symbol to store the xor label
+				Symbol xor = new Symbol();
+				xor.setLabel(line.get(0));
+				xor.setLength(32);
+				xor.setLocation(lineCounter);
+				xor.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(xor);
+				//Remove the xor label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseXor(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("nor"))
+			{
+				//Create a new symbol to store the nor label
+				Symbol nor = new Symbol();
+				nor.setLabel(line.get(0));
+				nor.setLength(32);
+				nor.setLocation(lineCounter);
+				nor.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(nor);
+				//Remove the nor label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseNor(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("jr"))
+			{
+				//Create a new symbol to store the jr label
+				Symbol jr = new Symbol();
+				jr.setLabel(line.get(0));
+				jr.setLength(32);
+				jr.setLocation(lineCounter);
+				jr.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(jr);
+				//Remove the jr label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseJr(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("srv"))
+			{
+				//Create a new symbol to store the srv label
+				Symbol srv = new Symbol();
+				srv.setLabel(line.get(0));
+				srv.setLength(32);
+				srv.setLocation(lineCounter);
+				srv.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(srv);
+				//Remove the srv label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSrv(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("dump"))
+			{
+				//Create a new symbol to store the dump label
+				Symbol dump = new Symbol();
+				dump.setLabel(line.get(0));
+				dump.setLength(32);
+				dump.setLocation(lineCounter);
+				dump.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(dump);
+				//Remove the dump label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseDump(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("inn"))
+			{
+				//Create a new symbol to store the inn label
+				Symbol inn = new Symbol();
+				inn.setLabel(line.get(0));
+				inn.setLength(32);
+				inn.setLocation(lineCounter);
+				inn.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(inn);
+				//Remove the inn label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseInn(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("inc"))
+			{
+				//Create a new symbol to store the inc label
+				Symbol inc = new Symbol();
+				inc.setLabel(line.get(0));
+				inc.setLength(32);
+				inc.setLocation(lineCounter);
+				inc.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(inc);
+				//Remove the inc label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseInc(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("outn"))
+			{
+				//Create a new symbol to store the outn label
+				Symbol outn = new Symbol();
+				outn.setLabel(line.get(0));
+				outn.setLength(32);
+				outn.setLocation(lineCounter);
+				outn.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(outn);
+				//Remove the outn label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOutn(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("outc"))
+			{
+				//Create a new symbol to store the outc label
+				Symbol outc = new Symbol();
+				outc.setLabel(line.get(0));
+				outc.setLength(32);
+				outc.setLocation(lineCounter);
+				outc.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(outc);
+				//Remove the outc label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOutc(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("outni"))
+			{
+				//Create a new symbol to store the Outni label
+				Symbol Outni = new Symbol();
+				Outni.setLabel(line.get(0));
+				Outni.setLength(32);
+				Outni.setLocation(lineCounter);
+				Outni.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(Outni);
+				//Remove the Outni label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("outci"))
+			{
+				//Create a new symbol to store the outci label
+				Symbol outci = new Symbol();
+				outci.setLabel(line.get(0));
+				outci.setLength(32);
+				outci.setLocation(lineCounter);
+				outci.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(outci);
+				//Remove the outci label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseOutci(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("adds"))
+			{
+				//Create a new symbol to store the adds label
+				Symbol adds = new Symbol();
+				adds.setLabel(line.get(0));
+				adds.setLength(32);
+				adds.setLocation(lineCounter);
+				adds.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(adds);
+				//Remove the adds label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("subs"))
+			{
+				//Create a new symbol to store the subs label
+				Symbol subs = new Symbol();
+				subs.setLabel(line.get(0));
+				subs.setLength(32);
+				subs.setLocation(lineCounter);
+				subs.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(subs);
+				//Remove the subs label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseSubs(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("muls"))
+			{
+				//Create a new symbol to store the muls label
+				Symbol muls = new Symbol();
+				muls.setLabel(line.get(0));
+				muls.setLength(32);
+				muls.setLocation(lineCounter);
+				muls.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(muls);
+				//Remove the muls label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseMuls(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("divs"))
+			{
+				//Create a new symbol to store the divs label
+				Symbol divs = new Symbol();
+				divs.setLabel(line.get(0));
+				divs.setLength(32);
+				divs.setLocation(lineCounter);
+				divs.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(divs);
+				//Remove the divs label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseDivs(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+
+			else if (line.get(0).equalsIgnoreCase("addi"))
+			{
+				
+				//Send remaining line to be parsed
+				parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("addiu"))
+			{
+				
+				//Send remaining line to be parsed
+				parseAddiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("subi"))
+			{
+			
+				//Send remaining line to be parsed
+				parseSubi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("subiu"))
+			{
+				
+				//Send remaining line to be parsed
+				parseSubiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("muli"))
+			{
+				//Send remaining line to be parsed
+				parseMuli(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("muliu"))
+			{
+				
+				//Send remaining line to be parsed
+				parseMuliu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("divi"))
+			{
+				
+				//Send remaining line to be parsed
+				parseDivi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("diviu"))
+			{
+				
+				//Send remaining line to be parsed
+				parseDiviu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jeq"))
+			{
+				//Send remaining line to be parsed
+				parseJeq(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jne"))
+			{
+				//Send remaining line to be parsed
+				parseJne(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jgt"))
+			{
+				//Send remaining line to be parsed
+				parseJgt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jlt"))
+			{
+				//Send remaining line to be parsed
+				parseJlt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jle"))
+			{
+				//Send remaining line to be parsed
+				parseJle(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("sw"))
+			{
+				//Send remaining line to be parsed
+				parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("lw"))
+			{
+				//Send remaining line to be parsed
+				parseLw(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("lnw"))
+			{
+				//Send remaining line to be parsed
+				parseLnw(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("lwi"))
+			{
+				//Send remaining line to be parsed
+				parseLwi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("lui"))
+			{
+				//Send remaining line to be parsed
+				parseLui(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("ori"))
+			{
+				//Send remaining line to be parsed
+				parseOri(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("xori"))
+			{
+				//Send remaining line to be parsed
+				parseXori(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("nori"))
+			{
+				//Send remaining line to be parsed
+				parseNori(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("andi"))
+			{
+				//Send remaining line to be parsed
+				parseAndi(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("la"))
+			{
+				//Send remaining line to be parsed
+				parseLa(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("sa"))
+			{
+				//Send remaining line to be parsed
+				parseSa(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("ands"))
+			{
+				//Send remaining line to be parsed
+				parseAnds(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("ors"))
+			{
+				//Send remaining line to be parsed
+				parseOrs(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("j"))
+			{
+				//Send remaining line to be parsed
+				parseJ(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jal"))
+			{
+				//Send remaining line to be parsed
+				parseJal(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("halt"))
+			{
+				//Send remaining line to be parsed
+				parseHalt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("mul"))
+			{
+				//Send remaining line to be parsed
+				parseMul(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("mulu"))
+			{
+				//Send remaining line to be parsed
+				parseMulu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("add"))
+			{
+				//Send remaining line to be parsed
+				parseAdd(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("addu"))
+			{
+				//Send remaining line to be parsed
+				parseAddu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("sub"))
+			{
+				//Send remaining line to be parsed
+				parseSub(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("subu"))
+			{
+				//Send remaining line to be parsed
+				parseSubu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("div"))
+			{
+				//Send remaining line to be parsed
+				parseDiv(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("divu"))
+			{
+				//Send remaining line to be parsed
+				parseDivu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("pwr"))
+			{
+				//Send remaining line to be parsed
+				parsePwr(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("sll"))
+			{
+				//Send remaining line to be parsed
+				parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("srl"))
+			{
+				//Send remaining line to be parsed
+				parseSrl(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("sra"))
+			{
+				//Send remaining line to be parsed
+				parseSra(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("and"))
+			{
+				//Send remaining line to be parsed
+				parseAnd(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("or"))
+			{
+				//Send remaining line to be parsed
+				parseOr(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("xor"))
+			{
+				//Send remaining line to be parsed
+				parseXor(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("nor"))
+			{
+				//Send remaining line to be parsed
+				parseNor(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("jr"))
+			{
+				//Send remaining line to be parsed
+				parseJr(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("srv"))
+			{
+				//Send remaining line to be parsed
+				parseSrv(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("dump"))
+			{
+				//Send remaining line to be parsed
+				parseDump(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("inn"))
+			{
+				//Send remaining line to be parsed
+				parseInn(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("inc"))
+			{
+				//Send remaining line to be parsed
+				parseInc(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("outn"))
+			{
+				//Send remaining line to be parsed
+				parseOutn(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("outc"))
+			{
+				//Send remaining line to be parsed
+				parseOutc(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("outni"))
+			{
+				//Send remaining line to be parsed
+				parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("outci"))
+			{
+				//Send remaining line to be parsed
+				parseOutci(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("adds"))
+			{
+				//Send remaining line to be parsed
+				parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("subs"))
+			{
+				//Send remaining line to be parsed
+				parseSubs(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("muls"))
+			{
+				//Send remaining line to be parsed
+				parseMuls(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("divs"))
+			{
+				//Send remaining line to be parsed
+				parseDivs(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else
+			{
+				//Create an error because the directive in the .text section
+				//cannot be parsed
+				ErrorData invalidLine = new ErrorData();
+				invalidLine.add(lineCounter, 9, "instruction syntax invalid");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidLine);
+			}					
+		}
+		
+		else
+		{
+			//Create an error because the directive in the .data section
+			//cannot be parsed
+			ErrorData syntaxError = new ErrorData();
+			syntaxError.add(lineCounter, 8, "Syntax error");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(syntaxError);
+		}
 	}
 
 
