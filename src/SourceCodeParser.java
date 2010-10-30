@@ -1,4 +1,8 @@
-//Parser notes: check error.tbl / ErrorTable.java's utility.
+// ---Parser notes: check error.tbl / ErrorTable.java's utility.
+// ---Change our symbol representation to words instead of bits. Also, change every
+// instance that bits are referenced in the symbol table (when length is added)
+// to words instead of bits.
+// ---Might need to change the length of hex.data/bin.data
 
 import java.util.ArrayList;
 
@@ -186,9 +190,31 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the str.data label
 				Symbol strDotData = new Symbol();
 				strDotData.setLabel(line.get(0));
-				strDotData.setLength(32);
 				strDotData.setLocation(lineCounter);
 				strDotData.setUsage("str.data");
+				
+				//Set the length of the string
+				String stringHolder = "''";
+				
+				if (line.size() > 2)
+				{
+					stringHolder = line.get(3);
+				}
+				
+				// The length of the String data in memory is based on the length of the string.
+				// Every 4 characters = 1 word (32 bits), thus to get the length
+				// of the string in memory, we take the number of characters in
+				// the string, subtract the 2 ' characters, divide that length 
+				// by 4 and take the ceiling function to get the number of words the
+				// string takes up.
+				if (((stringHolder.length() - 2) % 4) == 0)
+				{
+					strDotData.setLength((stringHolder.length() - 2) / 4);
+				}
+				else
+				{
+					strDotData.setLength(((stringHolder.length() - 2) / 4) + 1);
+				}
 				
 				//Put it in the symbol table
 				symbolsFound.defineSymbol(strDotData);
@@ -1735,6 +1761,35 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		}
 	}
 
+	private void encodeIntData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private void encodeStrData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+		
+		// NOTE: remove the ' on the ends first.
+
+	}
+	
+	private void encodeHexData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private void encodeBinData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+
+	}
 
 	private void encodeRType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
@@ -1770,16 +1825,105 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		// TODO Auto-generated method stub
 
 	}
-	
+		
 	private void parseIntDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (line.size() == 2)
+		{
+			//declare the integer object that holds the value of the int.Data
+			int intDotDataValue = 0;
+			
+			// Create a string object to hold the integer value of the int.Data
+			String integerString = line.get(1);
+			// Check the first character of the string; if it is a '+', remove it.
+			if (integerString.charAt(0) == '+')
+			{
+				// Remove the first character from the String.
+				integerString = integerString.substring(1);
+			}
+			
+			//Make sure that the starting location is a number
+			try
+			{
+				intDotDataValue = Integer.parseInt(integerString);
+			}
+			catch(NumberFormatException e)
+			{
+				//Create an error regarding invalid integer.
+				ErrorData invalidInteger = new ErrorData();
+				invalidInteger.add(lineCounter, 10, "Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidInteger);
+			}
+			
+			//Make sure the starting location is a valid number of a certain size
+			if ((intDotDataValue > 65535) || (intDotDataValue < -65536))
+			{
+				//Create an error regarding invalid starting location.
+				ErrorData integerOutOfBounds = new ErrorData();
+				integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(integerOutOfBounds);
+			}
+			
+			encodeIntData(line, errorsFound, symbolsFound, errorIn, instructIn,
+					directIn, lineCounter);
+		}
 	}
 	
 	private void parseStrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+		// A String object to hold the String data
+		String stringHolder = line.get(1);
+		// Check the first and last characters for '
+		if (!(stringHolder.charAt(0) == '\'') || !(stringHolder.charAt(stringHolder.length()-1) == '\''))
+		{
+			//Create an error regarding invalid String.
+			ErrorData invalidInteger = new ErrorData();
+			invalidInteger.add(lineCounter, 12, "String value is not valid (Must start and end with a ' character)");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidInteger);
+		}
+		// Otherwise, we check the content for ' and then send the rest to the
+		// encoder method
+		else
+		{
+			// Generic integer counter
+			int i = 0;
+			
+			// boolean to prevent multiple errors for one instance
+			Boolean error = false;
+			
+			// Remove the quotes at the end of the string.
+			stringHolder = stringHolder.substring(1 , (stringHolder.length() - 1));
+			
+			while (i < stringHolder.length() && !error)
+			{
+				if (stringHolder.charAt(i) == '\'')
+				{
+					// Flag that an error was thrown to prevent multiple occurrences
+					// of the same error. (Less spammy)
+					error = true;
+					//Create an error regarding invalid String.
+					ErrorData singleQuoteError = new ErrorData();
+					singleQuoteError.add(lineCounter, 13, "String cannot contain a ' character in its content");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(singleQuoteError);
+				}
+				i++;
+			}
+			
+			// Sends the string.Data line object to be encoded.
+			encodeStrData(line, errorsFound, symbolsFound, errorIn, instructIn,
+					directIn, lineCounter);
+		}
 		
 	}
 	

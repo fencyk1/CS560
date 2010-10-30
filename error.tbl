@@ -10,3 +10,7 @@
 7	dotTextExtra 			".text line should stand alone"
 8	syntaxError				"Syntax error"
 9	invalidLine				"instruction syntax invalid"
+10	invalidInteger			"Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)"
+11	integerOutOfBounds		"Integers must be between -65536 and 65535"
+12	invalidInteger			"String value is not valid (Must start and end with a ' character)"
+13	singleQuoteError		"String cannot contain a ' character in its content"
