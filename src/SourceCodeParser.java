@@ -1,7 +1,5 @@
 // ---Parser notes: check error.tbl / ErrorTable.java's utility.
-// ---Change our symbol representation to words instead of bits. Also, change every
-// instance that bits are referenced in the symbol table (when length is added)
-// to words instead of bits.
+// ---Changed representation of symbols from bits to words
 // ---Might need to change the length of hex.data/bin.data
 
 import java.util.ArrayList;
@@ -173,7 +171,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the int.data label
 				Symbol intDotData = new Symbol();
 				intDotData.setLabel(line.get(0));
-				intDotData.setLength(32);
+				intDotData.setLength(1);
 				intDotData.setLocation(lineCounter);
 				intDotData.setUsage("int.data");
 				
@@ -229,7 +227,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the hex.data label
 				Symbol hexDotData = new Symbol();
 				hexDotData.setLabel(line.get(0));
-				hexDotData.setLength(32);
+				hexDotData.setLength(1);
 				hexDotData.setLocation(lineCounter);
 				hexDotData.setUsage("hex.data");
 				
@@ -246,7 +244,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the bin.data label
 				Symbol binDotData = new Symbol();
 				binDotData.setLabel(line.get(0));
-				binDotData.setLength(32);
+				binDotData.setLength(1);
 				binDotData.setLocation(lineCounter);
 				binDotData.setUsage("bin.data");
 				
@@ -263,7 +261,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the adr.data label
 				Symbol adrDotData = new Symbol();
 				adrDotData.setLabel(line.get(0));
-				adrDotData.setLength(32);
+				adrDotData.setLength(1);
 				adrDotData.setLocation(lineCounter);
 				adrDotData.setUsage("adr.data");
 				
@@ -280,7 +278,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the adr.exp label
 				Symbol adrDotExp = new Symbol();
 				adrDotExp.setLabel(line.get(0));
-				adrDotExp.setLength(32);
+				adrDotExp.setLength(1);
 				adrDotExp.setLocation(lineCounter);
 				adrDotExp.setUsage("adr.exp");
 				
@@ -297,7 +295,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the mem.skip label
 				Symbol memDotSkip = new Symbol();
 				memDotSkip.setLabel(line.get(0));
-				memDotSkip.setLength(32);
+				memDotSkip.setLength(1);
 				memDotSkip.setLocation(lineCounter);
 				memDotSkip.setUsage("mem.skip");
 				
@@ -400,7 +398,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the addi label
 				Symbol addi = new Symbol();
 				addi.setLabel(line.get(0));
-				addi.setLength(32);
+				addi.setLength(1);
 				addi.setLocation(lineCounter);
 				addi.setUsage("label");
 				
@@ -417,7 +415,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the addiu label
 				Symbol addiu = new Symbol();
 				addiu.setLabel(line.get(0));
-				addiu.setLength(32);
+				addiu.setLength(1);
 				addiu.setLocation(lineCounter);
 				addiu.setUsage("label");
 				
@@ -434,7 +432,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the subi label
 				Symbol subi = new Symbol();
 				subi.setLabel(line.get(0));
-				subi.setLength(32);
+				subi.setLength(1);
 				subi.setLocation(lineCounter);
 				subi.setUsage("label");
 				
@@ -451,7 +449,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the subiu label
 				Symbol subiu = new Symbol();
 				subiu.setLabel(line.get(0));
-				subiu.setLength(32);
+				subiu.setLength(1);
 				subiu.setLocation(lineCounter);
 				subiu.setUsage("label");
 				
@@ -468,7 +466,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the muli label
 				Symbol muli = new Symbol();
 				muli.setLabel(line.get(0));
-				muli.setLength(32);
+				muli.setLength(1);
 				muli.setLocation(lineCounter);
 				muli.setUsage("label");
 				
@@ -485,7 +483,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the muliu label
 				Symbol muliu = new Symbol();
 				muliu.setLabel(line.get(0));
-				muliu.setLength(32);
+				muliu.setLength(1);
 				muliu.setLocation(lineCounter);
 				muliu.setUsage("label");
 				
@@ -502,7 +500,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the divi label
 				Symbol divi = new Symbol();
 				divi.setLabel(line.get(0));
-				divi.setLength(32);
+				divi.setLength(1);
 				divi.setLocation(lineCounter);
 				divi.setUsage("label");
 				
@@ -519,7 +517,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the diviu label
 				Symbol diviu = new Symbol();
 				diviu.setLabel(line.get(0));
-				diviu.setLength(32);
+				diviu.setLength(1);
 				diviu.setLocation(lineCounter);
 				diviu.setUsage("label");
 				
@@ -536,7 +534,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jeq label
 				Symbol jeq = new Symbol();
 				jeq.setLabel(line.get(0));
-				jeq.setLength(32);
+				jeq.setLength(1);
 				jeq.setLocation(lineCounter);
 				jeq.setUsage("label");
 				
@@ -553,7 +551,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jne label
 				Symbol jne = new Symbol();
 				jne.setLabel(line.get(0));
-				jne.setLength(32);
+				jne.setLength(1);
 				jne.setLocation(lineCounter);
 				jne.setUsage("label");
 				
@@ -570,7 +568,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jgt label
 				Symbol jgt = new Symbol();
 				jgt.setLabel(line.get(0));
-				jgt.setLength(32);
+				jgt.setLength(1);
 				jgt.setLocation(lineCounter);
 				jgt.setUsage("label");
 				
@@ -587,7 +585,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jlt label
 				Symbol jlt = new Symbol();
 				jlt.setLabel(line.get(0));
-				jlt.setLength(32);
+				jlt.setLength(1);
 				jlt.setLocation(lineCounter);
 				jlt.setUsage("label");
 				
@@ -604,7 +602,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jle label
 				Symbol jle = new Symbol();
 				jle.setLabel(line.get(0));
-				jle.setLength(32);
+				jle.setLength(1);
 				jle.setLocation(lineCounter);
 				jle.setUsage("label");
 				
@@ -621,7 +619,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the sw label
 				Symbol sw = new Symbol();
 				sw.setLabel(line.get(0));
-				sw.setLength(32);
+				sw.setLength(1);
 				sw.setLocation(lineCounter);
 				sw.setUsage("label");
 				
@@ -638,7 +636,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the lw label
 				Symbol lw = new Symbol();
 				lw.setLabel(line.get(0));
-				lw.setLength(32);
+				lw.setLength(1);
 				lw.setLocation(lineCounter);
 				lw.setUsage("label");
 				
@@ -655,7 +653,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the lnw label
 				Symbol lnw = new Symbol();
 				lnw.setLabel(line.get(0));
-				lnw.setLength(32);
+				lnw.setLength(1);
 				lnw.setLocation(lineCounter);
 				lnw.setUsage("label");
 				
@@ -672,7 +670,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the lwi label
 				Symbol lwi = new Symbol();
 				lwi.setLabel(line.get(0));
-				lwi.setLength(32);
+				lwi.setLength(1);
 				lwi.setLocation(lineCounter);
 				lwi.setUsage("label");
 				
@@ -689,7 +687,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the lui label
 				Symbol lui = new Symbol();
 				lui.setLabel(line.get(0));
-				lui.setLength(32);
+				lui.setLength(1);
 				lui.setLocation(lineCounter);
 				lui.setUsage("label");
 				
@@ -706,7 +704,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the ori label
 				Symbol ori = new Symbol();
 				ori.setLabel(line.get(0));
-				ori.setLength(32);
+				ori.setLength(1);
 				ori.setLocation(lineCounter);
 				ori.setUsage("label");
 				
@@ -723,7 +721,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the xori label
 				Symbol xori = new Symbol();
 				xori.setLabel(line.get(0));
-				xori.setLength(32);
+				xori.setLength(1);
 				xori.setLocation(lineCounter);
 				xori.setUsage("label");
 				
@@ -740,7 +738,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the nori label
 				Symbol nori = new Symbol();
 				nori.setLabel(line.get(0));
-				nori.setLength(32);
+				nori.setLength(1);
 				nori.setLocation(lineCounter);
 				nori.setUsage("label");
 				
@@ -757,7 +755,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the andi label
 				Symbol andi = new Symbol();
 				andi.setLabel(line.get(0));
-				andi.setLength(32);
+				andi.setLength(1);
 				andi.setLocation(lineCounter);
 				andi.setUsage("label");
 				
@@ -774,7 +772,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the la label
 				Symbol la = new Symbol();
 				la.setLabel(line.get(0));
-				la.setLength(32);
+				la.setLength(1);
 				la.setLocation(lineCounter);
 				la.setUsage("label");
 				
@@ -791,7 +789,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the sa label
 				Symbol sa = new Symbol();
 				sa.setLabel(line.get(0));
-				sa.setLength(32);
+				sa.setLength(1);
 				sa.setLocation(lineCounter);
 				sa.setUsage("label");
 				
@@ -808,7 +806,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the ands label
 				Symbol ands = new Symbol();
 				ands.setLabel(line.get(0));
-				ands.setLength(32);
+				ands.setLength(1);
 				ands.setLocation(lineCounter);
 				ands.setUsage("label");
 				
@@ -825,7 +823,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the ors label
 				Symbol ors = new Symbol();
 				ors.setLabel(line.get(0));
-				ors.setLength(32);
+				ors.setLength(1);
 				ors.setLocation(lineCounter);
 				ors.setUsage("label");
 				
@@ -842,7 +840,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the j label
 				Symbol j = new Symbol();
 				j.setLabel(line.get(0));
-				j.setLength(32);
+				j.setLength(1);
 				j.setLocation(lineCounter);
 				j.setUsage("label");
 				
@@ -859,7 +857,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jal label
 				Symbol jal = new Symbol();
 				jal.setLabel(line.get(0));
-				jal.setLength(32);
+				jal.setLength(1);
 				jal.setLocation(lineCounter);
 				jal.setUsage("label");
 				
@@ -876,7 +874,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the halt label
 				Symbol halt = new Symbol();
 				halt.setLabel(line.get(0));
-				halt.setLength(32);
+				halt.setLength(1);
 				halt.setLocation(lineCounter);
 				halt.setUsage("label");
 				
@@ -893,7 +891,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the mul label
 				Symbol mul = new Symbol();
 				mul.setLabel(line.get(0));
-				mul.setLength(32);
+				mul.setLength(1);
 				mul.setLocation(lineCounter);
 				mul.setUsage("label");
 				
@@ -910,7 +908,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the lwi label
 				Symbol mulu = new Symbol();
 				mulu.setLabel(line.get(0));
-				mulu.setLength(32);
+				mulu.setLength(1);
 				mulu.setLocation(lineCounter);
 				mulu.setUsage("label");
 				
@@ -927,7 +925,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the add label
 				Symbol add = new Symbol();
 				add.setLabel(line.get(0));
-				add.setLength(32);
+				add.setLength(1);
 				add.setLocation(lineCounter);
 				add.setUsage("label");
 				
@@ -944,7 +942,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the addu label
 				Symbol addu = new Symbol();
 				addu.setLabel(line.get(0));
-				addu.setLength(32);
+				addu.setLength(1);
 				addu.setLocation(lineCounter);
 				addu.setUsage("label");
 				
@@ -961,7 +959,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the sub label
 				Symbol sub = new Symbol();
 				sub.setLabel(line.get(0));
-				sub.setLength(32);
+				sub.setLength(1);
 				sub.setLocation(lineCounter);
 				sub.setUsage("label");
 				
@@ -978,7 +976,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the subu label
 				Symbol subu = new Symbol();
 				subu.setLabel(line.get(0));
-				subu.setLength(32);
+				subu.setLength(1);
 				subu.setLocation(lineCounter);
 				subu.setUsage("label");
 				
@@ -995,7 +993,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the div label
 				Symbol div = new Symbol();
 				div.setLabel(line.get(0));
-				div.setLength(32);
+				div.setLength(1);
 				div.setLocation(lineCounter);
 				div.setUsage("label");
 				
@@ -1012,7 +1010,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the divu label
 				Symbol divu = new Symbol();
 				divu.setLabel(line.get(0));
-				divu.setLength(32);
+				divu.setLength(1);
 				divu.setLocation(lineCounter);
 				divu.setUsage("label");
 				
@@ -1029,7 +1027,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the pwr label
 				Symbol pwr = new Symbol();
 				pwr.setLabel(line.get(0));
-				pwr.setLength(32);
+				pwr.setLength(1);
 				pwr.setLocation(lineCounter);
 				pwr.setUsage("label");
 				
@@ -1046,7 +1044,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the sll label
 				Symbol sll = new Symbol();
 				sll.setLabel(line.get(0));
-				sll.setLength(32);
+				sll.setLength(1);
 				sll.setLocation(lineCounter);
 				sll.setUsage("label");
 				
@@ -1063,7 +1061,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the srl label
 				Symbol srl = new Symbol();
 				srl.setLabel(line.get(0));
-				srl.setLength(32);
+				srl.setLength(1);
 				srl.setLocation(lineCounter);
 				srl.setUsage("label");
 				
@@ -1080,7 +1078,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the sra label
 				Symbol sra = new Symbol();
 				sra.setLabel(line.get(0));
-				sra.setLength(32);
+				sra.setLength(1);
 				sra.setLocation(lineCounter);
 				sra.setUsage("label");
 				
@@ -1097,7 +1095,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the and label
 				Symbol and = new Symbol();
 				and.setLabel(line.get(0));
-				and.setLength(32);
+				and.setLength(1);
 				and.setLocation(lineCounter);
 				and.setUsage("label");
 				
@@ -1114,7 +1112,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the or label
 				Symbol or = new Symbol();
 				or.setLabel(line.get(0));
-				or.setLength(32);
+				or.setLength(1);
 				or.setLocation(lineCounter);
 				or.setUsage("label");
 				
@@ -1131,7 +1129,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the xor label
 				Symbol xor = new Symbol();
 				xor.setLabel(line.get(0));
-				xor.setLength(32);
+				xor.setLength(1);
 				xor.setLocation(lineCounter);
 				xor.setUsage("label");
 				
@@ -1148,7 +1146,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the nor label
 				Symbol nor = new Symbol();
 				nor.setLabel(line.get(0));
-				nor.setLength(32);
+				nor.setLength(1);
 				nor.setLocation(lineCounter);
 				nor.setUsage("label");
 				
@@ -1165,7 +1163,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the jr label
 				Symbol jr = new Symbol();
 				jr.setLabel(line.get(0));
-				jr.setLength(32);
+				jr.setLength(1);
 				jr.setLocation(lineCounter);
 				jr.setUsage("label");
 				
@@ -1182,7 +1180,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the srv label
 				Symbol srv = new Symbol();
 				srv.setLabel(line.get(0));
-				srv.setLength(32);
+				srv.setLength(1);
 				srv.setLocation(lineCounter);
 				srv.setUsage("label");
 				
@@ -1199,7 +1197,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the dump label
 				Symbol dump = new Symbol();
 				dump.setLabel(line.get(0));
-				dump.setLength(32);
+				dump.setLength(1);
 				dump.setLocation(lineCounter);
 				dump.setUsage("label");
 				
@@ -1216,7 +1214,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the inn label
 				Symbol inn = new Symbol();
 				inn.setLabel(line.get(0));
-				inn.setLength(32);
+				inn.setLength(1);
 				inn.setLocation(lineCounter);
 				inn.setUsage("label");
 				
@@ -1233,7 +1231,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the inc label
 				Symbol inc = new Symbol();
 				inc.setLabel(line.get(0));
-				inc.setLength(32);
+				inc.setLength(1);
 				inc.setLocation(lineCounter);
 				inc.setUsage("label");
 				
@@ -1250,7 +1248,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the outn label
 				Symbol outn = new Symbol();
 				outn.setLabel(line.get(0));
-				outn.setLength(32);
+				outn.setLength(1);
 				outn.setLocation(lineCounter);
 				outn.setUsage("label");
 				
@@ -1267,7 +1265,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the outc label
 				Symbol outc = new Symbol();
 				outc.setLabel(line.get(0));
-				outc.setLength(32);
+				outc.setLength(1);
 				outc.setLocation(lineCounter);
 				outc.setUsage("label");
 				
@@ -1284,7 +1282,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the Outni label
 				Symbol Outni = new Symbol();
 				Outni.setLabel(line.get(0));
-				Outni.setLength(32);
+				Outni.setLength(1);
 				Outni.setLocation(lineCounter);
 				Outni.setUsage("label");
 				
@@ -1301,7 +1299,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the outci label
 				Symbol outci = new Symbol();
 				outci.setLabel(line.get(0));
-				outci.setLength(32);
+				outci.setLength(1);
 				outci.setLocation(lineCounter);
 				outci.setUsage("label");
 				
@@ -1318,7 +1316,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the adds label
 				Symbol adds = new Symbol();
 				adds.setLabel(line.get(0));
-				adds.setLength(32);
+				adds.setLength(1);
 				adds.setLocation(lineCounter);
 				adds.setUsage("label");
 				
@@ -1335,7 +1333,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the subs label
 				Symbol subs = new Symbol();
 				subs.setLabel(line.get(0));
-				subs.setLength(32);
+				subs.setLength(1);
 				subs.setLocation(lineCounter);
 				subs.setUsage("label");
 				
@@ -1352,7 +1350,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the muls label
 				Symbol muls = new Symbol();
 				muls.setLabel(line.get(0));
-				muls.setLength(32);
+				muls.setLength(1);
 				muls.setLocation(lineCounter);
 				muls.setUsage("label");
 				
@@ -1369,7 +1367,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the divs label
 				Symbol divs = new Symbol();
 				divs.setLabel(line.get(0));
-				divs.setLength(32);
+				divs.setLength(1);
 				divs.setLocation(lineCounter);
 				divs.setUsage("label");
 				

@@ -62,6 +62,7 @@ public class AssemblerMain {
 		report.createUserReport(sourceCode, errorsFound);
 		report.outputUserReport(sourceCode, new File ("userReport.txt"));
 		
+		//Sort the Symbol Table by label, and output it to a text file.
 		symbolsFound.sort();
 		symbolsFound.outputTable(new File ("symbolTable.txt"));
 		

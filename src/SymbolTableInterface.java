@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+
 /**
  * The representation of our symbol table, represented by an array of Symbols.
  * 
@@ -62,11 +65,11 @@ public interface SymbolTableInterface {
 	void sort();
 	
 	/**
-	 * Outputs the Symbol table with all of its parameters into a string,
+	 * Outputs the Symbol table with all of its parameters into a File,
 	 * with lines terminated by the newline character '\n'. The newline character
 	 * may be changed based on which type of OS we decide to test on.
 	 * 
-	 * @return A string containing the symbol table and data.
+	 * @param outputFileName The name of the file to be created.
 	 */
-	String outputTable();
+	void outputTable(File outputFileName) throws IOException;
 }
