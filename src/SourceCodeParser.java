@@ -1,6 +1,8 @@
 // ---Parser notes: check error.tbl / ErrorTable.java's utility.
 // ---Changed representation of symbols from bits to words
 // ---Might need to change the length of hex.data/bin.data
+// ---Change encode helper operations to include an operand for the parsed line's data?
+// ---Only enter encode methods if we have syntactically valid commands?
 
 import java.util.ArrayList;
 
@@ -2067,10 +2069,129 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		
 	}
 	
+	//UPDATE: apparently i've been doing pass2 shit in this method, so I'm temporarily
+	//Commenting out everything that's not pass 1.
+	/*This parses Address Arithmetic Expressions. These expressions can contain
+	 *constants, previously equated strings representing numbers, and labels.
+	 *It evaluates add/subtract/multiply/divide operations up to one level of nesting.
+	 *Max labels/references is 3.
+	 */
 	private void parseAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+	/*	
+		//Create a string to hold the entire expression
+		String expression = line.get(1);
+		//Create an arraylist to hold all nested expressions we find
+		ArrayList<String> nestedExpressionValue = new ArrayList<String>();
 		
+		//Create a boolean to flag whether we found an error or not
+		Boolean error = false;
+		
+		//Create a counter for iteration
+		int counter = 0;
+		
+		//START: Parenthesis checking and nested expression lifting.
+		
+		//Check the expression for parenthesis, as according to the directives
+		//table, they are allowed one level of nesting. If we find more than one
+		//'(', throw an error. Otherwise continue normally.
+		while(expression.length() > counter)
+		{
+			//Check for the start of a nested expression
+			if(expression.charAt(counter) == '(')
+			{
+				//Set a nested counter accordingly for iteration
+				int nestedCounter = counter+1;
+				
+				//Seek out the next parenthesis
+				while (nestedCounter < expression.length())
+				{
+					//If the next parenthesis is another '(', create an error
+					if(expression.charAt(nestedCounter) == '(')
+					{
+						ErrorData nestedExpression = new ErrorData();
+						nestedExpression.add(lineCounter, 15, "Too many nested expressions");
+						
+						//Add the error to the error table
+						errorsFound.add(nestedExpression);
+						
+						//Flag the error boolean as true
+						error = true;
+						
+						//break from the loop, the entire expression is fubar
+						break;
+					}
+					//If the next parenthesis is an ')', load the nested
+					//expression into the array nestedExpressionValue
+					//and return as normal
+					else if(expression.charAt(nestedCounter) == ')')
+					{
+						nestedExpressionValue.add(expression.substring(counter+1, nestedCounter));
+						//break from the loop, we have a valid nested expression
+						break;
+					}
+					//If we only found one '(' and are at the end of the
+					//nested expression, return an error.
+					else if(nestedCounter == expression.length() -1)
+					{
+						ErrorData noNestedTermination = new ErrorData();
+						noNestedTermination.add(lineCounter, 16, "The nested expression was never terminated");
+						
+						//Add the error to the error table
+						errorsFound.add(noNestedTermination);
+						
+						//Flag the error boolean as true
+						error = true;
+						
+						//break from the loop, the entire expression is fubar
+						break;
+					}
+					//Increment the nestedCounter iterator
+					nestedCounter++;
+				}
+				
+			}
+			//Check to see if there is a close parenthesis without an open one
+			else if (expression.charAt(counter) == ')')
+			{
+				ErrorData noNestedStart = new ErrorData();
+				noNestedStart.add(lineCounter, 17, "Nested expression terminates without being initialized");
+				
+				//Add the error to the error table
+				errorsFound.add(noNestedStart);
+				
+				//Flag the error boolean as true
+				error = true;
+			}
+			//Check to see if there was an error, if so there is no need
+			//to continue parsing the line
+			if (error)
+			{
+				//If there was an error, break out past the first loop.
+				break;
+			}
+			//Increment the counter iterator
+			counter++;
+		}
+		//END: Parenthesis Checking and nested expression lifting.
+		
+		//reset reusable variables
+		counter = 0;
+		
+		//START: Expression evaluation and label/external reference checking.
+		
+		//If we haven't encountered an error, continue parsing.
+		if(!error)
+		{
+			
+		}
+		//Otherwise, encode the operation as a NOP
+		else
+		{
+			//TODO: ENCODE NOP METHOD
+		}
+		*/
 	}
 	
 	private void parseMemSkip(ArrayList<String> line, ErrorOut errorsFound,

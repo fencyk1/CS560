@@ -15,3 +15,6 @@
 12	invalidString			"String value is not valid (Must start and end with a ' character)"
 13	singleQuoteError		"String cannot contain a ' character in its content"
 14	invalidHexSyntax		"Hex value is not valid (Must start and end with a ' character)"
+15	nestedExpression		"Too many nested expressions"
+16	noNestedTerimination	"The nested expression was never terminated"
+17	noNestedStart			"Nested expression terminates without being initialized"
