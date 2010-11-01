@@ -3146,49 +3146,329 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseMul(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseMulu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseAdd(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseAddu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseSub(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseSubu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseDiv(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parseDivu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((parameter.substring(0,1).equalsIgnoreCase("$"))
+						&& (!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 	}
 	
 	private void parsePwr(ArrayList<String> line, ErrorOut errorsFound,
