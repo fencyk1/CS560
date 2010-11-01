@@ -12,6 +12,7 @@ public class Symbol implements SymbolInterface {
 	private int location;
 	private int length;
 	private String usage;
+	private String value;
 	
 	//Default constructor initializing values.
 	public Symbol() {
@@ -19,6 +20,7 @@ public class Symbol implements SymbolInterface {
 		this.location = 0;
 		this.length = 32;
 		this.usage = new String();
+		this.value = "NA";
 	}
 	
 	//Constructor taking necessary/always available parameters.
@@ -27,6 +29,7 @@ public class Symbol implements SymbolInterface {
 		this.location = loc;
 		this.length = length;
 		this.usage = new String();
+		this.value = "NA";
 	}
 	
 	@Override
@@ -78,6 +81,18 @@ public class Symbol implements SymbolInterface {
 	public int getLength() {
 		//Return the length of the symbol.
 		return this.length;
+	}
+	
+	@Override
+	public String getValue() {
+		//Return the equated value.
+		return this.value;
+	}
+	
+	@Override
+	public void setValue(String value) {
+		//Sets the value
+		this.value = value;
 	}
 
 }

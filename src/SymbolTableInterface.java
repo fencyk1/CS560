@@ -36,12 +36,28 @@ public interface SymbolTableInterface {
 	void updateLocation (String label, int location);
 	
 	/**
-	 * Updates what value the symbol contains in the symbol table.
+	 * Updates what usage the symbol contains in the symbol table.
 	 * 
 	 * @param label The name of the symbol whose usage is being updated.
 	 * @param usage How the symbol is being used, label, start.exec, etc.
 	 */
 	void updateUsage (String label, String usage);
+	
+	/**
+	 * Updates the equated value of the symbol
+	 * 
+	 * @param label The name of the symbol whose value is being updated.
+	 * @param value The symbol's new value.
+	 */
+	void updateValue (String label, String value);
+	
+	/**
+	 * Returns the equated value of the symbol.
+	 * 
+	 * @param label The name of the symbol in question.
+	 * @return The symbol's equated value.
+	 */
+	String GetValue (String label);
 	
 	/**
 	 * Returns the location of a given Symbol.

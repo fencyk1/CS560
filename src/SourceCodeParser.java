@@ -3,6 +3,8 @@
 // ---Might need to change the length of hex.data/bin.data
 // ---Change encode helper operations to include an operand for the parsed line's data?
 // ---Only enter encode methods if we have syntactically valid commands?
+// ---Need to change adding symbols with lineCounter as location, to location in MEMORY
+// ---ResetLC needs the location in memory as well
 
 import java.util.ArrayList;
 
@@ -395,7 +397,53 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		// parse it.
 		else if (!line.get(0).equalsIgnoreCase(".text") && line.size() > 1)
 		{
-			if (line.get(1).equalsIgnoreCase("addi"))
+			if (line.get(1).equalsIgnoreCase("nop"))
+			{
+				//Create a new symbol to store the nop label
+				Symbol nop = new Symbol();
+				nop.setLabel(line.get(0));
+				nop.setLength(1);
+				nop.setLocation(lineCounter);
+				nop.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(nop);
+				//Remove the nop label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseNop(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("equ"))
+			{
+				//Send remaining line to be parsed
+				parseEqu(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("equ.exp"))
+			{
+				//Send remaining line to be parsed
+				parseEquExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("reset.lc"))
+			{
+				//Create a new symbol to store the reset.lc label
+				Symbol resetDotLC = new Symbol();
+				resetDotLC.setLabel(line.get(0));
+				resetDotLC.setLength(1);
+				resetDotLC.setLocation(lineCounter);
+				resetDotLC.setUsage("label");
+				
+				//Put it in the symbol table
+				symbolsFound.defineSymbol(resetDotLC);
+				//Remove the reset.lc label from the line
+				line.remove(0);
+				//Send remaining line to be parsed
+				parseResetLC(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(1).equalsIgnoreCase("addi"))
 			{
 				//Create a new symbol to store the addi label
 				Symbol addi = new Symbol();
@@ -1382,6 +1430,40 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						directIn, lineCounter);
 			}
 
+			else if (line.get(0).equalsIgnoreCase("ent"))
+			{
+				
+				//Send remaining line to be parsed
+				parseEnt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("ext"))
+			{
+				
+				//Send remaining line to be parsed
+				parseExt(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("nop"))
+			{
+				
+				//Send remaining line to be parsed
+				parseNop(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("exec.start"))
+			{
+				
+				//Send remaining line to be parsed
+				parseExecStart(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
+			else if (line.get(0).equalsIgnoreCase("debug"))
+			{
+				//Send remaining line to be parsed
+				parseDebug(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter);
+			}
 			else if (line.get(0).equalsIgnoreCase("addi"))
 			{
 				
@@ -1767,7 +1849,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	private void encodeStrData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
@@ -1789,6 +1871,42 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		// TODO Auto-generated method stub
 
+	}
+
+	private void encodeAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+	}
+	
+	private void encodeAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter,
+			ArrayList<String> nestedExpressionValue) {
+		// TODO Auto-generated method stub
+		
+		// NOTE: anything here is syntactically correct save for label names
+		// so everytime you hit a '(', take the next expression out of
+		// nested expression value, and encode it accordingly. Ask Jeff for
+		// clarification
+	}
+
+	private void encodeNOP(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+	}
+
+	private void encodeMemDotSkip(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
+	}
+	
+	private void encodeResetDotLC(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		// TODO Auto-generated method stub
 	}
 
 	private void encodeRType(ArrayList<String> line, ErrorOut errorsFound,
@@ -2067,136 +2185,307 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there is only one operand
+		if(line.size() > 2)
+		{
+			//Create an error because there is more than one operand
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		else
+		{
+			//If there is, send it to be encoded
+			encodeAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn,
+					directIn, lineCounter);
+		}
+		
 	}
 	
-	//UPDATE: apparently i've been doing pass2 shit in this method, so I'm temporarily
-	//Commenting out everything that's not pass 1.
 	/*This parses Address Arithmetic Expressions. These expressions can contain
 	 *constants, previously equated strings representing numbers, and labels.
 	 *It evaluates add/subtract/multiply/divide operations up to one level of nesting.
 	 *Max labels/references is 3.
+	 *
+	 *Checking label validity is done in the encoder
 	 */
 	private void parseAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
-	/*	
-		//Create a string to hold the entire expression
-		String expression = line.get(1);
-		//Create an arraylist to hold all nested expressions we find
-		ArrayList<String> nestedExpressionValue = new ArrayList<String>();
-		
-		//Create a boolean to flag whether we found an error or not
-		Boolean error = false;
-		
-		//Create a counter for iteration
-		int counter = 0;
-		
-		//START: Parenthesis checking and nested expression lifting.
-		
-		//Check the expression for parenthesis, as according to the directives
-		//table, they are allowed one level of nesting. If we find more than one
-		//'(', throw an error. Otherwise continue normally.
-		while(expression.length() > counter)
+				
+		//Make sure there is only one expression included with adr.exp
+		if(line.size() > 2)
 		{
-			//Check for the start of a nested expression
-			if(expression.charAt(counter) == '(')
-			{
-				//Set a nested counter accordingly for iteration
-				int nestedCounter = counter+1;
-				
-				//Seek out the next parenthesis
-				while (nestedCounter < expression.length())
-				{
-					//If the next parenthesis is another '(', create an error
-					if(expression.charAt(nestedCounter) == '(')
-					{
-						ErrorData nestedExpression = new ErrorData();
-						nestedExpression.add(lineCounter, 15, "Too many nested expressions");
-						
-						//Add the error to the error table
-						errorsFound.add(nestedExpression);
-						
-						//Flag the error boolean as true
-						error = true;
-						
-						//break from the loop, the entire expression is fubar
-						break;
-					}
-					//If the next parenthesis is an ')', load the nested
-					//expression into the array nestedExpressionValue
-					//and return as normal
-					else if(expression.charAt(nestedCounter) == ')')
-					{
-						nestedExpressionValue.add(expression.substring(counter+1, nestedCounter));
-						//break from the loop, we have a valid nested expression
-						break;
-					}
-					//If we only found one '(' and are at the end of the
-					//nested expression, return an error.
-					else if(nestedCounter == expression.length() -1)
-					{
-						ErrorData noNestedTermination = new ErrorData();
-						noNestedTermination.add(lineCounter, 16, "The nested expression was never terminated");
-						
-						//Add the error to the error table
-						errorsFound.add(noNestedTermination);
-						
-						//Flag the error boolean as true
-						error = true;
-						
-						//break from the loop, the entire expression is fubar
-						break;
-					}
-					//Increment the nestedCounter iterator
-					nestedCounter++;
-				}
-				
-			}
-			//Check to see if there is a close parenthesis without an open one
-			else if (expression.charAt(counter) == ')')
-			{
-				ErrorData noNestedStart = new ErrorData();
-				noNestedStart.add(lineCounter, 17, "Nested expression terminates without being initialized");
-				
-				//Add the error to the error table
-				errorsFound.add(noNestedStart);
-				
-				//Flag the error boolean as true
-				error = true;
-			}
-			//Check to see if there was an error, if so there is no need
-			//to continue parsing the line
-			if (error)
-			{
-				//If there was an error, break out past the first loop.
-				break;
-			}
-			//Increment the counter iterator
-			counter++;
-		}
-		//END: Parenthesis Checking and nested expression lifting.
-		
-		//reset reusable variables
-		counter = 0;
-		
-		//START: Expression evaluation and label/external reference checking.
-		
-		//If we haven't encountered an error, continue parsing.
-		if(!error)
-		{
+			//Create an error because there is more than one operand
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
 			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
 		}
-		//Otherwise, encode the operation as a NOP
 		else
 		{
-			//TODO: ENCODE NOP METHOD
+			//Create a string to hold the entire expression
+			String expression = line.get(1);
+			//Create an arraylist to hold all nested expressions we find
+			ArrayList<String> nestedExpressionValue = new ArrayList<String>();
+			
+			//Create a boolean to flag whether we found an error or not
+			Boolean error = false;
+			
+			//Create a counter for iteration
+			int counter = 0;
+			
+			//START: Parenthesis checking and nested expression lifting.
+			
+			//Check the expression for parenthesis, as according to the directives
+			//table, they are allowed one level of nesting. If we find more than one
+			//'(', throw an error. Otherwise continue normally.
+			while(expression.length() > counter)
+			{
+				//Check for the start of a nested expression
+				if(expression.charAt(counter) == '(')
+				{
+					//Set a nested counter accordingly for iteration
+					int nestedCounter = counter+1;
+					
+					//Seek out the next parenthesis
+					while (nestedCounter < expression.length())
+					{
+						//If the next parenthesis is another '(', create an error
+						if(expression.charAt(nestedCounter) == '(')
+						{
+							ErrorData nestedExpression = new ErrorData();
+							nestedExpression.add(lineCounter, 15, "Too many nested expressions");
+							
+							//Add the error to the error table
+							errorsFound.add(nestedExpression);
+							
+							//Flag the error boolean as true
+							error = true;
+							
+							//break from the loop, the entire expression is fubar
+							break;
+						}
+						//If the next parenthesis is an ')', load the nested
+						//expression into the array nestedExpressionValue
+						//and return as normal
+						else if(expression.charAt(nestedCounter) == ')')
+						{
+							nestedExpressionValue.add(expression.substring(counter+1, nestedCounter));
+							//break from the loop, we have a valid nested expression
+							break;
+						}
+						//If we only found one '(' and are at the end of the
+						//nested expression, return an error.
+						else if(nestedCounter == expression.length() -1)
+						{
+							ErrorData noNestedTermination = new ErrorData();
+							noNestedTermination.add(lineCounter, 16, "The nested expression was never terminated");
+							
+							//Add the error to the error table
+							errorsFound.add(noNestedTermination);
+							
+							//Flag the error boolean as true
+							error = true;
+							
+							//break from the loop, the entire expression is fubar
+							break;
+						}
+						//Increment the nestedCounter iterator
+						nestedCounter++;
+					}
+					
+				}
+				//Check to see if there is a close parenthesis without an open one
+				else if (expression.charAt(counter) == ')')
+				{
+					ErrorData noNestedStart = new ErrorData();
+					noNestedStart.add(lineCounter, 17, "Nested expression terminates without being initialized");
+					
+					//Add the error to the error table
+					errorsFound.add(noNestedStart);
+					
+					//Flag the error boolean as true
+					error = true;
+				}
+				//Check to see if there was an error, if so there is no need
+				//to continue parsing the line
+				if (error)
+				{
+					//If there was an error, break out past the first loop.
+					break;
+				}
+				//Increment the counter iterator
+				counter++;
+			}
+			//END: Parenthesis Checking and nested expression lifting.
+			
+			//reset reusable variables
+			counter = 0;
+			
+			//START: Expression evaluation and label/external reference checking.
+			
+			//If we haven't encountered an error, continue parsing.
+			if(!error)
+			{
+				//Create a boolean dictating whether or not the character is a 
+				//number
+				boolean isNum = true;
+				//Create an int to hold the number of labels
+				int labels = 0;
+				//Create a boolean to hold whether or not we've found an error
+				//within the expressions.
+				boolean expError = false;
+				
+				while (counter < expression.length())
+				{
+					//If we've found an error at some point in the iteration,
+					//break from the loop
+					if (expError)
+					{
+						break;
+					}
+					
+					//Determine whether the character is a number or not.
+					try
+					{
+						Integer.parseInt(expression);
+					}
+					catch(NumberFormatException e)
+					{
+						isNum = false;
+					}
+					
+					//If it is a number, it is correct, so do nothing
+					if(isNum)
+					{
+					}
+					//Check to see if the current character is an operator
+					else if(expression.charAt(counter) == '+' || expression.charAt(counter) == '-'
+						|| expression.charAt(counter) == '*' || expression.charAt(counter) == '/')
+					{
+						//Check to make sure there is not an invalid junction of operations
+						if(expression.charAt(counter+1) == '+' || expression.charAt(counter+1) == '*'
+								|| expression.charAt(counter+1) == '/')
+							{
+								//Set teh error flag to be true
+								expError = true;
+							
+								//Create an error
+								ErrorData doubleOperation = new ErrorData();
+								doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+							}
+					}
+					//If it is not a number or operator, it is a label,
+					//So determine how long it is and make sure there aren't more
+					//than three labels here.
+					else 
+					{
+						labels++;
+						
+						//If there are more than three labels, create an error
+						if (labels > 3)
+						{
+							ErrorData tooManyLabels = new ErrorData();
+							tooManyLabels.add(lineCounter, 19, "Too many labels");
+							
+							//Add the error to the error table
+							errorsFound.add(tooManyLabels);
+							
+							//Set the error flag to true
+							expError = true;
+						}
+						//Otherwise, find where the label ends and continue parsing
+						else
+						{
+							//Labels are separated by expressions, so check accordingly
+							while (!(expression.charAt(counter+1) == '+') && !(expression.charAt(counter+1) == '-')
+								&& !(expression.charAt(counter+1) == '*') && !(expression.charAt(counter+1) == '/'))
+							{
+								//Move the counter forward until we are clear of the label
+								//save for the last letter which the normal increment
+								//will take care of
+								counter++;
+							}
+						}
+					}
+					counter++;
+				}
+				
+				//If there have been no errors, encode the operation.
+				if (!expError)
+				{
+					encodeAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn,
+							directIn, lineCounter, nestedExpressionValue);
+				}
+				//Otherwise, encode it as a NOP
+				else
+				{
+					encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn,
+							directIn, lineCounter);
+				}
+				
+				
+			}
+			//Otherwise, encode the operation as a NOP
+			else
+			{
+				encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn,
+					directIn, lineCounter);
+			}
 		}
-		*/
 	}
 	
 	private void parseMemSkip(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
+		
+		//Check to make sure there is only one operand
+		if(line.size() > 2)
+		{
+			//Create an error because there is more than one operand
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Check to make sure there are only four digits
+		else if (line.get(1).length() > 4)
+		{
+			//Create an error because the operand has too many digits
+			ErrorData excessDigits = new ErrorData();
+			excessDigits.add(lineCounter, 19, "Operand has too many digits");
+			
+			//Add the error to the error table
+			errorsFound.add(excessDigits);
+		}
+		//Check to make sure the digits are parsable (integers)
+		else if (line.get(1).length() <= 4)
+		{
+			try
+			{
+				Integer.parseInt(line.get(1));
+			}
+			catch (NumberFormatException e)
+			{
+				//Create an error because there are non-numbers in the operand
+				ErrorData nonIntegerValue = new ErrorData();
+				nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+				
+				//Add the error to the error table
+				errorsFound.add(nonIntegerValue);
+			}
+		}
+		//Otherwise, encode it!
+		else
+		{
+			encodeMemDotSkip(line, errorsFound, symbolsFound, errorIn, instructIn,
+					directIn, lineCounter);
+		}
 		
 	}
 	
@@ -2204,48 +2493,480 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there are no more than 4 operands (labels)
+		if(line.size() > 5)
+		{
+			//Create an error if there are too many operands (5 is for the Ent directive)
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//TODO: in pass two, we make sure they are actually in the symbol table.
+		
 	}
 	
 	private void parseExt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there are no more than 4 operands (labels)
+		if(line.size() > 5)
+		{
+			//Create an error if there are too many operands (5 is for the Ent directive)
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise, add them to the symbol table
+		else
+		{
+			//Create an iterator
+			int counter = 0;
+			
+			//For each label, make a new entry in the symbol table
+			while (counter < line.size()-1)
+			{
+				Symbol ext = new Symbol();
+				ext.setLabel(line.get(counter+1));
+				ext.setLength(1);
+				ext.setLocation(99999);
+				ext.setUsage("EXT");
+				counter++;
+			}
+		}
+		//TODO: Not sure what happens in pass 2 here, actually, but something does.
 	}
 	
 	private void parseNop(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there are no operands
+		if(line.size() > 1)
+		{
+			//Create an error if there are any operands
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise, encode it
+		else
+		{
+			encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter);
+		}
 	}
 	
 	private void parseExecStart(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there is only one operand
+		if(line.size() > 2)
+		{
+			//Create an error if there are too many operands 
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise, add it to the symbol table
+		else
+		{
+			Symbol execDotStart = new Symbol();
+			execDotStart.setLabel(line.get(1));
+			execDotStart.setLength(1);
+			execDotStart.setLocation(lineCounter);
+			execDotStart.setUsage("Prgm Start");
+		}
 	}
 	
 	private void parseEqu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there is only one operand
+		if(line.size() > 3)
+		{
+			//Create an error if there are too many
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise check if the string is too long
+		else if(line.get(2).length() > 32)
+		{
+			//Create an error if the string is too long
+			ErrorData stringTooLong = new ErrorData();
+			stringTooLong.add(lineCounter, 21, "String is too long");
+			
+			//Add the error to the error table
+			errorsFound.add(stringTooLong);
+		}
+		//Otherwise add it to the symbol table
+		else
+		{
+			Symbol equ = new Symbol();
+			equ.setLabel(line.get(0));
+			equ.setLocation(lineCounter);
+			equ.setUsage("equ");
+			equ.setValue(line.get(2));
+			
+			int length = 0;
+			
+			//If there is a number of characters evenly divisible by 4, set
+			//the length equal to just that, as 4 characters is one word.
+			if (line.get(2).length() % 4 == 0)
+			{
+				length = line.get(2).length() / 4;
+			}
+			//If there are partial words, divide by 4 and add one for the partial
+			//word(s).
+			else
+			{
+				length = line.get(2).length() / 4;
+				length = length + 1;
+			}
+			
+			//Set the length
+			equ.setLength(length);
+		}
 	}
 	
 	private void parseEquExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Check to make sure there is only one operand
+		if(line.size() > 3)
+		{
+			//Create an error if there are too many
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise, parse the expression for correctness
+		else
+		{
+			//Create a string to hold the entire expression
+			String expression = line.get(2);
+			//Create an arraylist to hold all nested expressions we find
+			ArrayList<String> nestedExpressionValue = new ArrayList<String>();
+			
+			//Create a boolean to flag whether we found an error or not
+			Boolean error = false;
+			
+			//Create a counter for iteration
+			int counter = 0;
+			
+			//START: Parenthesis checking and nested expression lifting.
+			
+			//Check the expression for parenthesis, as according to the directives
+			//table, they are allowed one level of nesting. If we find more than one
+			//'(', throw an error. Otherwise continue normally.
+			while(expression.length() > counter)
+			{
+				//Check for the start of a nested expression
+				if(expression.charAt(counter) == '(')
+				{
+					//Set a nested counter accordingly for iteration
+					int nestedCounter = counter+1;
+					
+					//Seek out the next parenthesis
+					while (nestedCounter < expression.length())
+					{
+						//If the next parenthesis is another '(', create an error
+						if(expression.charAt(nestedCounter) == '(')
+						{
+							ErrorData nestedExpression = new ErrorData();
+							nestedExpression.add(lineCounter, 15, "Too many nested expressions");
+							
+							//Add the error to the error table
+							errorsFound.add(nestedExpression);
+							
+							//Flag the error boolean as true
+							error = true;
+							
+							//break from the loop, the entire expression is fubar
+							break;
+						}
+						//If the next parenthesis is an ')', load the nested
+						//expression into the array nestedExpressionValue
+						//and return as normal
+						else if(expression.charAt(nestedCounter) == ')')
+						{
+							nestedExpressionValue.add(expression.substring(counter+1, nestedCounter));
+							//break from the loop, we have a valid nested expression
+							break;
+						}
+						//If we only found one '(' and are at the end of the
+						//nested expression, return an error.
+						else if(nestedCounter == expression.length() -1)
+						{
+							ErrorData noNestedTermination = new ErrorData();
+							noNestedTermination.add(lineCounter, 16, "The nested expression was never terminated");
+							
+							//Add the error to the error table
+							errorsFound.add(noNestedTermination);
+							
+							//Flag the error boolean as true
+							error = true;
+							
+							//break from the loop, the entire expression is fubar
+							break;
+						}
+						//Increment the nestedCounter iterator
+						nestedCounter++;
+					}
+					
+				}
+				//Check to see if there is a close parenthesis without an open one
+				else if (expression.charAt(counter) == ')')
+				{
+					ErrorData noNestedStart = new ErrorData();
+					noNestedStart.add(lineCounter, 17, "Nested expression terminates without being initialized");
+					
+					//Add the error to the error table
+					errorsFound.add(noNestedStart);
+					
+					//Flag the error boolean as true
+					error = true;
+				}
+				//Check to see if there was an error, if so there is no need
+				//to continue parsing the line
+				if (error)
+				{
+					//If there was an error, break out past the first loop.
+					break;
+				}
+				//Increment the counter iterator
+				counter++;
+			}
+			//END: Parenthesis Checking and nested expression lifting.
+			
+			//reset reusable variables
+			counter = 0;
+			
+			//START: Expression evaluation and label/external reference checking.
+			
+			//If we haven't encountered an error, continue parsing.
+			if(!error)
+			{
+				//Create a boolean dictating whether or not the character is a 
+				//number
+				boolean isNum = true;
+				//Create an int to hold the number of labels
+				int labels = 0;
+				//Create a boolean to hold whether or not we've found an error
+				//within the expressions.
+				boolean expError = false;
+				
+				while (counter < expression.length())
+				{
+					//If we've found an error at some point in the iteration,
+					//break from the loop
+					if (expError)
+					{
+						break;
+					}
+					
+					//Determine whether the character is a number or not.
+					try
+					{
+						Integer.parseInt(expression);
+					}
+					catch(NumberFormatException e)
+					{
+						isNum = false;
+					}
+					
+					//If it is a number, it is correct, so do nothing
+					if(isNum)
+					{
+					}
+					//Check to see if the current character is an operator
+					else if(expression.charAt(counter) == '+' || expression.charAt(counter) == '-'
+						|| expression.charAt(counter) == '*' || expression.charAt(counter) == '/')
+					{
+						//Check to make sure there is not an invalid junction of operations
+						if(expression.charAt(counter+1) == '+' || expression.charAt(counter+1) == '*'
+								|| expression.charAt(counter+1) == '/')
+							{
+								//Set teh error flag to be true
+								expError = true;
+							
+								//Create an error
+								ErrorData doubleOperation = new ErrorData();
+								doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+							}
+					}
+					//If it is not a number or operator, it is a label,
+					//So determine how long it is and make sure there aren't more
+					//than three labels here.
+					else 
+					{
+						labels++;
+						
+						//If there are more than three labels, create an error
+						if (labels > 3)
+						{
+							ErrorData tooManyLabels = new ErrorData();
+							tooManyLabels.add(lineCounter, 19, "Too many labels");
+							
+							//Add the error to the error table
+							errorsFound.add(tooManyLabels);
+							
+							//Set the error flag to true
+							expError = true;
+						}
+						//Otherwise, find where the label ends and continue parsing
+						else
+						{
+							//Labels are separated by expressions, so check accordingly
+							while (!(expression.charAt(counter+1) == '+') && !(expression.charAt(counter+1) == '-')
+								&& !(expression.charAt(counter+1) == '*') && !(expression.charAt(counter+1) == '/'))
+							{
+								//Move the counter forward until we are clear of the label
+								//save for the last letter which the normal increment
+								//will take care of
+								counter++;
+							}
+						}
+					}
+					counter++;
+				}
+				//If there have been no errors, add everything to the symbol table
+				if (!expError)
+				{
+					Symbol equExp = new Symbol();
+					equExp.setLabel(line.get(0));
+					equExp.setLength(1);
+					equExp.setLocation(lineCounter);
+					equExp.setUsage("Equ exp");
+					equExp.setValue(line.get(2));
+				}
+			}
+		}
 	}
 	
 	private void parseResetLC(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Create a boolean to determine if the operand field is an integer
+		boolean isNum = true;
+		
+		//Check if the operand field is an integer
+		try
+		{
+			Integer.parseInt(line.get(1));
+		}
+		catch (NumberFormatException e)
+		{
+			//If it isn't, set the flag false
+			isNum = false;
+		}
+		
+		//Check to make sure there is only one operand
+		if(line.size() > 2)
+		{
+			//Create an error if there are too many operands 
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise check if it is a number
+		else if (!isNum)
+		{
+			//Create an error if the string is not an integer
+			ErrorData nonIntegerValue = new ErrorData();
+			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+			
+			//Add the error to the error table
+			errorsFound.add(nonIntegerValue);
+		}
+		//TODO: implement LC here
+		//Otherwise check if the number is greater than the last LC
+		else if (Integer.parseInt(line.get(1)) < 0)
+		{
+			//Create an error if the LC is lower than the previous LC
+			ErrorData lowerLocationCounter = new ErrorData();
+			lowerLocationCounter.add(lineCounter, 22, "New Location Counter must be greater than previous value");
+			
+			//Add the error to the error table
+			errorsFound.add(lowerLocationCounter);
+		}
+		//Otherwise, encode it
+		else
+		{
+			encodeResetDotLC(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter);
+		}
 	}
 	
 	private void parseDebug(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter) {
 		
+		//Create a boolean to determine if the operand field is an integer
+		boolean isNum = true;
+		
+		//Check if the operand field is an integer
+		try
+		{
+			Integer.parseInt(line.get(1));
+		}
+		catch (NumberFormatException e)
+		{
+			//If it isn't, set the flag false
+			isNum = false;
+		}
+		
+		//Check to make sure there is only one operand
+		if(line.size() > 2)
+		{
+			//Create an error if there are too many operands 
+			ErrorData extraOperands = new ErrorData();
+			extraOperands.add(lineCounter, 18, "Too many operands");
+			
+			//Add the error to the error table
+			errorsFound.add(extraOperands);
+		}
+		//Otherwise check if it is a number
+		else if (!isNum)
+		{
+			//Create an error if the string is not an integer
+			ErrorData nonIntegerValue = new ErrorData();
+			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+			
+			//Add the error to the error table
+			errorsFound.add(nonIntegerValue);
+		}
+		//Otherwise check if it is a valid number (one or two)
+		else if (Integer.parseInt(line.get(1)) != 1 || Integer.parseInt(line.get(1)) != 0)
+		{
+			//Create an error if the number is not valid
+			ErrorData falseDebug = new ErrorData();
+			falseDebug.add(lineCounter, 23, "Value must be 0, or 1 only");
+			
+			//Add the error to the error table
+			errorsFound.add(falseDebug);
+		}
+		else
+		{
+			//Set the internal debug flag?
+		}
 	}
 	
 	private void parseAddi(ArrayList<String> line, ErrorOut errorsFound,

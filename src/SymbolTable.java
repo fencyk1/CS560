@@ -98,6 +98,39 @@ public class SymbolTable implements SymbolTableInterface {
 		}
 
 	}
+	
+	public void updateValue(String label, String value) {
+		int counter = 0;
+		
+		//Iterate through the symbol table to find the symbol with name label.
+		while (this.symTable.size() > counter)
+		{
+			//When found, update its usage.
+			if (this.symTable.get(counter).getLabel().equals(label))
+			{
+				this.symTable.get(counter).setValue(value);
+			}
+			counter++;
+		}
+	}
+	
+	public String GetValue(String label) {
+		int counter = 0;
+		String returnValue = new String(); 
+		
+		//Iterate through the symbol table to find the symbol with name label.
+		while (this.symTable.size() > counter)
+		{
+			//When found, break from the loop and return its location.
+			if (this.symTable.get(counter).getLabel().equals(label))
+			{
+				returnValue = this.symTable.get(counter).getValue();
+				break;
+			}
+			counter++;
+		}
+		return returnValue;
+	}
 
 	@Override
 	public int GetLocation(String label) {
@@ -202,7 +235,7 @@ public class SymbolTable implements SymbolTableInterface {
 		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(outputFileName)));
 		
 		//Write the header to the file
-		out.println("\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage");
+		out.println("\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage\t|\tValue");
 		
 		//Get each piece of data from the symbol object, and write it to file.
 		while (counter < this.symTable.size())
@@ -213,7 +246,8 @@ public class SymbolTable implements SymbolTableInterface {
 			out.print(currentSymb.getLabel() + "\t|\t");
 			out.print(currentSymb.getLocation() + "\t\t|\t");
 			out.print(currentSymb.getLength() + "\t|\t");
-			out.println(currentSymb.getUsage());
+			out.print(currentSymb.getUsage() + "\t|\t");
+			out.println(currentSymb.getValue());
 			counter++;
 		}
 		//Close the output
