@@ -25,4 +25,4 @@
 22	lowerLocationCounter	"New Location Counter must be greater than previous value"
 23	falseDebug				"Value must be 0, or 1 only"
 24	invalidParameterCount	"Invalid number of parameters"
-25	invalidRegisterSyntax	"Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]"
+25	invalidRegisterSyntax	"Invalid register syntax. Correct format is "$X", where X is a number from [0-7]"
