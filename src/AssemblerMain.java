@@ -31,6 +31,9 @@ public class AssemblerMain {
 		InstructTable instructIn = new InstructTable(new File ("instructions.tbl"));
 		DirectiveTable directIn = new DirectiveTable(new File ("directives.tbl"));
 		
+		//create the intermediate file for the parser output
+		IntermediateFile intermediateFile = new IntermediateFile ();
+		
 		//Create and pass in empty objects of ErrorData/ErrorOut, Symbol/SymbolTable,
 		//and Tokenizer.
 		
@@ -54,7 +57,7 @@ public class AssemblerMain {
 		while (sourceCode.source.size() > i)
 		{
 			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
-			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, locationCounter);
+			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, locationCounter, intermediateFile);
 			i++;
 		}
 		
@@ -66,19 +69,11 @@ public class AssemblerMain {
 		
 		//Sort the Symbol Table by label, and output it to a text file.
 		symbolsFound.sort();
-		symbolsFound.outputTable(new File ("symbolTable.txt"));
-		
-
-		
-		//Take intermediate file and reference that in the symbol table to make
-		//a new output to be changed into hexadecimal code (possibly byte code)
-		//to print out to a file.
-		
-		
+		symbolsFound.outputTable(new File ("symbolTable.txt"));		
 		
 		//Make our object file, has to get the debug flag, etc.
 		ObjectFile objectFileName = new ObjectFile();
-		objectFileName.outputObjectFile(sourceCodeFileName);
+		objectFileName.outputObjectFile(intermediateFile, symbolsFound, locationCounter);
 		
 		
 

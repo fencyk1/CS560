@@ -230,12 +230,14 @@ public class Converter implements ConverterInterface {
 		int decimal = 0;
 		int counter = 0;
 		int conversion = 0;
+		String binOne = new String();
 		
 		//Convert each binary digit until you reach the end of the binary number.
 		while (binary.length() > counter) 
 		{
 			//Turn one digit, starting with the least significant one, of the binary string into an integer.
-			conversion = Integer.parseInt(binary.substring(binary.length()-counter, binary.length()-counter+1));
+			binOne = binary.substring(binary.length()-(counter+1), binary.length()-counter);			
+			conversion = Integer.parseInt(binOne);
 			//Multiply that by 2 to the power of whatever position in the string
 			//we are in, starting at 0 and ending at binary.length - 1.
 			conversion = conversion * 2^counter;

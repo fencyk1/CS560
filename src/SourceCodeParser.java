@@ -1,11 +1,13 @@
 // ---Parser notes: check error.tbl / ErrorTable.java's utility.
 // ---Might need to change the length of hex.data/bin.data
 // ---Change encode helper operations to include an operand for the parsed line's data?
+// ---Pass in instruction name in each parse, for encoding purposes.
 // ---Only enter encode methods if we have syntactically valid commands?
 // ---Two's comp to integer converter
 // ---Update hex.data
 // ---Finish stuff
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 
@@ -18,7 +20,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	@Override
 	public void parseLine(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
+			int locationCounter, IntermediateFile intermediateFile) {
 	
 		//Check the first token of each line for the .data or .text flags
 		if (line.get(0).equalsIgnoreCase(".data") && haveDotStart)
@@ -35,6 +38,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			this.inDotText = true;
 			
 		}
+		if (line.get(0).equalsIgnoreCase(".end") && haveDotStart)
+		{
+			//If it's a .end flag, we're no longer in either section
+			this.inDotData = false;
+			this.inDotText = false;
+		}
 				
 		
 		//If in the .data section, call parseDotData; if in the .text section,
@@ -42,17 +51,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		
 		if (this.inDotData)
 		{
-			this.parseDotData(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+			this.parseDotData(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		}
 		else if (this.inDotText)
 		{
-			this.parseDotText(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+			this.parseDotText(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		}
 		//If in neither, parse as a .start
 		else
 		{
 			//deal with .start and .end methods
-			this.parseOther(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+			this.parseOther(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 			
 		}
 		
@@ -61,7 +70,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseOther (ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter)
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile)
 	{
 		//If the line is syntactically correct, add the name to the symbol table and do further detailed error checking
 		if (line.get(0).equalsIgnoreCase(".start") && line.size() == 3 && !this.haveDotStart)
@@ -207,7 +216,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 
 		//If the line is a .data, but it has more than one token, throw an error
 		if (line.get(0).equalsIgnoreCase(".data") && line.size() != 1)
@@ -219,7 +228,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Add it to the ErrorOut table.
 			errorsFound.add(dotDataExtra);
 		}
-		
+		//If the line is syntactically correct, throw no error
+		else if (line.get(0).equalsIgnoreCase(".data") && line.size() == 1)
+		{
+			//do nothing
+		}		
 		// If the line is in the .data section but is not the .data line,
 		// parse it.
 		else if (!line.get(0).equalsIgnoreCase(".data") && line.size() > 1)
@@ -239,7 +252,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseIntDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);		
+						directIn, lineCounter, locationCounter, intermediateFile);		
 			}
 			else if (line.get(1).equalsIgnoreCase("str.data"))
 			{
@@ -278,7 +291,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseStrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);		
+						directIn, lineCounter, locationCounter, intermediateFile);		
 			}
 			else if (line.get(1).equalsIgnoreCase("hex.data"))
 			{
@@ -295,7 +308,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseHexDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("bin.data"))
 			{
@@ -312,7 +325,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseBinDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("adr.data"))
 			{
@@ -329,7 +342,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}	
 			else if (line.get(1).equalsIgnoreCase("adr.exp"))
 			{
@@ -346,7 +359,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("mem.skip"))
 			{
@@ -363,7 +376,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseMemSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			//If the token contains none of the aforementioned directives,
 			//check spot 0, in case they don't have labels.
@@ -371,43 +384,43 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			{
 				//Send remaining line to be parsed
 				parseIntDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);		
+						directIn, lineCounter, locationCounter, intermediateFile);		
 			}
 			else if (line.get(0).equalsIgnoreCase("str.data"))
 			{
 				//Send remaining line to be parsed
 				parseStrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);		
+						directIn, lineCounter, locationCounter, intermediateFile);		
 			}
 			else if (line.get(0).equalsIgnoreCase("hex.data"))
 			{
 				//Send remaining line to be parsed
 				parseHexDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("bin.data"))
 			{
 				//Send remaining line to be parsed
 				parseBinDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("adr.data"))
 			{
 				//Send remaining line to be parsed
 				parseAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}	
 			else if (line.get(0).equalsIgnoreCase("adr.exp"))
 			{
 				//Send remaining line to be parsed
 				parseAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("mem.skip"))
 			{
 				//Send remaining line to be parsed
 				parseMemSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else
 			{
@@ -435,7 +448,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 
 	private void parseDotText(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 
 		//If the line is a .text, but it has more than one token, throw an error
 		if (line.get(0).equalsIgnoreCase(".text") && line.size() != 1)
@@ -446,6 +459,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(dotTextExtra);
+		}
+		//If the line is syntactically correct, do nothing
+		else if (line.get(0).equalsIgnoreCase(".text") && line.size() == 1)
+		{
+			
 		}
 		// If the line is in the .data section but is not the .data line,
 		// parse it.
@@ -466,19 +484,19 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseNop(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("equ"))
 			{
 				//Send remaining line to be parsed
 				parseEqu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("equ.exp"))
 			{
 				//Send remaining line to be parsed
 				parseEquExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("reset.lc"))
 			{
@@ -495,7 +513,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseResetLC(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("addi"))
 			{
@@ -512,7 +530,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("addiu"))
 			{
@@ -529,7 +547,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAddiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("subi"))
 			{
@@ -546,7 +564,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSubi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("subiu"))
 			{
@@ -563,7 +581,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSubiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("muli"))
 			{
@@ -580,7 +598,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseMuli(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("muliu"))
 			{
@@ -597,7 +615,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseMuliu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("divi"))
 			{
@@ -614,7 +632,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseDivi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("diviu"))
 			{
@@ -631,7 +649,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseDiviu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jeq"))
 			{
@@ -648,7 +666,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJeq(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jne"))
 			{
@@ -665,7 +683,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJne(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jgt"))
 			{
@@ -682,7 +700,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJgt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jlt"))
 			{
@@ -699,7 +717,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJlt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jle"))
 			{
@@ -716,7 +734,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJle(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("sw"))
 			{
@@ -733,7 +751,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("lw"))
 			{
@@ -750,7 +768,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseLw(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("lnw"))
 			{
@@ -767,7 +785,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseLnw(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("lwi"))
 			{
@@ -784,7 +802,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseLwi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("lui"))
 			{
@@ -801,7 +819,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseLui(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("ori"))
 			{
@@ -818,7 +836,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOri(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("xori"))
 			{
@@ -835,7 +853,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseXori(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("nori"))
 			{
@@ -852,7 +870,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseNori(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("andi"))
 			{
@@ -869,7 +887,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAndi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("la"))
 			{
@@ -886,7 +904,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseLa(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("sa"))
 			{
@@ -903,7 +921,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSa(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("ands"))
 			{
@@ -920,7 +938,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAnds(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("ors"))
 			{
@@ -937,7 +955,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOrs(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("j"))
 			{
@@ -954,7 +972,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJ(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jal"))
 			{
@@ -971,7 +989,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJal(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("halt"))
 			{
@@ -988,7 +1006,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseHalt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("mul"))
 			{
@@ -1005,7 +1023,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseMul(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("mulu"))
 			{
@@ -1022,7 +1040,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseMulu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("add"))
 			{
@@ -1039,7 +1057,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAdd(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("addu"))
 			{
@@ -1056,7 +1074,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAddu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("sub"))
 			{
@@ -1073,7 +1091,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSub(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("subu"))
 			{
@@ -1090,7 +1108,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSubu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("div"))
 			{
@@ -1107,7 +1125,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseDiv(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("divu"))
 			{
@@ -1124,7 +1142,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseDivu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("pwr"))
 			{
@@ -1141,7 +1159,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parsePwr(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("sll"))
 			{
@@ -1158,7 +1176,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("srl"))
 			{
@@ -1175,7 +1193,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSrl(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("sra"))
 			{
@@ -1192,7 +1210,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSra(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("and"))
 			{
@@ -1209,7 +1227,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAnd(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("or"))
 			{
@@ -1226,7 +1244,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOr(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("xor"))
 			{
@@ -1243,7 +1261,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseXor(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("nor"))
 			{
@@ -1260,7 +1278,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseNor(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("jr"))
 			{
@@ -1277,7 +1295,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseJr(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("srv"))
 			{
@@ -1294,7 +1312,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSrv(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("dump"))
 			{
@@ -1311,7 +1329,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseDump(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("inn"))
 			{
@@ -1328,7 +1346,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseInn(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("inc"))
 			{
@@ -1345,7 +1363,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseInc(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("outn"))
 			{
@@ -1362,7 +1380,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOutn(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("outc"))
 			{
@@ -1379,7 +1397,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOutc(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("outni"))
 			{
@@ -1396,7 +1414,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("outci"))
 			{
@@ -1413,7 +1431,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseOutci(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("adds"))
 			{
@@ -1430,7 +1448,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("subs"))
 			{
@@ -1447,7 +1465,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseSubs(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("muls"))
 			{
@@ -1464,7 +1482,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseMuls(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("divs"))
 			{
@@ -1481,7 +1499,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseDivs(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 
 			else if (line.get(0).equalsIgnoreCase("ent"))
@@ -1489,389 +1507,389 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Send remaining line to be parsed
 				parseEnt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("ext"))
 			{
 				
 				//Send remaining line to be parsed
 				parseExt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("nop"))
 			{
 				
 				//Send remaining line to be parsed
 				parseNop(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("exec.start"))
 			{
 				
 				//Send remaining line to be parsed
 				parseExecStart(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("debug"))
 			{
 				//Send remaining line to be parsed
 				parseDebug(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("addi"))
 			{
 				
 				//Send remaining line to be parsed
 				parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("addiu"))
 			{
 				
 				//Send remaining line to be parsed
 				parseAddiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("subi"))
 			{
 			
 				//Send remaining line to be parsed
 				parseSubi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("subiu"))
 			{
 				
 				//Send remaining line to be parsed
 				parseSubiu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("muli"))
 			{
 				//Send remaining line to be parsed
 				parseMuli(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("muliu"))
 			{
 				
 				//Send remaining line to be parsed
 				parseMuliu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("divi"))
 			{
 				
 				//Send remaining line to be parsed
 				parseDivi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("diviu"))
 			{
 				
 				//Send remaining line to be parsed
 				parseDiviu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jeq"))
 			{
 				//Send remaining line to be parsed
 				parseJeq(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jne"))
 			{
 				//Send remaining line to be parsed
 				parseJne(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jgt"))
 			{
 				//Send remaining line to be parsed
 				parseJgt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jlt"))
 			{
 				//Send remaining line to be parsed
 				parseJlt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jle"))
 			{
 				//Send remaining line to be parsed
 				parseJle(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("sw"))
 			{
 				//Send remaining line to be parsed
 				parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("lw"))
 			{
 				//Send remaining line to be parsed
 				parseLw(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("lnw"))
 			{
 				//Send remaining line to be parsed
 				parseLnw(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("lwi"))
 			{
 				//Send remaining line to be parsed
 				parseLwi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("lui"))
 			{
 				//Send remaining line to be parsed
 				parseLui(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("ori"))
 			{
 				//Send remaining line to be parsed
 				parseOri(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("xori"))
 			{
 				//Send remaining line to be parsed
 				parseXori(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("nori"))
 			{
 				//Send remaining line to be parsed
 				parseNori(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("andi"))
 			{
 				//Send remaining line to be parsed
 				parseAndi(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("la"))
 			{
 				//Send remaining line to be parsed
 				parseLa(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("sa"))
 			{
 				//Send remaining line to be parsed
 				parseSa(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("ands"))
 			{
 				//Send remaining line to be parsed
 				parseAnds(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("ors"))
 			{
 				//Send remaining line to be parsed
 				parseOrs(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("j"))
 			{
 				//Send remaining line to be parsed
 				parseJ(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jal"))
 			{
 				//Send remaining line to be parsed
 				parseJal(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("halt"))
 			{
 				//Send remaining line to be parsed
 				parseHalt(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("mul"))
 			{
 				//Send remaining line to be parsed
 				parseMul(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("mulu"))
 			{
 				//Send remaining line to be parsed
 				parseMulu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("add"))
 			{
 				//Send remaining line to be parsed
 				parseAdd(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("addu"))
 			{
 				//Send remaining line to be parsed
 				parseAddu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("sub"))
 			{
 				//Send remaining line to be parsed
 				parseSub(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("subu"))
 			{
 				//Send remaining line to be parsed
 				parseSubu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("div"))
 			{
 				//Send remaining line to be parsed
 				parseDiv(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("divu"))
 			{
 				//Send remaining line to be parsed
 				parseDivu(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("pwr"))
 			{
 				//Send remaining line to be parsed
 				parsePwr(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("sll"))
 			{
 				//Send remaining line to be parsed
 				parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("srl"))
 			{
 				//Send remaining line to be parsed
 				parseSrl(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("sra"))
 			{
 				//Send remaining line to be parsed
 				parseSra(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("and"))
 			{
 				//Send remaining line to be parsed
 				parseAnd(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("or"))
 			{
 				//Send remaining line to be parsed
 				parseOr(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("xor"))
 			{
 				//Send remaining line to be parsed
 				parseXor(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("nor"))
 			{
 				//Send remaining line to be parsed
 				parseNor(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("jr"))
 			{
 				//Send remaining line to be parsed
 				parseJr(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("srv"))
 			{
 				//Send remaining line to be parsed
 				parseSrv(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("dump"))
 			{
 				//Send remaining line to be parsed
 				parseDump(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("inn"))
 			{
 				//Send remaining line to be parsed
 				parseInn(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("inc"))
 			{
 				//Send remaining line to be parsed
 				parseInc(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("outn"))
 			{
 				//Send remaining line to be parsed
 				parseOutn(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("outc"))
 			{
 				//Send remaining line to be parsed
 				parseOutc(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("outni"))
 			{
 				//Send remaining line to be parsed
 				parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("outci"))
 			{
 				//Send remaining line to be parsed
 				parseOutci(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("adds"))
 			{
 				//Send remaining line to be parsed
 				parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("subs"))
 			{
 				//Send remaining line to be parsed
 				parseSubs(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("muls"))
 			{
 				//Send remaining line to be parsed
 				parseMuls(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(0).equalsIgnoreCase("divs"))
 			{
 				//Send remaining line to be parsed
 				parseDivs(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else
 			{
@@ -1899,14 +1917,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 
 	private void encodeIntData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 
 	private void encodeStrData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 		
 		// NOTE: remove the ' on the ends first.
@@ -1915,27 +1933,27 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void encodeHexData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 	
 	private void encodeBinData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
-
+ 
 	}
 
 	private void encodeAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 	}
 	
 	private void encodeAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile,
 			ArrayList<String> nestedExpressionValue) {
 		// TODO Auto-generated method stub
 		
@@ -1947,60 +1965,60 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 
 	private void encodeNOP(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 	}
 
 	private void encodeMemDotSkip(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 	}
 	
 	private void encodeResetDotLC(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 	}
 
 	private void encodeRType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 
 	private void encodeJType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 
 	private void encodeIType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 
 	private void encodeSType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 
 	private void encodeIOType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		// TODO Auto-generated method stub
 
 	}
 		
 	private void parseIntDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		if (line.size() == 2)
 		{
 			//declare the integer object that holds the value of the int.Data
@@ -2042,13 +2060,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}
 			
 			encodeIntData(line, errorsFound, symbolsFound, errorIn, instructIn,
-					directIn, lineCounter, locationCounter);
+					directIn, lineCounter, locationCounter, intermediateFile);
 		}
 	}
 	
 	private void parseStrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		// A String object to hold the String data
 		String stringHolder = line.get(1);
@@ -2094,14 +2112,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			// Sends the string.Data line object to be encoded.
 			encodeStrData(line, errorsFound, symbolsFound, errorIn, instructIn,
-					directIn, lineCounter, locationCounter);
+					directIn, lineCounter, locationCounter, intermediateFile);
 		}
 		
 	}
 	
 	private void parseHexDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		// A String object to hold the Hex data
 		String hexHolder = line.get(1);
@@ -2170,7 +2188,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			{
 				// Send the hex number to be encoded.
 				encodeHexData(line, errorsFound, symbolsFound, errorIn, instructIn,
-						directIn, lineCounter, locationCounter);
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 		}
 		
@@ -2178,7 +2196,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseBinDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		// A String object to hold the Binary data
 		String binHolder = line.get(1);
@@ -2231,13 +2249,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			// Send the binary number to be encoded.
 			encodeBinData(line, errorsFound, symbolsFound, errorIn, instructIn,
-					directIn, lineCounter, locationCounter);
+					directIn, lineCounter, locationCounter, intermediateFile);
 		}
 	}
 	
 	private void parseAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 2)
@@ -2253,7 +2271,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		{
 			//If there is, send it to be encoded
 			encodeAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn,
-					directIn, lineCounter, locationCounter);
+					directIn, lineCounter, locationCounter, intermediateFile);
 		}
 		
 	}
@@ -2267,7 +2285,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	 */
 	private void parseAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 				
 		//Make sure there is only one expression included with adr.exp
 		if(line.size() > 2)
@@ -2473,13 +2491,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				if (!expError)
 				{
 					encodeAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn,
-							directIn, lineCounter, locationCounter, nestedExpressionValue);
+							directIn, lineCounter, locationCounter, intermediateFile, nestedExpressionValue);
 				}
 				//Otherwise, encode it as a NOP
 				else
 				{
 					encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn,
-							directIn, lineCounter, locationCounter);
+							directIn, lineCounter, locationCounter, intermediateFile);
 				}
 				
 				
@@ -2488,14 +2506,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			else
 			{
 				encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn,
-					directIn, lineCounter, locationCounter);
+					directIn, lineCounter, locationCounter, intermediateFile);
 			}
 		}
 	}
 	
 	private void parseMemSkip(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 2)
@@ -2538,14 +2556,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			encodeMemDotSkip(line, errorsFound, symbolsFound, errorIn, instructIn,
-					directIn, lineCounter, locationCounter);
+					directIn, lineCounter, locationCounter, intermediateFile);
 		}
 		
 	}
 	
 	private void parseEnt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there are no more than 4 operands (labels)
 		if(line.size() > 5)
@@ -2563,7 +2581,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseExt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there are no more than 4 operands (labels)
 		if(line.size() > 5)
@@ -2597,7 +2615,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseNop(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there are no operands
 		if(line.size() > 1)
@@ -2612,13 +2630,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Otherwise, encode it
 		else
 		{
-			encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+			encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		}
 	}
 	
 	private void parseExecStart(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 2)
@@ -2643,7 +2661,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseEqu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 3)
@@ -2697,7 +2715,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseEquExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 3)
@@ -2915,7 +2933,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseResetLC(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Create a boolean to determine if the operand field is an integer
 		boolean isNum = true;
@@ -2964,13 +2982,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Otherwise, encode it
 		else
 		{
-			encodeResetDotLC(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+			encodeResetDotLC(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		}
 	}
 	
 	private void parseDebug(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//Create a boolean to determine if the operand field is an integer
 		boolean isNum = true;
@@ -3024,7 +3042,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseAddi(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//immediate value
 		int imm = 0; 
@@ -3092,50 +3110,47 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errorsFound.add(invalidRegisterSyntax);
 				}
 			}
-			
- 
-		}
-		
+		}		
 	}
 	
 	private void parseAddiu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseSubi(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseSubiu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseMuli(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseMuliu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseDivi(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		if (Integer.parseInt(line.get(3)) == 0 )
 		{
@@ -3148,12 +3163,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		}
 
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseDiviu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		if (Integer.parseInt(line.get(3)) == 0 )
 		{
@@ -3165,138 +3180,347 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(divideByZero);
 		}
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseJeq(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		//TODO
 	}
 	
 	private void parseJne(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseJgt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseJlt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseJle(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseSW(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create a flag for when we encounter an error, to know whether to encode
+		boolean errors = false;
+		
+		//immediate value
+		int imm = 0; 
+		boolean immediate = true;
+		
+		//Determine whether the character is a number or not.
+		try
+		{
+			imm = Integer.parseInt(line.get(2));
+		}
+		catch(NumberFormatException e)
+		{
+			immediate = false;
+		}
+		//check the number of fields
+		if (line.size() != 3)
+		{
+			//Create an error regarding invalid number of fields.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
+		//Check if it's a valid immediate
+		else if (immediate)
+		{
+			if (imm < -65536  || imm > 65535   )
+			{
+				//check the immediate value to be in the correct bounds
+				
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData integerOutOfBounds = new ErrorData();
+				integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(integerOutOfBounds);
+				errors = true;
+			}
+		}
+		//check second index to make sure it is a register
+		else if ((!(line.get(1).equalsIgnoreCase("$0"))
+				|| !(line.get(1).equalsIgnoreCase("$1"))
+				|| !(line.get(1).equalsIgnoreCase("$2"))
+				|| !(line.get(1).equalsIgnoreCase("$3"))
+				|| !(line.get(1).equalsIgnoreCase("$4"))
+				|| !(line.get(1).equalsIgnoreCase("$5"))
+				|| !(line.get(1).equalsIgnoreCase("$6"))
+				|| !(line.get(1).equalsIgnoreCase("$7"))))
+		{
+			//Create an error regarding invalid register syntax.
+			ErrorData invalidRegisterSyntax = new ErrorData();
+			invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidRegisterSyntax);
+			errors = true;
+		}
+		//check for a parenthesis in the final index
+		else if (line.get(2).charAt(line.get(2).length()-1) == ')')
+		{
+			//Get the first left paren's index
+			int parenIndex = line.get(2).indexOf('(');
+			
+			//Create a counter for iteration
+			int i = 0;
+			
+			//Create a string to hold a single character in from the "label"
+			String label = new String();
+			
+			//Create a new byte array for the ascii conversion
+			byte[] binary = new byte[1];
+			
+			int ascii = 0;
+			
+			//Iterate through each character up until the first '(' checking
+			//for alphanumeracy 
+			while (i < parenIndex)
+			{
+				//Move one character from the label into "label"
+				label = line.get(2).substring(i, i+1);
+				
+				//Use a try catch for syntactical correctness.
+				try 
+				{
+					//Convert the ascii string passed in, into
+					//an array of bytes containing their binary
+					//representation.
+					binary = label.getBytes("US-ASCII");
+				} 
+				//"US-ASCII" is a supported encoding, so this will never
+				//throw an error, but is required for syntax measures.
+				catch (UnsupportedEncodingException e) 
+				{
+					//Again, since this will never throw an error, this
+					//is here for syntax purposes, but the stack trace
+					//would just print out a trace of where the error
+					//occurred and halt the program.
+					e.printStackTrace();
+				}
+				
+				//Convert from a binary stream into an integer representation
+				ascii = binary[0];
+				
+				if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+				{			
+					//Create an error regarding invalid address/label syntax.
+					ErrorData invalidAddressLabel = new ErrorData();
+					invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressLabel);
+					errors = true;
+				}
+				i++;
+			}
+			
+			if ((!(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$0"))
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$1")
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$2")
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$3")
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$4")
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$5")
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$6")
+				|| !(line.get(2).substring(line.get(2).length()-3, line.get(2).length()-1)).equalsIgnoreCase("$7"))
+			{
+				//Create an error regarding invalid register syntax.
+				ErrorData invalidRegisterSyntax = new ErrorData();
+				invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidRegisterSyntax);
+				errors = true;
+			}
+		}
+		//Repeat alphanumeric stuff for label checking
+		else if (!(immediate))
+		{
+			//Create a counter for iteration
+			int i = 0;
+			
+			//Create a string to hold a single character in from the "label"
+			String label = new String();
+			
+			//Create a new byte array for the ascii conversion
+			byte[] binary = new byte[1];
+			
+			int ascii = 0;
+			
+			//Iterate through each character up until the first '(' checking
+			//for alphanumeracy 
+			while (i < line.get(2).length())
+			{
+				//Move one character from the label into "label"
+				label = line.get(2).substring(i, i+1);
+				
+				//Use a try catch for syntactical correctness.
+				try 
+				{
+					//Convert the ascii string passed in, into
+					//an array of bytes containing their binary
+					//representation.
+					binary = label.getBytes("US-ASCII");
+				} 
+				//"US-ASCII" is a supported encoding, so this will never
+				//throw an error, but is required for syntax measures.
+				catch (UnsupportedEncodingException e) 
+				{
+					//Again, since this will never throw an error, this
+					//is here for syntax purposes, but the stack trace
+					//would just print out a trace of where the error
+					//occurred and halt the program.
+					e.printStackTrace();
+				}
+				
+				//Convert from a binary stream into an integer representation
+				ascii = binary[0];
+				
+				if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+				{			
+					//Create an error regarding invalid address/label syntax.
+					ErrorData invalidAddressLabel = new ErrorData();
+					invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressLabel);
+					errors = true;
+				}
+				i++;
+			}		
+		}
+		
+		//Otherwise the line is valid, encode
+		if (!errors)
+		{
+			//TODO: encode me
+		}	
 		
 	}
 	
 	private void parseLw(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseLnw(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseLwi(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseLui(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseOri(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseXori(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseNori(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseAndi(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseLa(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseSa(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseAnds(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseOrs(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		parseSW(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseJ(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseJal(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseHalt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseMul(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		if (!(line.size() == 4))
 		{
@@ -3337,47 +3561,47 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseMulu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseAdd(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseAddu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseSub(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseSubu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 	}
 	
 	private void parseDiv(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		if (!(line.size() == 4))
 		{
 			//Create an error regarding invalid number of parameters.
@@ -3426,7 +3650,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseDivu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		if (!(line.size() == 4))
 		{
 			//Create an error regarding invalid number of parameters.
@@ -3475,16 +3699,16 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parsePwr(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseSll(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		if (!(line.size() == 4))
 		{
@@ -3526,59 +3750,59 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseSrl(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
-		
+		parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
+		//TODO: include operation name for all parse instructions so that encoding is still done on a casebycase basis
 	}
 	
 	private void parseSra(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseAnd(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseOr(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseXor(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseNor(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		parseMul(line, errorsFound, symbolsFound, errorIn,
-				instructIn, directIn, lineCounter, locationCounter);
+				instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseJr(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		if (!(line.size() == 2))
 		{
@@ -3616,15 +3840,15 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseSrv(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseDump(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		if (!(line.size() == 4))
 		{
@@ -3660,34 +3884,54 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseInn(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseInc(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseOutn(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseOutc(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//TODO
 	}
 	
 	private void parseOutni(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//immediate value
 		int imm = 0; 
+		
+		//num value
+		int num = 0;
+		
+		//Determine whether the num is a number or not.
+		try
+		{
+			num = Integer.parseInt(line.get(1));
+		}
+		catch(NumberFormatException e)
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData nonIntegerValue = new ErrorData();
+			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(nonIntegerValue);
+		}
 		
 		//Determine whether the character is a number or not.
 		try
@@ -3704,7 +3948,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(nonIntegerValue);
-			
 		}
 		
 		if (!(line.size() == 3))
@@ -3727,6 +3970,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Add it to the ErrorOut table.
 			errorsFound.add(integerOutOfBounds);
 		}
+		else if (num < -65536  || num > 65535   )
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData integerOutOfBounds = new ErrorData();
+			integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(integerOutOfBounds);
+		}
 		else
 		{
 			// Encode
@@ -3736,15 +3990,15 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseOutci(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseAdds(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
 		//declare the starting location
 		int addr = 0;
@@ -3865,25 +4119,25 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	
 	private void parseSubs(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseMuls(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 	
 	private void parseDivs(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
 		
 	}
 

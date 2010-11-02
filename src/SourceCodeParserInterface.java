@@ -20,7 +20,7 @@ public interface SourceCodeParserInterface {
 	 */
 	void parseLine(ArrayList<String> line, ErrorOut errorsFound, SymbolTable symbolsFound,
 			ErrorTable errorIn, InstructTable instructIn, DirectiveTable directIn, int lineNumber,
-			int locationCounter);
+			int locationCounter, IntermediateFile intermediateFile);
 	
 	
 }
