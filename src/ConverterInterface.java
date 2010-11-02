@@ -54,5 +54,13 @@ public interface ConverterInterface {
 	 */
 	String asciiToBinary(String ascii);
 	
+	/**
+	 * Converts a two's complement string into an integer.
+	 * 
+	 * @param twos The two's complement representation of the integer in question.
+	 * @return The integer representation of the two's complement value.
+	 */
+	String twosCompToInteger(String twos);
+	
 	
 }

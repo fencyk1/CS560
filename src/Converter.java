@@ -19,7 +19,6 @@ public class Converter implements ConverterInterface {
 		int decimal = this.binToDec(binary);
 		//Convert the decimal value into a hex value.
 		String hexOut = Integer.toHexString(decimal);
-		
 		return hexOut;
 	}
 
@@ -195,6 +194,29 @@ public class Converter implements ConverterInterface {
 
 		//Return the final string
 		return totalBin;
+	}
+	
+	public String twosCompToInteger(String twos)
+	{
+		//Create a value to hold the final integer representation
+		String integerValue = new String();
+		
+		//Create an integer to hold the intermediate integer representation
+		int value = 0;
+		
+		//Check the most significant bit, if it is a one, treat it as a negative
+		if(twos.charAt(0) == '1')
+		{
+			//convert each digit into an integer (base 10) using a while loop and add it
+			//to a temporary int object, then convert to string.
+		}
+		//Otherwise, treat it as a positive
+		else
+		{
+			//convert each digit into an integer (base 10) using a while loop and add it
+			//to a temporary int object, then convert to string.
+		}
+		return integerValue;
 	}
 
 	/**
