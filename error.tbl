@@ -27,3 +27,6 @@
 24	invalidParameterCount	"Invalid number of parameters"
 25	invalidRegisterSyntax	"Invalid register syntax. Correct format is "$X", where X is a number from [0-7]"
 26	divideByZero			"Divide by zero error"
+27	invalidAmount			"Invalid amount. Must be a 0 or 1."
+28	invalidAddress			"Address is not valid"
+29	addressOutOfBounds		"Address must be between 0 and 65535 decimal value"

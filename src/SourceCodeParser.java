@@ -7,6 +7,7 @@
 // ---Change lineCounter symbols to location
 // ---Two's comp to integer converter
 // ---Update hex.data
+// ---Finish stuff
 
 import java.util.ArrayList;
 
@@ -3073,7 +3074,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 2; i++)
+			for (int i = 1; i < 3; i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3300,6 +3301,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseMul(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
 		if (!(line.size() == 4))
 		{
 			//Create an error regarding invalid number of parameters.
@@ -3312,7 +3314,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
+			for (int i = 1; i < 4; i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3340,201 +3342,41 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseMulu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								|| !(parameter.equalsIgnoreCase("$1"))
-								|| !(parameter.equalsIgnoreCase("$2"))
-								|| !(parameter.equalsIgnoreCase("$3"))
-								|| !(parameter.equalsIgnoreCase("$4"))
-								|| !(parameter.equalsIgnoreCase("$5"))
-								|| !(parameter.equalsIgnoreCase("$6"))
-								|| !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-			}
-		}
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 	}
 	
 	private void parseAdd(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								|| !(parameter.equalsIgnoreCase("$1"))
-								|| !(parameter.equalsIgnoreCase("$2"))
-								|| !(parameter.equalsIgnoreCase("$3"))
-								|| !(parameter.equalsIgnoreCase("$4"))
-								|| !(parameter.equalsIgnoreCase("$5"))
-								|| !(parameter.equalsIgnoreCase("$6"))
-								|| !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-			}
-		}
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 	}
 	
 	private void parseAddu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								|| !(parameter.equalsIgnoreCase("$1"))
-								|| !(parameter.equalsIgnoreCase("$2"))
-								|| !(parameter.equalsIgnoreCase("$3"))
-								|| !(parameter.equalsIgnoreCase("$4"))
-								|| !(parameter.equalsIgnoreCase("$5"))
-								|| !(parameter.equalsIgnoreCase("$6"))
-								|| !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-			}
-		}
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 	}
 	
 	private void parseSub(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								|| !(parameter.equalsIgnoreCase("$1"))
-								|| !(parameter.equalsIgnoreCase("$2"))
-								|| !(parameter.equalsIgnoreCase("$3"))
-								|| !(parameter.equalsIgnoreCase("$4"))
-								|| !(parameter.equalsIgnoreCase("$5"))
-								|| !(parameter.equalsIgnoreCase("$6"))
-								|| !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-			}
-		}
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 	}
 	
 	private void parseSubu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								|| !(parameter.equalsIgnoreCase("$1"))
-								|| !(parameter.equalsIgnoreCase("$2"))
-								|| !(parameter.equalsIgnoreCase("$3"))
-								|| !(parameter.equalsIgnoreCase("$4"))
-								|| !(parameter.equalsIgnoreCase("$5"))
-								|| !(parameter.equalsIgnoreCase("$6"))
-								|| !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-			}
-		}
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 	}
 	
 	private void parseDiv(ArrayList<String> line, ErrorOut errorsFound,
@@ -3552,7 +3394,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
+			for (int i = 1; i < 4; i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3601,7 +3443,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
+			for (int i = 1; i < 4; i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3639,11 +3481,50 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
+		
 	}
 	
 	private void parseSll(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 3; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
 		
 	}
 	
@@ -3651,11 +3532,15 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		
 	}
 	
 	private void parseSra(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		parseSll(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
 		
 	}
 	
@@ -3663,11 +3548,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
+		
 	}
 	
 	private void parseOr(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 		
 	}
 	
@@ -3675,11 +3566,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
+		
 	}
 	
 	private void parseNor(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		parseMul(line, errorsFound, symbolsFound, errorIn,
+				instructIn, directIn, lineCounter, locationCounter);
 		
 	}
 	
@@ -3687,17 +3584,81 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		if (!(line.size() == 2))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// Create a string to hold the parameter for syntax checking
+			String parameter = line.get(1);
+
+			if ((!(parameter.equalsIgnoreCase("$0"))
+					|| !(parameter.equalsIgnoreCase("$1"))
+					|| !(parameter.equalsIgnoreCase("$2"))
+					|| !(parameter.equalsIgnoreCase("$3"))
+					|| !(parameter.equalsIgnoreCase("$4"))
+					|| !(parameter.equalsIgnoreCase("$5"))
+					|| !(parameter.equalsIgnoreCase("$6"))
+					|| !(parameter.equalsIgnoreCase("$7"))))
+			{
+				//Create an error regarding invalid register syntax.
+				ErrorData invalidRegisterSyntax = new ErrorData();
+				invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidRegisterSyntax);
+			}
+		}
+		
 	}
 	
 	private void parseSrv(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		parseAddi(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		
 	}
 	
 	private void parseDump(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < 4; i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((!(parameter.equalsIgnoreCase("0")) || !(parameter.equalsIgnoreCase("1"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidAmount = new ErrorData();
+					invalidAmount.add(lineCounter, 27, "Invalid amount. Must be a 0 or 1.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAmount);
+				}
+			}
+		}
+		
 		
 	}
 	
@@ -3729,11 +3690,59 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		//immediate value
+		int imm = 0; 
+		
+		//Determine whether the character is a number or not.
+		try
+		{
+			imm = Integer.parseInt(line.get(2));
+		}
+		catch(NumberFormatException e)
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData nonIntegerValue = new ErrorData();
+			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(nonIntegerValue);
+			
+		}
+		
+		if (!(line.size() == 3))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else if (imm < -65536  || imm > 65535   )
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData integerOutOfBounds = new ErrorData();
+			integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(integerOutOfBounds);
+		}
+		else
+		{
+			// Encode
+		}
+		
 	}
 	
 	private void parseOutci(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		parseOutni(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
 		
 	}
 	
@@ -3741,11 +3750,128 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		//declare the starting location
+		int addr = 0;
+		
+		int i = 0;
+		
+		//Create string object for converting purposes
+		String lcConverter = line.get(3);
+		
+		//If the location in memory is too large, throw an error
+		if (lcConverter.length() > 8)
+		{
+			//Create an error regarding invalid starting location.
+			ErrorData invalidAddress = new ErrorData();
+			invalidAddress.add(lineCounter, 28, "Address is not valid");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidAddress);
+		}
+		//Otherwise check for hex syntax
+		else
+		{
+			//Create a new string for conversion purposes...again
+			String lcToHex = new String();
+			
+			//Check syntax for both potential digits
+			while (lcConverter.length() < i)
+			{
+				//Check for valid hex possibilities
+				if(!(lcConverter.substring(i, i + 1).equalsIgnoreCase("0")) 
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("1")) 
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("2"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("3"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("4"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("5"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("6"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("7"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("8"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("9"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("A"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("B"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("C"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("D"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("E"))
+						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("F")))
+				{
+					//Create an error regarding invalid starting location.
+					ErrorData invalidStartingLocation = new ErrorData();
+					invalidStartingLocation.add(lineCounter, 1, "Staring location is not valid");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidStartingLocation);
+				}
+				else
+				{
+					//Concatenate the two digits together if they are syntactically correct
+					lcToHex = lcToHex + lcConverter.substring(i,i + 1);
+				}
+				//Increment the counter
+				i++;
+			}
+			Converter converter = new Converter();
+			
+			//Convert the location counter into binary, then convert that into decimal, then parse
+			//that into an integer and store it in the locationCounter.
+			locationCounter = Integer.parseInt(converter.binaryToDecimal(converter.hexToBinary(lcToHex)));
+			
+			//This line has cooties.
+			addr = locationCounter;
+		}
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+		}
+		else if ((addr > 65535) || (addr < 0))
+		{
+			//Create an error regarding invalid addressing.
+			ErrorData addressOutOfBounds = new ErrorData();
+			addressOutOfBounds.add(lineCounter, 2, "Address must be between 0 and 65535 decimal value");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(addressOutOfBounds);
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int j = 1; j < 3; j++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(j);
+				
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								|| !(parameter.equalsIgnoreCase("$1"))
+								|| !(parameter.equalsIgnoreCase("$2"))
+								|| !(parameter.equalsIgnoreCase("$3"))
+								|| !(parameter.equalsIgnoreCase("$4"))
+								|| !(parameter.equalsIgnoreCase("$5"))
+								|| !(parameter.equalsIgnoreCase("$6"))
+								|| !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
+			}
+		}
+		
 	}
 	
 	private void parseSubs(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
 		
 	}
 	
@@ -3753,11 +3879,15 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
 		
+		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
+		
 	}
 	
 	private void parseDivs(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter) {
+		
+		parseAdds(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter);
 		
 	}
 
