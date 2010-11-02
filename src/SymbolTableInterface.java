@@ -33,7 +33,7 @@ public interface SymbolTableInterface {
 	 * @param label The name of the symbol to be updated.
 	 * @param location The new location counter.
 	 */
-	void updateLocation (String label, int location);
+	void updateLocation (String label, String location);
 	
 	/**
 	 * Updates what usage the symbol contains in the symbol table.
@@ -65,7 +65,7 @@ public interface SymbolTableInterface {
 	 * @param label The name of the symbol whose location is in question.
 	 * @return The location of said symbol.
 	 */
-	int GetLocation (String label);
+	String GetLocation (String label);
 	
 	/**
 	 * Returns the length of a given Symbol (will always be one word).

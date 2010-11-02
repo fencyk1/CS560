@@ -2,9 +2,6 @@
 // ---Might need to change the length of hex.data/bin.data
 // ---Change encode helper operations to include an operand for the parsed line's data?
 // ---Only enter encode methods if we have syntactically valid commands?
-// ---ResetLC needs the location in memory as well
-// ---Change symbol's location to be a string for hex values.
-// ---Change lineCounter symbols to location
 // ---Two's comp to integer converter
 // ---Update hex.data
 // ---Finish stuff
@@ -75,7 +72,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			prgmName.setLabel(line.get(1));
 			prgmName.setLength(0);
 			prgmName.setUsage("Progam Name");
-			prgmName.setLocation(0);
+			prgmName.setLocation("0");
 			
 			//declare the starting location
 			int startingLocation = locationCounter;
@@ -163,7 +160,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			{
 				//sets the starting location of the program in memory 
 				//this is a result of it passing the error checks
-				prgmName.setLocation(startingLocation);
+				prgmName.setLocation(Integer.toHexString(startingLocation));
 			}
 			//Add the program name to the symbol table
 			symbolsFound.defineSymbol(prgmName);
@@ -233,7 +230,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol intDotData = new Symbol();
 				intDotData.setLabel(line.get(0));
 				intDotData.setLength(1);
-				intDotData.setLocation(lineCounter);
+				intDotData.setLocation(Integer.toHexString(locationCounter));
 				intDotData.setUsage("int.data");
 				
 				//Put it in the symbol table
@@ -249,7 +246,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Create a new symbol to store the str.data label
 				Symbol strDotData = new Symbol();
 				strDotData.setLabel(line.get(0));
-				strDotData.setLocation(lineCounter);
+				strDotData.setLocation(Integer.toHexString(locationCounter));
 				strDotData.setUsage("str.data");
 				
 				//Set the length of the string
@@ -289,7 +286,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol hexDotData = new Symbol();
 				hexDotData.setLabel(line.get(0));
 				hexDotData.setLength(1);
-				hexDotData.setLocation(lineCounter);
+				hexDotData.setLocation(Integer.toHexString(locationCounter));
 				hexDotData.setUsage("hex.data");
 				
 				//Put it in the symbol table
@@ -306,7 +303,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol binDotData = new Symbol();
 				binDotData.setLabel(line.get(0));
 				binDotData.setLength(1);
-				binDotData.setLocation(lineCounter);
+				binDotData.setLocation(Integer.toHexString(locationCounter));
 				binDotData.setUsage("bin.data");
 				
 				//Put it in the symbol table
@@ -323,7 +320,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol adrDotData = new Symbol();
 				adrDotData.setLabel(line.get(0));
 				adrDotData.setLength(1);
-				adrDotData.setLocation(lineCounter);
+				adrDotData.setLocation(Integer.toHexString(locationCounter));
 				adrDotData.setUsage("adr.data");
 				
 				//Put it in the symbol table
@@ -340,7 +337,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol adrDotExp = new Symbol();
 				adrDotExp.setLabel(line.get(0));
 				adrDotExp.setLength(1);
-				adrDotExp.setLocation(lineCounter);
+				adrDotExp.setLocation(Integer.toHexString(locationCounter));
 				adrDotExp.setUsage("adr.exp");
 				
 				//Put it in the symbol table
@@ -357,7 +354,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol memDotSkip = new Symbol();
 				memDotSkip.setLabel(line.get(0));
 				memDotSkip.setLength(1);
-				memDotSkip.setLocation(lineCounter);
+				memDotSkip.setLocation(Integer.toHexString(locationCounter));
 				memDotSkip.setUsage("mem.skip");
 				
 				//Put it in the symbol table
@@ -460,7 +457,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol nop = new Symbol();
 				nop.setLabel(line.get(0));
 				nop.setLength(1);
-				nop.setLocation(lineCounter);
+				nop.setLocation(Integer.toHexString(locationCounter));
 				nop.setUsage("label");
 				
 				//Put it in the symbol table
@@ -489,7 +486,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol resetDotLC = new Symbol();
 				resetDotLC.setLabel(line.get(0));
 				resetDotLC.setLength(1);
-				resetDotLC.setLocation(lineCounter);
+				resetDotLC.setLocation(Integer.toHexString(locationCounter));
 				resetDotLC.setUsage("label");
 				
 				//Put it in the symbol table
@@ -506,7 +503,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol addi = new Symbol();
 				addi.setLabel(line.get(0));
 				addi.setLength(1);
-				addi.setLocation(lineCounter);
+				addi.setLocation(Integer.toHexString(locationCounter));
 				addi.setUsage("label");
 				
 				//Put it in the symbol table
@@ -523,7 +520,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol addiu = new Symbol();
 				addiu.setLabel(line.get(0));
 				addiu.setLength(1);
-				addiu.setLocation(lineCounter);
+				addiu.setLocation(Integer.toHexString(locationCounter));
 				addiu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -540,7 +537,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol subi = new Symbol();
 				subi.setLabel(line.get(0));
 				subi.setLength(1);
-				subi.setLocation(lineCounter);
+				subi.setLocation(Integer.toHexString(locationCounter));
 				subi.setUsage("label");
 				
 				//Put it in the symbol table
@@ -557,7 +554,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol subiu = new Symbol();
 				subiu.setLabel(line.get(0));
 				subiu.setLength(1);
-				subiu.setLocation(lineCounter);
+				subiu.setLocation(Integer.toHexString(locationCounter));
 				subiu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -574,7 +571,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol muli = new Symbol();
 				muli.setLabel(line.get(0));
 				muli.setLength(1);
-				muli.setLocation(lineCounter);
+				muli.setLocation(Integer.toHexString(locationCounter));
 				muli.setUsage("label");
 				
 				//Put it in the symbol table
@@ -591,7 +588,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol muliu = new Symbol();
 				muliu.setLabel(line.get(0));
 				muliu.setLength(1);
-				muliu.setLocation(lineCounter);
+				muliu.setLocation(Integer.toHexString(locationCounter));
 				muliu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -608,7 +605,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol divi = new Symbol();
 				divi.setLabel(line.get(0));
 				divi.setLength(1);
-				divi.setLocation(lineCounter);
+				divi.setLocation(Integer.toHexString(locationCounter));
 				divi.setUsage("label");
 				
 				//Put it in the symbol table
@@ -625,7 +622,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol diviu = new Symbol();
 				diviu.setLabel(line.get(0));
 				diviu.setLength(1);
-				diviu.setLocation(lineCounter);
+				diviu.setLocation(Integer.toHexString(locationCounter));
 				diviu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -642,7 +639,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jeq = new Symbol();
 				jeq.setLabel(line.get(0));
 				jeq.setLength(1);
-				jeq.setLocation(lineCounter);
+				jeq.setLocation(Integer.toHexString(locationCounter));
 				jeq.setUsage("label");
 				
 				//Put it in the symbol table
@@ -659,7 +656,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jne = new Symbol();
 				jne.setLabel(line.get(0));
 				jne.setLength(1);
-				jne.setLocation(lineCounter);
+				jne.setLocation(Integer.toHexString(locationCounter));
 				jne.setUsage("label");
 				
 				//Put it in the symbol table
@@ -676,7 +673,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jgt = new Symbol();
 				jgt.setLabel(line.get(0));
 				jgt.setLength(1);
-				jgt.setLocation(lineCounter);
+				jgt.setLocation(Integer.toHexString(locationCounter));
 				jgt.setUsage("label");
 				
 				//Put it in the symbol table
@@ -693,7 +690,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jlt = new Symbol();
 				jlt.setLabel(line.get(0));
 				jlt.setLength(1);
-				jlt.setLocation(lineCounter);
+				jlt.setLocation(Integer.toHexString(locationCounter));
 				jlt.setUsage("label");
 				
 				//Put it in the symbol table
@@ -710,7 +707,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jle = new Symbol();
 				jle.setLabel(line.get(0));
 				jle.setLength(1);
-				jle.setLocation(lineCounter);
+				jle.setLocation(Integer.toHexString(locationCounter));
 				jle.setUsage("label");
 				
 				//Put it in the symbol table
@@ -727,7 +724,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol sw = new Symbol();
 				sw.setLabel(line.get(0));
 				sw.setLength(1);
-				sw.setLocation(lineCounter);
+				sw.setLocation(Integer.toHexString(locationCounter));
 				sw.setUsage("label");
 				
 				//Put it in the symbol table
@@ -744,7 +741,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol lw = new Symbol();
 				lw.setLabel(line.get(0));
 				lw.setLength(1);
-				lw.setLocation(lineCounter);
+				lw.setLocation(Integer.toHexString(locationCounter));
 				lw.setUsage("label");
 				
 				//Put it in the symbol table
@@ -761,7 +758,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol lnw = new Symbol();
 				lnw.setLabel(line.get(0));
 				lnw.setLength(1);
-				lnw.setLocation(lineCounter);
+				lnw.setLocation(Integer.toHexString(locationCounter));
 				lnw.setUsage("label");
 				
 				//Put it in the symbol table
@@ -778,7 +775,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol lwi = new Symbol();
 				lwi.setLabel(line.get(0));
 				lwi.setLength(1);
-				lwi.setLocation(lineCounter);
+				lwi.setLocation(Integer.toHexString(locationCounter));
 				lwi.setUsage("label");
 				
 				//Put it in the symbol table
@@ -795,7 +792,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol lui = new Symbol();
 				lui.setLabel(line.get(0));
 				lui.setLength(1);
-				lui.setLocation(lineCounter);
+				lui.setLocation(Integer.toHexString(locationCounter));
 				lui.setUsage("label");
 				
 				//Put it in the symbol table
@@ -812,7 +809,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol ori = new Symbol();
 				ori.setLabel(line.get(0));
 				ori.setLength(1);
-				ori.setLocation(lineCounter);
+				ori.setLocation(Integer.toHexString(locationCounter));
 				ori.setUsage("label");
 				
 				//Put it in the symbol table
@@ -829,7 +826,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol xori = new Symbol();
 				xori.setLabel(line.get(0));
 				xori.setLength(1);
-				xori.setLocation(lineCounter);
+				xori.setLocation(Integer.toHexString(locationCounter));
 				xori.setUsage("label");
 				
 				//Put it in the symbol table
@@ -846,7 +843,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol nori = new Symbol();
 				nori.setLabel(line.get(0));
 				nori.setLength(1);
-				nori.setLocation(lineCounter);
+				nori.setLocation(Integer.toHexString(locationCounter));
 				nori.setUsage("label");
 				
 				//Put it in the symbol table
@@ -863,7 +860,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol andi = new Symbol();
 				andi.setLabel(line.get(0));
 				andi.setLength(1);
-				andi.setLocation(lineCounter);
+				andi.setLocation(Integer.toHexString(locationCounter));
 				andi.setUsage("label");
 				
 				//Put it in the symbol table
@@ -880,7 +877,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol la = new Symbol();
 				la.setLabel(line.get(0));
 				la.setLength(1);
-				la.setLocation(lineCounter);
+				la.setLocation(Integer.toHexString(locationCounter));
 				la.setUsage("label");
 				
 				//Put it in the symbol table
@@ -897,7 +894,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol sa = new Symbol();
 				sa.setLabel(line.get(0));
 				sa.setLength(1);
-				sa.setLocation(lineCounter);
+				sa.setLocation(Integer.toHexString(locationCounter));
 				sa.setUsage("label");
 				
 				//Put it in the symbol table
@@ -914,7 +911,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol ands = new Symbol();
 				ands.setLabel(line.get(0));
 				ands.setLength(1);
-				ands.setLocation(lineCounter);
+				ands.setLocation(Integer.toHexString(locationCounter));
 				ands.setUsage("label");
 				
 				//Put it in the symbol table
@@ -931,7 +928,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol ors = new Symbol();
 				ors.setLabel(line.get(0));
 				ors.setLength(1);
-				ors.setLocation(lineCounter);
+				ors.setLocation(Integer.toHexString(locationCounter));
 				ors.setUsage("label");
 				
 				//Put it in the symbol table
@@ -948,7 +945,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol j = new Symbol();
 				j.setLabel(line.get(0));
 				j.setLength(1);
-				j.setLocation(lineCounter);
+				j.setLocation(Integer.toHexString(locationCounter));
 				j.setUsage("label");
 				
 				//Put it in the symbol table
@@ -965,7 +962,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jal = new Symbol();
 				jal.setLabel(line.get(0));
 				jal.setLength(1);
-				jal.setLocation(lineCounter);
+				jal.setLocation(Integer.toHexString(locationCounter));
 				jal.setUsage("label");
 				
 				//Put it in the symbol table
@@ -982,7 +979,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol halt = new Symbol();
 				halt.setLabel(line.get(0));
 				halt.setLength(1);
-				halt.setLocation(lineCounter);
+				halt.setLocation(Integer.toHexString(locationCounter));
 				halt.setUsage("label");
 				
 				//Put it in the symbol table
@@ -999,7 +996,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol mul = new Symbol();
 				mul.setLabel(line.get(0));
 				mul.setLength(1);
-				mul.setLocation(lineCounter);
+				mul.setLocation(Integer.toHexString(locationCounter));
 				mul.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1016,7 +1013,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol mulu = new Symbol();
 				mulu.setLabel(line.get(0));
 				mulu.setLength(1);
-				mulu.setLocation(lineCounter);
+				mulu.setLocation(Integer.toHexString(locationCounter));
 				mulu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1033,7 +1030,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol add = new Symbol();
 				add.setLabel(line.get(0));
 				add.setLength(1);
-				add.setLocation(lineCounter);
+				add.setLocation(Integer.toHexString(locationCounter));
 				add.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1050,7 +1047,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol addu = new Symbol();
 				addu.setLabel(line.get(0));
 				addu.setLength(1);
-				addu.setLocation(lineCounter);
+				addu.setLocation(Integer.toHexString(locationCounter));
 				addu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1067,7 +1064,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol sub = new Symbol();
 				sub.setLabel(line.get(0));
 				sub.setLength(1);
-				sub.setLocation(lineCounter);
+				sub.setLocation(Integer.toHexString(locationCounter));
 				sub.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1084,7 +1081,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol subu = new Symbol();
 				subu.setLabel(line.get(0));
 				subu.setLength(1);
-				subu.setLocation(lineCounter);
+				subu.setLocation(Integer.toHexString(locationCounter));
 				subu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1101,7 +1098,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol div = new Symbol();
 				div.setLabel(line.get(0));
 				div.setLength(1);
-				div.setLocation(lineCounter);
+				div.setLocation(Integer.toHexString(locationCounter));
 				div.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1118,7 +1115,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol divu = new Symbol();
 				divu.setLabel(line.get(0));
 				divu.setLength(1);
-				divu.setLocation(lineCounter);
+				divu.setLocation(Integer.toHexString(locationCounter));
 				divu.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1135,7 +1132,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol pwr = new Symbol();
 				pwr.setLabel(line.get(0));
 				pwr.setLength(1);
-				pwr.setLocation(lineCounter);
+				pwr.setLocation(Integer.toHexString(locationCounter));
 				pwr.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1152,7 +1149,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol sll = new Symbol();
 				sll.setLabel(line.get(0));
 				sll.setLength(1);
-				sll.setLocation(lineCounter);
+				sll.setLocation(Integer.toHexString(locationCounter));
 				sll.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1169,7 +1166,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol srl = new Symbol();
 				srl.setLabel(line.get(0));
 				srl.setLength(1);
-				srl.setLocation(lineCounter);
+				srl.setLocation(Integer.toHexString(locationCounter));
 				srl.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1186,7 +1183,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol sra = new Symbol();
 				sra.setLabel(line.get(0));
 				sra.setLength(1);
-				sra.setLocation(lineCounter);
+				sra.setLocation(Integer.toHexString(locationCounter));
 				sra.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1203,7 +1200,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol and = new Symbol();
 				and.setLabel(line.get(0));
 				and.setLength(1);
-				and.setLocation(lineCounter);
+				and.setLocation(Integer.toHexString(locationCounter));
 				and.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1220,7 +1217,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol or = new Symbol();
 				or.setLabel(line.get(0));
 				or.setLength(1);
-				or.setLocation(lineCounter);
+				or.setLocation(Integer.toHexString(locationCounter));
 				or.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1237,7 +1234,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol xor = new Symbol();
 				xor.setLabel(line.get(0));
 				xor.setLength(1);
-				xor.setLocation(lineCounter);
+				xor.setLocation(Integer.toHexString(locationCounter));
 				xor.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1254,7 +1251,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol nor = new Symbol();
 				nor.setLabel(line.get(0));
 				nor.setLength(1);
-				nor.setLocation(lineCounter);
+				nor.setLocation(Integer.toHexString(locationCounter));
 				nor.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1271,7 +1268,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol jr = new Symbol();
 				jr.setLabel(line.get(0));
 				jr.setLength(1);
-				jr.setLocation(lineCounter);
+				jr.setLocation(Integer.toHexString(locationCounter));
 				jr.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1288,7 +1285,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol srv = new Symbol();
 				srv.setLabel(line.get(0));
 				srv.setLength(1);
-				srv.setLocation(lineCounter);
+				srv.setLocation(Integer.toHexString(locationCounter));
 				srv.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1305,7 +1302,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol dump = new Symbol();
 				dump.setLabel(line.get(0));
 				dump.setLength(1);
-				dump.setLocation(lineCounter);
+				dump.setLocation(Integer.toHexString(locationCounter));
 				dump.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1322,7 +1319,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol inn = new Symbol();
 				inn.setLabel(line.get(0));
 				inn.setLength(1);
-				inn.setLocation(lineCounter);
+				inn.setLocation(Integer.toHexString(locationCounter));
 				inn.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1339,7 +1336,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol inc = new Symbol();
 				inc.setLabel(line.get(0));
 				inc.setLength(1);
-				inc.setLocation(lineCounter);
+				inc.setLocation(Integer.toHexString(locationCounter));
 				inc.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1356,7 +1353,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol outn = new Symbol();
 				outn.setLabel(line.get(0));
 				outn.setLength(1);
-				outn.setLocation(lineCounter);
+				outn.setLocation(Integer.toHexString(locationCounter));
 				outn.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1373,7 +1370,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol outc = new Symbol();
 				outc.setLabel(line.get(0));
 				outc.setLength(1);
-				outc.setLocation(lineCounter);
+				outc.setLocation(Integer.toHexString(locationCounter));
 				outc.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1390,7 +1387,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol Outni = new Symbol();
 				Outni.setLabel(line.get(0));
 				Outni.setLength(1);
-				Outni.setLocation(lineCounter);
+				Outni.setLocation(Integer.toHexString(locationCounter));
 				Outni.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1407,7 +1404,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol outci = new Symbol();
 				outci.setLabel(line.get(0));
 				outci.setLength(1);
-				outci.setLocation(lineCounter);
+				outci.setLocation(Integer.toHexString(locationCounter));
 				outci.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1424,7 +1421,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol adds = new Symbol();
 				adds.setLabel(line.get(0));
 				adds.setLength(1);
-				adds.setLocation(lineCounter);
+				adds.setLocation(Integer.toHexString(locationCounter));
 				adds.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1441,7 +1438,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol subs = new Symbol();
 				subs.setLabel(line.get(0));
 				subs.setLength(1);
-				subs.setLocation(lineCounter);
+				subs.setLocation(Integer.toHexString(locationCounter));
 				subs.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1458,7 +1455,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol muls = new Symbol();
 				muls.setLabel(line.get(0));
 				muls.setLength(1);
-				muls.setLocation(lineCounter);
+				muls.setLocation(Integer.toHexString(locationCounter));
 				muls.setUsage("label");
 				
 				//Put it in the symbol table
@@ -1475,7 +1472,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol divs = new Symbol();
 				divs.setLabel(line.get(0));
 				divs.setLength(1);
-				divs.setLocation(lineCounter);
+				divs.setLocation(Integer.toHexString(locationCounter));
 				divs.setUsage("label");
 				
 				//Put it in the symbol table
@@ -2590,7 +2587,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				Symbol ext = new Symbol();
 				ext.setLabel(line.get(counter+1));
 				ext.setLength(1);
-				ext.setLocation(99999);
+				ext.setLocation("99999");
 				ext.setUsage("EXT");
 				counter++;
 			}
@@ -2639,7 +2636,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			Symbol execDotStart = new Symbol();
 			execDotStart.setLabel(line.get(1));
 			execDotStart.setLength(1);
-			execDotStart.setLocation(lineCounter);
+			execDotStart.setLocation(Integer.toHexString(locationCounter));
 			execDotStart.setUsage("Prgm Start");
 		}
 	}
@@ -2673,7 +2670,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		{
 			Symbol equ = new Symbol();
 			equ.setLabel(line.get(0));
-			equ.setLocation(lineCounter);
+			equ.setLocation(Integer.toHexString(locationCounter));
 			equ.setUsage("equ");
 			equ.setValue(line.get(2));
 			
@@ -2908,7 +2905,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					Symbol equExp = new Symbol();
 					equExp.setLabel(line.get(0));
 					equExp.setLength(1);
-					equExp.setLocation(lineCounter);
+					equExp.setLocation(Integer.toHexString(locationCounter));
 					equExp.setUsage("Equ exp");
 					equExp.setValue(line.get(2));
 				}
@@ -2954,9 +2951,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Add the error to the error table
 			errorsFound.add(nonIntegerValue);
 		}
-		//TODO: implement LC here
 		//Otherwise check if the number is greater than the last LC
-		else if (Integer.parseInt(line.get(1)) < 0)
+		else if (Integer.parseInt(line.get(1)) < locationCounter)
 		{
 			//Create an error if the LC is lower than the previous LC
 			ErrorData lowerLocationCounter = new ErrorData();

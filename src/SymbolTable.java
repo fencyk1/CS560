@@ -67,7 +67,7 @@ public class SymbolTable implements SymbolTableInterface {
 	}
 
 	@Override
-	public void updateLocation(String label, int location) {
+	public void updateLocation(String label, String location) {
 		int counter = 0;
 		
 		//Iterate through the symbol table to find the symbol with name label.
@@ -133,9 +133,9 @@ public class SymbolTable implements SymbolTableInterface {
 	}
 
 	@Override
-	public int GetLocation(String label) {
+	public String GetLocation(String label) {
 		int counter = 0;
-		int returnValue = 0;
+		String returnValue = new String();
 		
 		//Iterate through the symbol table to find the symbol with name label.
 		while (this.symTable.size() > counter)

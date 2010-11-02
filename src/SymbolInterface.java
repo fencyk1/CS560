@@ -22,7 +22,7 @@ public interface SymbolInterface {
 	 * 
 	 * @param loc The location given to the symbol in memory.
 	 */
-	void setLocation (int loc);
+	void setLocation (String loc);
 	
 	/**
 	 * Sets how the symbol is used.
@@ -65,7 +65,7 @@ public interface SymbolInterface {
 	 * 
 	 * @return The location in the source code of the symbol.
 	 */
-	int getLocation();
+	String getLocation();
 	
 	/**
 	 * Gets the usage of the symbol.

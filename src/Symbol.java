@@ -9,7 +9,7 @@
  */
 public class Symbol implements SymbolInterface {
 	private String label;
-	private int location;
+	private String location;
 	private int length;
 	private String usage;
 	private String value;
@@ -17,14 +17,14 @@ public class Symbol implements SymbolInterface {
 	//Default constructor initializing values.
 	public Symbol() {
 		this.label = new String();
-		this.location = 0;
+		this.location = "0";
 		this.length = 32;
 		this.usage = new String();
 		this.value = "NA";
 	}
 	
 	//Constructor taking necessary/always available parameters.
-	public Symbol(String name, int loc, int length) {
+	public Symbol(String name, String loc, int length) {
 		this.label = name;
 		this.location = loc;
 		this.length = length;
@@ -40,7 +40,7 @@ public class Symbol implements SymbolInterface {
 	}
 
 	@Override
-	public void setLocation(int loc) {
+	public void setLocation(String loc) {
 		//Set the location representation equal to the value of loc.
 		this.location = loc;
 
@@ -66,7 +66,7 @@ public class Symbol implements SymbolInterface {
 	}
 
 	@Override
-	public int getLocation() {
+	public String getLocation() {
 		//Return the location of the symbol.
 		return this.location;
 	}
