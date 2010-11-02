@@ -2,7 +2,7 @@
 # below is format example
 0	duplicateStart			"Duplicate start directive detected"
 1	invalidStartingLocation	"Staring location is not valid"
-2	largeStartingLocation	"Staring location is too large"
+2	largeStartingLocation	"Starting location must be between 0 and 65535 decimal value"
 3	rogueLine				".data and/or .text and/or .start never defined"
 4	programNameIncorrect	"Program Names do not match up"
 5	dotDataExtra			".data line should stand alone"
@@ -26,3 +26,4 @@
 23	falseDebug				"Value must be 0, or 1 only"
 24	invalidParameterCount	"Invalid number of parameters"
 25	invalidRegisterSyntax	"Invalid register syntax. Correct format is "$X", where X is a number from [0-7]"
+26	divideByZero			"Divide by zero error"

@@ -45,6 +45,8 @@ public class AssemblerMain {
 		
 		//Create a new counter object.
 		int i = 0;
+		//Create a new location Counter (remember to convert this into hex after)
+		int locationCounter = 0;
 		//Create a new arraylist for storage for the tokenizer.
 		ArrayList<String> line = new ArrayList<String>();
 		
@@ -52,7 +54,7 @@ public class AssemblerMain {
 		while (sourceCode.source.size() > i)
 		{
 			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
-			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1);
+			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, locationCounter);
 			i++;
 		}
 		
@@ -71,6 +73,12 @@ public class AssemblerMain {
 		//Take intermediate file and reference that in the symbol table to make
 		//a new output to be changed into hexadecimal code (possibly byte code)
 		//to print out to a file.
+		
+		
+		
+		//Make our object file, has to get the debug flag, etc.
+		ObjectFile objectFileName = new ObjectFile();
+		objectFileName.outputObjectFile(sourceCodeFileName);
 		
 		
 
