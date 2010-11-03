@@ -1,0 +1,18 @@
+.start, testA, 00
+.data
+x	int.data	1
+mem.skip 100
+.text
+	srv	$R1, $R2, 4
+	jr	$R1
+	dump x, x, x
+	inn	1, $R5
+	inc	1, $R6
+	outn 1, $R5
+	outc 1, $R6
+	outni 1, 5
+	outci 1, c
+	adds $R7, $R1, x
+	subs $R3, $R1, x
+.end,testA
+	

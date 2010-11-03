@@ -1,0 +1,6 @@
+.start,testA,00
+.data
+x	int.data	10
+.text
+	la	$R2,x
+.end,testA	

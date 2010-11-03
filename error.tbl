@@ -31,3 +31,4 @@
 28	invalidAddress			"Address is not valid"
 29	addressOutOfBounds		"Address must be between 0 and 65535 decimal value"
 30	invalidAddressLabel		"Address or label is invalid"
+31	invalidHalt				"Halt number must range from 0 to 255 inclusive"

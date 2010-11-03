@@ -9,7 +9,7 @@ public class AssemblerMain {
 	 */
 	public static void main(String[] args) throws IOException {
 		//Poll/retrieve source code from the first argument from command line
-		File sourceCodeFileName = new File(args[0]);
+		File sourceCodeFileName = new File("input/" + args[0]);
 		
 		System.out.println("Starting assembling process.");
 		

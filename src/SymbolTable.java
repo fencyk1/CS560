@@ -232,10 +232,10 @@ public class SymbolTable implements SymbolTableInterface {
 		SymbolInterface currentSymb = new Symbol();
 		
 		//Prepare to write to the file passed in through the operand of outputTable
-		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(outputFileName)));
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/" + outputFileName)));
 		
 		//Write the header to the file
-		out.println("\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage\t|\tValue");
+		out.println("\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage\t\t|\tValue");
 		
 		//Get each piece of data from the symbol object, and write it to file.
 		while (counter < this.symTable.size())

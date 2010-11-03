@@ -24,6 +24,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
 			int locationCounter, IntermediateFile intermediateFile) {
 	
+		System.err.println("Parsing line : " + line);
+		
 		//Check the first token of each line for the .data or .text flags
 		if (line.get(0).equalsIgnoreCase(".data") && haveDotStart)
 		{
@@ -3667,7 +3669,63 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseHalt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
-		//TODO
+
+		//Create a boolean error object for encoding
+		boolean errors = false;
+
+		
+		//num value
+		int num = 0;
+		
+		//Determine whether the num is a number or not.
+		try
+		{
+			num = Integer.parseInt(line.get(1));
+		}
+		catch(NumberFormatException e)
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData nonIntegerValue = new ErrorData();
+			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(nonIntegerValue);
+			errors = true;
+		}
+		
+		if (!(line.size() == 2))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
+		else if ((num < 0 )|| (num > 255))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidHalt = new ErrorData();
+			invalidHalt.add(lineCounter, 31, "Halt number must range from 0 to 255 inclusive");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidHalt);
+			errors = true;
+		}
+		
+		if (!errors)
+		{
+			//encode normally
+		}
+		else
+		{
+			//encode as nop
+		}
+		
+		
 	}
 	
 	private void parseMulMuluAddAdduSubSubuPwrAndOrXorNor(ArrayList<String> line, ErrorOut errorsFound,

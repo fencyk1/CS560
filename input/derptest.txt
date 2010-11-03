@@ -1,0 +1,8 @@
+.start,jeff,0
+.data
+	int.data	10
+X	int.data	4
+.text
+	sw	$5,10
+	Halt	-1
+.end,jeff

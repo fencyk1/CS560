@@ -55,7 +55,7 @@ public class UserReport implements UserReportInterface {
 		
 		
 		//get input from file, normally that file will be directives.tbl and be located in the src directory of the code
-		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(outputFileName)));
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/" + outputFileName)));
 		
 		int i = 0;
 		

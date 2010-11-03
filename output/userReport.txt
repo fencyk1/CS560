@@ -1,0 +1,9 @@
+.start,jeff,0
+.data
+	int.data	10
+X	int.data	4
+.text
+	sw	$5,10
+	Halt	-1
+Error 31 at line 7: Halt number must range from 0 to 255 inclusive
+.end,jeff

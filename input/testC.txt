@@ -1,0 +1,36 @@
+.start, Test37to51, 00		| start of program that tests commands 37-51
+.data
+ten	int.data	10	| store int 10 in ten
+one	int.data	1	| store int 1 in one
+two	int.data	2	| store int 2 in two
+three int.data	3	| store int 3 in three
+four int.data	4	| store int 4 in four
+a	int.data	0	| store int 0 in a
+b	int.data	0	| store int 0 in b
+c	int.data	0	| store int 0 in c
+mem.skip 20			| skip 20 words of memory
+.text
+	la $R2, two		| load two into reg two	
+	la $R3, three		| load three into reg three	
+	la $R4, four		| load four into reg four	
+	addu $R5, $R2, $R3	| 37- addu R2 and R3 and store in R5	
+	sub $R1, $R3, $R2	| 39- sub R2 from R3 and store in R1	
+	sa $R1, a		| store R1 in a	
+	sa $R5, b		| store R5 in b	
+	subu $R1, $R4, $R3	| 39- subu R3 from R4 and store in R1	
+	div $R5, $R4, $R1	| 40- R4 / R1 = R5 div	
+	divu $R6, $R4, $R1	| 41- R4 / R1 = R5 divu	
+	pwr $R7, $R1, $R2	| 42- pwr R7 = R1^R2	
+	sll $R1, $R2, 45	| 43- sll R1 = R2 << two	
+	srl $R5, $R3, 100	| 44- srl R5 = R3 >> three	
+	sra $R6, $R4, 13	| 45- sra R6 = R4 >> four	
+	and $R1, $R6, $R3	| 46- and R1 = R6 & R3	
+	or $R1, $R2, $R3	| 47- or R1 = R2 or R3	
+	xor $R1, $R2, $R3	| 48- xor R1 = R2 ^ R3	
+	nor $R1, $R2, $R3	| 49- nor R1 = R2 nor R3	
+	jr $R3			| 50- jr to R3	
+	srv $R1, $R1, 0		| 51- srv R1:R1 = 0	
+	ent a, b, c		| ent make a, b, c go to linker	
+	ext cake, pie		| ext get ext labels cake and pie	
+hi	nop			| nop with label "hi"
+.end, Test37to51
