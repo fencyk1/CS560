@@ -6,6 +6,7 @@
 // ---Two's comp to integer converter
 // ---Update hex.data
 // ---Finish stuff
+// ---Replace all of the || with && for register checking
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -3234,6 +3235,27 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		{
 			immediate = false;
 		}
+		
+		//check second index to make sure it is a register
+		if ((line.size() > 1) && (!(line.get(1).equalsIgnoreCase("$0"))
+				&& !(line.get(1).equalsIgnoreCase("$1"))
+				&& !(line.get(1).equalsIgnoreCase("$2"))
+				&& !(line.get(1).equalsIgnoreCase("$3"))
+				&& !(line.get(1).equalsIgnoreCase("$4"))
+				&& !(line.get(1).equalsIgnoreCase("$5"))
+				&& !(line.get(1).equalsIgnoreCase("$6"))
+				&& !(line.get(1).equalsIgnoreCase("$7"))))
+		{
+			System.out.println("register");
+			//Create an error regarding invalid register syntax.
+			ErrorData invalidRegisterSyntax = new ErrorData();
+			invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidRegisterSyntax);
+			errors = true;
+		}
+		
 		//check the number of fields
 		if (line.size() != 3)
 		{
@@ -3248,6 +3270,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Check if it's a valid immediate
 		else if (immediate)
 		{
+			System.out.println("imm");
 			if (imm < -65536  || imm > 65535   )
 			{
 				//check the immediate value to be in the correct bounds
@@ -3261,27 +3284,10 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errors = true;
 			}
 		}
-		//check second index to make sure it is a register
-		else if ((!(line.get(1).equalsIgnoreCase("$0"))
-				|| !(line.get(1).equalsIgnoreCase("$1"))
-				|| !(line.get(1).equalsIgnoreCase("$2"))
-				|| !(line.get(1).equalsIgnoreCase("$3"))
-				|| !(line.get(1).equalsIgnoreCase("$4"))
-				|| !(line.get(1).equalsIgnoreCase("$5"))
-				|| !(line.get(1).equalsIgnoreCase("$6"))
-				|| !(line.get(1).equalsIgnoreCase("$7"))))
-		{
-			//Create an error regarding invalid register syntax.
-			ErrorData invalidRegisterSyntax = new ErrorData();
-			invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidRegisterSyntax);
-			errors = true;
-		}
 		//check for a parenthesis in the final index
 		else if (line.get(2).charAt(line.get(2).length()-1) == ')')
 		{
+			System.out.print("paren");
 			//Get the first left paren's index
 			int parenIndex = line.get(2).indexOf('(');
 			
@@ -3359,6 +3365,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Repeat alphanumeric stuff for label checking
 		else if (!(immediate))
 		{
+			System.out.println("alphanumeric");
 			//Create a counter for iteration
 			int i = 0;
 			
@@ -3416,6 +3423,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Otherwise the line is valid, encode
 		if (!errors)
 		{
+			System.out.println("encode");
 			//TODO: encode me
 		}	
 		
