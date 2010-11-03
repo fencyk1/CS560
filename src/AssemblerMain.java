@@ -11,6 +11,8 @@ public class AssemblerMain {
 		//Poll/retrieve source code from the first argument from command line
 		File sourceCodeFileName = new File(args[0]);
 		
+		System.out.println("Starting assembling process.");
+		
 		//Check if the source code is a directory or a readable file.
 		if (sourceCodeFileName.isDirectory())
 		{
@@ -76,7 +78,7 @@ public class AssemblerMain {
 		objectFileName.outputObjectFile(intermediateFile, symbolsFound, locationCounter);
 		
 		
-
+		System.out.println("Ending assembling process.");
 	}
 
 }
