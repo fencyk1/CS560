@@ -40,6 +40,20 @@ public interface SymbolInterface {
 	void setLength(int length);
 	
 	/**
+	 * Sets the equated value of the symbol. If it is not an EQU type, value is NA
+	 * 
+	 * @param value The value of the equated string.
+	 */
+	void setValue(String value);
+	
+	/**
+	 * Returns the equated value of the symbol. If it is not an EQU type, value is NA
+	 * 
+	 * @return The value of the equated string.
+	 */
+	String getValue();
+	
+	/**
 	 * Gets the name of the symbol in question.
 	 * 
 	 * @return The name of the symbol.

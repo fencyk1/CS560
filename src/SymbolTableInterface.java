@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+
 /**
  * The representation of our symbol table, represented by an array of Symbols.
  * 
@@ -33,12 +36,28 @@ public interface SymbolTableInterface {
 	void updateLocation (String label, int location);
 	
 	/**
-	 * Updates what value the symbol contains in the symbol table.
+	 * Updates what usage the symbol contains in the symbol table.
 	 * 
 	 * @param label The name of the symbol whose usage is being updated.
 	 * @param usage How the symbol is being used, label, start.exec, etc.
 	 */
 	void updateUsage (String label, String usage);
+	
+	/**
+	 * Updates the equated value of the symbol
+	 * 
+	 * @param label The name of the symbol whose value is being updated.
+	 * @param value The symbol's new value.
+	 */
+	void updateValue (String label, String value);
+	
+	/**
+	 * Returns the equated value of the symbol.
+	 * 
+	 * @param label The name of the symbol in question.
+	 * @return The symbol's equated value.
+	 */
+	String GetValue (String label);
 	
 	/**
 	 * Returns the location of a given Symbol.
@@ -62,11 +81,11 @@ public interface SymbolTableInterface {
 	void sort();
 	
 	/**
-	 * Outputs the Symbol table with all of its parameters into a string,
+	 * Outputs the Symbol table with all of its parameters into a File,
 	 * with lines terminated by the newline character '\n'. The newline character
 	 * may be changed based on which type of OS we decide to test on.
 	 * 
-	 * @return A string containing the symbol table and data.
+	 * @param outputFileName The name of the file to be created.
 	 */
-	String outputTable();
+	void outputTable(File outputFileName) throws IOException;
 }

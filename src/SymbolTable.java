@@ -1,3 +1,8 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -92,6 +97,39 @@ public class SymbolTable implements SymbolTableInterface {
 			counter++;
 		}
 
+	}
+	
+	public void updateValue(String label, String value) {
+		int counter = 0;
+		
+		//Iterate through the symbol table to find the symbol with name label.
+		while (this.symTable.size() > counter)
+		{
+			//When found, update its usage.
+			if (this.symTable.get(counter).getLabel().equals(label))
+			{
+				this.symTable.get(counter).setValue(value);
+			}
+			counter++;
+		}
+	}
+	
+	public String GetValue(String label) {
+		int counter = 0;
+		String returnValue = new String(); 
+		
+		//Iterate through the symbol table to find the symbol with name label.
+		while (this.symTable.size() > counter)
+		{
+			//When found, break from the loop and return its location.
+			if (this.symTable.get(counter).getLabel().equals(label))
+			{
+				returnValue = this.symTable.get(counter).getValue();
+				break;
+			}
+			counter++;
+		}
+		return returnValue;
 	}
 
 	@Override
@@ -189,28 +227,32 @@ public class SymbolTable implements SymbolTableInterface {
 		this.symTable = sorter;
 	}
 	
-	public String outputTable() {
+	public void outputTable(File outputFileName) throws IOException {
 		int counter = 0;
-		SymbolInterface currentSymb;
+		SymbolInterface currentSymb = new Symbol();
 		
-		//Create an output string with a formatted header containing data by
-		//column
-		String output = "\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage\n";
+		//Prepare to write to the file passed in through the operand of outputTable
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(outputFileName)));
 		
-		//Get information for each Symbol and add it to the output.
+		//Write the header to the file
+		out.println("\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage\t|\tValue");
+		
+		//Get each piece of data from the symbol object, and write it to file.
 		while (counter < this.symTable.size())
 		{
 			//Set the current symbol for performance measures.
 			currentSymb = this.symTable.get(counter);
-			//Add in the data about that symbol complete with formatted lines.
-			output = output.concat(currentSymb.getLabel() + "\t|\t");
-			output = output.concat(currentSymb.getLocation() + "\t\t|\t");
-			output = output.concat(currentSymb.getLength() + "\t|\t");
-			output = output.concat(currentSymb.getUsage() + "\n");
+			//Output the formatted symbol table to a new text document
+			out.print(currentSymb.getLabel() + "\t|\t");
+			out.print(currentSymb.getLocation() + "\t\t|\t");
+			out.print(currentSymb.getLength() + "\t|\t");
+			out.print(currentSymb.getUsage() + "\t|\t");
+			out.println(currentSymb.getValue());
 			counter++;
 		}
+		//Close the output
+		out.close();
 		
-		return output;
 	}
 
 }
