@@ -1,3 +1,0 @@
-			 Symbol Table 
-Label		|	Location	|	Length	|	Usage		|	Value
-altest_02	|	0			|	0		|	Progam Name	|	NA
