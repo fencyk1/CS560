@@ -1,0 +1,13 @@
+.start,altest04,0       | Start Location Counter at zero
+.text
+    exec.start *
+     LW     $1,DEC1+10     | Load Number
+     ADDs   $1,$1,DEC   | Add second number
+     Sw     $1,SUM      | Store SUM
+OUT  NOP    $12,$11,oops
+     ADD    $0000,$2,$2
+     HALT   1500        | Stop execution
+.data
+SUM  int.data     0 
+     Int.data     0 
+.end,altest04           |end of Altest00

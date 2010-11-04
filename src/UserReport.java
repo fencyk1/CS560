@@ -14,7 +14,7 @@ public class UserReport implements UserReportInterface {
 	public void createUserReport (InSourceCode SourceCodeArray, ErrorOut foundErrorsTable)
 	{
 		int i = 0;
-		
+		int j = 0;
 		//iterate throught the source code looking into the foundErrorsTable for errors at each line. if they exist then add them in at that index plus 1
 		while (SourceCodeArray.source.size() > i)
 		{
@@ -23,6 +23,7 @@ public class UserReport implements UserReportInterface {
 			//j+2
 			//else j+1
 			//check to see if there is an error at the line. note source code line starts at 1 and array starts at 0
+			
 			if (foundErrorsTable.errorAtLine(i+1) == true)
 			{
 
@@ -32,17 +33,18 @@ public class UserReport implements UserReportInterface {
 				//the error entry at the line
 				errorEntry = foundErrorsTable.search(i+1);
 
-
 				// output errorEntry as a sting to the array.
-				SourceCodeArray.source.add(i+1, foundErrorsTable.output(errorEntry));
-				i = i+2;
+				SourceCodeArray.source.add(i+1+j, foundErrorsTable.output(errorEntry));
+				j = j + 1;
+				i = i+1;
+				
 			}
 			else
 			{
 				i++;
 			}
-
 		}
+		
 	}
 	
 	/*

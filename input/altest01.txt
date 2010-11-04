@@ -1,0 +1,42 @@
+.start:altest01,0
+.text
+	EXT          DQ
+	Reset.lc    8
+P1	ClR    $1,$15	| clear registers 1 to 15
+P2	inn    1,XX($1)	| READ NEXT XX from keyboard
+	Outn   1,XX($1)	| ECHO XX to the display
+	Inn    1,YY($1)	| READ IN NEXT YY from keyboard
+	Outn   1,YY($1)	| ECHO YY to the display
+	Lw     $2,XX($1) | Begin to FORM XX/YY
+	Lw     $3,YY($1)
+	JEQ    $3,$0,ER	| IF DIVIDE BY 0, GO PRT MSG AND HALT
+	DIV    $2,$2,$3	| OTHERWISE  DIVIDE
+	SW     $2,QQ($1) | STORE RESULT
+	ADD    $10,$10,$2 | ADD QUOTIENT TO SUM REGISTER
+	ADDi   $1,1	| INCREMENT INDEX REGISTER
+	ADD    $2,$1,$0 | TEST IF 4 TIME THROUGH THE LOOP
+	SUBi   $2,4
+	JEQ    $2,$0,P2	| IF NOT DONE, LOOP BACK
+	Sw     $10,Q1	| IF DONE, STORE AND PRINT RESULT
+	outc   2,M1	| Output 2 words
+	outc   1,Q1
+	J      E1	| THEN GO TO THE EXIT ROUTINE
+ER	outc   2,ME	| ZERO DIVISOR, PRINT Y IS 0
+	HALT   256	| DUMP AND HALT
+E1	outc   4,M2
+	Lw     $1,A1
+	JLK    0($1)
+	HALT   0	| HALT normal exit user code 0
+| CONSTANTS AND TEMPORARIES
+.data
+A1  adr.data  DQ	| ADDRESS OF DQ.
+A2  adr.data  XX	| ADDRESS of XX.
+C4  int.data  4
+ME  str.data 'Y IS 0' | MESSAGE IS:		Y IS 0
+M1  str.data ' Q=' 	| MESSAGE IS:		Q=
+M2  str.data 'END of Program'
+QQ  mem.SKIP 4
+Q1  mem.SKIP 1
+XX  mem.SKIP 4
+YY  mem.SKIP 4
+.END,altest01

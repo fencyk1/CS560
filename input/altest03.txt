@@ -1,0 +1,22 @@
+.start,altest03,0 
+.data               
+YY     int.data     0
+ZZ     int.data     0
+XX     int.data     0
+Err     str.data    'ZZ=0' 
+.text               
+     ENT     XX         | Another program may come looking for the result
+     exec.start * 
+     inn     2,YY       |read in 2 numbers into locations YY and ZZ
+     LW      $3,YY     
+     JEQ     $3,$0,ERROR 
+     LW      $2,ZZ     
+     mul     $4,$3,$2    | place intermediate result in reg 4
+     muli    $5,$4,20    | place intermediate result in reg 5
+     Div     $5,$5,$3    | Final result is in reg 5
+     sw      $5,XX 
+     outn    1,XX        | output 1 word at location XX
+     HALT    0 
+ERROR outc   1,Err 
+     HALT    250        | Halt and display error code 250
+.end,altest03

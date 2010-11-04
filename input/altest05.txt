@@ -1,0 +1,5 @@
+.start,altest05,500
+.data
+xx  int.data 40000000000000
+yy  str.data 'ABCDEFGH'    | will this generate 2 words?
+.end,altest05

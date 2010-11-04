@@ -1,0 +1,29 @@
+.start,altest02,0
+.data
+   int.data 17
+   int.data  9
+.text
+ RESET.LC 22
+   Exec.start *
+   lw   $5,4
+   muls $5,$5,5
+   sw   $5,10
+   lw   $1,4
+   DIVs $1,$1,5
+   sw   $1,11
+   lw   $2,4
+   ands $2,$2,5
+   sw   $2,12
+   lw   $3,4
+   ORs  $3,$3,5
+   sw   $3,13
+   lw   $4,4
+   subs $4,$4,5
+   sw   $4,14
+   lw   $0,4
+   SlL  $0,$0,2
+   sw   $0,15
+   JAL  36
+   adds $6,$6,0($1)
+   halt 200
+.end,altest02

@@ -1,9 +1,50 @@
-.start,jeff,0
+.start,altest_02,0
 .data
-	int.data	10
-X	int.data	4
+   mem.skip 4         |00
+   int.data 17        |04   00000011
+   int.data  9        |05 00000005
 .text
-	sw	$5,10
-	Halt	-1
-Error 31 at line 7: Halt number must range from 0 to 255 inclusive
-.end,jeff
+   RESET.LC 16
+Error 9 at line 7: instruction syntax invalid
+   Exec.start *       |10
+   lw   $5,$4          |10   78000004
+Error 30 at line 9: Address or label is invalid
+   muls $5,5,5       |11   70000005
+Error 25 at line 10: Invalid register syntax. Correct format is "$X", where X is a number from [0-7]
+   sw   $5,$10         |12   9C00000A
+Error 30 at line 11: Address or label is invalid
+   lw   $1,$4          |13   78200004
+Error 30 at line 12: Address or label is invalid
+   DIVs $1,1,5       |14   74200005
+Error 25 at line 13: Invalid register syntax. Correct format is "$X", where X is a number from [0-7]
+   sw   $1,$11         |15   9C20000B
+Error 30 at line 14: Address or label is invalid
+   lw   $2,$4          |16   78400004
+Error 30 at line 15: Address or label is invalid
+   ands $3,$5($2)      |17   E8240005
+Error 30 at line 16: Address or label is invalid
+   sw   $2,$12         |18   9C40000C
+Error 30 at line 17: Address or label is invalid
+   lw   $3,$4          |19   78600004
+Error 30 at line 18: Address or label is invalid
+   ORs  $3,$5($2)      |1A   EC600005
+Error 30 at line 19: Address or label is invalid
+   sw   $3,$13         |1B   9C60000D
+Error 30 at line 20: Address or label is invalid
+   lw   $4,$4          |1C   78800004
+Error 30 at line 21: Address or label is invalid
+   subs $4,$4,5       |1D   6C800005
+   sw   $4,$14         |1E   9C80000D
+Error 30 at line 23: Address or label is invalid
+   lw   $0,$4          |1F   78200004
+Error 30 at line 24: Address or label is invalid
+   SlL  $0,$0,2       |20   02000402
+   sw   $0,$15         |21   9C00000F
+Error 30 at line 26: Address or label is invalid
+   JAL  $R36            |22   1C00000F 
+Error 24 at line 27: Invalid number of parameters
+   adds $6,$6,$5       |23   68040005
+   halt $200           |24   200000C8
+Error 20 at line 29: Value must be a decimal integer
+.end,altest_02
+

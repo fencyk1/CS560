@@ -173,58 +173,62 @@ public class SymbolTable implements SymbolTableInterface {
 	@Override
 	public void sort() {
 		ArrayList<SymbolInterface> sorter = new ArrayList<SymbolInterface>();
-		//Set the loop counter to 1 since we're skipping the first element.
-		int counter = 1;
-		//Set an inner loop counter for a nested loop to go through the arrays.
-		int innerCounter = 0;
-		
-		//Copy the very first element into a sorting arrayList.
-		sorter.add(this.symTable.get(0));
-		
-		//Copy each element from the original array into the sorting array, in
-		//sorted order.
-		while (counter < this.symTable.size())
+		//Sort iff there are actually symbols
+		if (this.symTable.size() > 0)
 		{
-			innerCounter = 0;
-			while (innerCounter <= this.symTable.size())
+			//Set the loop counter to 1 since we're skipping the first element.
+			int counter = 1;
+			//Set an inner loop counter for a nested loop to go through the arrays.
+			int innerCounter = 0;
+			
+			//Copy the very first element into a sorting arrayList.
+			sorter.add(this.symTable.get(0));
+			
+			//Copy each element from the original array into the sorting array, in
+			//sorted order.
+			while (counter < this.symTable.size())
 			{
-				//Check if the symbol name should come before or after the 
-				//current symbol name. If it should come before it, place it there.
-				//If it should come after it, check the next symbol name as well.
-			    //Only place the symbol before another symbol, or at the end of the
-				//array.
-				
-				//If there is nothing left to compare to, the symbol must come last,
-				//so add it to the end.
-				if (innerCounter == sorter.size()) 
+				innerCounter = 0;
+				while (innerCounter <= this.symTable.size())
 				{
-					sorter.add(innerCounter, this.symTable.get(counter));
-					break;
+					//Check if the symbol name should come before or after the 
+					//current symbol name. If it should come before it, place it there.
+					//If it should come after it, check the next symbol name as well.
+				    //Only place the symbol before another symbol, or at the end of the
+					//array.
+					
+					//If there is nothing left to compare to, the symbol must come last,
+					//so add it to the end.
+					if (innerCounter == sorter.size()) 
+					{
+						sorter.add(innerCounter, this.symTable.get(counter));
+						break;
+					}
+					//If lexicographically larger, increment the innnerCounter
+					//and keep looking for its proper place.
+					else if ((this.symTable.get(counter).getLabel().compareToIgnoreCase(sorter.get(innerCounter).getLabel())) > 0)
+					{
+						innerCounter++;
+					}
+					//If lexicographically smaller, add the new symbol in right before
+					//the equivalent symbol and break from the loop
+					else if ((this.symTable.get(counter).getLabel().compareToIgnoreCase(sorter.get(innerCounter).getLabel())) < 0)
+					{
+						sorter.add(innerCounter, this.symTable.get(counter));
+						break;
+					}
+					//If the same, add the new symbol in right before the equivalent symbol
+					//and break from the nested loop.
+					else
+					{
+						sorter.add(innerCounter, this.symTable.get(counter));
+						break;
+					}
 				}
-				//If lexicographically larger, increment the innnerCounter
-				//and keep looking for its proper place.
-				else if ((this.symTable.get(counter).getLabel().compareToIgnoreCase(sorter.get(innerCounter).getLabel())) > 0)
-				{
-					innerCounter++;
-				}
-				//If lexicographically smaller, add the new symbol in right before
-				//the equivalent symbol and break from the loop
-				else if ((this.symTable.get(counter).getLabel().compareToIgnoreCase(sorter.get(innerCounter).getLabel())) < 0)
-				{
-					sorter.add(innerCounter, this.symTable.get(counter));
-					break;
-				}
-				//If the same, add the new symbol in right before the equivalent symbol
-				//and break from the nested loop.
-				else
-				{
-					sorter.add(innerCounter, this.symTable.get(counter));
-					break;
-				}
+				counter++;
 			}
-			counter++;
-		}
-		this.symTable = sorter;
+			this.symTable = sorter;
+		}		
 	}
 	
 	public void outputTable(File outputFileName) throws IOException {
@@ -235,7 +239,7 @@ public class SymbolTable implements SymbolTableInterface {
 		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/" + outputFileName)));
 		
 		//Write the header to the file
-		out.println("\t\t\t Symbol Table \nLabel\t|\tLocation\t|\tLength\t|\tUsage\t\t|\tValue");
+		out.println("\t\t\t Symbol Table \nLabel\t\t|\tLocation\t|\tLength\t|\tUsage\t\t|\tValue");
 		
 		//Get each piece of data from the symbol object, and write it to file.
 		while (counter < this.symTable.size())
@@ -243,9 +247,16 @@ public class SymbolTable implements SymbolTableInterface {
 			//Set the current symbol for performance measures.
 			currentSymb = this.symTable.get(counter);
 			//Output the formatted symbol table to a new text document
-			out.print(currentSymb.getLabel() + "\t|\t");
-			out.print(currentSymb.getLocation() + "\t\t|\t");
-			out.print(currentSymb.getLength() + "\t|\t");
+			if (currentSymb.getLabel().length() > 4)
+			{
+				out.print(currentSymb.getLabel() + "\t|\t");
+			}
+			else
+			{
+				out.print(currentSymb.getLabel() + "\t\t\t|\t");
+			}
+			out.print(currentSymb.getLocation() + "\t\t\t|\t");
+			out.print(currentSymb.getLength() + "\t\t|\t");
 			out.print(currentSymb.getUsage() + "\t|\t");
 			out.println(currentSymb.getValue());
 			counter++;

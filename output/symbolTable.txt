@@ -1,4 +1,3 @@
 			 Symbol Table 
-Label	|	Location	|	Length	|	Usage		|	Value
-jeff	|	0		|	0	|	Progam Name	|	NA
-X	|	0		|	1	|	int.data	|	NA
+Label		|	Location	|	Length	|	Usage		|	Value
+altest_02	|	0			|	0		|	Progam Name	|	NA

@@ -1,12 +1,7 @@
-// ---Parser notes: check error.tbl / ErrorTable.java's utility.
 // ---Might need to change the length of hex.data/bin.data
-// ---Change encode helper operations to include an operand for the parsed line's data?
-// ---Pass in instruction name in each parse, for encoding purposes.
-// ---Only enter encode methods if we have syntactically valid commands?
 // ---Two's comp to integer converter
 // ---Update hex.data
-// ---Finish stuff
-// ---Replace all of the || with && for register checking
+// ---Add an error for directive syntax invalid
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -24,7 +19,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
 			int locationCounter, IntermediateFile intermediateFile) {
 	
-		System.err.println("Parsing line : " + line);
+		System.out.println("Parsing line : " + line);
 		
 		//Check the first token of each line for the .data or .text flags
 		if (line.get(0).equalsIgnoreCase(".data") && haveDotStart)
@@ -94,8 +89,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Create string object for converting purposes
 			String lcConverter = line.get(2);
 			
+			Converter dickables = new Converter();
+			
+			int munchables = Integer.parseInt(dickables.binaryToDecimal(dickables.hexToBinary(lcConverter)));
+			
 			//If the location in memory is too large, throw an error
-			if (lcConverter.length() > 2)
+			if ((munchables > 65355) || (munchables < 0))
 			{
 				//Create an error regarding invalid starting location.
 				ErrorData invalidStartingLocation = new ErrorData();
@@ -274,7 +273,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				if (line.size() > 2)
 				{
-					stringHolder = line.get(3);
+					stringHolder = line.get(2);
 				}
 				
 				// The length of the String data in memory is based on the length of the string.
@@ -291,6 +290,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				{
 					strDotData.setLength(((stringHolder.length() - 2) / 4) + 1);
 				}
+				
 				
 				//Put it in the symbol table
 				symbolsFound.defineSymbol(strDotData);
@@ -2997,7 +2997,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
+			for (int i = 1; i < (line.size()-1); i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3052,14 +3052,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		int imm = 0; 
 		boolean immediate = true;
 		
-		//Determine whether the character is a number or not.
-		try
+		if (line.size() == 4)
 		{
-			imm = Integer.parseInt(line.get(3));
-		}
-		catch(NumberFormatException e)
-		{
-			immediate = false;
+			//Determine whether the character is a number or not.
+			try
+			{
+				imm = Integer.parseInt(line.get(3));
+			}
+			catch(NumberFormatException e)
+			{
+				immediate = false;
+			}
 		}
 		
 		if (!(line.size() == 4))
@@ -3074,7 +3077,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Check if it's a valid immediate
 		else if (immediate)
 		{
-			System.out.println("imm");
+
 			if (imm < -65536  || imm > 65535   )
 			{
 				//check the immediate value to be in the correct bounds
@@ -3088,10 +3091,25 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errors = true;
 			}
 		}
+		//Check for * format
+		else if (line.get(3).charAt(0) == '*')
+		{
+			if ((line.get(3).length() > 1) && !(line.get(3).length() == 2
+					&& (line.get(3).charAt(1) == '-' || line.get(3).charAt(1) == '+')))
+			{
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData invalidAddressing = new ErrorData();
+				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressing);
+				errors = true;
+			}
+		}
 		//Repeat alphanumeric stuff for label checking
 		else if (!(immediate))
 		{
-			System.out.println("alphanumeric");
+
 			//Create a counter for iteration
 			int i = 0;
 			
@@ -3105,10 +3123,10 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Iterate through each character up until the first '(' checking
 			//for alphanumeracy 
-			while (i < line.get(2).length())
+			while (i < line.get(3).length())
 			{
 				//Move one character from the label into "label"
-				label = line.get(2).substring(i, i+1);
+				label = line.get(3).substring(i, i+1);
 				
 				//Use a try catch for syntactical correctness.
 				try 
@@ -3131,6 +3149,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Convert from a binary stream into an integer representation
 				ascii = binary[0];
+
 				
 				if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
 				{			
@@ -3145,31 +3164,38 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				i++;
 			}		
 		}
-		
-		
-		// For loop that checks each register parameter for correct syntax
-		for (int i = 1; i < 3; i++)
+		else
 		{
-			// Create a string to hold each parameter for syntax checking
-			String parameter = line.get(i);
 			
-			if ((!(parameter.equalsIgnoreCase("$0"))
-							&& !(parameter.equalsIgnoreCase("$1"))
-							&& !(parameter.equalsIgnoreCase("$2"))
-							&& !(parameter.equalsIgnoreCase("$3"))
-							&& !(parameter.equalsIgnoreCase("$4"))
-							&& !(parameter.equalsIgnoreCase("$5"))
-							&& !(parameter.equalsIgnoreCase("$6"))
-							&& !(parameter.equalsIgnoreCase("$7"))))
+		}
+		
+		if (line.size() > 1)
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < (line.size()-1); i++)
 			{
-				//Create an error regarding invalid register syntax.
-				ErrorData invalidRegisterSyntax = new ErrorData();
-				invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
 				
-				//Add it to the ErrorOut table.
-				errorsFound.add(invalidRegisterSyntax);
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								&& !(parameter.equalsIgnoreCase("$1"))
+								&& !(parameter.equalsIgnoreCase("$2"))
+								&& !(parameter.equalsIgnoreCase("$3"))
+								&& !(parameter.equalsIgnoreCase("$4"))
+								&& !(parameter.equalsIgnoreCase("$5"))
+								&& !(parameter.equalsIgnoreCase("$6"))
+								&& !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+				}
 			}
 		}
+		
 		
 		//Otherwise the line is valid, encode
 		if (!errors)
@@ -3210,7 +3236,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				&& !(line.get(1).equalsIgnoreCase("$6"))
 				&& !(line.get(1).equalsIgnoreCase("$7"))))
 		{
-			System.out.println("register");
+
 			//Create an error regarding invalid register syntax.
 			ErrorData invalidRegisterSyntax = new ErrorData();
 			invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
@@ -3234,7 +3260,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Check if it's a valid immediate
 		else if (immediate)
 		{
-			System.out.println("imm");
+
 			if (imm < -65536  || imm > 65535   )
 			{
 				//check the immediate value to be in the correct bounds
@@ -3248,10 +3274,25 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errors = true;
 			}
 		}
+		//Check for * format
+		else if (line.get(2).charAt(0) == '*')
+		{
+			if ((line.get(2).length() > 1) && !(line.get(2).length() == 2
+					&& (line.get(2).charAt(1) == '-' || line.get(2).charAt(1) == '+')))
+			{
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData invalidAddressing = new ErrorData();
+				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressing);
+				errors = true;
+			}
+		}
 		//check for a parenthesis in the final index
 		else if (line.get(2).charAt(line.get(2).length()-1) == ')')
 		{
-			System.out.print("paren");
+
 			//Get the first left paren's index
 			int parenIndex = line.get(2).indexOf('(');
 			
@@ -3329,7 +3370,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Repeat alphanumeric stuff for label checking
 		else if (!(immediate))
 		{
-			System.out.println("alphanumeric");
+
 			//Create a counter for iteration
 			int i = 0;
 			
@@ -3522,10 +3563,25 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(invalidAddressLabel);
 			errors = true;
 		}
+		//Check for * format
+		else if (line.get(1).charAt(0) == '*')
+		{
+			if ((line.get(1).length() > 1) && !(line.get(1).length() == 2
+					&& (line.get(1).charAt(1) == '-' || line.get(1).charAt(1) == '+')))
+			{
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData invalidAddressing = new ErrorData();
+				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressing);
+				errors = true;
+			}
+		}
 		//check for a parenthesis in the final index
 		else if (line.get(1).charAt(line.get(1).length()-1) == ')')
 		{
-			System.out.print("paren");
+
 			//Get the first left paren's index
 			int parenIndex = line.get(1).indexOf('(');
 			
@@ -3603,7 +3659,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Repeat alphanumeric stuff for label checking
 		else if (!(immediate))
 		{
-			System.out.println("alphanumeric");
+
 			//Create a counter for iteration
 			int i = 0;
 			
@@ -3744,7 +3800,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 4; i++)
+			for (int i = 1; i < (line.size()); i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3784,7 +3840,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 4; i++)
+			for (int i = 1; i < (line.size()); i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3833,7 +3889,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 4; i++)
+			for (int i = 1; i < (line.size()); i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3884,7 +3940,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 3; i++)
+			for (int i = 1; i < (line.size()-1); i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -3966,7 +4022,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < 4; i++)
+			for (int i = 1; i < (line.size()); i++)
 			{
 				// Create a string to hold each parameter for syntax checking
 				String parameter = line.get(i);
@@ -4025,6 +4081,21 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(invalidParameterCount);
 			errors = true;
 		}
+		//Check for * format
+		else if (line.get(2).charAt(0) == '*')
+		{
+			if ((line.get(2).length() > 1) && !(line.get(2).length() == 2
+					&& (line.get(2).charAt(1) == '-' || line.get(2).charAt(1) == '+')))
+			{
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData invalidAddressing = new ErrorData();
+				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressing);
+				errors = true;
+			}
+		}
 		else if (num < 0  || num > 65535)
 		{
 			//check the immediate value to be in the correct bounds
@@ -4040,7 +4111,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//check for a parenthesis in the final index
 		else if (line.get(2).charAt(line.get(2).length()-1) == ')')
 		{
-			System.out.print("paren");
+
 			//Get the first left paren's index
 			int parenIndex = line.get(2).indexOf('(');
 			
@@ -4118,7 +4189,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Repeat alphanumeric stuff for label checking
 		else
 		{
-			System.out.println("alphanumeric");
+
 			//Create a counter for iteration
 			int i = 0;
 			
@@ -4349,6 +4420,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+		}
+		//Check for * format
+		else if (line.get(3).charAt(0) == '*')
+		{
+			if ((line.get(3).length() > 1) && !(line.get(3).length() == 2
+					&& (line.get(3).charAt(1) == '-' || line.get(3).charAt(1) == '+')))
+			{
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData invalidAddressing = new ErrorData();
+				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressing);
+			}
 		}
 		else if ((addr > 65535) || (addr < 0))
 		{
