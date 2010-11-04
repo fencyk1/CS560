@@ -7,10 +7,10 @@ import java.util.*;
 
 
 public class IntermediateFile implements IntermediateFileInterface {
-	public ArrayList<String> hexCode;
+	public ArrayList<String> binCode;
 	
 	public IntermediateFile() {
-		this.hexCode = new ArrayList<String>();
+		this.binCode = new ArrayList<String>();
 	}
 	
 	@Override
@@ -22,10 +22,10 @@ public class IntermediateFile implements IntermediateFileInterface {
 		int i = 0;
 		
 		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
-		while (this.hexCode.size() > i)
+		while (this.binCode.size() > i)
 		{
 
-			out.println(this.hexCode.get(i));
+			out.println(this.binCode.get(i));
 			i++;
 		}
 		

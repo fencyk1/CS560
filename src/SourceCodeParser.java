@@ -258,7 +258,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				line.remove(0);
 				//Send remaining line to be parsed
 				parseIntDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineCounter, locationCounter, intermediateFile);		
+						directIn, lineCounter, locationCounter, intermediateFile);
 			}
 			else if (line.get(1).equalsIgnoreCase("str.data"))
 			{
@@ -1927,12 +1927,19 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	}
 	
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-//***************************Parse the Instructions****************************************
+//***************************Parse the Directives****************************************
 /////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private void parseIntDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an error flag for encoding purposes.
+		boolean errors = false;
+		
+		//Store the opName
+		String opName = line.get(0);
+		
 		if (line.size() == 2)
 		{
 			//declare the integer object that holds the value of the int.Data
@@ -1960,6 +1967,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Add it to the ErrorOut table.
 				errorsFound.add(invalidInteger);
+				errors = true;
 			}
 			
 			//Make sure the value of int.data is a valid number of a certain size
@@ -1971,14 +1979,35 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Add it to the ErrorOut table.
 				errorsFound.add(integerOutOfBounds);
+				errors = true;
 			}
 			
 		}
+		
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
+		
 	}
 	
 	private void parseStrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		// A String object to hold the String data
 		String stringHolder = line.get(1);
@@ -1991,6 +2020,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidString);
+			errors = true;
 		}
 		// Otherwise, we check the content for ' and then send the rest to the
 		// encoder method
@@ -2018,9 +2048,22 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(singleQuoteError);
+					errors = true;
 				}
 				i++;
 			}
+		}
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 	}
@@ -2028,6 +2071,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseHexDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		// A String object to hold the Hex data
 		String hexHolder = line.get(1);
@@ -2043,6 +2092,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidHexSyntax);
+			errors = true;
 		}
 		else
 		{
@@ -2083,6 +2133,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidHexSyntax);
+					errors = true;
 				}
 			}
 			// *********************************
@@ -2090,20 +2141,39 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			// *********************************
 			if (true)
 			{
+				//TODO: check for hex out of bounds.
 				//Holder if for out of bounds checking
+				errors = true;
 			}
 			else
 			{
 				// Send the hex number to be encoded.
-
 			}
 		}
 		
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseBinDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		// A String object to hold the Binary data
 		String binHolder = line.get(1);
@@ -2119,6 +2189,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidBinSyntax);
+			errors = true;
 		}
 		else
 		{
@@ -2151,17 +2222,36 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errorsFound.add(invalidBinSyntax);
 					
 					encodable = false;
+					errors = true;
 				}
 			}
 			
 			// Send the binary number to be encoded.
 
 		}
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 2)
@@ -2172,11 +2262,77 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		else
 		{
-			//If there is, send it to be encoded
+			//Create a counter for iteration
+			int i = 0;
+			
+			//Create a string to hold a single character in from the "label"
+			String label = new String();
+			
+			//Create a new byte array for the ascii conversion
+			byte[] binary = new byte[1];
+			
+			int ascii = 0;
+			
+			//Iterate through each character up until the first '(' checking
+			//for alphanumeracy 
+			while (i < line.get(1).length())
+			{
+				//Move one character from the label into "label"
+				label = line.get(1).substring(i, i+1);
+				
+				//Use a try catch for syntactical correctness.
+				try 
+				{
+					//Convert the ascii string passed in, into
+					//an array of bytes containing their binary
+					//representation.
+					binary = label.getBytes("US-ASCII");
+				} 
+				//"US-ASCII" is a supported encoding, so this will never
+				//throw an error, but is required for syntax measures.
+				catch (UnsupportedEncodingException e) 
+				{
+					//Again, since this will never throw an error, this
+					//is here for syntax purposes, but the stack trace
+					//would just print out a trace of where the error
+					//occurred and halt the program.
+					e.printStackTrace();
+				}
+				
+				//Convert from a binary stream into an integer representation
+				ascii = binary[0];
 
+				
+				if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+				{			
+					//Create an error regarding invalid address/label syntax.
+					ErrorData invalidAddressLabel = new ErrorData();
+					invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressLabel);
+					errors = true;
+				}
+				i++;
+			}		
+
+		}
+		
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 	}
@@ -2191,7 +2347,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
-				
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
 		//Make sure there is only one expression included with adr.exp
 		if(line.size() > 2)
 		{
@@ -2201,6 +2363,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		else
 		{
@@ -2239,6 +2402,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							
 							//Add the error to the error table
 							errorsFound.add(nestedExpression);
+							errors = true;
 							
 							//Flag the error boolean as true
 							error = true;
@@ -2264,6 +2428,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							
 							//Add the error to the error table
 							errorsFound.add(noNestedTermination);
+							errors = true;
 							
 							//Flag the error boolean as true
 							error = true;
@@ -2284,6 +2449,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add the error to the error table
 					errorsFound.add(noNestedStart);
+					errors = true;
 					
 					//Flag the error boolean as true
 					error = true;
@@ -2354,6 +2520,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 								//Create an error
 								ErrorData doubleOperation = new ErrorData();
 								doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								errors = true;
 							}
 					}
 					//If it is not a number or operator, it is a label,
@@ -2374,6 +2541,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							
 							//Set the error flag to true
 							expError = true;
+							errors = true;
 						}
 						//Otherwise, find where the label ends and continue parsing
 						else
@@ -2390,35 +2558,32 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						}
 					}
 					counter++;
-				}
-				
-				//If there have been no errors, encode the operation.
-				if (!expError)
-				{
-					//ecode as a adr.exp
-
-				}
-				//Otherwise, encode it as a NOP
-				else
-				{
-					//encode as a nop
-
-				}
-				
-				
+				}									
 			}
-			//Otherwise, encode the operation as a NOP
-			else
-			{
-				//encode as a nop
-
-			}
+		}
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 	}
 	
 	private void parseMemSkip(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 2)
@@ -2429,6 +2594,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Check to make sure there are only four digits
 		else if (line.get(1).length() > 4)
@@ -2439,6 +2605,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(excessDigits);
+			errors = true;
 		}
 		//Check to make sure the digits are parsable (integers)
 		else if (line.get(1).length() <= 4)
@@ -2455,12 +2622,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Add the error to the error table
 				errorsFound.add(nonIntegerValue);
+				errors = true;
 			}
 		}
-		//Otherwise, encode it!
+		//If no errors have been found, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 	}
@@ -2469,6 +2644,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
 		//Check to make sure there are no more than 4 operands (labels)
 		if(line.size() > 5)
 		{
@@ -2478,15 +2659,32 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//TODO: in pass two, we make sure they are actually in the symbol table.
-		
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseExt(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
 		//Check to make sure there are no more than 4 operands (labels)
 		if(line.size() > 5)
 		{
@@ -2496,6 +2694,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Otherwise, add them to the symbol table
 		else
@@ -2515,11 +2714,28 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}
 		}
 		//TODO: Not sure what happens in pass 2 here, actually, but something does.
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseNop(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Check to make sure there are no operands
 		if(line.size() > 1)
@@ -2530,17 +2746,31 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
-		//Otherwise, encode it
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-			
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 	}
 	
 	private void parseExecStart(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 2)
@@ -2551,6 +2781,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Otherwise, add it to the symbol table
 		else
@@ -2561,11 +2792,30 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			execDotStart.setLocation(Integer.toHexString(locationCounter));
 			execDotStart.setUsage("Prgm Start");
 		}
+		
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseEqu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 3)
@@ -2576,6 +2826,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Otherwise check if the string is too long
 		else if(line.get(2).length() > 32)
@@ -2586,6 +2837,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(stringTooLong);
+			errors = true;
 		}
 		//Otherwise add it to the symbol table
 		else
@@ -2615,11 +2867,30 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Set the length
 			equ.setLength(length);
 		}
+		
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseEquExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
 		if(line.size() > 3)
@@ -2630,6 +2901,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Otherwise, parse the expression for correctness
 		else
@@ -2672,6 +2944,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							
 							//Flag the error boolean as true
 							error = true;
+							errors = true;
 							
 							//break from the loop, the entire expression is fubar
 							break;
@@ -2697,6 +2970,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							
 							//Flag the error boolean as true
 							error = true;
+							errors = true;
 							
 							//break from the loop, the entire expression is fubar
 							break;
@@ -2717,6 +2991,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Flag the error boolean as true
 					error = true;
+					errors = true;
 				}
 				//Check to see if there was an error, if so there is no need
 				//to continue parsing the line
@@ -2780,6 +3055,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							{
 								//Set teh error flag to be true
 								expError = true;
+								errors = true;
 							
 								//Create an error
 								ErrorData doubleOperation = new ErrorData();
@@ -2804,6 +3080,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 							
 							//Set the error flag to true
 							expError = true;
+							errors = true;
 						}
 						//Otherwise, find where the label ends and continue parsing
 						else
@@ -2833,11 +3110,30 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				}
 			}
 		}
+		
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseResetLC(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Create a boolean to determine if the operand field is an integer
 		boolean isNum = true;
@@ -2862,6 +3158,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Otherwise check if it is a number
 		else if (!isNum)
@@ -2872,6 +3169,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(nonIntegerValue);
+			errors = true;
 		}
 		//Otherwise check if the number is greater than the last LC
 		else if (Integer.parseInt(line.get(1)) < locationCounter)
@@ -2882,17 +3180,31 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(lowerLocationCounter);
+			errors = true;
 		}
-		//Otherwise, encode it
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 	}
 	
 	private void parseDebug(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//Create a boolean to determine if the operand field is an integer
 		boolean isNum = true;
@@ -2917,6 +3229,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(extraOperands);
+			errors = true;
 		}
 		//Otherwise check if it is a number
 		else if (!isNum)
@@ -2927,6 +3240,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(nonIntegerValue);
+			errors = true;
 		}
 		//Otherwise check if it is a valid number (one or two)
 		else if (Integer.parseInt(line.get(1)) != 1 || Integer.parseInt(line.get(1)) != 0)
@@ -2937,21 +3251,36 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add the error to the error table
 			errorsFound.add(falseDebug);
+			errors = true;
 		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-			//Set the internal debug flag?
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
-//**************************Parse Instructions**********************************
+//**************************Parse  the Instructions**********************************
 ///////////////////////////////////////////////////////////////////////////////////
 	
 	
 	private void parseAddiAddiuSubiSubiuMuliMuliuOriXoriNoriAndiSrv(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//immediate value
 		int imm = 0; 
@@ -2971,6 +3300,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(nonIntegerValue);
+			errors = true;
 			
 		}
 		
@@ -2982,6 +3312,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		else if (imm < -65536  || imm > 65535   )
 		{
@@ -2993,6 +3324,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(integerOutOfBounds);
+			errors = true;
 		}
 		else
 		{
@@ -3017,14 +3349,33 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
 				}
 			}
-		}		
+		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseDiviDiviu(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		if (Integer.parseInt(line.get(3)) == 0 )
 		{
@@ -3034,10 +3385,92 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(divideByZero);
+			errors = true;
 		}
 
+		//immediate value
+		int imm = 0; 
 		
-		parseAddiAddiuSubiSubiuMuliMuliuOriXoriNoriAndiSrv(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, lineCounter, locationCounter, intermediateFile);
+		//Determine whether the character is a number or not.
+		try
+		{
+			imm = Integer.parseInt(line.get(3));
+		}
+		catch(NumberFormatException e)
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData nonIntegerValue = new ErrorData();
+			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(nonIntegerValue);
+			errors = true;
+			
+		}
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
+		else if (imm < -65536  || imm > 65535   )
+		{
+			//check the immediate value to be in the correct bounds
+			
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData integerOutOfBounds = new ErrorData();
+			integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(integerOutOfBounds);
+			errors = true;
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < (line.size()-1); i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								&& !(parameter.equalsIgnoreCase("$1"))
+								&& !(parameter.equalsIgnoreCase("$2"))
+								&& !(parameter.equalsIgnoreCase("$3"))
+								&& !(parameter.equalsIgnoreCase("$4"))
+								&& !(parameter.equalsIgnoreCase("$5"))
+								&& !(parameter.equalsIgnoreCase("$6"))
+								&& !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
+				}
+			}
+		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 
 	
@@ -3045,8 +3478,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		//Create a flag for when we encounter an error, to know whether to encode
+		//Create an errors flag for encoding purposes
 		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//immediate value
 		int imm = 0; 
@@ -3073,6 +3509,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		//Check if it's a valid immediate
 		else if (immediate)
@@ -3164,10 +3601,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				i++;
 			}		
 		}
-		else
-		{
-			
-		}
 		
 		if (line.size() > 1)
 		{
@@ -3192,15 +3625,23 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
 				}
 			}
 		}
 		
-		
-		//Otherwise the line is valid, encode
+		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-		}	
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 		
 		
 	}
@@ -3209,8 +3650,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		//Create a flag for when we encounter an error, to know whether to encode
+		//Create an errors flag for encoding purposes
 		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//immediate value
 		int imm = 0; 
@@ -3425,11 +3869,18 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}		
 		}
 		
-		//Otherwise the line is valid, encode
+		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-			//TODO: encode me
-		}	
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 		
 	}
 		
@@ -3437,8 +3888,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		//Create an error flag for encoding requirements
+		//Create an errors flag for encoding purposes
 		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 
 		//immediate value
 		int imm = 0; 
@@ -3508,14 +3962,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errors = true;
 		}
 		
-		//Encode if valid
+		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-			
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
 		}
-		else 
+		//Otherwise, encode the line as a NOP
+		else
 		{
-			//encode nop
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 		
@@ -3525,8 +3982,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		//Create a flag for when we encounter an error, to know whether to encode
+		//Create an errors flag for encoding purposes
 		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//immediate value
 		int imm = 0; 
@@ -3714,10 +4174,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}		
 		}
 		
-		//Otherwise the line is valid, encode
+		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-			//TODO: encode me
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 	}
 
@@ -3726,8 +4193,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 
-		//Create a boolean error object for encoding
+		//Create an errors flag for encoding purposes
 		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 
 		
 		//num value
@@ -3772,13 +4242,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errors = true;
 		}
 		
+		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-			//encode normally
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
 		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-			//encode as nop
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 		
@@ -3788,145 +4262,11 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < (line.size()); i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								&& !(parameter.equalsIgnoreCase("$1"))
-								&& !(parameter.equalsIgnoreCase("$2"))
-								&& !(parameter.equalsIgnoreCase("$3"))
-								&& !(parameter.equalsIgnoreCase("$4"))
-								&& !(parameter.equalsIgnoreCase("$5"))
-								&& !(parameter.equalsIgnoreCase("$6"))
-								&& !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-			}
-		}
-	}
-	
-	private void parseDiv(ArrayList<String> line, ErrorOut errorsFound,
-			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < (line.size()); i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								&& !(parameter.equalsIgnoreCase("$1"))
-								&& !(parameter.equalsIgnoreCase("$2"))
-								&& !(parameter.equalsIgnoreCase("$3"))
-								&& !(parameter.equalsIgnoreCase("$4"))
-								&& !(parameter.equalsIgnoreCase("$5"))
-								&& !(parameter.equalsIgnoreCase("$6"))
-								&& !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-				if ((i == 3) &&  (parameter.equalsIgnoreCase("$0")))
-				{
-					//Create an error regarding invalid number which is out of bounds.
-					ErrorData divideByZero = new ErrorData();
-					divideByZero.add(lineCounter, 26, "Divide by zero error");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(divideByZero);
-				}
-			}
-		}
-	}
-	
-	private void parseDivu(ArrayList<String> line, ErrorOut errorsFound,
-			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
-		if (!(line.size() == 4))
-		{
-			//Create an error regarding invalid number of parameters.
-			ErrorData invalidParameterCount = new ErrorData();
-			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(invalidParameterCount);
-		}
-		else
-		{
-			// For loop that checks each register parameter for correct syntax
-			for (int i = 1; i < (line.size()); i++)
-			{
-				// Create a string to hold each parameter for syntax checking
-				String parameter = line.get(i);
-				
-				if ((!(parameter.equalsIgnoreCase("$0"))
-								&& !(parameter.equalsIgnoreCase("$1"))
-								&& !(parameter.equalsIgnoreCase("$2"))
-								&& !(parameter.equalsIgnoreCase("$3"))
-								&& !(parameter.equalsIgnoreCase("$4"))
-								&& !(parameter.equalsIgnoreCase("$5"))
-								&& !(parameter.equalsIgnoreCase("$6"))
-								&& !(parameter.equalsIgnoreCase("$7"))))
-				{
-					//Create an error regarding invalid register syntax.
-					ErrorData invalidRegisterSyntax = new ErrorData();
-					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidRegisterSyntax);
-				}
-				if ((i == 3) &&  (parameter.equalsIgnoreCase("$0")))
-				{
-					//Create an error regarding invalid number which is out of bounds.
-					ErrorData divideByZero = new ErrorData();
-					divideByZero.add(lineCounter, 26, "Divide by zero error");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(divideByZero);
-				}
-			}
-		}
-	}
-
-	
-	private void parseSllSrlSra(ArrayList<String> line, ErrorOut errorsFound,
-			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		if (!(line.size() == 4))
 		{
@@ -3936,6 +4276,212 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < (line.size()); i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								&& !(parameter.equalsIgnoreCase("$1"))
+								&& !(parameter.equalsIgnoreCase("$2"))
+								&& !(parameter.equalsIgnoreCase("$3"))
+								&& !(parameter.equalsIgnoreCase("$4"))
+								&& !(parameter.equalsIgnoreCase("$5"))
+								&& !(parameter.equalsIgnoreCase("$6"))
+								&& !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
+				}
+			}
+		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
+	}
+	
+	private void parseDiv(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < (line.size()); i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								&& !(parameter.equalsIgnoreCase("$1"))
+								&& !(parameter.equalsIgnoreCase("$2"))
+								&& !(parameter.equalsIgnoreCase("$3"))
+								&& !(parameter.equalsIgnoreCase("$4"))
+								&& !(parameter.equalsIgnoreCase("$5"))
+								&& !(parameter.equalsIgnoreCase("$6"))
+								&& !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
+				}
+				if ((i == 3) &&  (parameter.equalsIgnoreCase("$0")))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData divideByZero = new ErrorData();
+					divideByZero.add(lineCounter, 26, "Divide by zero error");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(divideByZero);
+					errors = true;
+				}
+			}
+		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
+	}
+	
+	private void parseDivu(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
+		else
+		{
+			// For loop that checks each register parameter for correct syntax
+			for (int i = 1; i < (line.size()); i++)
+			{
+				// Create a string to hold each parameter for syntax checking
+				String parameter = line.get(i);
+				
+				if ((!(parameter.equalsIgnoreCase("$0"))
+								&& !(parameter.equalsIgnoreCase("$1"))
+								&& !(parameter.equalsIgnoreCase("$2"))
+								&& !(parameter.equalsIgnoreCase("$3"))
+								&& !(parameter.equalsIgnoreCase("$4"))
+								&& !(parameter.equalsIgnoreCase("$5"))
+								&& !(parameter.equalsIgnoreCase("$6"))
+								&& !(parameter.equalsIgnoreCase("$7"))))
+				{
+					//Create an error regarding invalid register syntax.
+					ErrorData invalidRegisterSyntax = new ErrorData();
+					invalidRegisterSyntax.add(lineCounter, 25, "Invalid register syntax. Correct format is \"$X\", where X is a number from [0-7]");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
+				}
+				if ((i == 3) &&  (parameter.equalsIgnoreCase("$0")))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData divideByZero = new ErrorData();
+					divideByZero.add(lineCounter, 26, "Divide by zero error");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(divideByZero);
+					errors = true;
+				}
+			}
+		}
+		
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
+	}
+
+	
+	private void parseSllSrlSra(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
+		if (!(line.size() == 4))
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		else
 		{
@@ -3960,8 +4506,21 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
 				}
 			}
+		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 	}
@@ -3971,6 +4530,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
+		
 		if (!(line.size() == 2))
 		{
 			//Create an error regarding invalid number of parameters.
@@ -3979,6 +4544,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		else
 		{
@@ -4000,15 +4566,33 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 
 				//Add it to the ErrorOut table.
 				errorsFound.add(invalidRegisterSyntax);
+				errors = true;
 			}
 		}
-		
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 
 	
 	private void parseDump(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		if (!(line.size() == 4))
 		{
@@ -4018,6 +4602,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		else
 		{
@@ -4035,19 +4620,33 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidAmount);
+					errors = true;
 				}
 			}
 		}
-		
-		
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 	}
 	
 	private void parseInnIncOutnOutc(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
 
-		//Create an errors flag for encoding
+		//Create an errors flag for encoding purposes
 		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//num value
 		int num = 0;
@@ -4244,13 +4843,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}		
 		}
 		
+		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-			//encode
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
 		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-			//pass nop
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 	}
 
@@ -4258,6 +4861,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseOutniOutci(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//immediate value
 		int imm = 0; 
@@ -4280,6 +4889,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(nonIntegerValue);
+			errors = true;
 		}
 		
 		//Determine whether the character is a number or not.
@@ -4297,6 +4907,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(nonIntegerValue);
+			errors = true;
 		}
 		
 		if (!(line.size() == 3))
@@ -4307,6 +4918,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		else if (imm < -65536  || imm > 65535   )
 		{
@@ -4318,6 +4930,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(integerOutOfBounds);
+			errors = true;
 		}
 		else if (num < 0  || num > 65535   )
 		{
@@ -4329,10 +4942,19 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(integerOutOfBounds);
+			errors = true;
 		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
 		else
 		{
-			// Encode
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
 		}
 		
 	}
@@ -4341,6 +4963,12 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseAddsSubsMulsDivs(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, IntermediateFile intermediateFile) {
+		
+		//Create an errors flag for encoding purposes
+		boolean errors = false;
+		
+		//Store the opName for encoding purposes
+		String opName = line.get(0);
 		
 		//declare the starting location
 		int addr = 0;
@@ -4359,6 +4987,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidAddress);
+			errors = true;
 		}
 		//Otherwise check for hex syntax
 		else
@@ -4393,6 +5022,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidStartingLocation);
+					errors = true;
 				}
 				else
 				{
@@ -4420,6 +5050,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(invalidParameterCount);
+			errors = true;
 		}
 		//Check for * format
 		else if (line.get(3).charAt(0) == '*')
@@ -4433,6 +5064,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Add it to the ErrorOut table.
 				errorsFound.add(invalidAddressing);
+				errors = true;
 			}
 		}
 		else if ((addr > 65535) || (addr < 0))
@@ -4443,6 +5075,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			//Add it to the ErrorOut table.
 			errorsFound.add(addressOutOfBounds);
+			errors = true;
 		}
 		else
 		{
@@ -4467,10 +5100,36 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					
 					//Add it to the ErrorOut table.
 					errorsFound.add(invalidRegisterSyntax);
+					errors = true;
 				}
 			}
 		}
+		//If there are no errors, encode the line normally
+		if (!errors)
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, opName);
+		}
+		//Otherwise, encode the line as a NOP
+		else
+		{
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, locationCounter, intermediateFile, "NOP");
+		}
 		
+	}
+	
+	private void prepForEncoder (ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter, 
+			IntermediateFile intermediateFile, String opName)
+	{	
+
+	Encoder lineEncoder = new Encoder();
+	lineEncoder.encodeLine (line, errorsFound, symbolsFound, errorIn, instructIn, 
+			directIn, lineCounter, locationCounter, intermediateFile, opName);
+	
+	
 	}
 
 }
