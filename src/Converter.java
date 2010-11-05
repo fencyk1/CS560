@@ -1,4 +1,5 @@
 import java.io.UnsupportedEncodingException;
+import java.lang.Math;
 
 /**
  * OpConverter takes a line of source code in a number format, and converts <br />
@@ -43,67 +44,66 @@ public class Converter implements ConverterInterface {
 			//Otherwise, we add it to our decimal variable.
 			else if (digit == '1')
 			{
-				decimal = decimal + (1 * (16^counter));
+				decimal = (int) (decimal + (1 * (Math.pow(16,counter))));
 			}
 			else if (digit == '2')
 			{
-				decimal = decimal + (2 * (16^counter));
+				decimal = (int) (decimal + (2 * (Math.pow(16,counter))));
 			}
 			else if (digit == '3')
 			{
-				decimal = decimal + (3 * (16^counter));
+				decimal = (int) (decimal + (3 * (Math.pow(16,counter))));
 			}
 			else if (digit == '4')
 			{
-				decimal = decimal + (4 * (16^counter));
+				decimal = (int) (decimal + (4 * (Math.pow(16,counter))));
 			}
 			else if (digit == '5')
 			{
-				decimal = decimal + (5 * (16^counter));
+				decimal = (int) (decimal + (5 * (Math.pow(16,counter))));
 			}
 			else if (digit == '6')
 			{
-				decimal = decimal + (6 * (16^counter));
+				decimal = (int) (decimal + (6 * (Math.pow(16,counter))));
 			}
 			else if (digit == '7')
 			{
-				decimal = decimal + (7 * (16^counter));
+				decimal = (int) (decimal + (7 * (Math.pow(16,counter))));
 			}
 			else if (digit == '8')
 			{
-				decimal = decimal + (8 * (16^counter));
+				decimal = (int) (decimal + (8 * (Math.pow(16,counter))));
 			}
 			else if (digit == '9')
 			{
-				decimal = decimal + (9 * (16^counter));
+				decimal = (int) (decimal + (9 * (Math.pow(16,counter))));
 			}
 			else if (digit == 'A')
 			{
-				decimal = decimal + (10 * (16^counter));
+				decimal = (int) (decimal + (10 * (Math.pow(16,counter))));
 			}
 			else if (digit == 'B')
 			{
-				decimal = decimal + (11 * (16^counter));
+				decimal = (int) (decimal + (11 * (Math.pow(16,counter))));
 			}
 			else if (digit == 'C')
 			{
-				decimal = decimal + (12 * (16^counter));
+				decimal = (int) (decimal + (12 * (Math.pow(16,counter))));
 			}
 			else if (digit == 'D')
 			{
-				decimal = decimal + (13 * (16^counter));
+				decimal = (int) (decimal + (13 * (Math.pow(16,counter))));
 			}
 			else if (digit == 'E')
 			{
-				decimal = decimal + (14 * (16^counter));
+				decimal = (int) (decimal + (14 * (Math.pow(16,counter))));
 			}
 			else
 			{
-				decimal = decimal + (15 * (16^counter));
+				decimal = (int) (decimal + (15 * (Math.pow(16,counter))));
 			}
 			counter++;
 		}
-		
 		//Return the binary string.
 		return Integer.toBinaryString(decimal);
 	}
@@ -182,8 +182,12 @@ public class Converter implements ConverterInterface {
 			//store it in an integer in base 10.
 			rep = binary[counter];
 			
-			//Turn it into a 7 digit binary string.
+			//Turn it into a 8 digit binary string.
 			currentBin = Integer.toBinaryString(rep);
+			while (currentBin.length() < 8)
+			{
+				currentBin = "0" + currentBin;
+			}
 			
 			//Concatenate it with the total binary string.
 			totalBin = totalBin.concat(currentBin);
@@ -205,17 +209,40 @@ public class Converter implements ConverterInterface {
 		int value = 0;
 		
 		//Check the most significant bit, if it is a one, treat it as a negative
-		if(twos.charAt(0) == '1')
+		if (twos.charAt(0) == '1')
 		{
-			//convert each digit into an integer (base 10) using a while loop and add it
-			//to a temporary int object, then convert to string.
+			int counter = 0;
+			String newTwos = new String();
+			//Flip the bits
+			while (counter < twos.length())
+			{
+				if (twos.charAt(counter) == '1')
+				{
+					newTwos = newTwos + "0";
+				}
+				else
+				{
+					newTwos = newTwos + "1";
+				}
+				counter++;
+			}
+			//Convert that flipped value into an integer to add to
+			value = binToDec(newTwos);
+			//Add one to it to complete the conversion
+			value = value + 1;
+			//Make it negative
+			value = value * -1;
+			
 		}
 		//Otherwise, treat it as a positive
 		else
 		{
 			//convert each digit into an integer (base 10) using a while loop and add it
 			//to a temporary int object, then convert to string.
+			value = binToDec(twos);
 		}
+		
+		integerValue = Integer.toString(value);
 		return integerValue;
 	}
 
@@ -240,7 +267,7 @@ public class Converter implements ConverterInterface {
 			conversion = Integer.parseInt(binOne);
 			//Multiply that by 2 to the power of whatever position in the string
 			//we are in, starting at 0 and ending at binary.length - 1.
-			conversion = conversion * 2^counter;
+			conversion = (int) (conversion * Math.pow(2, counter));
 			//Add the newly converted binary digit to the total decimal number.
 			decimal = decimal + conversion;
 			//Increment the counter.

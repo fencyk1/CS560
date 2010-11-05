@@ -21,9 +21,13 @@ public class Encoder implements EncoderInterface {
 		
 		String encoded = converter.decimalToBinary(toEncode);
 		
+		//Extend the string to 32 bits
+		while (encoded.length() < 32)
+		{
+			encoded = "0" + encoded;
+		}
+		
 		//Return that string
-		
-		
 		return encoded;
 
 	}
@@ -37,12 +41,19 @@ public class Encoder implements EncoderInterface {
 		String toEncode = line.get(line.size()-1);
 		
 		//remove the ' on the ends first.
-		toEncode = toEncode.substring(1, toEncode.length());
+		toEncode = toEncode.substring(1, toEncode.length()-1);
 		
 		Converter converter = new Converter();
 		
 		//Encode that into binary from ascii
 		String encoded = converter.asciiToBinary(toEncode);
+		
+		//Extend the string to 32 bits
+		while (encoded.length() < 32)
+		{
+			//Add spaces to the end of the string if it is not large enough
+			encoded = encoded + "00100000" ;
+		}
 		
 		//Return that string
 		return encoded;
@@ -69,6 +80,12 @@ public class Encoder implements EncoderInterface {
 		
 		String encoded = converter.hexToBinary(toEncode);
 		
+		//Extend the string to 32 bits
+		while (encoded.length() < 32)
+		{
+			encoded = "0" + encoded;
+		}
+		
 		//Return that string
 		return encoded;
 	}
@@ -79,9 +96,16 @@ public class Encoder implements EncoderInterface {
 			int locationCounter, String opName) {
 
 		//Get the last thing in the array of the line
+		String encoded = line.get(line.size()-1);
+		
+		//Extend the string to 32 bits
+		while (encoded.length() < 32)
+		{
+			encoded = "0" + encoded;
+		}
+		
 		//Return that string
-
-		return line.get(line.size()-1);
+		return encoded;
 	}
 
 	private String encodeAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
@@ -391,8 +415,311 @@ public class Encoder implements EncoderInterface {
 		
 		//TODO: addr code
 		
-		return "S TYPE";
+		Converter converter = new Converter();
+		
+		//Get the opCode
+		String opCode = converter.hexToBinary(instructIn.getInstructionOpcode(opName.toLowerCase()));
+		//Extend the opCode
+		while (opCode.length() < 6)
+		{
+			opCode = "0" + opCode;
+		}
+		
+		//Lay out encoding storage variables
+		String reg1 = new String();
+		String reg2 = "000";
+		String addr = "00";
+		String memoryRef = new String();
+		
+		//Create an operand variable for the addr(register) case
+		String operand = new String();
+		
 
+		//If the last thing in the array is one of our special flags, remove it.
+		if (line.get(line.size()-1) == "*" || line.get(line.size()-1) == "paren"
+			|| line.get(line.size()-1) == "label or num")
+		{
+			//Remove the last thing in the line arraylist, it was an extra element to determine the format of the IO type
+			operand = line.remove(line.size()-1);
+		}
+		
+		
+		//If it's 4 tokens long, encode as a reg/reg/addr
+		if (line.size() == 4)
+		{
+			boolean number = true;
+			
+			//Check if the amt field is a number or label
+			try 
+			{
+				Integer.parseInt(line.get(3));
+			}
+			catch (NumberFormatException e)
+			{
+				number = false;
+			}
+			
+			
+			//Get the first register's value
+			reg1 = converter.decimalToBinary(line.get(1).substring(1));
+			//Extend register one to three digits
+			while (reg1.length() < 3)
+			{
+				reg1 = "0" + reg1;
+			}
+			//Get the second register's value
+			reg2 = converter.decimalToBinary(line.get(2).substring(1));
+			//Extend register two to three digits
+			while (reg2.length() < 3)
+			{
+				reg2 = "0" + reg2;
+			}
+			//If it's a number, encode it appropriately
+			if (number)
+			{
+				//Get the shift amount
+				memoryRef = converter.decimalToBinary(line.get(3));
+				//Extend the shift amount
+				while(memoryRef.length() < 6)
+				{
+					memoryRef = "0" + memoryRef;
+				}
+			}
+			//Otherwise add brackets to the label, and put it in the encoded field.
+			else
+			{
+				memoryRef = "[" +line.get(3) + "]";
+			}
+		}
+		//If it's 3 tokens long, encode as a reg/addr(r2)
+		else if (line.size() == 3)
+		{
+			//Get the first register's value
+			reg1 = converter.decimalToBinary(line.get(1).substring(1));
+			//Extend register one to three digits
+			while (reg1.length() < 3)
+			{
+				reg1 = "0" + reg1;
+			}
+			
+			//If it's star notation
+			if (operand == "*")
+			{
+				int relocation = 0;
+				//If the star notation has a relocation value (+ or - a number)
+				if (line.get(2).length() > 2)
+				{
+					//Get that relocation value
+					relocation = Integer.parseInt(line.get(2).substring(2, line.get(2).length()-1));
+					//If it's negative, account for it
+					if (line.get(2).charAt(1) == '-')
+					{
+						relocation = relocation * -1;
+					}
+				}
+				
+				//put the current location in memory into the memoryRef
+				memoryRef = Integer.toString((locationCounter + relocation));
+				//Change it into binary
+				memoryRef = converter.decimalToBinary(memoryRef);
+				//Extend it.
+				while (memoryRef.length() < 16)
+				{
+					memoryRef = "0" + memoryRef;
+				}
+			}
+			//If it has a (r2)
+			else if (operand == "paren")
+			{
+				//Get the register information if available
+				reg2 = line.get(2).substring(line.get(2).length()-2, line.get(2).length() -2);
+				reg2 = converter.decimalToBinary(reg2);
+				
+				//Extend register two to three digits
+				while (reg2.length() < 3)
+				{
+					reg2 = "0" + reg2;
+				}
+				
+				//Check if there is a label or number preceeding the parenthesis
+				if(line.get(2).length() > 4)
+				{
+					//Define a boolean to check for integer-ness
+					boolean integer = true;
+					
+					//be able to store the value of the address should it be an integer.
+					int address = 0;
+					
+					//Check if it's an integer
+					try
+					{
+						address = Integer.parseInt(line.get(2).substring(0, line.get(2).indexOf('(')));
+					}
+					catch (NumberFormatException e)
+					{
+						integer = false;
+					}
+					
+					//If it's an integer, store the int value in memoryRef
+					if (integer)
+					{
+						memoryRef = Integer.toString(address);
+						memoryRef = converter.decimalToBinary(memoryRef);
+					}
+					//Otherwise, put the label in that bitch.
+					else
+					{
+						memoryRef = line.get(2).substring(0, line.get(2).indexOf('('));
+						memoryRef = "[" + memoryRef + "]";
+					}
+				}
+			}
+			//If it's just a label or number
+			else
+			{
+				//Define a boolean to check for integer-ness
+				boolean integer = true;
+				
+				//be able to store the value of the address should it be an integer.
+				int address = 0;
+				
+				//Check if it's an integer
+				try
+				{
+					address = Integer.parseInt(line.get(2));
+				}
+				catch (NumberFormatException e)
+				{
+					integer = false;
+				}
+				
+				//If it's an integer, store the int value in memoryRef
+				if (integer)
+				{
+					memoryRef = Integer.toString(address);
+					memoryRef = converter.decimalToBinary(memoryRef);
+				}
+				//Otherwise, put the label in that bitch.
+				else
+				{
+					memoryRef = line.get(2);
+					memoryRef = "[" + memoryRef + "]";
+				}
+			}
+		}
+		//If it's 2 tokens long, encode as a addr(r1)
+		else
+		{
+			//If it's star notation
+			if (operand == "*")
+			{
+				int relocation = 0;
+				//If the star notation has a relocation value (+ or - a number)
+				if (line.get(1).length() > 2)
+				{
+					//Get that relocation value
+					relocation = Integer.parseInt(line.get(1).substring(2, line.get(1).length()-1));
+					//If it's negative, account for it
+					if (line.get(2).charAt(1) == '-')
+					{
+						relocation = relocation * -1;
+					}
+				}
+				
+				//put the current location in memory into the memoryRef
+				memoryRef = Integer.toString((locationCounter + relocation));
+				//Change it into binary
+				memoryRef = converter.decimalToBinary(memoryRef);
+				//Extend it.
+				while (memoryRef.length() < 16)
+				{
+					memoryRef = "0" + memoryRef;
+				}
+			}
+			//If it has a (r1)
+			else if (operand == "paren")
+			{
+				//Get the register information if available
+				reg1 = line.get(1).substring(line.get(1).length()-2, line.get(1).length() -2);
+				reg1 = converter.decimalToBinary(reg1);
+				
+				//Extend register two to three digits
+				while (reg2.length() < 3)
+				{
+					reg1 = "0" + reg1;
+				}
+				
+				//Check if there is a label or number preceeding the parenthesis
+				if(line.get(1).length() > 4)
+				{
+					//Define a boolean to check for integer-ness
+					boolean integer = true;
+					
+					//be able to store the value of the address should it be an integer.
+					int address = 0;
+					
+					//Check if it's an integer
+					try
+					{
+						address = Integer.parseInt(line.get(1).substring(0, line.get(1).indexOf('(')));
+					}
+					catch (NumberFormatException e)
+					{
+						integer = false;
+					}
+					
+					//If it's an integer, store the int value in memoryRef
+					if (integer)
+					{
+						memoryRef = Integer.toString(address);
+						memoryRef = converter.decimalToBinary(memoryRef);
+					}
+					//Otherwise, put the label in that bitch.
+					else
+					{
+						memoryRef = line.get(1).substring(0, line.get(1).indexOf('('));
+						memoryRef = "[" + memoryRef + "]";
+					}
+				}
+			}
+			//If it's just a label or number
+			else
+			{
+				//Define a boolean to check for integer-ness
+				boolean integer = true;
+				
+				//be able to store the value of the address should it be an integer.
+				int address = 0;
+				
+				//Check if it's an integer
+				try
+				{
+					address = Integer.parseInt(line.get(1));
+				}
+				catch (NumberFormatException e)
+				{
+					integer = false;
+				}
+				
+				//If it's an integer, store the int value in memoryRef
+				if (integer)
+				{
+					memoryRef = Integer.toString(address);
+					memoryRef = converter.decimalToBinary(memoryRef);
+				}
+				//Otherwise, put the label in that bitch.
+				else
+				{
+					memoryRef = line.get(1);
+					memoryRef = "[" + memoryRef + "]";
+				}
+			}
+		}
+
+		String encode = opCode + addr + reg1 + reg2 + "00" + memoryRef;
+		
+		return encode;
+		
 	}
 
 	private String encodeIOType(ArrayList<String> line, ErrorOut errorsFound,
@@ -411,6 +738,7 @@ public class Encoder implements EncoderInterface {
 		String quantity = new String();
 		String memoryRef = new String();
 		String addr = "00";
+		
 		
 		//Get the opCode
 		String opCode = converter.hexToBinary(instructIn.getInstructionOpcode(opName));
@@ -528,7 +856,6 @@ public class Encoder implements EncoderInterface {
 		}
 		
 		String encode = opCode + addr + reg1 + quantity + memoryRef;
-		
 		return encode;
 
 	}

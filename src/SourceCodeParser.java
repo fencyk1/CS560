@@ -3720,6 +3720,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(integerOutOfBounds);
 				errors = true;
 			}
+			line.add("label or num");
 		}
 		//Check for * format
 		else if (line.get(2).charAt(0) == '*')
@@ -3735,6 +3736,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidAddressing);
 				errors = true;
 			}
+			line.add("*");
 		}
 		//check for a parenthesis in the final index
 		else if (line.get(2).charAt(line.get(2).length()-1) == ')')
@@ -3813,6 +3815,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidRegisterSyntax);
 				errors = true;
 			}
+			line.add("paren");
 		}
 		//Repeat alphanumeric stuff for label checking
 		else if (!(immediate))
@@ -3869,7 +3872,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errors = true;
 				}
 				i++;
-			}		
+			}
+			line.add("label or num");
 		}
 		
 		//If there are no errors, encode the line normally
