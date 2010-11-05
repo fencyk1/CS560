@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * 
@@ -11,8 +14,15 @@
 public interface ObjectFileInterface {
 
 	/**
-	 * outputs and creates the file
-	 * @param sourceCodeFileName
+	 * 
+	 * @param objectFileName is the output file of all the data in hex in the appropriate formats
+	 * @param symbolTable is the symbols found in pass one
+	 * @param locationCounter the location of the data in memory
+	 * @param intermediateFile is the intermediate file object that holds all the intermediate file info in it
+	 * 
+	 * This outputs the ArrayList<String> member variable to a file with the name as given in the parameter. Each index of the Array becomes its own line of output in the file. 
+	 * @throws IOException 
+	 * 
 	 */
-	void outputObjectFile (IntermediateFile intermediateFile, SymbolTable symbolTable, int locationCounter);
+	void outputObjectFile (File objectFileName, SymbolTable symbolTable, int locationCounter, IntermediateFile intermediateFile);
 }
