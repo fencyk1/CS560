@@ -53,8 +53,8 @@ IO	0A	NA	inn
 IO	0B	NA	inc
 IO	0C	NA	outn
 IO	0D	NA	outc
-I	1E	NA	outni
-I	1F	NA	outci
+IO	1E	NA	outni
+IO	1F	NA	outci
 S	1A	NA	adds
 S	1B	NA	subs
 S	1C	NA	muls

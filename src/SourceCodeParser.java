@@ -65,6 +65,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		
 	}
 
+//*****************************************************************************************************
+//****************************Parsing other*****************************************************
+//*****************************************************************************************************	
 	
 	private void parseOther (ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
@@ -387,7 +390,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}
 			//If the token contains none of the aforementioned directives,
 			//check spot 0, in case they don't have labels.
-			if (line.get(0).equalsIgnoreCase("int.data"))
+			else if (line.get(0).equalsIgnoreCase("int.data"))
 			{
 				//Send remaining line to be parsed
 				parseIntDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
@@ -4473,6 +4476,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Store the opName for encoding purposes
 		String opName = line.get(0);
 		
+		//num value
+		int imm = 0;
+		boolean number = true;
+		
+		//Determine whether the num is a number or not.
+		try
+		{
+			imm = Integer.parseInt(line.get(3));
+		}
+		catch(NumberFormatException e)
+		{
+			number = false;
+		}
+		
 		if (!(line.size() == 4))
 		{
 			//Create an error regarding invalid number of parameters.
@@ -4509,6 +4526,76 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errors = true;
 				}
 			}
+		}
+		if (number)
+		{
+			if (imm < -65536  || imm > 65535   )
+			{
+				//check the immediate value to be in the correct bounds
+				
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData integerOutOfBounds = new ErrorData();
+				integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(integerOutOfBounds);
+				errors = true;
+			}
+		}
+		else
+		{
+			//Create a counter for iteration
+			int i = 0;
+			
+			//Create a string to hold a single character in from the "label"
+			String label = new String();
+			
+			//Create a new byte array for the ascii conversion
+			byte[] binary = new byte[1];
+			
+			int ascii = 0;
+			
+			//Iterate through each character up until the first '(' checking
+			//for alphanumeracy 
+			while (i < line.get(2).length())
+			{
+				//Move one character from the label into "label"
+				label = line.get(2).substring(i, i+1);
+				
+				//Use a try catch for syntactical correctness.
+				try 
+				{
+					//Convert the ascii string passed in, into
+					//an array of bytes containing their binary
+					//representation.
+					binary = label.getBytes("US-ASCII");
+				} 
+				//"US-ASCII" is a supported encoding, so this will never
+				//throw an error, but is required for syntax measures.
+				catch (UnsupportedEncodingException e) 
+				{
+					//Again, since this will never throw an error, this
+					//is here for syntax purposes, but the stack trace
+					//would just print out a trace of where the error
+					//occurred and halt the program.
+					e.printStackTrace();
+				}
+				
+				//Convert from a binary stream into an integer representation
+				ascii = binary[0];
+				
+				if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+				{			
+					//Create an error regarding invalid address/label syntax.
+					ErrorData invalidAddressLabel = new ErrorData();
+					invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressLabel);
+					errors = true;
+				}
+				i++;
+			}		
 		}
 		//If there are no errors, encode the line normally
 		if (!errors)
@@ -4694,17 +4781,19 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidAddressing);
 				errors = true;
 			}
+			//Add the type of operand onto the end of the array.
+			line.add("*");
 		}
-		else if (num < 0  || num > 65535)
+		else if (num < 0  || num > 31)
 		{
 			//check the immediate value to be in the correct bounds
 			
 			//Create an error regarding invalid number which is out of bounds.
-			ErrorData integerOutOfBounds = new ErrorData();
-			integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+			ErrorData invalidQuantity = new ErrorData();
+			invalidQuantity.add(lineCounter, 33, "Quantity must be between 0 and 31 for IO formats");
 			
 			//Add it to the ErrorOut table.
-			errorsFound.add(integerOutOfBounds);
+			errorsFound.add(invalidQuantity);
 			errors = true;
 		}
 		//check for a parenthesis in the final index
@@ -4784,6 +4873,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidRegisterSyntax);
 				errors = true;
 			}
+			//Add the type of operand onto the end of the array.
+			line.add("paren");
 		}
 		//Repeat alphanumeric stuff for label checking
 		else
@@ -4840,7 +4931,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errors = true;
 				}
 				i++;
-			}		
+			}
+			//Add the type of operand onto the end of the array.
+			line.add("label or num");
 		}
 		
 		//If there are no errors, encode the line normally
@@ -4932,16 +5025,16 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(integerOutOfBounds);
 			errors = true;
 		}
-		else if (num < 0  || num > 65535   )
+		else if (num < 0  || num > 31   )
 		{
 			//check the immediate value to be in the correct bounds
 			
 			//Create an error regarding invalid number which is out of bounds.
-			ErrorData integerOutOfBounds = new ErrorData();
-			integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+			ErrorData invalidQuantity = new ErrorData();
+			invalidQuantity.add(lineCounter, 33, "Quantity must be between 0 and 31 for IO formats");
 			
 			//Add it to the ErrorOut table.
-			errorsFound.add(integerOutOfBounds);
+			errorsFound.add(invalidQuantity);
 			errors = true;
 		}
 		//If there are no errors, encode the line normally

@@ -43,6 +43,9 @@ public class InstructTable implements InstructTableInterface {
 	 */
 	public void importTable (File tableFileName) throws IOException
 	{
+		
+		System.out.println("Importing instructions table.");
+		
 		//get input from file, normally that file will be instructions.tbl and be located in the src directory of the code, here it will be hard coded
 		BufferedReader input = new BufferedReader(new FileReader(tableFileName));
 		String newLine;
@@ -95,23 +98,23 @@ public class InstructTable implements InstructTableInterface {
 	{
 		if (instructionType.getProperty(instructionName).equals("I"))
 		{
-			return "I-Type";
+			return "I";
 		}
 		else if (instructionType.getProperty(instructionName).equals("R"))
 		{
-			return "Reg2Reg2Reg";
+			return "R";
 		}
 		else if (instructionType.getProperty(instructionName).equals("S"))
 		{
-			return "S-Type";
+			return "S";
 		}
 		else if (instructionType.getProperty(instructionName).equals("J"))
 		{
-			return "Jump";
+			return "J";
 		}
 		else if (instructionType.getProperty(instructionName).equals("IO"))
 		{
-			return "IO-Type";
+			return "IO";
 		}
 		return "instruction type not present";
 		

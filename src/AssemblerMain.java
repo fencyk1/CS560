@@ -73,12 +73,16 @@ public class AssemblerMain {
 		symbolsFound.sort();
 		symbolsFound.outputTable(new File ("symbolTable.txt"));		
 		
+		//output the intermediate file
+		intermediateFile.outputIntermediateFile(new File ("intermediateFile.txt"));
+		
+		
 		//Make our object file, has to get the debug flag, etc.
 		ObjectFile objectFileName = new ObjectFile();
 		objectFileName.outputObjectFile(intermediateFile, symbolsFound, locationCounter);
 		
 		
-		System.out.println("Ending assembling process.");
+		System.out.println(">>>>>>>>>>>>>>>Ending assembling process.");
 	}
 
 }

@@ -39,7 +39,7 @@ public class DirectiveTable implements DirectiveTableInterface {
 	 */
 	public void importTable (File tableFileName) throws IOException
 	{
-		
+		System.out.println("Importing directives table.");
 		//get input from file, normally that file will be directives.tbl and be located in the src directory of the code
 		BufferedReader input = new BufferedReader(new FileReader(tableFileName));
 		String newLine;

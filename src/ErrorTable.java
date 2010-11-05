@@ -38,8 +38,11 @@ public class ErrorTable implements ErrorTableInterface {
 	 * two properties objects.
 	 */
 	@Override
-	public void importTable(File tableFileName) throws IOException {
+	public void importTable(File tableFileName) throws IOException 
+	{
 
+		System.out.println("Importing error table.");
+		
 		//get input from file, normally that file will be error.tbl and be located in the src directory of the code
 		BufferedReader input = new BufferedReader(new FileReader(tableFileName));
 		String newLine;

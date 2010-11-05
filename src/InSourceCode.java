@@ -32,6 +32,7 @@ public class InSourceCode implements InSourceCodeInterface {
 	 */
 	public void importSourceCode (File sourceCodeFileName) throws IOException
 	{
+		System.out.println("Importing source code file : " + sourceCodeFileName);
 		
 		//clear data structure
 		source.clear();

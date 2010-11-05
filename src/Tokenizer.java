@@ -21,12 +21,16 @@ public class Tokenizer implements TokenizerInterface {
 	public Tokenizer() {
 		
 	}
+	
 	/* The main method of the Tokenizer class. This method will take in a line
 	 * from the parser and tokenize it by comments, spaces, then commas, and 
 	 * return the created tokens via an array list of Strings. 
 	 */
 	@Override
-	public ArrayList<String> tokenizeLine(String line) {
+	public ArrayList<String> tokenizeLine(String line) 
+	{
+		System.out.println(">>>>>>>>>  tokenizing");
+		
 		if (line.length() > 0)
 		{
 			// Create a new array to store the tokens from this line.

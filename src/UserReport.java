@@ -34,7 +34,7 @@ public class UserReport implements UserReportInterface {
 				errorEntry = foundErrorsTable.search(i+1);
 
 				// output errorEntry as a sting to the array.
-				SourceCodeArray.source.add(i+1+j, foundErrorsTable.output(errorEntry));
+				SourceCodeArray.source.add(i+1+j, "***" + foundErrorsTable.output(errorEntry) + "***");
 				j = j + 1;
 				i = i+1;
 				
@@ -55,6 +55,7 @@ public class UserReport implements UserReportInterface {
 	public void outputUserReport (InSourceCode SourceCodeArray, File outputFileName) throws IOException
 	{
 		
+		System.out.println(">>>>>>>>>>>>> 		Outputting the User Report file.");
 		
 		//get input from file, normally that file will be directives.tbl and be located in the src directory of the code
 		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/" + outputFileName)));

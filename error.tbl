@@ -33,3 +33,4 @@
 30	invalidAddressLabel		"Address or label is invalid"
 31	invalidHalt				"Halt number must range from 0 to 255 inclusive"
 32	invalidAddressing		"Invalid addressing syntax."
+33	invalidQuantity			"Quantity must be between 0 and 31 for IO formats"

@@ -9,15 +9,18 @@ import java.util.*;
 public class IntermediateFile implements IntermediateFileInterface {
 	public ArrayList<String> binCode;
 	
-	public IntermediateFile() {
+	public IntermediateFile() 
+	{
 		this.binCode = new ArrayList<String>();
 	}
 	
 	@Override
-	public void outputIntermediateFile(File intermediateFileName) throws IOException {
-
+	public void outputIntermediateFile(File intermediateFileName) throws IOException 
+	{
+		System.out.println(">>>>>>>>>>>>> 		Outputting the intermediate file.");
+		
 		//get input from file, normally that file will be directives.tbl and be located in the src directory of the code
-		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(intermediateFileName)));
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/" + intermediateFileName)));
 		
 		int i = 0;
 		

@@ -231,7 +231,11 @@ public class SymbolTable implements SymbolTableInterface {
 		}		
 	}
 	
-	public void outputTable(File outputFileName) throws IOException {
+	public void outputTable(File outputFileName) throws IOException 
+	{
+		
+		System.out.println(">>>>>>>>>>>>> 		Outputting the Symbol Table file.");
+		
 		int counter = 0;
 		SymbolInterface currentSymb = new Symbol();
 		
