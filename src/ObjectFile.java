@@ -402,7 +402,6 @@ public class ObjectFile implements ObjectFileInterface {
 	//ouputs the object file
 	private void outputTheObjectFile(File objectFileName) throws IOException
 	{
-		Converter converter = new Converter();
 		
 		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter(objectFileName)));         
         
@@ -422,7 +421,6 @@ public class ObjectFile implements ObjectFileInterface {
 		{
 			out.println(textLines.get(i));
 			i++;
-			System.err.println(i);
 		}
 		
 		i = 0;
@@ -431,7 +429,6 @@ public class ObjectFile implements ObjectFileInterface {
 		{
 			out.println(linkerLines.get(i));
 			i++;
-			System.err.println(i);
 		}
 		
 		out.println(this.endLine);
