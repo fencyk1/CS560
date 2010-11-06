@@ -20,6 +20,7 @@ public class ObjectFile implements ObjectFileInterface {
 	String prgmName;
 	ArrayList<String> textLines;
 	ArrayList<String> linkerLines;
+	String prgmLoadPoint;
 	
 	//constructor
 	public ObjectFile ()
@@ -30,6 +31,7 @@ public class ObjectFile implements ObjectFileInterface {
 		this.textLines = new ArrayList<String>();
 		this.linkerLines = new ArrayList<String>();
 		this.prgmName = new String();
+		this.prgmLoadPoint = new String();
 	}
 	
 	
@@ -138,6 +140,9 @@ public class ObjectFile implements ObjectFileInterface {
 			programLoadAddress = symbolTable.getSymbolGivenUsage("exec.start").getValue();
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
+			
+			//Store it for the text record.
+			this.prgmLoadPoint = programLoadAddress;
 		}
 		//Otherwise go with the default .start value.
 		else
@@ -145,6 +150,9 @@ public class ObjectFile implements ObjectFileInterface {
 			programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
+			
+			//Store it for the text record.
+			this.prgmLoadPoint = programLoadAddress;
 		}
 		
 		//Get the number of linking records from the size of the linker array
@@ -168,8 +176,8 @@ public class ObjectFile implements ObjectFileInterface {
 		String execStartAddress = programLoadAddress;
 		
 		//Set the version and revision numbers
-		String version = "Version # 2.01";
-		String revision = "Revision # 1";
+		String version = "Version # 2.03";
+		String revision = "Revision # 3";
 		
 		//Get the program name and store it in a symbol.
 		Symbol programNameInfo = symbolTable.getSymbolGivenUsage("Program Name");
@@ -221,6 +229,9 @@ public class ObjectFile implements ObjectFileInterface {
 		//Otherwise, turn it into a normal text record
 		else
 		{
+			//Create a new string in case there are multiple adjustments
+			String totalTypeActionAndRef = new String();
+			
 			//Create a string to hold the label reference if not a type A
 			String labelRef = new String();
 			
@@ -292,6 +303,8 @@ public class ObjectFile implements ObjectFileInterface {
 				{
 					dataWord = "0" + dataWord;
 				}
+				//Set the type as Absolute
+				typeAndAction = "A";
 			}
 			//Otherwise, turn it into completely binary
 			else
@@ -305,56 +318,249 @@ public class ObjectFile implements ObjectFileInterface {
 				//If the label is an expression, evaluate it
 				if (label.contains("+") || label.contains("-"))
 				{
-					//TODO: expressions, remember to repeat type/labelref as many times as we have adjustments
-					//Increment number of adjustments as necessary.
+					//Create a counter for dealing with the number of adjustments
+					int counter = 0;
 					
+					//Create a counter for the current spot in the label
+					int labelLoc = 0;
+					
+					//Create an arrayList for dealing with the expressions
+					ArrayList<String> expressionList = new ArrayList<String>();
+
+					//Gather the expression separated by +'s and minuses
+					while (labelLoc < label.length() -1)
+					{
+						//If a - comes first, get the first string up to the -
+						if (((label.substring(labelLoc).indexOf("+") > label.substring(labelLoc).indexOf("-")) && label.substring(labelLoc).indexOf("-") != -1)
+								|| (label.substring(labelLoc).indexOf("+") == -1 && label.substring(labelLoc).indexOf("-") != -1))
+						{
+							System.err.println("in minus");
+							//Store the current spot passing through the label
+							labelLoc = label.indexOf("-") + 1;
+							//Add the label in
+							expressionList.add(label.substring(0, label.indexOf("-")));
+							//Add the minus sign in
+							expressionList.add("-");
+						}
+						//otherwise, a plus must come first, get the first string up to the +
+						else if (((label.substring(labelLoc).indexOf("-") > label.substring(labelLoc).indexOf("+")) && label.substring(labelLoc).indexOf("+") != -1)
+								|| (label.substring(labelLoc).indexOf("-") == -1 && label.substring(labelLoc).indexOf("+") != -1))
+						{
+							//Store the current spot passing through the label
+							labelLoc = label.indexOf("+") + 1;
+							//Add the label in
+							expressionList.add(label.substring(0, label.indexOf("+")));
+							//Add the plus sign in
+							expressionList.add("+");
+						}
+						//Otherwise, we must be at the end of the string, so get the last label
+						else
+						{
+							//Add the last label in
+							expressionList.add(label.substring(labelLoc, label.length()));
+							//Set the labelLoc to label.length to terminate the loop
+							labelLoc = label.length();
+						}
+						//Increment the number of adjustments for every label we get
+						numOfAdjustments++;
+					}
+					
+					//Create a boolean for adding/subtracting values
+					boolean positive = true;
+					
+					//Create an integer for storing the current value of the expression
+					int currentVal = 0;
+					
+					//Create a string for holding temporary values
+					String tempValue = new String();
+					
+					//Evaluate the expression by getting the usage of each label, and properly converting it into an integer
+					//Then adding or subtracting that integer with the current value of the expression.
+					while (counter < expressionList.size())
+					{
+						//Convert the label into an integer
+						if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("int.data"))
+						{
+							//Put the decimal value in a string
+							tempValue = symbolTable.GetValue(expressionList.get(counter));
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("label"))
+						{
+							//Put the hex value into a decimal value then put it in the string.
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("hex.data"))
+						{
+							//Put the hex value into a decimal value then put it in the string.
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetValue(expressionList.get(counter))));
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("str.data"))
+						{
+							//Convert the string into ascii binary by removing the ''s, then convert that into decimal
+							tempValue = converter.binaryToDecimal(converter.asciiToBinary(symbolTable.GetValue(
+									expressionList.get(counter).substring(1, expressionList.get(counter).length()-1))));
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("bin.data"))
+						{
+							//Convert the binary into decimal.
+							tempValue = converter.binaryToDecimal(symbolTable.GetValue(expressionList.get(counter)));
+
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("EXT"))
+						{
+							//Set temp value equal to 0, it's external so we don't deal with it
+							tempValue = "0";
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("equ"))
+						{
+							//Set temp value equal to whatever the equated value's ascii is
+							tempValue = converter.binaryToDecimal(converter.asciiToBinary(symbolTable.GetValue(expressionList.get(counter))));
+						}
+						
+						System.err.println(expressionList.get(counter));
+						
+						//If the expression is added
+						if (positive)
+						{
+							//Add the current value with the temporary value we just got
+							currentVal = currentVal + Integer.parseInt(tempValue);
+						}
+						//Otherwise it's subtracted
+						else
+						{
+							//So subtract the current value with the value we just got
+							currentVal = currentVal - Integer.parseInt(tempValue);		
+						}
+						
+						//Check if we're on the last token
+						if (!(counter  == expressionList.size() - 1))
+						{
+							//If we aren't, check the next item in the expression to see if we need to change the flag
+							if (expressionList.get(counter+1).equals("+"))
+							{
+								System.err.println("positive");
+								positive = true;
+							}
+							else
+							{
+								System.err.println("negative");
+								positive = false;
+							}
+						}
+						
+						//Increment the counter by two, skipping over the expression operands
+						counter = counter+2;		
+					}
+					
+					//Decrement the number of adjustments once to reflect the fact that it was already 1
+					numOfAdjustments--;
+					
+					//Convert our decimal representation into binary.
+					labelValue = converter.decimalToBinary(Integer.toString(currentVal));
+					
+					//Reset the counter
+					counter = 0;
+					
+					//Create an expressionCounter
+					int expressionCounter = 0;
+					
+					//Create a string to temporarily hold the relocationtype for the adjustments
+					String tempRelocationType = new String();
+					
+					//For each adjustment, add another type/action/label reference column
+					while (counter < numOfAdjustments)
+					{
+						//If it's an ext type, add it with an E field and it's name
+						if (symbolTable.GetUsage(expressionList.get(expressionCounter)).equalsIgnoreCase("ext"))
+						{
+							tempRelocationType = "E\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+						}
+						//Otherwise add ti with an R field and the program load point.
+						else
+						{
+							tempRelocationType = "R\t|\t+\t|\t" + this.prgmLoadPoint + "\t|\t";
+						}
+						
+						totalTypeActionAndRef = totalTypeActionAndRef + tempRelocationType; 
+						
+						//increment the counter.
+						counter++;
+						//increment the expression counter
+						expressionCounter = expressionCounter +2;
+					}				
 				}
 				//Otherwise, just get the value associated with the label
 				else
 				{
 					labelValue = symbolTable.GetValue(label);
-				}
-				
-				//If the symbol is a label, use it's location, as it referrs to an address
-				if (symbolTable.GetUsage(label).equalsIgnoreCase("label"))
-				{
-					labelValue = symbolTable.GetLocation(label);
-					//Convert it to binary
-					labelValue = converter.hexToBinary(labelValue);
-				}
-				//Otherwise, check if it's an int.data
-				else if (symbolTable.GetUsage(label).equalsIgnoreCase("int.data"))
-				{	
-					labelValue = symbolTable.GetValue(label);
-					//If it is, convert the decimal integer to binary
-					labelValue = converter.decimalToBinary(labelValue);
-				}
-				//Otherwise, check if it's hex.data
-				else if (symbolTable.GetUsage(label).equalsIgnoreCase("hex.data"))
-				{
-					labelValue = symbolTable.GetValue(label);
-					//If it is, convert the hex into binary
-					labelValue = converter.hexToBinary(labelValue);
-				}
-				//Otherwise, check if it's a string
-				else if (symbolTable.GetUsage(label).equalsIgnoreCase("str.data"))
-				{
-					labelValue = symbolTable.GetValue(label);
-					//If it is, convert the ascii into binary
-					labelValue = converter.asciiToBinary(labelValue.substring(1, labelValue.length()));
 					
-					//Extend the ascii with spaces instead of 0's before the stuff
-					while (labelValue.length() < 32)
+					//If the symbol is a label, use it's location, as it refers to an address
+					if (symbolTable.GetUsage(label).equalsIgnoreCase("label"))
 					{
-						labelValue = labelValue + "00100000";
+						labelValue = symbolTable.GetLocation(label);
+						//Convert it to binary
+						labelValue = converter.hexToBinary(labelValue);
+						//Set the type as a Relative
+						typeAndAction = "R\t|\t+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
+					}
+					//Otherwise, check if it's an int.data
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("int.data"))
+					{	
+						labelValue = symbolTable.GetValue(label);
+						//If it is, convert the decimal integer to binary
+						labelValue = converter.decimalToBinary(labelValue);
+						//Set the type as Absolute
+						typeAndAction = "A";
+					}
+					//Otherwise, check if it's hex.data
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("hex.data"))
+					{
+						labelValue = symbolTable.GetValue(label);
+						//If it is, convert the hex into binary
+						labelValue = converter.hexToBinary(labelValue);
+						//Set the type as Absolute
+						typeAndAction = "A";
+					}
+					//Otherwise, check if it's a string
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("str.data"))
+					{
+						labelValue = symbolTable.GetValue(label);
+						//If it is, convert the ascii into binary
+						labelValue = converter.asciiToBinary(labelValue.substring(1, labelValue.length()));
+						
+						//Extend the ascii with spaces instead of 0's before the stuff
+						while (labelValue.length() < 32)
+						{
+							labelValue = labelValue + "00100000";
+						}
+						//Set the type as Absolute
+						typeAndAction = "A";
+					}
+					//Otherwise, check if it's a bin.data
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("bin.data"))
+					{
+						//If it is, it's fine as it is it's already in binary.
+						labelValue = symbolTable.GetValue(label);
+						
+						//Set the type as Absolute
+						typeAndAction = "A";
+					}
+					//Otherwise, check if it's an ext
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("EXT"))
+					{
+						//If it is, set the label value to be all 0's until we link records together.
+						labelValue = "0000000000000000";
+						
+						//Set the type
+						typeAndAction = "E\t|\t+";
+						//Set the label reference to be the label itself, it's external.
+						labelRef = label;
 					}
 				}
-				//Otherwise, check if it's a bin.data
-				else if (symbolTable.GetUsage(label).equalsIgnoreCase("bin.data"))
-				{
-					labelValue = symbolTable.GetValue(label);
-					//If it is, it's fine as it is it's already in binary.
-				}
+				
+				
 				
 				
 				//Extend labelValue
@@ -377,8 +583,19 @@ public class ObjectFile implements ObjectFileInterface {
 			//If the type is R or E, store the text field using a label reference
 			if (typeAndAction.charAt(0) != 'A')
 			{
-				this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
-						+ numOfAdjustments + "\t|\t" + typeAndAction + "\t|\t" + labelRef + "\t|\t" + this.prgmName);
+				//If there is more than one adjustment, use the compound field
+				if (numOfAdjustments > 1)
+				{
+					this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
+							+ numOfAdjustments + "\t|\t" + totalTypeActionAndRef + this.prgmName);
+				}
+				//Otherwise, print normally
+				else
+				{
+					this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
+							+ numOfAdjustments + "\t|\t" + typeAndAction + "\t|\t" + labelRef + "\t|\t" + this.prgmName);
+				}
+				
 			}
 			//Otherwise, don't store the text field using a label reference
 			else

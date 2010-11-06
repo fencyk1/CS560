@@ -2662,15 +2662,16 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						//Otherwise, find where the label ends and continue parsing
 						else
 						{
-							//Labels are separated by expressions, so check accordingly
-							while (!(expression.charAt(counter+1) == '+') && !(expression.charAt(counter+1) == '-')
-								&& !(expression.charAt(counter+1) == '*') && !(expression.charAt(counter+1) == '/'))
-							{
-								//Move the counter forward until we are clear of the label
-								//save for the last letter which the normal increment
-								//will take care of
-								counter++;
-							}
+								//Labels are separated by expressions, so check accordingly
+								while ((counter+1 < expression.length()-1) &&(!(expression.charAt(counter+1) == '+') 
+										&& !(expression.charAt(counter+1) == '-')&& !(expression.charAt(counter+1) == '*') 
+										&& !(expression.charAt(counter+1) == '/')))
+								{
+									//Move the counter forward until we are clear of the label
+									//save for the last letter which the normal increment
+									//will take care of
+									counter++;
+								}
 						}
 					}
 					counter++;
