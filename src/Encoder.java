@@ -11,7 +11,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeIntData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 		
 		//Get the last thing in the array of line
 		String toEncode = line.get(line.size()-1);
@@ -35,7 +35,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeStrData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 		
 		//Get the last thing in the array of the line
 		String toEncode = line.get(line.size()-1);
@@ -59,18 +59,26 @@ public class Encoder implements EncoderInterface {
 		return encoded;
 	}
 	
-	private String encodeDebug(ArrayList<String> line, ErrorOut errorsFound,
+	private String encodeDebugOn(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName)
+			String opName)
 	{
-		return "DEBUG";
+		return "DEBUG1";
+	}
+	
+	private String encodeDebugOff(ArrayList<String> line, ErrorOut errorsFound,
+			SymbolTable symbolsFound, ErrorTable errorIn,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
+			String opName)
+	{
+		return "DEBUG0";
 	}
 	
 	private String encodeHexData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Get the last thing in the array of line
 		String toEncode = line.get(line.size()-1);
@@ -93,7 +101,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeBinData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Get the last thing in the array of the line
 		String encoded = line.get(line.size()-1);
@@ -111,7 +119,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeAdrDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 		
 		//Get the last thing in the array of the line
 		String toEncode = line.get(line.size()-1);
@@ -127,7 +135,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeAdrDotExp(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Get the last thing in the array of the line
 		String toEncode = line.get(line.size()-1);
@@ -144,7 +152,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeNOP(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Return the NOP encoding
 		
@@ -154,7 +162,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeMemDotSkip(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Get the last thing in the array of the line
 		String toEncode = line.get(line.size()-1);
@@ -179,7 +187,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeResetDotLC(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Get the last thing in the array of the line
 		String toEncode = line.get(line.size()-1);
@@ -196,7 +204,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeRType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Encode the opCode in the first 6 bits, 00 for unused, 3 bits for R1, R2, R3 each, 6 bits if it's a shift, 3 unused,
 		//6 bits for the function code
@@ -313,7 +321,7 @@ public class Encoder implements EncoderInterface {
 	private String encodeJType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//Halt is the only J type
 		//6 bit op code, 2 bit addr code, 8 bits unused, 16 bits destination
@@ -329,14 +337,14 @@ public class Encoder implements EncoderInterface {
 			toEncode = "0" + toEncode;
 		}
 		
-		return "0800000000000000" + toEncode; 
+		return "0010000000000000" + toEncode; 
 
 	}
 
 	private String encodeIType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			String opName) {
 
 		//6 bit op code, 2 bits unused, 3 bits for R1, R2, 2 unused bits, 16 bits for the Immediate
 		
@@ -408,8 +416,8 @@ public class Encoder implements EncoderInterface {
 
 	private String encodeSType(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineCounter, 
-			int locationCounter, String opName) {
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter, int locationCounter,
+			String opName) {
 
 		//6 bit op code, 2 bit addr code, 3 bits for R1, R2, 2 unused bits, 16 bits for memory reference
 		
@@ -865,7 +873,7 @@ public class Encoder implements EncoderInterface {
 	@Override
 	public void encodeLine(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
-			InstructTable instructIn, DirectiveTable directIn, int lineNumber,
+			InstructTable instructIn, DirectiveTable directIn, int lineCounter,
 			int locationCounter, IntermediateFile intermediateFile,
 			String opName) 
 	{
@@ -885,27 +893,27 @@ public class Encoder implements EncoderInterface {
 			if (type.equalsIgnoreCase("R"))
 			{
 				encodedLineBin = encodeRType(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 			}
 			else if (type.equalsIgnoreCase("S"))
 			{
 				encodedLineBin = encodeSType(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, locationCounter, opName);
 			}
 			else if (type.equalsIgnoreCase("I"))
 			{
 				encodedLineBin = encodeIType(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 			}
 			else if (type.equalsIgnoreCase("IO"))	
 			{
 				encodedLineBin = encodeIOType(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, locationCounter, opName);
 			}
 			else if (type.equalsIgnoreCase("J"))	
 			{
 				encodedLineBin = encodeJType(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 			}		
 			
 			//add to intermediateFile
@@ -919,7 +927,7 @@ public class Encoder implements EncoderInterface {
 			if (opName.equalsIgnoreCase("int.data"))
 			{
 				encodedLineBin = encodeIntData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -927,7 +935,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("str.data"))
 			{
 				encodedLineBin = encodeStrData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -935,7 +943,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("hex.data"))
 			{
 				encodedLineBin = encodeHexData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -943,7 +951,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("bin.data"))
 			{
 				encodedLineBin = encodeBinData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -951,7 +959,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("adr.data"))
 			{
 				encodedLineBin = encodeAdrDotData(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -959,7 +967,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("adr.exp"))
 			{
 				encodedLineBin = encodeAdrDotExp(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -967,7 +975,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("nop"))
 			{
 				encodedLineBin = encodeNOP(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -975,7 +983,7 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("mem.skip"))
 			{
 				encodedLineBin = encodeMemDotSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -983,15 +991,23 @@ public class Encoder implements EncoderInterface {
 			else if (opName.equalsIgnoreCase("reset.lc"))
 			{
 				encodedLineBin = encodeResetDotLC(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
 			}
-			else if (opName.equalsIgnoreCase("debug"))
+			else if (opName.equalsIgnoreCase("debug1"))
 			{
-				encodedLineBin = encodeDebug(line, errorsFound, symbolsFound, errorIn, instructIn, 
-						directIn, lineNumber, locationCounter, opName);
+				encodedLineBin = encodeDebugOn(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter, opName);
+				
+				//add to intermediateFile
+				intermediateFile.binCode.add(encodedLineBin);
+			}
+			else if (opName.equalsIgnoreCase("debug0"))
+			{
+				encodedLineBin = encodeDebugOff(line, errorsFound, symbolsFound, errorIn, instructIn, 
+						directIn, lineCounter, opName);
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);

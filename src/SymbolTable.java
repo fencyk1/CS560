@@ -14,10 +14,12 @@ import java.util.ArrayList;
  */
 public class SymbolTable implements SymbolTableInterface {
 	private ArrayList<SymbolInterface> symTable;
+	private int getSymCounter;
 	
 	//Default constructor initializes the representation record.
 	public SymbolTable() {
 		this.symTable = new ArrayList<SymbolInterface>();
+		this.getSymCounter = 0;
 	}
 	
 	@Override
@@ -55,7 +57,7 @@ public class SymbolTable implements SymbolTableInterface {
 		while (this.symTable.size() > counter)
 		{
 			//Checks the label vs the label of the symbol in the symbol table.
-			if (this.symTable.get(counter).getLabel().equals(label))
+			if (this.symTable.get(counter).getLabel().equalsIgnoreCase(label))
 			{
 				exists = true;
 			}
@@ -159,10 +161,29 @@ public class SymbolTable implements SymbolTableInterface {
 		//Iterate through the symbol table to find the symbol with name label.
 		while (this.symTable.size() > counter)
 		{
-			//When found, break from the loop and return its location.
+			//When found, break from the loop and return its length.
 			if (this.symTable.get(counter).getLabel().equals(label))
 			{
 				returnValue = this.symTable.get(counter).getLength();
+				break;
+			}
+			counter++;
+		}
+		return returnValue;
+	}
+	
+	@Override
+	public String GetUsage(String label) {
+		int counter = 0;
+		String returnValue = new String();
+		
+		//Iterate through the symbol table to find the symbol with name label.
+		while (this.symTable.size() > counter)
+		{
+			//When found, break from the loop and return it's usage
+			if (this.symTable.get(counter).getLabel().equals(label))
+			{
+				returnValue = this.symTable.get(counter).getUsage();
 				break;
 			}
 			counter++;
@@ -270,4 +291,51 @@ public class SymbolTable implements SymbolTableInterface {
 		
 	}
 
+	public Symbol getSymbolGivenUsage (String usage)
+	{
+		//Create a symbol to return
+		Symbol returnSym = new Symbol();
+		
+		//Iterate through the symbol table and find the proper symbol
+		while (this.getSymCounter < this.symTable.size())
+		{
+			//Check the usage of each symbol until we find the requested one
+			if (this.symTable.get(this.getSymCounter).getUsage().equalsIgnoreCase(usage))
+			{
+				returnSym = (Symbol) this.symTable.get(this.getSymCounter);
+			}
+			this.getSymCounter++;
+		}
+		
+		//Return the requested symbol
+		return returnSym;
+	}
+	
+	public void resetSymbolSearch()
+	{
+		this.getSymCounter = 0;
+	}
+	
+	public void removeEnts()
+	{
+		//Create a counter for iteration
+		int counter = 0;
+		
+		//Iterate through the symbol table and find the proper symbol
+		while (counter < this.symTable.size())
+		{
+			//Check to see if this symbol is the one we want to remove
+			if (this.symTable.get(counter).getUsage().equalsIgnoreCase("ent"))
+			{
+				this.symTable.remove(counter);
+				break;
+			}
+			//If we didn't remove anything, increment the counter.
+			else
+			{
+				counter++;
+			}
+		}
+	}
+	
 }

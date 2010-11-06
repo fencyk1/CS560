@@ -20,7 +20,7 @@ public class Symbol implements SymbolInterface {
 		this.location = "0";
 		this.length = 32;
 		this.usage = new String();
-		this.value = "NA";
+		this.value = "N/A";
 	}
 	
 	//Constructor taking necessary/always available parameters.
@@ -29,7 +29,7 @@ public class Symbol implements SymbolInterface {
 		this.location = loc;
 		this.length = length;
 		this.usage = new String();
-		this.value = "NA";
+		this.value = "N/A";
 	}
 	
 	@Override
@@ -57,7 +57,8 @@ public class Symbol implements SymbolInterface {
 		//Sets the length of the symbol, usually one word or 32 bits.
 		this.length = length;
 	}
-
+	
+	
 	@Override
 	public String getLabel() {
 		//Return the label for the symbol, that is what ever it goes by in the

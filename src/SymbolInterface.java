@@ -46,6 +46,7 @@ public interface SymbolInterface {
 	 */
 	void setValue(String value);
 	
+	
 	/**
 	 * Returns the equated value of the symbol. If it is not an EQU type, value is NA
 	 * 

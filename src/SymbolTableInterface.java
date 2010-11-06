@@ -60,6 +60,14 @@ public interface SymbolTableInterface {
 	String GetValue (String label);
 	
 	/**
+	 * Returns the usage of the symbol named label.
+	 * 
+	 * @param label The name of the symbol.
+	 * @return The symbol's usage.
+	 */
+	String GetUsage (String label);
+	
+	/**
 	 * Returns the location of a given Symbol.
 	 * 
 	 * @param label The name of the symbol whose location is in question.
@@ -81,6 +89,14 @@ public interface SymbolTableInterface {
 	void sort();
 	
 	/**
+	 * Gets the next symbol in the symbol table with the given usage.
+	 * 
+	 * @param usage How the symbol is used.
+	 * @return The next symbol used in the given way.
+	 */
+	Symbol getSymbolGivenUsage (String usage);
+	
+	/**
 	 * Outputs the Symbol table with all of its parameters into a File,
 	 * with lines terminated by the newline character '\n'. The newline character
 	 * may be changed based on which type of OS we decide to test on.
@@ -88,4 +104,16 @@ public interface SymbolTableInterface {
 	 * @param outputFileName The name of the file to be created.
 	 */
 	void outputTable(File outputFileName) throws IOException;
+	
+	/**
+	 * Resets the searching counter for getSymbolGivenUsage method. Must be called
+	 * after every getSymbolGivenUsage call when done searching.
+	 */
+	void resetSymbolSearch();
+	
+	/**
+	 * Removes all ent type labels that were temporarily stored in the symbol table
+	 * for the linking record
+	 */
+	void removeEnts();
 }

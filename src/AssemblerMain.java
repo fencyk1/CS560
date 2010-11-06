@@ -50,8 +50,6 @@ public class AssemblerMain {
 		
 		//Create a new counter object.
 		int i = 0;
-		//Create a new location Counter (remember to convert this into hex after)
-		int locationCounter = 0;
 		//Create a new arraylist for storage for the tokenizer.
 		ArrayList<String> line = new ArrayList<String>();
 		
@@ -59,27 +57,27 @@ public class AssemblerMain {
 		while (sourceCode.source.size() > i)
 		{
 			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
-			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, locationCounter, intermediateFile);
+			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, intermediateFile);
 			i++;
+			
 		}
 		
 		//Create intermediate file, symbol table, user report (src+errors)
-		
 		UserReport report = new UserReport();
 		report.createUserReport(sourceCode, errorsFound);
 		report.outputUserReport(sourceCode, new File ("userReport.txt"));
 		
-		//Sort the Symbol Table by label, and output it to a text file.
-		symbolsFound.sort();
-		symbolsFound.outputTable(new File ("symbolTable.txt"));		
-		
 		//output the intermediate file
 		intermediateFile.outputIntermediateFile(new File ("intermediateFile.txt"));
 		
-		
 		//Make our object file, has to get the debug flag, etc.
-		ObjectFile objectFileName = new ObjectFile();
-		objectFileName.outputObjectFile(intermediateFile, symbolsFound, locationCounter);
+		File objectFileName = new File ("output/objectFileName.txt");
+		ObjectFile objectFile = new ObjectFile();
+		objectFile.outputObjectFile(objectFileName, symbolsFound, intermediateFile);
+		
+		//Sort the Symbol Table by label, and output it to a text file.
+		symbolsFound.sort();
+		symbolsFound.outputTable(new File ("symbolTable.txt"));		
 		
 		
 		System.out.println(">>>>>>>>>>>>>>>Ending assembling process.");

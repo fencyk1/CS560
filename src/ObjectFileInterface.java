@@ -24,5 +24,5 @@ public interface ObjectFileInterface {
 	 * @throws IOException 
 	 * 
 	 */
-	void outputObjectFile (File objectFileName, SymbolTable symbolTable, int locationCounter, IntermediateFile intermediateFile);
+	void outputObjectFile (File objectFileName, SymbolTable symbolTable, IntermediateFile intermediateFile) throws IOException;
 }
