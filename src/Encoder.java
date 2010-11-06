@@ -356,7 +356,7 @@ public class Encoder implements EncoderInterface {
 		String immediate = new String();
 		
 		//Get the opCode
-		String opCode = converter.hexToBinary(instructIn.getInstructionOpcode(opName));
+		String opCode = converter.hexToBinary(instructIn.getInstructionOpcode(opName.toLowerCase()));
 		//Extend the opCode
 		while (opCode.length() < 6)
 		{
@@ -409,7 +409,7 @@ public class Encoder implements EncoderInterface {
 		}
 
 		String encode = opCode + "00" + reg1 + reg2 + "00" + immediate;
-			
+		
 		return encode;
 
 	}
