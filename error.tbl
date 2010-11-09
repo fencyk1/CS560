@@ -35,3 +35,4 @@
 32	invalidAddressing		"Invalid addressing syntax."
 33	invalidQuantity			"Quantity must be between 0 and 31 for IO formats"
 34	hexOutOfBounds			"Hex quantity is out of bounds [80000000,7FFFFFFF]"
+35	invalidLabel			"Label has not been added to the symbol table"

@@ -43,11 +43,12 @@ public class Encoder implements EncoderInterface {
 		//remove the ' on the ends first.
 		toEncode = toEncode.substring(1, toEncode.length()-1);
 		
+		
 		Converter converter = new Converter();
 		
 		//Encode that into binary from ascii
 		String encoded = converter.asciiToBinary(toEncode);
-		
+	
 		//Extend the string to 32 bits
 		while (encoded.length() < 32)
 		{
@@ -83,6 +84,9 @@ public class Encoder implements EncoderInterface {
 		//Get the last thing in the array of line
 		String toEncode = line.get(line.size()-1);
 		
+		//Take off the single quotes
+		toEncode = toEncode.substring(1, toEncode.length()-1);
+		
 		//Convert it into binary
 		Converter converter = new Converter();
 		
@@ -105,6 +109,9 @@ public class Encoder implements EncoderInterface {
 
 		//Get the last thing in the array of the line
 		String encoded = line.get(line.size()-1);
+		
+		//Take off the single quotes
+		encoded = encoded.substring(1, encoded.length()-1);
 		
 		//Extend the string to 32 bits
 		while (encoded.length() < 32)
@@ -176,7 +183,7 @@ public class Encoder implements EncoderInterface {
 		
 		while (i < skip)
 		{
-			encoded = encoded + "00000000000000000000000000000000\n";
+			encoded = encoded + "00000000000000000000000000000000";
 			i++;
 		}
 		//return that string
@@ -937,13 +944,51 @@ public class Encoder implements EncoderInterface {
 				encodedLineBin = encodeStrData(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter, opName);
 				
-				//add to intermediateFile
+				String encodedPartTwo = new String();
+				
+				//Break the string into as many pieces as necessary
+				while (encodedLineBin.length() > 32)
+				{
+					encodedPartTwo = encodedLineBin.substring(0, 32);
+					encodedLineBin = encodedLineBin.substring(32, encodedLineBin.length());
+					
+					//add to intermediateFile
+					intermediateFile.binCode.add(encodedPartTwo);
+				}
+				
+				while (encodedLineBin.length() < 32)
+				{
+					//Extend the string to 32 bits
+					//Add spaces to the end of the string if it is not large enough
+					encodedLineBin = encodedLineBin + "00100000" ;
+				}
+				
 				intermediateFile.binCode.add(encodedLineBin);
+		
 			}
 			else if (opName.equalsIgnoreCase("hex.data"))
 			{
 				encodedLineBin = encodeHexData(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter, opName);
+				
+				String encodedPartTwo = new String();
+				
+				//Break the string into as many pieces as necessary
+				while (encodedLineBin.length() > 32)
+				{
+					encodedPartTwo = encodedLineBin.substring(0, 32);
+					encodedLineBin = encodedLineBin.substring(32, encodedLineBin.length());
+					
+					//add to intermediateFile
+					intermediateFile.binCode.add(encodedPartTwo);
+				}
+				
+				while (encodedLineBin.length() < 32)
+				{
+					//Extend the string to 32 bits
+					//Add spaces to the end of the string if it is not large enough
+					encodedLineBin = "0" + encodedLineBin;
+				}
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -952,6 +997,25 @@ public class Encoder implements EncoderInterface {
 			{
 				encodedLineBin = encodeBinData(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter, opName);
+				
+				String encodedPartTwo = new String();
+				
+				//Break the string into as many pieces as necessary
+				while (encodedLineBin.length() > 32)
+				{
+					encodedPartTwo = encodedLineBin.substring(0, 32);
+					encodedLineBin = encodedLineBin.substring(32, encodedLineBin.length());
+					
+					//add to intermediateFile
+					intermediateFile.binCode.add(encodedPartTwo);
+				}
+				
+				while (encodedLineBin.length() < 32)
+				{
+					//Extend the string to 32 bits
+					//Add spaces to the end of the string if it is not large enough
+					encodedLineBin = "0" + encodedLineBin;
+				}
 				
 				//add to intermediateFile
 				intermediateFile.binCode.add(encodedLineBin);
@@ -985,8 +1049,18 @@ public class Encoder implements EncoderInterface {
 				encodedLineBin = encodeMemDotSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter, opName);
 				
-				//add to intermediateFile
-				intermediateFile.binCode.add(encodedLineBin);
+				String encodedPartTwo = new String();
+				
+				//Break the string into as many pieces as necessary
+				while (encodedLineBin.length() > 32)
+				{
+					encodedPartTwo = encodedLineBin.substring(0, 32);
+					encodedLineBin = encodedLineBin.substring(32, encodedLineBin.length());
+					
+					//add to intermediateFile
+					intermediateFile.binCode.add(encodedPartTwo);
+				}
+				
 			}
 			else if (opName.equalsIgnoreCase("reset.lc"))
 			{

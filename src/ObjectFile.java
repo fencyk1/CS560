@@ -42,7 +42,7 @@ public class ObjectFile implements ObjectFileInterface {
 	 */
 	@Override
 	public void outputObjectFile(File objectFileName,
-			SymbolTable symbolTable,   IntermediateFile intermediateFile) throws IOException 
+			SymbolTable symbolTable,   IntermediateFile intermediateFile, ErrorOut errorsFound, InSourceCode sourceCode) throws IOException 
 	{
 		System.out.println(">>>>>>>>>>>>> 		Outputting the object file.");
 		
@@ -74,7 +74,7 @@ public class ObjectFile implements ObjectFileInterface {
 		while (intermediateFile.binCode.size() > i)
 		{
 			printTextRecord(objectFileName, symbolTable,  
-					intermediateFile, intermediateFile.binCode.get(i), i+1);
+					intermediateFile, intermediateFile.binCode.get(i), i+1, errorsFound, sourceCode);
 			i++;
 		}
 		
@@ -215,8 +215,11 @@ public class ObjectFile implements ObjectFileInterface {
 	//get the data for a text record and output to the file, convert the bin data to hex
 	private void printTextRecord(File objectFileName,
 			SymbolTable symbolTable,  
-			IntermediateFile intermediateFile, String binary, int lineInIntermediate) throws IOException
+			IntermediateFile intermediateFile, String binary, int lineInIntermediate, ErrorOut errorsFound, InSourceCode sourceCode) throws IOException
 	{
+		//Create an error for our pass 2 checking
+		boolean errors = false;
+		
 		//First check if we're just flipping the debug flag
 		if(binary.equalsIgnoreCase("debug1"))
 		{
@@ -558,30 +561,86 @@ public class ObjectFile implements ObjectFileInterface {
 						//Set the label reference to be the label itself, it's external.
 						labelRef = label;
 					}
+					else
+					{
+						//Change the type and action to reflect the NOP
+						typeAndAction = "A";
+						
+						//Create a variable to hold where the error takes place
+						int lineCounter = 0;
+						
+						//Check to find any instance of the undefined symbol
+						while (lineCounter < sourceCode.source.size())
+						{
+							//Make a new tokenizer for this line
+							Tokenizer tokenizer = new Tokenizer();
+							
+							//Create a counter for the tokenizer
+							int tokenizerCounter = 0;
+							
+							//Create a new array of tokens for the tokenizer
+							ArrayList<String> tokens = new ArrayList<String>();
+							
+							//Get the full line at the lineCounter
+							tokens = tokenizer.tokenizeLine(sourceCode.source.get(lineCounter));
+							
+							while (tokenizerCounter < tokens.size())
+							{
+								if (tokens.get(tokenizerCounter).equals(label))
+								{
+									//Create an error regarding invalid register syntax.
+									ErrorData invalidRegisterSyntax = new ErrorData();
+									invalidRegisterSyntax.add(lineCounter+1, 35, "Label has not been added to the symbol table");
+									
+									//Add it to the ErrorOut table.
+									errorsFound.add(invalidRegisterSyntax);	
+									errors = true;
+								}
+								tokenizerCounter++;
+							}
+							lineCounter++;
+						}
+					}
 				}
 				
 				
-				
-				
-				//Extend labelValue
-				while ((labelValue.length() + binary.substring(0, binary.indexOf('[')).length()) < 32)
+				//If we have found no pass 2 errors, objectify normally
+				if (!errors)
 				{
-					labelValue = "0" + labelValue;
+					//Extend labelValue
+					while ((labelValue.length() + binary.substring(0, binary.indexOf('[')).length()) < 32)
+					{
+						labelValue = "0" + labelValue;
+					}
+					
+					//Create the dataWord
+					dataWord = binary.substring(0, binary.indexOf('[')) + labelValue;
+					dataWord = converter.binaryToHex(dataWord);
+					
+					//Extend the dataWord
+					while (dataWord.length() < 8)
+					{
+						dataWord = "0" + dataWord;
+					}
 				}
-				
-				//Create the dataWord
-				dataWord = binary.substring(0, binary.indexOf('[')) + labelValue;
-				dataWord = converter.binaryToHex(dataWord);
-				
-				//Extend the dataWord
-				while (dataWord.length() < 8)
+				//Otherwise, make dat bitch a nop
+				else
 				{
-					dataWord = "0" + dataWord;
+					dataWord = "08000000";
 				}
+				
 			}
 			
+			
+			//First and foremost, check if it's an error
+			if(errors)
+			{
+				this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
+						+ numOfAdjustments + "\t|\t" + typeAndAction + "\t|\t" + this.prgmName);
+				
+			}
 			//If the type is R or E, store the text field using a label reference
-			if (typeAndAction.charAt(0) != 'A')
+			else if (typeAndAction.charAt(0) != 'A')
 			{
 				//If there is more than one adjustment, use the compound field
 				if (numOfAdjustments > 1)

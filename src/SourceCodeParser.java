@@ -2196,6 +2196,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		if (!(hexHolder.charAt(0) == '\'') || !(hexHolder.charAt(hexHolder.length()-1) == '\'')
 				|| (hexHolder.length() < 3) || (hexHolder.length() > 10))
 		{
+			
 			//Create an error regarding invalid Hex syntax.
 			ErrorData invalidHexSyntax = new ErrorData();
 			invalidHexSyntax.add(lineCounter, 14, "Hex value is not valid (Must start and end with a ' character)");
@@ -2206,6 +2207,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		}
 		else
 		{
+		
 			// Generic counter variable
 			int i = 0;
 			
@@ -2214,29 +2216,31 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			while ((hexHolder.length() > i))
 			{
+				
 				// Create a 1 character long substring representing the Hex
 				// character at the index i.
 				String hexChar = hexHolder.substring(i, i + 1);
 				
 				// Check the character to make sure it falls within the range of
 				// valid hex values (0-F) and if it doesn't, throw an invalid HexValue error.
-				if (!(hexChar.substring(i, i + 1).equalsIgnoreCase("0")) 
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("1")) 
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("2"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("3"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("4"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("5"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("6"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("7"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("8"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("9"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("A"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("B"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("C"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("D"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("E"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("F")))
+				if (!(hexChar.equalsIgnoreCase("0")) 
+						&& !(hexChar.equalsIgnoreCase("1")) 
+						&& !(hexChar.equalsIgnoreCase("2"))
+						&& !(hexChar.equalsIgnoreCase("3"))
+						&& !(hexChar.equalsIgnoreCase("4"))
+						&& !(hexChar.equalsIgnoreCase("5"))
+						&& !(hexChar.equalsIgnoreCase("6"))
+						&& !(hexChar.equalsIgnoreCase("7"))
+						&& !(hexChar.equalsIgnoreCase("8"))
+						&& !(hexChar.equalsIgnoreCase("9"))
+						&& !(hexChar.equalsIgnoreCase("A"))
+						&& !(hexChar.equalsIgnoreCase("B"))
+						&& !(hexChar.equalsIgnoreCase("C"))
+						&& !(hexChar.equalsIgnoreCase("D"))
+						&& !(hexChar.equalsIgnoreCase("E"))
+						&& !(hexChar.equalsIgnoreCase("F")))
 				{
+					
 					//Create an error regarding invalid Hex syntax.
 					ErrorData invalidHexSyntax = new ErrorData();
 					invalidHexSyntax.add(lineCounter, 14, "Hex value is not valid (Must start and end with a ' character)");
@@ -2245,6 +2249,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errorsFound.add(invalidHexSyntax);
 					errors = true;
 				}
+				i++;
+				
 			}
 			// *********************************
 			// Check for Hex values out of bounds
@@ -2258,6 +2264,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			// [80000000,7FFFFFFF] and throw an error if that is the case.
 			if ((hexInteger < -2147483648) || (hexInteger > 2147483647))
 			{
+				
 				//Create an error regarding Hex out of bounds.
 				ErrorData hexOutOfBounds = new ErrorData();
 				hexOutOfBounds.add(lineCounter, 34, "Hex quantity is out of bounds [80000000,7FFFFFFF]");
@@ -2270,12 +2277,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//If no errors have been found, encode the line normally
 		if (!errors)
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, opName);
 		}
 		//Otherwise, encode the line as a NOP
 		else
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, "NOP");
 		}
@@ -2284,7 +2293,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseBinDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter,   IntermediateFile intermediateFile) {
-		
 		//Create an errors flag for encoding purposes
 		boolean errors = false;
 		
@@ -2299,6 +2307,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		if (!(binHolder.charAt(0) == '\'') || !(binHolder.charAt(binHolder.length()-1) == '\'')
 				|| (binHolder.length() < 3) || (binHolder.length() > 34))
 		{
+			
 			//Create an error regarding invalid Binary syntax.
 			ErrorData invalidBinSyntax = new ErrorData();
 			invalidBinSyntax.add(lineCounter, 14, "Binary value is not valid (Must start and end with a ' character and only consist of 0's and/or 1's)");
@@ -2309,6 +2318,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		}
 		else
 		{
+			
 			// Generic counter variable
 			int i = 0;
 			
@@ -2321,15 +2331,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			while ((binHolder.length() > i))
 			{
+				
 				// Create a 1 character long substring representing the Hex
 				// character at the index i.
 				String binChar = binHolder.substring(i, i + 1);
 				
 				// Check the character to make sure it falls within the range of
 				// valid hex values (0-F) and if it doesn't, throw an invalid HexValue error.
-				if (!(binChar.substring(i, i + 1).equalsIgnoreCase("0")) 
+				if (!(binChar.equalsIgnoreCase("0")) 
 						&& !(binChar.equalsIgnoreCase("1")))
 				{
+					
 					//Create an error regarding invalid Binary syntax.
 					ErrorData invalidBinSyntax = new ErrorData();
 					invalidBinSyntax.add(lineCounter, 14, "Binary value is not valid (Must start and end with a ' character and only consist of 0's and/or 1's)");
@@ -2340,6 +2352,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					encodable = false;
 					errors = true;
 				}
+				i++;
 			}
 			
 			// Send the binary number to be encoded.
@@ -2348,12 +2361,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//If no errors have been found, encode the line normally
 		if (!errors)
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, opName);
 		}
 		//Otherwise, encode the line as a NOP
 		else
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, "NOP");
 		}
