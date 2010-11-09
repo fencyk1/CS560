@@ -2082,14 +2082,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}
 			
 			//Make sure the value of int.data is a valid number of a certain size
-			if ((intDotDataValue > 65535) || (intDotDataValue < -65535))
+			if ((intDotDataValue > 230) || (intDotDataValue < -231))
 			{
 				//Create an error regarding invalid starting location.
-				ErrorData integerOutOfBounds = new ErrorData();
-				integerOutOfBounds.add(lineCounter, 11, "Integers must be between -65536 and 65535");
+				ErrorData invalidInteger = new ErrorData();
+				invalidInteger.add(lineCounter, 10, "Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)");
 				
 				//Add it to the ErrorOut table.
-				errorsFound.add(integerOutOfBounds);
+				errorsFound.add(invalidInteger);
 				errors = true;
 			}
 			
@@ -3122,8 +3122,63 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(stringTooLong);
 			errors = true;
 		}
-		//Otherwise add it to the symbol table
 		else
+		{
+			//Create a counter for iteration
+			int i = 0;
+			
+			//Create a string to hold a single character in from the "label"
+			String label = new String();
+			
+			//Create a new byte array for the ascii conversion
+			byte[] binary = new byte[1];
+			
+			int ascii = 0;
+			
+			//Iterate through each character up until the first '(' checking
+			//for alphanumeracy 
+			while (i < line.get(1).length())
+			{
+				//Move one character from the label into "label"
+				label = line.get(1).substring(i, i+1);
+				
+				//Use a try catch for syntactical correctness.
+				try 
+				{
+					//Convert the ascii string passed in, into
+					//an array of bytes containing their binary
+					//representation.
+					binary = label.getBytes("US-ASCII");
+				} 
+				//"US-ASCII" is a supported encoding, so this will never
+				//throw an error, but is required for syntax measures.
+				catch (UnsupportedEncodingException e) 
+				{
+					//Again, since this will never throw an error, this
+					//is here for syntax purposes, but the stack trace
+					//would just print out a trace of where the error
+					//occurred and halt the program.
+					e.printStackTrace();
+				}
+				
+				//Convert from a binary stream into an integer representation
+				ascii = binary[0];
+				
+				if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+				{			
+					//Create an error regarding invalid address/label syntax.
+					ErrorData invalidAddressLabel = new ErrorData();
+					invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressLabel);
+					errors = true;
+				}
+				i++;
+			}
+		}
+		//Otherwise add it to the symbol table
+		if (!errors)
 		{
 			Symbol equ = new Symbol();
 			equ.setLabel(line.get(0));
