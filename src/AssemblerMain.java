@@ -57,15 +57,14 @@ public class AssemblerMain {
 		while (sourceCode.source.size() > i)
 		{
 			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
-			parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, intermediateFile);
+			if (line.size() > 0)
+			{
+				parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, intermediateFile);
+			}		
 			i++;
 			
 		}
 		
-		//Create intermediate file, symbol table, user report (src+errors)
-		UserReport report = new UserReport();
-		report.createUserReport(sourceCode, errorsFound);
-		report.outputUserReport(sourceCode, new File ("userReport.txt"));
 		
 		//output the intermediate file
 		intermediateFile.outputIntermediateFile(new File ("intermediateFile.txt"));
@@ -73,7 +72,12 @@ public class AssemblerMain {
 		//Make our object file, has to get the debug flag, etc.
 		File objectFileName = new File ("output/objectFileName.txt");
 		ObjectFile objectFile = new ObjectFile();
-		objectFile.outputObjectFile(objectFileName, symbolsFound, intermediateFile);
+		objectFile.outputObjectFile(objectFileName, symbolsFound, intermediateFile, errorsFound, sourceCode);
+		
+		//Create intermediate file, symbol table, user report (src+errors)
+		UserReport report = new UserReport();
+		report.createUserReport(sourceCode, errorsFound);
+		report.outputUserReport(sourceCode, new File ("userReport.txt"));
 		
 		//Sort the Symbol Table by label, and output it to a text file.
 		symbolsFound.sort();

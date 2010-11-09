@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 
 public class SourceCodeParser implements SourceCodeParserInterface {
@@ -2196,6 +2197,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		if (!(hexHolder.charAt(0) == '\'') || !(hexHolder.charAt(hexHolder.length()-1) == '\'')
 				|| (hexHolder.length() < 3) || (hexHolder.length() > 10))
 		{
+			
 			//Create an error regarding invalid Hex syntax.
 			ErrorData invalidHexSyntax = new ErrorData();
 			invalidHexSyntax.add(lineCounter, 14, "Hex value is not valid (Must start and end with a ' character)");
@@ -2206,6 +2208,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		}
 		else
 		{
+		
 			// Generic counter variable
 			int i = 0;
 			
@@ -2214,29 +2217,31 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			while ((hexHolder.length() > i))
 			{
+				
 				// Create a 1 character long substring representing the Hex
 				// character at the index i.
 				String hexChar = hexHolder.substring(i, i + 1);
 				
 				// Check the character to make sure it falls within the range of
 				// valid hex values (0-F) and if it doesn't, throw an invalid HexValue error.
-				if (!(hexChar.substring(i, i + 1).equalsIgnoreCase("0")) 
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("1")) 
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("2"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("3"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("4"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("5"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("6"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("7"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("8"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("9"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("A"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("B"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("C"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("D"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("E"))
-						&& !(hexChar.substring(i, i + 1).equalsIgnoreCase("F")))
+				if (!(hexChar.equalsIgnoreCase("0")) 
+						&& !(hexChar.equalsIgnoreCase("1")) 
+						&& !(hexChar.equalsIgnoreCase("2"))
+						&& !(hexChar.equalsIgnoreCase("3"))
+						&& !(hexChar.equalsIgnoreCase("4"))
+						&& !(hexChar.equalsIgnoreCase("5"))
+						&& !(hexChar.equalsIgnoreCase("6"))
+						&& !(hexChar.equalsIgnoreCase("7"))
+						&& !(hexChar.equalsIgnoreCase("8"))
+						&& !(hexChar.equalsIgnoreCase("9"))
+						&& !(hexChar.equalsIgnoreCase("A"))
+						&& !(hexChar.equalsIgnoreCase("B"))
+						&& !(hexChar.equalsIgnoreCase("C"))
+						&& !(hexChar.equalsIgnoreCase("D"))
+						&& !(hexChar.equalsIgnoreCase("E"))
+						&& !(hexChar.equalsIgnoreCase("F")))
 				{
+					
 					//Create an error regarding invalid Hex syntax.
 					ErrorData invalidHexSyntax = new ErrorData();
 					invalidHexSyntax.add(lineCounter, 14, "Hex value is not valid (Must start and end with a ' character)");
@@ -2245,6 +2250,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errorsFound.add(invalidHexSyntax);
 					errors = true;
 				}
+				i++;
+				
 			}
 			// *********************************
 			// Check for Hex values out of bounds
@@ -2258,6 +2265,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			// [80000000,7FFFFFFF] and throw an error if that is the case.
 			if ((hexInteger < -2147483648) || (hexInteger > 2147483647))
 			{
+				
 				//Create an error regarding Hex out of bounds.
 				ErrorData hexOutOfBounds = new ErrorData();
 				hexOutOfBounds.add(lineCounter, 34, "Hex quantity is out of bounds [80000000,7FFFFFFF]");
@@ -2270,12 +2278,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//If no errors have been found, encode the line normally
 		if (!errors)
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, opName);
 		}
 		//Otherwise, encode the line as a NOP
 		else
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, "NOP");
 		}
@@ -2284,7 +2294,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private void parseBinDotData(ArrayList<String> line, ErrorOut errorsFound,
 			SymbolTable symbolsFound, ErrorTable errorIn,
 			InstructTable instructIn, DirectiveTable directIn, int lineCounter,   IntermediateFile intermediateFile) {
-		
 		//Create an errors flag for encoding purposes
 		boolean errors = false;
 		
@@ -2299,6 +2308,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		if (!(binHolder.charAt(0) == '\'') || !(binHolder.charAt(binHolder.length()-1) == '\'')
 				|| (binHolder.length() < 3) || (binHolder.length() > 34))
 		{
+			
 			//Create an error regarding invalid Binary syntax.
 			ErrorData invalidBinSyntax = new ErrorData();
 			invalidBinSyntax.add(lineCounter, 14, "Binary value is not valid (Must start and end with a ' character and only consist of 0's and/or 1's)");
@@ -2309,6 +2319,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		}
 		else
 		{
+			
 			// Generic counter variable
 			int i = 0;
 			
@@ -2321,15 +2332,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			while ((binHolder.length() > i))
 			{
+				
 				// Create a 1 character long substring representing the Hex
 				// character at the index i.
 				String binChar = binHolder.substring(i, i + 1);
 				
 				// Check the character to make sure it falls within the range of
 				// valid hex values (0-F) and if it doesn't, throw an invalid HexValue error.
-				if (!(binChar.substring(i, i + 1).equalsIgnoreCase("0")) 
+				if (!(binChar.equalsIgnoreCase("0")) 
 						&& !(binChar.equalsIgnoreCase("1")))
 				{
+					
 					//Create an error regarding invalid Binary syntax.
 					ErrorData invalidBinSyntax = new ErrorData();
 					invalidBinSyntax.add(lineCounter, 14, "Binary value is not valid (Must start and end with a ' character and only consist of 0's and/or 1's)");
@@ -2340,6 +2353,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					encodable = false;
 					errors = true;
 				}
+				i++;
 			}
 			
 			// Send the binary number to be encoded.
@@ -2348,12 +2362,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//If no errors have been found, encode the line normally
 		if (!errors)
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, opName);
 		}
 		//Otherwise, encode the line as a NOP
 		else
 		{
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, "NOP");
 		}
@@ -2491,10 +2507,13 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Create a boolean to flag whether we found an error or not
 			Boolean error = false;
 			
+			//Create a boolean to determine whether the parenthesis has been started
+			Boolean parenStart = false;
+			
 			//Create a counter for iteration
 			int counter = 0;
 			
-			//START: Parenthesis checking and nested expression lifting.
+/*			//START: Parenthesis checking and nested expression lifting.
 			
 			//Check the expression for parenthesis, as according to the directives
 			//table, they are allowed one level of nesting. If we find more than one
@@ -2504,6 +2523,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Check for the start of a nested expression
 				if(expression.charAt(counter) == '(')
 				{
+					//We found a start, so make it true
+					parenStart = true;
+					
 					//Set a nested counter accordingly for iteration
 					int nestedCounter = counter+1;
 					
@@ -2560,15 +2582,25 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Check to see if there is a close parenthesis without an open one
 				else if (expression.charAt(counter) == ')')
 				{
-					ErrorData noNestedStart = new ErrorData();
-					noNestedStart.add(lineCounter, 17, "Nested expression terminates without being initialized");
+					//If we got a right parenthesis without getting a left, throw an error
+					if (!parenStart)
+					{
+						ErrorData noNestedStart = new ErrorData();
+						noNestedStart.add(lineCounter, 17, "Nested expression terminates without being initialized");
+						
+						//Add the error to the error table
+						errorsFound.add(noNestedStart);
+						errors = true;
+						
+						//Flag the error boolean as true
+						error = true;
+					}
+					//Otherwise, set the parenthesis to have ended
+					else
+					{
+						parenStart = false;
+					}
 					
-					//Add the error to the error table
-					errorsFound.add(noNestedStart);
-					errors = true;
-					
-					//Flag the error boolean as true
-					error = true;
 				}
 				//Check to see if there was an error, if so there is no need
 				//to continue parsing the line
@@ -2580,7 +2612,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Increment the counter iterator
 				counter++;
 			}
-			//END: Parenthesis Checking and nested expression lifting.
+*/			//END: Parenthesis Checking and nested expression lifting.
 			
 			//reset reusable variables
 			counter = 0;
@@ -2623,21 +2655,34 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					{
 					}
 					//Check to see if the current character is an operator
-					else if(expression.charAt(counter) == '+' || expression.charAt(counter) == '-'
-						|| expression.charAt(counter) == '*' || expression.charAt(counter) == '/')
+					else if(expression.charAt(counter) == '+' || expression.charAt(counter) == '-')
 					{
-						//Check to make sure there is not an invalid junction of operations
-						if(expression.charAt(counter+1) == '+' || expression.charAt(counter+1) == '*'
-								|| expression.charAt(counter+1) == '/')
-							{
-								//Set teh error flag to be true
-								expError = true;
+						//Check to see if the expression ENDS with a plus or minus
+						if (counter+1 >= expression.length())
+						{
+							//Set teh error flag to be true
+							expError = true;
+						
+							//Create an error
+							ErrorData expressionEndFault = new ErrorData();
+							expressionEndFault.add(lineCounter, 36, "Expressions may not end with operands");
 							
-								//Create an error
-								ErrorData doubleOperation = new ErrorData();
-								doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
-								errors = true;
-							}
+							errorsFound.add(expressionEndFault);
+							errors = true;
+						}
+						//Check to make sure there is not an invalid junction of operations
+						else if(expression.charAt(counter+1) == '+' || expression.charAt(counter+1) == '-')
+						{
+							//Set teh error flag to be true
+							expError = true;
+							
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
 					}
 					//If it is not a number or operator, it is a label,
 					//So determine how long it is and make sure there aren't more
@@ -2664,8 +2709,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						{
 								//Labels are separated by expressions, so check accordingly
 								while ((counter+1 < expression.length()-1) &&(!(expression.charAt(counter+1) == '+') 
-										&& !(expression.charAt(counter+1) == '-')&& !(expression.charAt(counter+1) == '*') 
-										&& !(expression.charAt(counter+1) == '/')))
+										&& !(expression.charAt(counter+1) == '-')))
 								{
 									//Move the counter forward until we are clear of the label
 									//save for the last letter which the normal increment
@@ -2677,6 +2721,105 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					counter++;
 				}									
 			}
+			//If we still haven't encountered an error, parse for correct labels
+			if(!error)
+			{
+				//Create an array to hold all of the tokens
+				ArrayList<String> operandsArray = new ArrayList<String>();
+				//Create an array to hold the tokenizePlus tokens.
+				ArrayList<String> plusArray = new ArrayList<String>();
+				
+				//Create a tokenizer that tokenizes based on "+". This will leave
+				//only tokens with a combination of labels etc. and "-".
+				StringTokenizer tokenizePlus = new StringTokenizer(expression, "+");
+				
+				// Set <i> to be the number of tokens formed from <line>.
+				int n = tokenizePlus.countTokens();
+				
+				// Adds each token from the tokenizer into the temporary array.
+				while (tokenizePlus.countTokens() > 0)
+				{
+					// Adds a token to the array in the order they appear in the input.
+					plusArray.add((n - tokenizePlus.countTokens()), tokenizePlus.nextToken());
+				}
+				
+				//generic counter variables
+				int i = 0, j = 0;
+				
+				//for each token in tokenizePlus, we will tokenize it based on
+				//"-" to only be left with labels etc.
+				while (plusArray.size() > i)
+				{
+					//A temporary object to hold each token in the array to be
+					//tokenized
+					String temp = plusArray.get(i);
+					
+					//Create a tokenizer that tokenizes by "-", leaving only
+					//labels etc.
+					StringTokenizer tokenizeMinus = new StringTokenizer(temp, "-");
+					
+					//counter to iterate through the tokenizeMinus
+					int k = tokenizePlus.countTokens();
+					
+					//
+					while (tokenizeMinus.countTokens() > 0)
+					{
+						operandsArray.add(j, tokenizeMinus.nextToken());
+					}
+					j++;
+					i++;
+				}
+				
+				int operandsCounter = 0;
+				
+				String label = new String();
+				
+				byte[] binary = new byte[1];
+				
+				int ascii = 0;
+				
+				while(operandsCounter < operandsArray.size())
+				{
+					//Move one character from the label into "label"
+					label = operandsArray.get(operandsCounter);
+					
+					//Use a try catch for syntactical correctness.
+					try 
+					{
+						//Convert the ascii string passed in, into
+						//an array of bytes containing their binary
+						//representation.
+						binary = label.getBytes("US-ASCII");
+					} 
+					//"US-ASCII" is a supported encoding, so this will never
+					//throw an error, but is required for syntax measures.
+					catch (UnsupportedEncodingException e) 
+					{
+						//Again, since this will never throw an error, this
+						//is here for syntax purposes, but the stack trace
+						//would just print out a trace of where the error
+						//occurred and halt the program.
+						e.printStackTrace();
+					}
+					
+					//Convert from a binary stream into an integer representation
+					ascii = binary[0];
+					
+					if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+					{			
+						//Create an error regarding invalid address/label syntax.
+						ErrorData invalidAddressLabel = new ErrorData();
+						invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+						
+						//Add it to the ErrorOut table.
+						errorsFound.add(invalidAddressLabel);
+						errors = true;
+					}
+					operandsCounter++;
+				}
+			
+			}	
+			
 		}
 		//If no errors have been found, encode the line normally
 		if (!errors)
@@ -2847,6 +2990,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				ext.setLocation("99999");
 				ext.setUsage("EXT");
 				counter++;
+				symbolsFound.defineSymbol(ext);
 			}
 		}
 		//TODO: Not sure what happens in pass 2 here, actually, but something does.
@@ -5369,8 +5513,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			IntermediateFile intermediateFile, String opName)
 	{	
 
-	Encoder lineEncoder = new Encoder();
-	lineEncoder.encodeLine (line, errorsFound, symbolsFound, errorIn, instructIn, 
+		Encoder lineEncoder = new Encoder();
+		lineEncoder.encodeLine (line, errorsFound, symbolsFound, errorIn, instructIn, 
 			directIn, lineCounter, this.locationCounter, intermediateFile, opName);
 	
 	

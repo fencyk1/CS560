@@ -16,10 +16,10 @@ public class Converter implements ConverterInterface {
 	
 	@Override
 	public String binaryToHex(String binary) {
-		//Convert the binary string into a decimal value.
-		int decimal = this.binToDec(binary);
+		//Convert the binary string into a decimal value.		
+		long decimal = Long.parseLong(binary,2);
 		//Convert the decimal value into a hex value.
-		String hexOut = Integer.toHexString(decimal);
+		String hexOut = Long.toHexString(decimal);
 		return hexOut;
 	}
 
@@ -122,7 +122,9 @@ public class Converter implements ConverterInterface {
 		
 		// Convert the binary string into a decimal integer, then convert
 		// the decimal integer into a String and return.
-		return Integer.toString(this.binToDec(binary));
+		//Convert the binary string into a decimal value.		
+		long decimal = Long.parseLong(binary,2);
+		return Long.toString(decimal);
 	}
 
 	@Override
