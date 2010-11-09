@@ -296,6 +296,8 @@ public class ObjectFile implements ObjectFileInterface {
 			
 			String dataWord = new String();
 			
+			int currentVal = 0;
+			
 			//If the string is completely binary then encode it as a data word
 			if (allBinary)
 			{
@@ -327,6 +329,18 @@ public class ObjectFile implements ObjectFileInterface {
 					//Create a counter for the current spot in the label
 					int labelLoc = 0;
 					
+					//Create a string to hold the first operand if there is a plus or minus before the expression
+					String firstOperand = label.substring(0, 1);
+					
+					if (firstOperand.equals("+"))
+					{
+						label = label.substring(1, label.length());
+					}
+					else if (firstOperand.equals("-"))
+					{
+						label = label.substring(1, label.length());
+					}
+					
 					//Create an arrayList for dealing with the expressions
 					ArrayList<String> expressionList = new ArrayList<String>();
 
@@ -337,7 +351,6 @@ public class ObjectFile implements ObjectFileInterface {
 						if (((label.substring(labelLoc).indexOf("+") > label.substring(labelLoc).indexOf("-")) && label.substring(labelLoc).indexOf("-") != -1)
 								|| (label.substring(labelLoc).indexOf("+") == -1 && label.substring(labelLoc).indexOf("-") != -1))
 						{
-							System.err.println("in minus");
 							//Store the current spot passing through the label
 							labelLoc = label.indexOf("-") + 1;
 							//Add the label in
@@ -368,11 +381,24 @@ public class ObjectFile implements ObjectFileInterface {
 						numOfAdjustments++;
 					}
 					
+					//Do everything the same except for making the first value negative
+
 					//Create a boolean for adding/subtracting values
 					boolean positive = true;
 					
+										
+					if (firstOperand.equals("+"))
+					{
+						positive = true;
+					}
+					else if (firstOperand.equals("-"))
+					{
+						positive = false;
+					}
+					
+										
 					//Create an integer for storing the current value of the expression
-					int currentVal = 0;
+					currentVal = 0;
 					
 					//Create a string for holding temporary values
 					String tempValue = new String();
@@ -385,7 +411,7 @@ public class ObjectFile implements ObjectFileInterface {
 						if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("int.data"))
 						{
 							//Put the decimal value in a string
-							tempValue = symbolTable.GetValue(expressionList.get(counter));
+							tempValue = symbolTable.GetLocation(expressionList.get(counter));
 						}
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("label"))
 						{
@@ -395,18 +421,18 @@ public class ObjectFile implements ObjectFileInterface {
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("hex.data"))
 						{
 							//Put the hex value into a decimal value then put it in the string.
-							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetValue(expressionList.get(counter))));
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
 						}
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("str.data"))
 						{
 							//Convert the string into ascii binary by removing the ''s, then convert that into decimal
-							tempValue = converter.binaryToDecimal(converter.asciiToBinary(symbolTable.GetValue(
+							tempValue = converter.binaryToDecimal(converter.asciiToBinary(symbolTable.GetLocation(
 									expressionList.get(counter).substring(1, expressionList.get(counter).length()-1))));
 						}
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("bin.data"))
 						{
 							//Convert the binary into decimal.
-							tempValue = converter.binaryToDecimal(symbolTable.GetValue(expressionList.get(counter)));
+							tempValue = converter.binaryToDecimal(symbolTable.GetLocation(expressionList.get(counter)));
 
 						}
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("EXT"))
@@ -419,8 +445,7 @@ public class ObjectFile implements ObjectFileInterface {
 							//Set temp value equal to whatever the equated value's ascii is
 							tempValue = converter.binaryToDecimal(converter.asciiToBinary(symbolTable.GetValue(expressionList.get(counter))));
 						}
-						
-						System.err.println(expressionList.get(counter));
+												
 						
 						//If the expression is added
 						if (positive)
@@ -441,12 +466,10 @@ public class ObjectFile implements ObjectFileInterface {
 							//If we aren't, check the next item in the expression to see if we need to change the flag
 							if (expressionList.get(counter+1).equals("+"))
 							{
-								System.err.println("positive");
 								positive = true;
 							}
 							else
 							{
-								System.err.println("negative");
 								positive = false;
 							}
 						}
@@ -454,6 +477,9 @@ public class ObjectFile implements ObjectFileInterface {
 						//Increment the counter by two, skipping over the expression operands
 						counter = counter+2;		
 					}
+					
+					
+					
 					
 					//Decrement the number of adjustments once to reflect the fact that it was already 1
 					numOfAdjustments--;
@@ -476,12 +502,42 @@ public class ObjectFile implements ObjectFileInterface {
 						//If it's an ext type, add it with an E field and it's name
 						if (symbolTable.GetUsage(expressionList.get(expressionCounter)).equalsIgnoreCase("ext"))
 						{
-							tempRelocationType = "E\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+							if(!(expressionCounter < 1))
+							{
+								if (expressionList.get(expressionCounter-1).equals("+"))
+								{
+									tempRelocationType = "E\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+								}
+								else if (expressionList.get(expressionCounter-1).equals("-"))
+								{
+									tempRelocationType = "E\t|\t-\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+								}
+							}
+							else
+							{
+								tempRelocationType = "E\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+							}
+						
 						}
 						//Otherwise add ti with an R field and the program load point.
 						else
 						{
-							tempRelocationType = "R\t|\t+\t|\t" + this.prgmLoadPoint + "\t|\t";
+							if(!(expressionCounter < 1))
+							{
+								if (expressionList.get(expressionCounter-1).equals("+"))
+								{
+									tempRelocationType = "R\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+								}
+								else if (expressionList.get(expressionCounter-1).equals("-"))
+								{
+									tempRelocationType = "R\t|\t-\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+								}
+							}
+							else
+							{
+								tempRelocationType = "R\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+							}
+							
 						}
 						
 						totalTypeActionAndRef = totalTypeActionAndRef + tempRelocationType; 
@@ -511,7 +567,7 @@ public class ObjectFile implements ObjectFileInterface {
 					//Otherwise, check if it's an int.data
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("int.data"))
 					{	
-						labelValue = symbolTable.GetValue(label);
+						labelValue = symbolTable.GetLocation(label);
 						//If it is, convert the decimal integer to binary
 						labelValue = converter.decimalToBinary(labelValue);
 						//Set the type as Absolute
@@ -520,7 +576,7 @@ public class ObjectFile implements ObjectFileInterface {
 					//Otherwise, check if it's hex.data
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("hex.data"))
 					{
-						labelValue = symbolTable.GetValue(label);
+						labelValue = symbolTable.GetLocation(label);
 						//If it is, convert the hex into binary
 						labelValue = converter.hexToBinary(labelValue);
 						//Set the type as Absolute
@@ -529,7 +585,7 @@ public class ObjectFile implements ObjectFileInterface {
 					//Otherwise, check if it's a string
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("str.data"))
 					{
-						labelValue = symbolTable.GetValue(label);
+						labelValue = symbolTable.GetLocation(label);
 						//If it is, convert the ascii into binary
 						labelValue = converter.asciiToBinary(labelValue.substring(1, labelValue.length()));
 						
@@ -545,7 +601,7 @@ public class ObjectFile implements ObjectFileInterface {
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("bin.data"))
 					{
 						//If it is, it's fine as it is it's already in binary.
-						labelValue = symbolTable.GetValue(label);
+						labelValue = symbolTable.GetLocation(label);
 						
 						//Set the type as Absolute
 						typeAndAction = "A";

@@ -292,6 +292,19 @@ public class Encoder implements EncoderInterface {
 			
 			encoded = opCode + "00" + reg1 + reg2 + reg3 + shift + "000" + fnCode;
 		}
+		//Otherwise check if it's a jump register
+		else if (opName.equalsIgnoreCase("Jr"))
+		{
+			//Get the first register's value
+			String reg1 = converter.decimalToBinary(line.get(1).substring(1));
+			//Extend register one to three digits
+			while (reg1.length() < 3)
+			{
+				reg1 = "0" + reg1;
+			}
+			
+			encoded = opCode + "00" + reg1 + "000" + "000" + "000000" + "000" + fnCode;
+		}
 		//Otherwise encode it as if it has three registers
 		else
 		{
@@ -474,6 +487,10 @@ public class Encoder implements EncoderInterface {
 				number = false;
 			}
 			
+			if (symbolsFound.GetUsage(line.get(3)).equalsIgnoreCase("ext"))
+			{
+				addr = "11";
+			}
 			
 			//Get the first register's value
 			reg1 = converter.decimalToBinary(line.get(1).substring(1));
@@ -592,6 +609,11 @@ public class Encoder implements EncoderInterface {
 			//If it's just a label or number
 			else
 			{
+				if (symbolsFound.GetUsage(line.get(2)).equalsIgnoreCase("ext"))
+				{
+					addr = "11";
+				}
+				
 				//Define a boolean to check for integer-ness
 				boolean integer = true;
 				
@@ -700,6 +722,11 @@ public class Encoder implements EncoderInterface {
 			//If it's just a label or number
 			else
 			{
+				if (symbolsFound.GetUsage(line.get(1)).equalsIgnoreCase("ext"))
+				{
+					addr = "11";
+				}
+				
 				//Define a boolean to check for integer-ness
 				boolean integer = true;
 				
@@ -840,6 +867,11 @@ public class Encoder implements EncoderInterface {
 		//If it's just a label or number
 		else
 		{
+			if (symbolsFound.GetUsage(line.get(2)).equalsIgnoreCase("ext"))
+			{
+				addr = "11";
+			}
+			
 			//Define a boolean to check for integer-ness
 			boolean integer = true;
 			
