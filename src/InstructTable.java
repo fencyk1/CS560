@@ -134,6 +134,7 @@ public class InstructTable implements InstructTableInterface {
 	 */
 	public String getInstructionOpcode (String instructionName)
 	{
+		instructionName = instructionName.toLowerCase();
 		
 		if(instructionOpcode.containsKey(instructionName) == true)
 		{

@@ -25,96 +25,23 @@ public class Converter implements ConverterInterface {
 
 	@Override
 	public String hexToBinary(String hex) {
-		int counter = 0;
-		int decimal = 0;
-		char digit;
 		
-		//Convert the entire string to uppercase for conversion purposes.
-		hex = hex.toUpperCase();
+		//Convert the hex into a decimal integer.
+		int i = Integer.parseInt(hex,16);
 		
-		//Convert each hex digit to decimal one by one and add them up.
-		while (hex.length() > counter)
-		{
-			//Get least significant digit.
-			digit = hex.charAt(hex.length()-1-counter);
-			//If the digit is 0 we need to do nothing.
-			if (digit == '0')
-			{
-			}
-			//Otherwise, we add it to our decimal variable.
-			else if (digit == '1')
-			{
-				decimal = (int) (decimal + (1 * (Math.pow(16,counter))));
-			}
-			else if (digit == '2')
-			{
-				decimal = (int) (decimal + (2 * (Math.pow(16,counter))));
-			}
-			else if (digit == '3')
-			{
-				decimal = (int) (decimal + (3 * (Math.pow(16,counter))));
-			}
-			else if (digit == '4')
-			{
-				decimal = (int) (decimal + (4 * (Math.pow(16,counter))));
-			}
-			else if (digit == '5')
-			{
-				decimal = (int) (decimal + (5 * (Math.pow(16,counter))));
-			}
-			else if (digit == '6')
-			{
-				decimal = (int) (decimal + (6 * (Math.pow(16,counter))));
-			}
-			else if (digit == '7')
-			{
-				decimal = (int) (decimal + (7 * (Math.pow(16,counter))));
-			}
-			else if (digit == '8')
-			{
-				decimal = (int) (decimal + (8 * (Math.pow(16,counter))));
-			}
-			else if (digit == '9')
-			{
-				decimal = (int) (decimal + (9 * (Math.pow(16,counter))));
-			}
-			else if (digit == 'A')
-			{
-				decimal = (int) (decimal + (10 * (Math.pow(16,counter))));
-			}
-			else if (digit == 'B')
-			{
-				decimal = (int) (decimal + (11 * (Math.pow(16,counter))));
-			}
-			else if (digit == 'C')
-			{
-				decimal = (int) (decimal + (12 * (Math.pow(16,counter))));
-			}
-			else if (digit == 'D')
-			{
-				decimal = (int) (decimal + (13 * (Math.pow(16,counter))));
-			}
-			else if (digit == 'E')
-			{
-				decimal = (int) (decimal + (14 * (Math.pow(16,counter))));
-			}
-			else
-			{
-				decimal = (int) (decimal + (15 * (Math.pow(16,counter))));
-			}
-			counter++;
-		}
-		//Return the binary string.
-		return Integer.toBinaryString(decimal);
+		//Convert that into binary.
+		String bin = Integer.toBinaryString(i);
+		
+		return bin;
 	}
 
 	@Override
 	public String decimalToHex(String decimal) {
 		
 		//Convert the string into an integer.
-		int dec = Integer.parseInt(decimal);
+		long dec = Long.parseLong(decimal);
 		//Return the hex string.
-		return Integer.toHexString(dec);
+		return Long.toHexString(dec);
 	}
 
 	@Override
@@ -131,9 +58,9 @@ public class Converter implements ConverterInterface {
 	public String decimalToBinary(String decimal) {
 		
 		//Convert the string into an integer.
-		int dec = Integer.parseInt(decimal);
+		long dec = Long.parseLong(decimal);
 		//Return the binary string.
-		return Integer.toBinaryString(dec);
+		return Long.toBinaryString(dec);
 	}
 	
 	public String asciiToBinary(String ascii) {
@@ -204,48 +131,8 @@ public class Converter implements ConverterInterface {
 	
 	public String twosCompToInteger(String twos)
 	{
-		//Create a value to hold the final integer representation
-		String integerValue = new String();
-		
-		//Create an integer to hold the intermediate integer representation
-		int value = 0;
-		
-		//Check the most significant bit, if it is a one, treat it as a negative
-		if (twos.charAt(0) == '1')
-		{
-			int counter = 0;
-			String newTwos = new String();
-			//Flip the bits
-			while (counter < twos.length())
-			{
-				if (twos.charAt(counter) == '1')
-				{
-					newTwos = newTwos + "0";
-				}
-				else
-				{
-					newTwos = newTwos + "1";
-				}
-				counter++;
-			}
-			//Convert that flipped value into an integer to add to
-			value = binToDec(newTwos);
-			//Add one to it to complete the conversion
-			value = value + 1;
-			//Make it negative
-			value = value * -1;
-			
-		}
-		//Otherwise, treat it as a positive
-		else
-		{
-			//convert each digit into an integer (base 10) using a while loop and add it
-			//to a temporary int object, then convert to string.
-			value = binToDec(twos);
-		}
-		
-		integerValue = Integer.toString(value);
-		return integerValue;
+		long decimal = Long.parseLong(twos,2);
+		return Long.toString(decimal);
 	}
 
 	/**

@@ -2142,7 +2142,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			// boolean to prevent multiple errors for one instance
 			Boolean error = false;
-			
 			// Remove the quotes at the end of the string.
 			stringHolder = stringHolder.substring(1 , (stringHolder.length() - 1));
 			
@@ -2258,7 +2257,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			// *********************************
 			Converter converter = new Converter();
 
-			//TODO: check for hex out of bounds.
 			int hexInteger = Integer.parseInt(converter.twosCompToInteger(converter.hexToBinary(hexHolder)));
 
 			// Check that the hex value is between the available bounds of
@@ -2921,7 +2919,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(extraOperands);
 			errors = true;
 		}
-		//TODO: in pass two, we make sure they are actually in the symbol table.
 		if (!errors)
 		{
 
@@ -2993,7 +2990,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				symbolsFound.defineSymbol(ext);
 			}
 		}
-		//TODO: Not sure what happens in pass 2 here, actually, but something does.
 		if (!errors)
 		{
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
@@ -3657,24 +3653,28 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//immediate value
 		int imm = 0; 
 		
-		//Determine whether the character is a number or not.
-		try
+		if (line.size() == 4)
 		{
-			imm = Integer.parseInt(line.get(3));
+			//Determine whether the character is a number or not.
+			try
+			{
+				imm = Integer.parseInt(line.get(3));
+			}
+			catch(NumberFormatException e)
+			{
+				//check the immediate value to be in the correct bounds
+				
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData nonIntegerValue = new ErrorData();
+				nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(nonIntegerValue);
+				errors = true;
+				
+			}
 		}
-		catch(NumberFormatException e)
-		{
-			//check the immediate value to be in the correct bounds
-			
-			//Create an error regarding invalid number which is out of bounds.
-			ErrorData nonIntegerValue = new ErrorData();
-			nonIntegerValue.add(lineCounter, 20, "Value must be a decimal integer");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(nonIntegerValue);
-			errors = true;
-			
-		}
+		
 		
 		if (!(line.size() == 4))
 		{
@@ -4401,6 +4401,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errors = true;
 		}
 		//Check for * format
+		//TODO: fix up * addressing so that it works (with expressions?)
+		//TODO: replace the star with the location counter
 		else if (line.get(1).charAt(0) == '*')
 		{
 			if ((line.get(1).length() > 1) && !(line.get(1).length() == 2

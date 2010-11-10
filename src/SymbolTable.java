@@ -311,7 +311,7 @@ public class SymbolTable implements SymbolTableInterface {
 			
 			//Make sure we loop through the whole thing at least once to be sure
 			//We get anything we may miss
-			if((this.getSymCounter == this.symTable.size()) && (!loopedOnce))
+			if((this.getSymCounter >= this.symTable.size()) && (!loopedOnce))
 			{
 				this.getSymCounter = 0;
 				loopedOnce = true;

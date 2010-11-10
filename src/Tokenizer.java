@@ -55,23 +55,38 @@ public class Tokenizer implements TokenizerInterface {
 				// Loop that will tokenize each token created by tokenizeSpace.
 				while(spaceArray.size() > j)
 				{
-					// Grab the token from the array.
-					temp = spaceArray.get(j);
-					// Tokenize the token by commas.
-					tokenizeComma(temp);
-					k = 0;
-				
-					// Loop that takes each token from the commaArray and adds it
-					// to the tokenArray to be output to the caller.
-					while(commaArray.size() > k)
+					// check if there is a str.data in the first 2 spots, and
+					// if so, call the tokenizeStrDotData method with the
+					// appropriate location parameter, then set spaceArray = the
+					// returned array. Otherwise, tokenize the line like normal
+					if ((spaceArray.size() > 1) && (spaceArray.get(1).equalsIgnoreCase("str.data")))
+					{
+						return tokenizeStrDotData (spaceArray, 2);
+					}
+					else if ((spaceArray.size() > 1) && (spaceArray.get(0).equalsIgnoreCase("str.data")))
+					{
+						return tokenizeStrDotData (spaceArray, 1);						
+					}
+					else
 					{
 						// Grab the token from the array.
-						temp = commaArray.get(k);
-						// Add the token to the return array.
-						tokenArray.add(temp);
-						k++;
+						temp = spaceArray.get(j);
+						// Tokenize the token by commas.
+						tokenizeComma(temp);
+						k = 0;
+
+						// Loop that takes each token from the commaArray and adds it
+						// to the tokenArray to be output to the caller.
+						while(commaArray.size() > k)
+						{
+							// Grab the token from the array.
+							temp = commaArray.get(k);
+							// Add the token to the return array.
+							tokenArray.add(temp);
+							k++;
+						}
+						j++;
 					}
-					j++;
 				}
 				i++;
 			}
@@ -135,5 +150,82 @@ public class Tokenizer implements TokenizerInterface {
 			spaceArray.add((i - space.countTokens()), space.nextToken());
 		}
 	}
-	
+
+	// Method that fixes a tokenizing issue that occurs when str.data contains
+	// spaces.
+	@Override
+	public ArrayList<String> tokenizeStrDotData(ArrayList<String> line, int loc) {
+		
+		// counter to get all of the string data tokens
+		int count = loc;
+		
+		// create a string object to hold the new string data.
+		String data = "";
+		
+		// iterate through the array and create the new string data
+		while (line.size() > count)
+		{
+			// if we already 
+			if (data.length() > 0)
+			{
+				// concatenate the tokens with a space
+				data = data + " " + line.get(count);
+			}
+			else
+			{
+				// if this is the first token to be added, we don't put a space
+				// at the beginning.
+				data = data + line.get(count);
+			}
+			
+			count++;
+		}
+		
+		// counter for the while loop
+		int i = 0;
+		
+		// create an array to be returned
+		ArrayList<String> returnArray = new ArrayList<String>();
+		// create an array that will be tokenized by commas, leaving out the data
+		ArrayList<String> nextArray = new ArrayList<String>();
+		
+		
+		// iterate through the line array up to the str.data and add the tokens
+		// to the new array
+		while (i < loc)
+		{
+			nextArray.add(line.get(i));
+			i++;
+		}
+		
+		// dummy variables
+		int j = 0, k = 0;
+		String temp = "";
+		
+		while(nextArray.size() > j)
+		{
+			// Grab the token from the array.
+			temp = nextArray.get(j);
+			// Tokenize the token by commas.
+			tokenizeComma(temp);
+			k = 0;
+		
+			// Loop that takes each token from the commaArray and adds it
+			// to the tokenArray to be output to the caller.
+			while(commaArray.size() > k)
+			{
+				// Grab the token from the array.
+				temp = commaArray.get(k);
+				// Add the token to the return array.
+				returnArray.add(temp);
+				k++;
+			}
+			j++;
+		}
+		
+		// add the data string to the end of the array
+		returnArray.add(data);
+		
+		return returnArray;
+	}
 }

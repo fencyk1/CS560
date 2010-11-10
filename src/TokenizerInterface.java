@@ -38,4 +38,13 @@ interface TokenizerInterface {
 	 */
 	void tokenizeComma(String line);
 	
+	/**
+	 * Method that fixes a tokenizing issue that occurs when str.data contains
+	 * spaces.
+	 * @param line the line to be fixed, then tokenized
+	 * @param loc the location of the str.data token
+	 * @return An array list containing the fixed array.
+	 */
+	ArrayList<String> tokenizeStrDotData(ArrayList<String> line, int loc);
+	
 }

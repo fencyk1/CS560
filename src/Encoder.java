@@ -454,7 +454,7 @@ public class Encoder implements EncoderInterface {
 		}
 		
 		//Lay out encoding storage variables
-		String reg1 = new String();
+		String reg1 = "000";
 		String reg2 = "000";
 		String addr = "00";
 		String memoryRef = new String();
@@ -677,11 +677,13 @@ public class Encoder implements EncoderInterface {
 			else if (operand == "paren")
 			{
 				//Get the register information if available
-				reg1 = line.get(1).substring(line.get(1).length()-2, line.get(1).length() -2);
+				reg1 = line.get(1).substring(line.get(1).length()-2, line.get(1).length() -1);
 				reg1 = converter.decimalToBinary(reg1);
 				
-				//Extend register two to three digits
-				while (reg2.length() < 3)
+				
+				
+				//Extend register one to three digits
+				while (reg1.length() < 3)
 				{
 					reg1 = "0" + reg1;
 				}
@@ -781,7 +783,6 @@ public class Encoder implements EncoderInterface {
 		String memoryRef = new String();
 		String addr = "00";
 		
-		
 		//Get the opCode
 		String opCode = converter.hexToBinary(instructIn.getInstructionOpcode(opName));
 		//Extend the opCode
@@ -828,8 +829,14 @@ public class Encoder implements EncoderInterface {
 		else if (operand == "paren")
 		{
 			//Get the register information if available
-			reg1 = line.get(2).substring(line.get(2).length()-2, line.get(2).length() -2);
+			reg1 = line.get(2).substring(line.get(2).length()-2, line.get(2).length() -1);
 			reg1 = converter.decimalToBinary(reg1);
+			
+			//Extend it
+			while (reg1.length() < 3)
+			{
+				reg1 = "0" + reg1;
+			}
 			
 			//Check if there is a label or number
 			if(line.get(2).length() > 4)
@@ -901,7 +908,6 @@ public class Encoder implements EncoderInterface {
 				memoryRef = "[" + memoryRef + "]";
 			}
 		}
-		
 		String encode = opCode + addr + reg1 + quantity + memoryRef;
 		return encode;
 

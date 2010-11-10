@@ -140,9 +140,6 @@ public class ObjectFile implements ObjectFileInterface {
 			programLoadAddress = symbolTable.getSymbolGivenUsage("exec.start").getValue();
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
-			
-			//Store it for the text record.
-			this.prgmLoadPoint = programLoadAddress;
 		}
 		//Otherwise go with the default .start value.
 		else
@@ -150,10 +147,17 @@ public class ObjectFile implements ObjectFileInterface {
 			programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
-			
-			//Store it for the text record.
-			this.prgmLoadPoint = programLoadAddress;
 		}
+		
+		programLoadAddress = converter.decimalToHex(programLoadAddress);
+		
+		while(programLoadAddress.length() < 4)
+		{
+			programLoadAddress = "0" + programLoadAddress;
+		}
+		
+		//Store it for the text record.
+		this.prgmLoadPoint = programLoadAddress;
 		
 		//Get the number of linking records from the size of the linker array
 		String numLinkingRecords = converter.decimalToHex(Integer.toString(this.linkerLines.size()));
@@ -233,6 +237,7 @@ public class ObjectFile implements ObjectFileInterface {
 		//Otherwise, turn it into a normal text record
 		else
 		{
+			
 			//Create a new string in case there are multiple adjustments
 			String totalTypeActionAndRef = new String();
 			
@@ -245,9 +250,11 @@ public class ObjectFile implements ObjectFileInterface {
 			//Create a number of adjustments variable to be altered if it is an expression
 			int numOfAdjustments = 1;
 			
+			symbolTable.resetSymbolSearch();
+			
 			//Create a new string to get the start of the program.
 			String programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
-	
+			
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
 			
@@ -257,7 +264,7 @@ public class ObjectFile implements ObjectFileInterface {
 			int prgmStart = Integer.parseInt(converter.binaryToDecimal(converter.hexToBinary(programLoadAddress)));
 			
 			//Get the hex address of where the operation exists in memory
-			String hexAddress = Integer.toHexString(lineInIntermediate+prgmStart);
+			String hexAddress = Integer.toHexString((lineInIntermediate-1)+prgmStart);
 			
 			//Extend it
 			while (hexAddress.length() < 4)
@@ -446,6 +453,14 @@ public class ObjectFile implements ObjectFileInterface {
 							//Set temp value equal to whatever the equated value's ascii is
 							tempValue = converter.binaryToDecimal(converter.asciiToBinary(symbolTable.GetValue(expressionList.get(counter))));
 						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("mem.skip"))
+						{
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
+						}
+						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("adr.data"))
+						{
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
+						}
 												
 						
 						//If the expression is added
@@ -571,8 +586,10 @@ public class ObjectFile implements ObjectFileInterface {
 						labelValue = symbolTable.GetLocation(label);
 						//If it is, convert the decimal integer to binary
 						labelValue = converter.decimalToBinary(labelValue);
-						//Set the type as Absolute
-						typeAndAction = "A";
+						//Set the type as Relative
+						typeAndAction = "R|+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
 					}
 					//Otherwise, check if it's hex.data
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("hex.data"))
@@ -580,8 +597,10 @@ public class ObjectFile implements ObjectFileInterface {
 						labelValue = symbolTable.GetLocation(label);
 						//If it is, convert the hex into binary
 						labelValue = converter.hexToBinary(labelValue);
-						//Set the type as Absolute
-						typeAndAction = "A";
+						//Set the type as Relative
+						typeAndAction = "R|+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
 					}
 					//Otherwise, check if it's a string
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("str.data"))
@@ -595,8 +614,10 @@ public class ObjectFile implements ObjectFileInterface {
 						{
 							labelValue = labelValue + "00100000";
 						}
-						//Set the type as Absolute
-						typeAndAction = "A";
+						//Set the type as Relative
+						typeAndAction = "R|+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
 					}
 					//Otherwise, check if it's a bin.data
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("bin.data"))
@@ -604,8 +625,10 @@ public class ObjectFile implements ObjectFileInterface {
 						//If it is, it's fine as it is it's already in binary.
 						labelValue = symbolTable.GetLocation(label);
 						
-						//Set the type as Absolute
-						typeAndAction = "A";
+						//Set the type as Relative
+						typeAndAction = "R|+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
 					}
 					//Otherwise, check if it's an ext
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("EXT"))
@@ -617,6 +640,26 @@ public class ObjectFile implements ObjectFileInterface {
 						typeAndAction = "E|+";
 						//Set the label reference to be the label itself, it's external.
 						labelRef = label;
+					}
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("mem.skip"))
+					{
+						labelValue = symbolTable.GetLocation(label);
+						//If it is, convert the hex into binary
+						labelValue = converter.hexToBinary(labelValue);
+						//Set the type as Relative
+						typeAndAction = "R|+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
+					}
+					else if (symbolTable.GetUsage(label).equalsIgnoreCase("adr.data"))
+					{
+						labelValue = symbolTable.GetLocation(label);
+						//If it is, convert the hex into binary
+						labelValue = converter.hexToBinary(labelValue);
+						//Set the type as Relative
+						typeAndAction = "R|+";
+						//Set the label reference
+						labelRef = this.prgmLoadPoint;
 					}
 					else
 					{
@@ -670,6 +713,7 @@ public class ObjectFile implements ObjectFileInterface {
 						labelValue = "0" + labelValue;
 					}
 					
+					
 					//Create the dataWord
 					dataWord = binary.substring(0, binary.indexOf('[')) + labelValue;
 					dataWord = converter.binaryToHex(dataWord);
@@ -687,7 +731,6 @@ public class ObjectFile implements ObjectFileInterface {
 				}
 				
 			}
-			
 			
 			//First and foremost, check if it's an error
 			if(errors)
