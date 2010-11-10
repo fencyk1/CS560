@@ -1,0 +1,9 @@
+.start:DivByZero,00
+.data
+XX Int.data 40
+
+.text
+Load xx LW XX,$2
+DIV $1, $2, $0
+
+.end,DivByZero

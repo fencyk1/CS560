@@ -2082,7 +2082,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}
 			
 			//Make sure the value of int.data is a valid number of a certain size
-			if ((intDotDataValue > 230) || (intDotDataValue < -231))
+			if ((intDotDataValue > 65535) || (intDotDataValue < -65536))
 			{
 				//Create an error regarding invalid starting location.
 				ErrorData invalidInteger = new ErrorData();
@@ -3101,7 +3101,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
-		if(line.size() > 3)
+		if(line.size() > 2)
 		{
 			//Create an error if there are too many
 			ErrorData extraOperands = new ErrorData();
@@ -3112,7 +3112,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errors = true;
 		}
 		//Otherwise check if the string is too long
-		else if(line.get(2).length() > 32)
+		else if(line.get(1).length() > 32)
 		{
 			//Create an error if the string is too long
 			ErrorData stringTooLong = new ErrorData();
@@ -3121,6 +3121,14 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Add the error to the error table
 			errorsFound.add(stringTooLong);
 			errors = true;
+		}
+		else if (line.get(1).equals("*"))
+		{
+			String label = symbolsFound.getSymbolGivenUsage("EQU").getLabel();
+			
+			symbolsFound.updateValue(label, Integer.toHexString(locationCounter));
+			
+			symbolsFound.resetSymbolSearch();
 		}
 		else
 		{
@@ -3184,21 +3192,21 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			equ.setLabel(line.get(0));
 			equ.setLocation(Integer.toHexString(locationCounter));
 			equ.setUsage("equ");
-			equ.setValue(line.get(2));
+			equ.setValue(line.get(1));
 			
 			int length = 0;
 			
 			//If there is a number of characters evenly divisible by 4, set
 			//the length equal to just that, as 4 characters is one word.
-			if (line.get(2).length() % 4 == 0)
+			if (line.get(1).length() % 4 == 0)
 			{
-				length = line.get(2).length() / 4;
+				length = line.get(1).length() / 4;
 			}
 			//If there are partial words, divide by 4 and add one for the partial
 			//word(s).
 			else
 			{
-				length = line.get(2).length() / 4;
+				length = line.get(1).length() / 4;
 				length = length + 1;
 			}
 			
@@ -3234,7 +3242,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		String opName = line.get(0);
 		
 		//Check to make sure there is only one operand
-		if(line.size() > 3)
+		if(line.size() > 2)
 		{
 			//Create an error if there are too many
 			ErrorData extraOperands = new ErrorData();
@@ -3248,7 +3256,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		else
 		{
 			//Create a string to hold the entire expression
-			String expression = line.get(2);
+			String expression = line.get(1);
 			//Create an arraylist to hold all nested expressions we find
 			ArrayList<String> nestedExpressionValue = new ArrayList<String>();
 			
@@ -3387,12 +3395,10 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					{
 					}
 					//Check to see if the current character is an operator
-					else if(expression.charAt(counter) == '+' || expression.charAt(counter) == '-'
-						|| expression.charAt(counter) == '*' || expression.charAt(counter) == '/')
+					else if(expression.charAt(counter) == '+' || expression.charAt(counter) == '-')
 					{
 						//Check to make sure there is not an invalid junction of operations
-						if(expression.charAt(counter+1) == '+' || expression.charAt(counter+1) == '*'
-								|| expression.charAt(counter+1) == '/')
+						if(expression.charAt(counter+1) == '+' || expression.charAt(counter+1) == '-')
 							{
 								//Set teh error flag to be true
 								expError = true;
@@ -3402,6 +3408,28 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 								ErrorData doubleOperation = new ErrorData();
 								doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
 							}
+					}
+					else if(expression.charAt(counter) == '*')
+					{
+						String label = symbolsFound.getSymbolGivenUsage("equ.exp").getLabel();
+						
+						String falseValue = symbolsFound.GetValue(label);
+						
+						int star = falseValue.indexOf('*');
+						
+						if (star >= falseValue.length()-1)
+						{
+							falseValue = falseValue.substring(0, star) + Integer.toHexString(locationCounter);
+						}
+						else
+						{
+							falseValue = falseValue.substring(0, star) + Integer.toHexString(locationCounter) + falseValue.substring(star+1, falseValue.length());
+						}
+						
+						
+						symbolsFound.updateValue(label, falseValue);
+						
+						symbolsFound.resetSymbolSearch();
 					}
 					//If it is not a number or operator, it is a label,
 					//So determine how long it is and make sure there aren't more
@@ -3427,8 +3455,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						else
 						{
 							//Labels are separated by expressions, so check accordingly
-							while (!(expression.charAt(counter+1) == '+') && !(expression.charAt(counter+1) == '-')
-								&& !(expression.charAt(counter+1) == '*') && !(expression.charAt(counter+1) == '/'))
+							
+							while ((counter+1 < expression.length()-1) &&(!(expression.charAt(counter+1) == '+') && !(expression.charAt(counter+1) == '-')))
 							{
 								//Move the counter forward until we are clear of the label
 								//save for the last letter which the normal increment
@@ -3439,7 +3467,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					}
 					counter++;
 				}
-				//If there have been no errors, add everything to the symbol table
+				/*//If there have been no errors, add everything to the symbol table
 				if (!expError)
 				{
 					Symbol equExp = new Symbol();
@@ -3447,8 +3475,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					equExp.setLength(1);
 					equExp.setLocation(Integer.toHexString(locationCounter));
 					equExp.setUsage("Equ exp");
-					equExp.setValue(line.get(2));
+					equExp.setValue(line.get(1));
 				}
+				*/
 			}
 		}
 		
@@ -3529,14 +3558,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//If there are no errors, encode the line normally
 		if (!errors)
 		{
-			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
-					directIn, lineCounter,   intermediateFile, opName);
-		}
-		//Otherwise, encode the line as a NOP
-		else
-		{
-			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
-					directIn, lineCounter,   intermediateFile, "NOP");
+			locationCounter = Integer.parseInt(line.get(1));
 		}
 	}
 	
@@ -4071,9 +4093,10 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Check for * format
 		else if (line.get(2).charAt(0) == '*')
 		{
-			if ((line.get(2).length() > 1) && !(line.get(2).length() == 2
+			if ((line.get(2).length() > 1) && (line.get(2).length() == 2
 					&& (line.get(2).charAt(1) == '-' || line.get(2).charAt(1) == '+')))
 			{
+				//TODO make new error "+,- not allowed after *"
 				//Create an error regarding invalid number which is out of bounds.
 				ErrorData invalidAddressing = new ErrorData();
 				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");

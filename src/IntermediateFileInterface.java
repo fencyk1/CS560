@@ -3,7 +3,7 @@ import java.io.*;
  * IntermediateFileInterface holds the intermediate data output by the parser
  * and outputs it to a file. It holds the data in an arrayList.
  * 
- * @author 
+ * @author Aaron D'Amico
  *
  */
 public interface IntermediateFileInterface {

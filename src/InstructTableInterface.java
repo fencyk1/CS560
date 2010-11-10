@@ -16,7 +16,7 @@ public interface InstructTableInterface
 	 * 
 	 * import the MOT text file into a data structure.
 	 * @throws IOException 
-	 * @param File tableFileName is the name of the file to be imported
+	 * @param tableFileName is the name of the file to be imported
 	 */
 	void importTable (File tableFileName) throws IOException;
 	

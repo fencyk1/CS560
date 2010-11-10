@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 /**
  * holds all the methods to encode the different instruction types and produce the intermediate file
- * @author Aaron D'Amico
+ * @author Aaron D'Amico, Jeff Wolfe, and Austin Lohr
  *
  */
 public class Encoder implements EncoderInterface {
@@ -564,7 +564,7 @@ public class Encoder implements EncoderInterface {
 			else if (operand == "paren")
 			{
 				//Get the register information if available
-				reg2 = line.get(2).substring(line.get(2).length()-2, line.get(2).length() -2);
+				reg2 = line.get(2).substring(line.get(2).length()-2, line.get(2).length() -1);
 				reg2 = converter.decimalToBinary(reg2);
 				
 				//Extend register two to three digits

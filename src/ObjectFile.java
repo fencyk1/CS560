@@ -185,15 +185,16 @@ public class ObjectFile implements ObjectFileInterface {
 		//Get the label from the symbol, it's the programName
 		String programName = programNameInfo.getLabel();
 		
+		
 		//Set up the date and time for printing.		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd\t|\tHH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy:MM:dd|HH:mm:ss");
         Date date = new Date();
         String format = dateFormat.format(date);
         
         //Save this to a string with the header info in it
-		this.headerLine = "H\t|\t" + programName + "\t|\t" + programLengthHex + "\t|\t" + programLoadAddress + "\t|\t" + 
-					format + "\t|\t" + numLinkingRecords + "\t|\t" + numTextRecords + "\t|\t" + execStartAddress + "\t|\t"
-					+ "SAL\t|\t" + version + "\t|\t" + revision + "\t|\t" + programName;
+		this.headerLine = "H|" + programName + "|" + programLengthHex + "|" + programLoadAddress + "|" + 
+					format + "|" + numLinkingRecords + "|" + numTextRecords + "|" + execStartAddress + "|"
+					+ "SAL|" + version + "|" + revision + "|" + programName;
 	}
 
 	//get data for a linking record and print it to the file, convert the bin data to hex
@@ -209,7 +210,7 @@ public class ObjectFile implements ObjectFileInterface {
 		//Create a new string for the type of the entry
 		String entryType = entOrStart.getUsage();
 		
-		this.linkerLines.add("L\t|t" + entryName + "\t|\t" + entryAddress + "\t|\t" + entryType + "\t|\t" + this.prgmName);
+		this.linkerLines.add("L|" + entryName + "|" + entryAddress + "|" + entryType + "|" + this.prgmName);
 	}
 	
 	//get the data for a text record and output to the file, convert the bin data to hex
@@ -506,16 +507,16 @@ public class ObjectFile implements ObjectFileInterface {
 							{
 								if (expressionList.get(expressionCounter-1).equals("+"))
 								{
-									tempRelocationType = "E\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+									tempRelocationType = "E|+|" + expressionList.get(expressionCounter) + "|";
 								}
 								else if (expressionList.get(expressionCounter-1).equals("-"))
 								{
-									tempRelocationType = "E\t|\t-\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+									tempRelocationType = "E|-|" + expressionList.get(expressionCounter) + "|";
 								}
 							}
 							else
 							{
-								tempRelocationType = "E\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+								tempRelocationType = "E|+|" + expressionList.get(expressionCounter) + "|";
 							}
 						
 						}
@@ -526,16 +527,16 @@ public class ObjectFile implements ObjectFileInterface {
 							{
 								if (expressionList.get(expressionCounter-1).equals("+"))
 								{
-									tempRelocationType = "R\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+									tempRelocationType = "R|+|" + expressionList.get(expressionCounter) + "|";
 								}
 								else if (expressionList.get(expressionCounter-1).equals("-"))
 								{
-									tempRelocationType = "R\t|\t-\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+									tempRelocationType = "R|-|" + expressionList.get(expressionCounter) + "|";
 								}
 							}
 							else
 							{
-								tempRelocationType = "R\t|\t+\t|\t" + expressionList.get(expressionCounter) + "\t|\t";
+								tempRelocationType = "R|+|" + expressionList.get(expressionCounter) + "|";
 							}
 							
 						}
@@ -560,7 +561,7 @@ public class ObjectFile implements ObjectFileInterface {
 						//Convert it to binary
 						labelValue = converter.hexToBinary(labelValue);
 						//Set the type as a Relative
-						typeAndAction = "R\t|\t+";
+						typeAndAction = "R|+";
 						//Set the label reference
 						labelRef = this.prgmLoadPoint;
 					}
@@ -613,7 +614,7 @@ public class ObjectFile implements ObjectFileInterface {
 						labelValue = "0000000000000000";
 						
 						//Set the type
-						typeAndAction = "E\t|\t+";
+						typeAndAction = "E|+";
 						//Set the label reference to be the label itself, it's external.
 						labelRef = label;
 					}
@@ -691,8 +692,8 @@ public class ObjectFile implements ObjectFileInterface {
 			//First and foremost, check if it's an error
 			if(errors)
 			{
-				this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
-						+ numOfAdjustments + "\t|\t" + typeAndAction + "\t|\t" + this.prgmName);
+				this.textLines.add("T" + "|" + hexAddress + "|" + debugCode + "|" + dataWord + "|"
+						+ numOfAdjustments + "|" + typeAndAction + "|" + this.prgmName);
 				
 			}
 			//If the type is R or E, store the text field using a label reference
@@ -701,22 +702,22 @@ public class ObjectFile implements ObjectFileInterface {
 				//If there is more than one adjustment, use the compound field
 				if (numOfAdjustments > 1)
 				{
-					this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
-							+ numOfAdjustments + "\t|\t" + totalTypeActionAndRef + this.prgmName);
+					this.textLines.add("T" + "|" + hexAddress + "|" + debugCode + "|" + dataWord + "|"
+							+ numOfAdjustments + "|" + totalTypeActionAndRef + this.prgmName);
 				}
 				//Otherwise, print normally
 				else
 				{
-					this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
-							+ numOfAdjustments + "\t|\t" + typeAndAction + "\t|\t" + labelRef + "\t|\t" + this.prgmName);
+					this.textLines.add("T" + "|" + hexAddress + "|" + debugCode + "|" + dataWord + "|"
+							+ numOfAdjustments + "|" + typeAndAction + "|" + labelRef + "|" + this.prgmName);
 				}
 				
 			}
 			//Otherwise, don't store the text field using a label reference
 			else
 			{
-				this.textLines.add("T" + "\t|\t" + hexAddress + "\t|\t" + debugCode + "\t|\t" + dataWord + "\t|\t"
-						+ numOfAdjustments + "\t|\t" + typeAndAction + "\t|\t" + this.prgmName);
+				this.textLines.add("T" + "|" + hexAddress + "|" + debugCode + "|" + dataWord + "|"
+						+ numOfAdjustments + "|" + typeAndAction + "|" + this.prgmName);
 			}
 		}
 	}
@@ -728,7 +729,7 @@ public class ObjectFile implements ObjectFileInterface {
 		//Create a new integer to hold the total number of records in the file, 1 for header 1 for end, then the rest
 		int totalRecords = 2 + linkerLines.size() + textLines.size();
 		
-		this.endLine = "E\t|\t" + totalRecords + "\t|\t" + this.prgmName;
+		this.endLine = "E|" + totalRecords + "|" + this.prgmName;
 	}
 	
 	//ouputs the object file
