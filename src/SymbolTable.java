@@ -293,6 +293,9 @@ public class SymbolTable implements SymbolTableInterface {
 
 	public Symbol getSymbolGivenUsage (String usage)
 	{
+		//Set a boolean to indicate if we have made a complete loop yet
+		boolean loopedOnce = false;
+		
 		//Create a symbol to return
 		Symbol returnSym = new Symbol();
 		
@@ -305,6 +308,14 @@ public class SymbolTable implements SymbolTableInterface {
 				returnSym = (Symbol) this.symTable.get(this.getSymCounter);
 			}
 			this.getSymCounter++;
+			
+			//Make sure we loop through the whole thing at least once to be sure
+			//We get anything we may miss
+			if((this.getSymCounter == this.symTable.size()) && (!loopedOnce))
+			{
+				this.getSymCounter = 0;
+				loopedOnce = true;
+			}
 		}
 		
 		//Return the requested symbol

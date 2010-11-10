@@ -65,6 +65,9 @@ public class AssemblerMain {
 			
 		}
 		
+		//Reset the symbol search counter after all parses are complete.
+		symbolsFound.resetSymbolSearch();
+		
 		
 		//output the intermediate file
 		intermediateFile.outputIntermediateFile(new File ("intermediateFile.txt"));

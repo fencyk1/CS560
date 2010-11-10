@@ -3128,7 +3128,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			symbolsFound.updateValue(label, Integer.toHexString(locationCounter));
 			
-			symbolsFound.resetSymbolSearch();
+			//Should only reset the symbol search counter after the last call has been made
+			//symbolsFound.resetSymbolSearch();
 		}
 		else
 		{
@@ -3428,8 +3429,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						
 						
 						symbolsFound.updateValue(label, falseValue);
-						
-						symbolsFound.resetSymbolSearch();
+						//Reset at end
+						//symbolsFound.resetSymbolSearch();
 					}
 					//If it is not a number or operator, it is a label,
 					//So determine how long it is and make sure there aren't more
