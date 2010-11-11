@@ -17,7 +17,7 @@ public class UserReport implements UserReportInterface {
 	 * The method doesnt return a value. Instead it stores the ArrayList<String>  as a member variable.
 	 */
 	@Override
-	public void createUserReport (InSourceCode sourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, InstructTable instructionsTable, DirectiveTable directivesTable)
+	public void createUserReport (InSourceCode sourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, InstructTable instructionsTable, DirectiveTable directivesTable) throws IOException
 	{
 		System.out.println(">>>>>>>>>>>>> 		Creating the user report file.");
 		//data structure =  array[5] (size 5, not an array list)
@@ -48,6 +48,7 @@ public class UserReport implements UserReportInterface {
 				thirdToken = sourceLine.nextToken();
 			}
 			
+			//TODO remove this check to deal add this to the userReport
 			//cant be a .data or .text
 			if ( !((firstToken.equalsIgnoreCase(".start") ||
 					firstToken.equalsIgnoreCase(".data") || 
@@ -233,6 +234,35 @@ public class UserReport implements UserReportInterface {
 
 		}
 		
+		
+//////////////////////////////////////////////////////////////////////////////////////////////		
+		//output all the errors to for our own use
+		System.out.println(">>>>>>>>>>>>> 		Making error report");
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/errorReport.txt")));
+
+		int errorLine = 0;
+		while ( errorLine < 100)
+		{
+			if (foundErrorsTable.errorAtLine(errorLine) == true)
+			{
+	
+				//error object to hold error message
+				ErrorData errorEntry = new ErrorData();
+					
+				//the error entry at the line
+				errorEntry = foundErrorsTable.search(errorLine);
+	
+				//make new array to add to arrayList, this array has the errors
+				out.println("error:" + foundErrorsTable.output(errorEntry));
+					
+			}
+			errorLine++;
+		}
+		out.close();
+//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		
 	}	
 
 	private void getOtherFields (InSourceCode sourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, int i)
@@ -302,6 +332,9 @@ public class UserReport implements UserReportInterface {
 					String firstToken = sourceCommaLine.nextToken();
 					String secondToken = "";
 					
+					
+					//TODO this no longer matters as instructions and directives that do not effect memory need to be in the user report
+					//also need to consider the flag as it may no longer be needed or at least change what happens when things get flagged.
 					//cant be a .data or .text
 					if ( !(firstToken.equalsIgnoreCase(".data") || 
 							firstToken.equalsIgnoreCase(".text") ||
