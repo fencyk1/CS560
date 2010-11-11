@@ -27,6 +27,7 @@ I	37	NA	andi
 S	38	NA	la
 S	39	NA	sa
 S	3A	NA	ands
+S	3B	NA	ors
 S	06	NA	j
 S	07	NA	jal
 J	08	NA	halt
