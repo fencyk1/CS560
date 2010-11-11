@@ -19,7 +19,21 @@ public class Encoder implements EncoderInterface {
 		//Encode that into binary (it will be an integer in base 10)
 		Converter converter = new Converter();
 		
-		String encoded = converter.decimalToBinary(toEncode);
+		String encoded = "";
+		
+		try
+		{
+			encoded = converter.decimalToBinary(toEncode);
+		}
+		catch (NumberFormatException e)
+		{
+			//Create an error
+			ErrorData bailingOut = new ErrorData();
+			bailingOut.add(lineCounter, 41, "Bailing out! An invalid integer was passed!");
+				
+			errorsFound.add(bailingOut);
+			encoded = "00000010000000000000000000000000";
+		}
 		
 		//Extend the string to 32 bits
 		while (encoded.length() < 32)
@@ -202,7 +216,27 @@ public class Encoder implements EncoderInterface {
 		//Encode that into binary
 		Converter converter = new Converter();
 		
-		String encoded = converter.decimalToBinary(toEncode);
+		
+		String encoded = "";
+		
+		try
+		{
+			encoded = converter.decimalToBinary(toEncode);
+		}
+		catch (NumberFormatException e)
+		{
+			//Create an error regarding invalid addressing.
+			ErrorData bailingOut = new ErrorData();
+			bailingOut.add(lineCounter, 2, "Bailing out! An invalid integer was passed!");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(bailingOut);
+		}
+		
+		while (encoded.length() < 32)
+		{
+			encoded = "0" + encoded;
+		}
 		
 		//Return that string
 		return encoded;
@@ -280,6 +314,7 @@ public class Encoder implements EncoderInterface {
 				{
 					shift = "0" + shift;
 				}
+				System.out.println("shift amt for sll : " + shift);
 			}
 			//Otherwise add brackets to the label, and put it in the encoded field.
 			else

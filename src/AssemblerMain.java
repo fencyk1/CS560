@@ -56,7 +56,19 @@ public class AssemblerMain {
 		//Tokenize the source code and send to the Parser.
 		while (sourceCode.source.size() > i)
 		{
-			line = tokenizer.tokenizeLine(sourceCode.source.get(i));
+			if(sourceCode.source.get(i).charAt(0) == '|')
+			{
+				//Create an error regarding starting a line with a comment
+				ErrorData newLineComment = new ErrorData();
+				newLineComment.add(i+1, 38, "Cannot put comments on a new line");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(newLineComment);
+			}
+			else
+			{
+				line = tokenizer.tokenizeLine(sourceCode.source.get(i));
+			}
 			if (line.size() > 0)
 			{
 				parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, intermediateFile);

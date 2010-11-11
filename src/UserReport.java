@@ -38,9 +38,14 @@ public class UserReport implements UserReportInterface {
 			StringTokenizer sourceCommaLine = new StringTokenizer (veryFirstToken, ",");
 			String firstToken = sourceCommaLine.nextToken();
 			String secondToken = "";
+			String thirdToken = "";
 			if (sourceLine.hasMoreTokens())
 			{
 				secondToken = sourceLine.nextToken();
+			}
+			if (sourceLine.hasMoreTokens())
+			{
+				thirdToken = sourceLine.nextToken();
 			}
 			
 			//cant be a .data or .text
@@ -55,14 +60,79 @@ public class UserReport implements UserReportInterface {
 						secondToken.equalsIgnoreCase("equ") ||
 						secondToken.equalsIgnoreCase("equ.exp")))
 			{
-				String source = sourceCodeArray.source.get(i);
-				String lineNumber = Integer.toString(i + 1);
+				// Check to see if the second token is a mem.skip
+				// if it is, we repeat the mem.skip line equal to the amount of
+				// words we are skipping.
+				if (secondToken.equalsIgnoreCase("mem.skip"))
+				{
+					int skips = 0;
+					
+					// Attempt to set the skips to the number of word we're skipping
+					try
+					{
+						skips = Integer.parseInt(thirdToken);
+					}
+					catch (NumberFormatException e)
+					{
+						skips = 1;
+					}
+					
+					// Output the mem.skip line for each word skipped to match our
+					// object file.
+					while (skips > 0)
+					{
+						String source = sourceCodeArray.source.get(i);
+						String lineNumber = Integer.toString(i + 1);
 
-				line[3] = lineNumber;
-				line[4] = source;
+						line[3] = lineNumber;
+						line[4] = source;
 
-				this.userReport.add(line);
-				i++;
+						this.userReport.add(line);
+						skips--;
+					}
+					i++;	
+				}
+				// check to see if the first token is a mem.skip
+				else if (firstToken.equalsIgnoreCase("mem.skip"))
+				{
+					int skips = 0;
+					
+					// Attempt to set the skips to the number of word we're skipping
+					try
+					{
+						skips = Integer.parseInt(secondToken);
+					}
+					catch (NumberFormatException e)
+					{
+						skips = 1;
+					}
+					
+					// Output the mem.skip line for each word skipped to match our
+					// object file.
+					while (skips > 0)
+					{
+						String source = sourceCodeArray.source.get(i);
+						String lineNumber = Integer.toString(i + 1);
+
+						line[3] = lineNumber;
+						line[4] = source;
+
+						this.userReport.add(line);
+						skips--;
+					}
+					i++;
+				}
+				else
+				{
+					String source = sourceCodeArray.source.get(i);
+					String lineNumber = Integer.toString(i + 1);
+
+					line[3] = lineNumber;
+					line[4] = source;
+
+					this.userReport.add(line);
+					i++;
+				}
 			}
 			else
 			{
@@ -167,27 +237,30 @@ public class UserReport implements UserReportInterface {
 
 	private void getOtherFields (InSourceCode sourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, int i)
 	{
+		if (objectFile.textLines.size() > i)
+		{
+			//get the first text line to get the loc, obj code and a/r/e
+			StringTokenizer objectData = new StringTokenizer(objectFile.textLines.get(i),"|");
+			
+			//first token
+			objectData.nextToken();
+			
+			//get location in hex
+			userReport.get(i)[0] = objectData.nextToken();
+			
+			//skip debug flag
+			objectData.nextToken();
+			
+			//get data in hex
+			userReport.get(i)[1] = objectData.nextToken();
+			
+			//skip adjustments
+			objectData.nextToken();
+			
+			//get type
+			userReport.get(i)[2] = objectData.nextToken();
+		}
 		
-		//get the first text line to get the loc, obj code and a/r/e
-		StringTokenizer objectData = new StringTokenizer(objectFile.textLines.get(i),"|");
-		
-		//first token
-		objectData.nextToken();
-		
-		//get location in hex
-		userReport.get(i)[0] = objectData.nextToken();
-		
-		//skip debug flag
-		objectData.nextToken();
-		
-		//get data in hex
-		userReport.get(i)[1] = objectData.nextToken();
-		
-		//skip adjustments
-		objectData.nextToken();
-		
-		//get type
-		userReport.get(i)[2] = objectData.nextToken();
 		
 	}
 	

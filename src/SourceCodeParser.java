@@ -402,6 +402,573 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				parseMemSkip(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter,   intermediateFile);
 			}
+			
+			else if (line.get(1).equalsIgnoreCase("nop"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+				
+				
+			}
+			else if (line.get(1).equalsIgnoreCase("equ"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+				
+			}
+			else if (line.get(1).equalsIgnoreCase("equ.exp"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("reset.lc"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);				
+			}
+			else if (line.get(1).equalsIgnoreCase("addi"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("addiu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("subi"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("subiu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("muli"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("muliu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("divi"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("diviu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jeq"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jne"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jgt"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jlt"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jle"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("sw"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("lw"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("lnw"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("lwi"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("lui"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("ori"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("xori"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("nori"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("andi"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("la"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("sa"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("ands"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("ors"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("j"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jal"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("halt"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("mul"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("mulu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("add"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("addu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("sub"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("subu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("div"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("divu"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("pwr"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("sll"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("srl"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("sra"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("and"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("or"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("xor"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("nor"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("jr"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("srv"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("dump"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("inn"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("inc"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("outn"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("outc"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("outni"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("outci"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("adds"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("subs"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("muls"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			else if (line.get(1).equalsIgnoreCase("divs"))
+			{
+				//Create an error if there is a .text dir/instr in the .data
+				ErrorData textInDotData = new ErrorData();
+				textInDotData.add(lineCounter, 40, "Text instruction/directive in .data");
+				
+				//Add the error to the error table
+				errorsFound.add(textInDotData);
+			}
+			
+			/////////////////////////////////////////////////////////////////////////
+			//////////////////CHECK FIRST TOKEN///////////////////////////////////
+			///////////////////////////////////////////////////////////////////////
+			
 			//If the token contains none of the aforementioned directives,
 			//check spot 0, in case they don't have labels.
 			else if (line.get(0).equalsIgnoreCase("int.data"))
@@ -575,7 +1142,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				resetDotLC.setLabel(line.get(0));
 				resetDotLC.setLength(1);
 				resetDotLC.setLocation(Integer.toHexString(locationCounter));
-				resetDotLC.setUsage("label");
+				resetDotLC.setUsage("reset.lc");
+				resetDotLC.setValue(line.get(2));
 				
 				//Put it in the symbol table
 				symbolsFound.defineSymbol(resetDotLC);
@@ -1571,6 +2139,81 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				parseAddsSubsMulsDivs(line, errorsFound, symbolsFound, errorIn, instructIn, 
 						directIn, lineCounter,   intermediateFile);
 			}
+			
+			//////////////////////////////////////////////////////////////////////////
+			//**************************CHECK FOR DIRECTIVES!!!!!********************
+			///////////////////////////////////////////////////////////////////////////
+			
+			else if (line.get(1).equalsIgnoreCase("int.data"))
+			{
+				
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+				
+			}
+			else if (line.get(1).equalsIgnoreCase("str.data"))
+			{
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+					
+			}
+			else if (line.get(1).equalsIgnoreCase("hex.data"))
+			{
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+			}
+			else if (line.get(1).equalsIgnoreCase("bin.data"))
+			{
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+			}
+			else if (line.get(1).equalsIgnoreCase("adr.data"))
+			{
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+			}	
+			else if (line.get(1).equalsIgnoreCase("adr.exp"))
+			{
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+			}
+			else if (line.get(1).equalsIgnoreCase("mem.skip"))
+			{
+				//Create an error because there is more than one operand
+				ErrorData dataInDotText = new ErrorData();
+				dataInDotText.add(lineCounter, 39, "Data directive detected in .text");
+				
+				//Add the error to the error table
+				errorsFound.add(dataInDotText);
+			}
+			
+			///////////////////////////////////////////////////////////////////////////
+			//////////////END OF DIRECTIVES CHECKING///////////////////////////////////
+			///////////////////////////////////////////////////////////////////////////
 
 			else if (line.get(0).equalsIgnoreCase("ent"))
 			{
@@ -2470,6 +3113,117 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(extraOperands);
 			errors = true;
 		}
+		else if (line.get(1).contains("*") && line.get(1).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
+		else if (line.get(1).charAt(0) == '*')
+		{
+			//If there is only one thing after the *, there is an error.
+			if (line.get(1).length() == 2)
+			{
+				//Create an error regarding invalid number which is out of bounds.
+				ErrorData invalidAddressing = new ErrorData();
+				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressing);
+				errors = true;
+			}
+			//Check to see if it's just the star followed by the ($X)
+			else if ((line.get(1).length() > 1) && !(line.get(1).charAt(1) == '('))
+			{
+				//Check for valid operands after the *
+				if (!(line.get(1).charAt(1) == '+' || line.get(1).charAt(1) == '-'))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData invalidAddressing = new ErrorData();
+					invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressing);
+					errors = true;
+				}
+				else
+				{
+					int counter = 2;
+					String label = new String();
+					byte[] binary = new byte[1];
+					
+					int ascii = 0;
+					
+					while ((line.get(1).length() > counter) &&(line.get(1).charAt(counter) != '('))
+					{
+						//Move one character from the label into "label"
+						label = line.get(1).substring(counter, counter+1);
+						
+						//Use a try catch for syntactical correctness.
+						try 
+						{
+							//Convert the ascii string passed in, into
+							//an array of bytes containing their binary
+							//representation.
+							binary = label.getBytes("US-ASCII");
+						} 
+						//"US-ASCII" is a supported encoding, so this will never
+						//throw an error, but is required for syntax measures.
+						catch (UnsupportedEncodingException e) 
+						{
+							//Again, since this will never throw an error, this
+							//is here for syntax purposes, but the stack trace
+							//would just print out a trace of where the error
+							//occurred and halt the program.
+							e.printStackTrace();
+						}
+						
+						//Convert from a binary stream into an integer representation
+						ascii = binary[0];
+						
+						if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)
+								|| (ascii != 43) || (ascii != 45)))
+						{			
+							//Create an error regarding invalid address/label syntax.
+							ErrorData invalidAddressLabel = new ErrorData();
+							invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+							
+							//Add it to the ErrorOut table.
+							errorsFound.add(invalidAddressLabel);
+							errors = true;
+						}
+						
+						//Check if it's a plus or minus, that the next thing is not a plus or minus,
+						//and check to make sure the plus or minus isn't the last thing in the expression.
+						if ((ascii == 43 || ascii == 45) && ((line.get(1).length()-1 == counter) || (line.get(1).charAt(counter+1) == '(') ||
+								(line.get(1).charAt(counter+1) == '+' || line.get(1).charAt(counter+1) == '-')))
+						{
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
+						
+						counter++;
+					}
+				}
+			}
+			
+			//Replace the line with a *
+			if (!errors)
+			{
+				String starReplacement = locationCounter + line.get(1).substring(1, line.get(1).length());
+				
+				line.remove(1);
+				line.add(1, starReplacement);
+			}
+		}
 		else
 		{
 			//Create a string to hold the entire expression
@@ -2861,6 +3615,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//If no errors have been found, encode the line normally
 		if (!errors)
 		{
+			locationCounter = locationCounter + Integer.parseInt(line.get(1));
+			
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, opName);
 		}
@@ -2870,6 +3626,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, "NOP");
 		}
+		
+		locationCounter--;
 		
 	}
 	
@@ -3059,6 +3817,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
 					directIn, lineCounter,   intermediateFile, "NOP");
 		}
+		locationCounter--;
 	}
 	
 	private void parseEqu(ArrayList<String> line, ErrorOut errorsFound,
@@ -3531,6 +4290,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		if (!errors)
 		{
 			locationCounter = Integer.parseInt(line.get(1));
+			System.out.println("location counter " + locationCounter);
+			prepForEncoder (line, errorsFound, symbolsFound, errorIn, instructIn, 
+					directIn, lineCounter, intermediateFile, opName);
 		}
 	}
 	
@@ -4249,7 +5011,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 						
 						//Check if it's a plus or minus, that the next thing is not a plus or minus,
 						//and check to make sure the plus or minus isn't the last thing in the expression.
-						if ((ascii == 43 || ascii == 45) && ((line.get(3).length()-1 == counter) || (line.get(2).charAt(counter+1) == '(') ||
+						if ((ascii == 43 || ascii == 45) && ((line.get(2).length()-1 == counter) || (line.get(2).charAt(counter+1) == '(') ||
 								(line.get(2).charAt(counter+1) == '+' || line.get(2).charAt(counter+1) == '-')))
 						{
 							//Create an error

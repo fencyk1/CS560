@@ -96,6 +96,8 @@ public interface SymbolTableInterface {
 	 */
 	Symbol getSymbolGivenUsage (String usage);
 	
+	Symbol getSymbolGivenLocation (String location);
+	
 	/**
 	 * Outputs the Symbol table with all of its parameters into a File,
 	 * with lines terminated by the newline character '\n'. The newline character

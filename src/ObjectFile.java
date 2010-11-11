@@ -21,6 +21,9 @@ public class ObjectFile implements ObjectFileInterface {
 	public ArrayList<String> textLines;
 	ArrayList<String> linkerLines;
 	String prgmLoadPoint;
+	String prgmLoadAddress;
+	boolean resetted;
+	int resetLocation;
 	
 	//constructor
 	public ObjectFile ()
@@ -32,6 +35,9 @@ public class ObjectFile implements ObjectFileInterface {
 		this.linkerLines = new ArrayList<String>();
 		this.prgmName = new String();
 		this.prgmLoadPoint = new String();
+		this.prgmLoadAddress = "0";
+		this.resetted = false;
+		this.resetLocation = 0;
 	}
 	
 	
@@ -155,7 +161,6 @@ public class ObjectFile implements ObjectFileInterface {
 		
 		
 		programLoadAddress = converter.decimalToHex(programLoadAddress);
-		execStartAddress = converter.decimalToHex(execStartAddress);
 		
 		while(programLoadAddress.length() < 4)
 		{
@@ -262,8 +267,17 @@ public class ObjectFile implements ObjectFileInterface {
 			
 			symbolTable.resetSymbolSearch();
 			
+			String programLoadAddress = new String();
+			
 			//Create a new string to get the start of the program.
-			String programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
+			if (this.prgmLoadAddress.equalsIgnoreCase("0"))
+			{
+				programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
+			}
+			else
+			{
+				programLoadAddress = this.prgmLoadAddress;
+			}
 			
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
@@ -273,8 +287,48 @@ public class ObjectFile implements ObjectFileInterface {
 			//Get the program's starting address for the purpose of adding it to the current counter in the intermediate file.
 			int prgmStart = Integer.parseInt(programLoadAddress);
 			
+			//Set the symbol equal to the program's start plus the spot we are at in the intermediate array
+			Symbol reset = symbolTable.getSymbolGivenLocation(Integer.toHexString(prgmStart+lineInIntermediate-1));
+			
+			//Gets the location of the symbol in question
+			String resetHex = reset.getLocation();
+			
+			
+			String currentLocation = "0";
+			
+			if (!resetted)
+			{
+				//Set our current location in memory
+				currentLocation = Integer.toHexString(prgmStart+lineInIntermediate-1);
+			}
+			else
+			{
+				currentLocation = Integer.toHexString((Integer.parseInt(this.prgmLoadAddress) + this.resetLocation));
+				this.resetLocation++;
+			}
+			
+			
+			//If the location of the symbol and the location of the spot in memory are the same, and we have a reset.lc,
+			//Get the value of the reset, and set it equal to the program load address from this point forward.
+			if (resetHex.equalsIgnoreCase(currentLocation) && reset.getUsage().equalsIgnoreCase("reset.lc"))
+			{
+				prgmStart = Integer.parseInt(reset.getValue());
+				this.prgmLoadAddress = Integer.toString(prgmStart);
+				this.resetted = true;
+			}
+			
+			//TODO: or not to do
+//			Symbol reset = symbolTable.getSymbolGivenUsage("reset.lc");
+//			System.err.println(reset.getValue());
+//			if (Integer.toHexString(prgmStart+lineInIntermediate-1).equalsIgnoreCase(reset.getLocation()))
+//			{
+//				prgmStart = Integer.parseInt(reset.getValue());
+//			}
+//			symbolTable.resetSymbolSearch();
+			
 			//Get the hex address of where the operation exists in memory
-			String hexAddress = Integer.toHexString((lineInIntermediate-1)+prgmStart);
+			String hexAddress = currentLocation;
+			
 			
 			//Extend it
 			while (hexAddress.length() < 4)
@@ -319,6 +373,7 @@ public class ObjectFile implements ObjectFileInterface {
 			//If the string is completely binary then encode it as a data word
 			if (allBinary)
 			{
+				
 				dataWord = converter.binaryToHex(binary);
 				
 				//Extend the dataWord

@@ -348,5 +348,25 @@ public class SymbolTable implements SymbolTableInterface {
 			}
 		}
 	}
+
+	@Override
+	public Symbol getSymbolGivenLocation(String location) {
+		
+		int counter = 0;
+		Symbol returnValue = new Symbol();
+		returnValue.setValue("99999");
+		
+		while( counter < this.symTable.size())
+		{
+			
+			if (this.symTable.get(counter).getLocation().equalsIgnoreCase(location))
+			{
+				returnValue = (Symbol) this.symTable.get(counter);
+			}
+			counter++;
+		}
+		
+		return returnValue;
+	}
 	
 }
