@@ -1,0 +1,15 @@
+.start,Altest_10,256
+.text
+           ext subprocedure
+.data
+           str.data 'aab'
+.text
+           adds $2,prm1
+           abs ***
+           rrotate ***
+           HALT   2
+.data
+prm1       int.data  2147483647
+prm2       int.data -2147483648
+           ADR.data *+2
+.end,Altest_10   |a.test.10

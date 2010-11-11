@@ -1,0 +1,675 @@
+<html>
+<body>
+
+<h1>Data Element Dictionary</h1>
+
+<p>This page contains all of the variables used in all of our classes.</p>
+
+<table border = "1">
+<tr>
+<th>Data Elements</th>
+</tr>
+<tr>
+<td>Element Name</td>
+<td>Element Type</td>
+<td>Class Existed In</td>
+<td>Purpose</td>
+</tr>
+<tr>
+<td>errorList</td>
+<td>ArrayList of ErrorData</td>
+<td>ErrorOut</td>
+<td>errorList contains all of the ErrorData objects for searching through, outputting, and maintaining.</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>int</td>
+<td>ErrorOut</td>
+<td>counter exists as a variable for iteration purposes, incremented each time a while loop loops.</td>
+</tr>
+<tr>
+<td>exists</td>
+<td>boolean</td>
+<td>ErrorOut</td>
+<td>exists is a boolean used to tell the ErrorOut object whether or not an erro exists at the line being checked.</td>
+</tr>
+
+<tr>
+<td>line</td>
+<td>int</td>
+<td>ErrorOut</td>
+<td>line exists to hold the line number that an error exists on.</td>
+</tr>
+<tr>
+<td>lineNumber</td>
+<td>int</td>
+<td>ErrorData</td>
+<td>lineNumber holds the line number that an error exists on in the representation of ErrorData.</td>
+</tr>
+<tr>
+<td>errorCode</td>
+<td>int</td>
+<td>ErrorData</td>
+<td>errorCode contains the error code assigned to the error it exists in, as represented in our error table.</td>
+</tr>
+<tr>
+<td>errorMessage</td>
+<td>String</td>
+<td>ErrorData</td>
+<td>errorMessage contains the message the user will see when he or she encounters a specific error</td>
+</tr>
+<tr>
+<td>immutableCopy</td>
+<td>int</td>
+<td>ErrorData</td>
+<td>immutableCopy is used to return various private ints in order to maintain immutable code</td>
+</tr>
+<tr>
+<td>directiveNameTable</td>
+<td>Properties</td>
+<td>DirectiveTable</td>
+<td>directiveNameTable is a table used to store the directive string and whether or not it impacts memory.</td>
+</tr>
+<tr>
+<td>tableFileName</td>
+<td>File</td>
+<td>DirectiveTable</td>
+<td>tableFileName is the name of the file from which the directives table will be imported in the constructor that uses a file name.</td>
+</tr>
+<tr>
+<tr>
+<td>lineTokens</td>
+<td>StringTokenizer</td>
+<td>DirectiveTable</td>
+<td>lineTokens is used to tokenize the string from the input file to get the directive name and the memoryUse boolean in a constructor.</td>
+</tr>
+<tr>
+<td>input</td>
+<td>BufferedReader</td>
+<td>DirectiveTable</td>
+<td>input contains the input from file, i.e. from directives.tbl located at the root of the code's directory.</td>
+</tr>
+<tr>
+<td>newLine</td>
+<td>String</td>
+<td>DirectiveTable</td>
+<td>newLine exists to take one line at a time from the file directives.tbl and add it into the program.</td>
+</tr>
+<tr>
+<td>directive</td>
+<td>String</td>
+<td>DirectiveTable</td>
+<td>directive holds the directive found in directives.tbl used to move into directiveNameTable.</td>
+</tr>
+<tr>
+<td>memoryUse</td>
+<td>String</td>
+<td>DirectiveTable</td>
+<td>memoryUse holds whether or not the directive impacts memory, and is added to directiveNameTable.</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td>int</td>
+<td>Converter</td>
+<td>decimal holds the decimal representation of a given number or ascii string.</td>
+</tr>
+<tr>
+<td>hexOut</td>
+<td>String</td>
+<td>Converter</td>
+<td>hexOut holds the hexadecimal representation of a given number or ascii string.</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>int</td>
+<td>Converter</td>
+<td>counter is incremented after each successful trip through a while loop.</td>
+</tr>
+<tr>
+<td>digit</td>
+<td>char</td>
+<td>Converter</td>
+<td>digit is used to hold a single digit of a hexadecimal or binary number in String format.</td>
+</tr>
+<tr>
+<td>dec</td>
+<td>String</td>
+<td>Converter</td>
+<td>dec is used to hold the decimal representation of a number or ascii string.</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>byte array</td>
+<td>Converter</td>
+<td>binary is used to store the byte representation of ascii characters, and convert them into binary.</td>
+</tr>
+<tr>
+<td>rep</td>
+<td>int</td>
+<td>Converter</td>
+<td>rep is used to store the decimal representation of a binary string.</td>
+</tr>
+<tr>
+<td>currentBin</td>
+<td>String</td>
+<td>Converter</td>
+<td>currentBin is used as a medium for concatenation.</td>
+</tr>
+<tr>
+<td>totalBin</td>
+<td>String</td>
+<td>Converter</td>
+<td>totalBin is used to hold the final/total binary value.</td>
+</tr>
+<tr>
+<td>conversion</td>
+<td>int</td>
+<td>Converter</td>
+<td>conversion is used to convert a binary number into an integer.</td>
+</tr>
+<tr>
+<td>instructionsTable</td>
+<td>InstructTable</td>
+<td>AssemblerMain</td>
+<td>instructionsTable is used to import and hold the valid instructions from instructions.tbl.</td>
+</tr>
+<tr>
+<td>directivesTable</td>
+<td>DirectiveTable</td>
+<td>AssemblerMain</td>
+<td>directivesTable is used to import and hold the valid instructions from directives.tbl.</td>
+</tr>
+<tr>
+<td>errorsTable</td>
+<td>ErrorTable</td>
+<td>AssemblerMain</td>
+<td>errorsTable is used to import and hold the error types, codes, and messages from error.tbl.</td>
+</tr>
+<tr>
+<td>sourceCodeFile</td>
+<td>InSourceCode</td>
+<td>AssemblerMain</td>
+<td>sourceCodeFile is used to hold the original source code given by the user.</td>
+</tr>
+<tr>
+<td>sourceFile</td>
+<td>File</td>
+<td>AssemblerMain</td>
+<td>sourceFile is used to contain the source code.</td>
+</tr>
+<tr>
+<td>errorsFound</td>
+<td>ErrorOut</td>
+<td>AssemblerMain</td>
+<td>errorsFound holds all of the errors found in the source code.</td>
+</tr>
+<tr>
+<td>tokenizer</td>
+<td>Tokenizer</td>
+<td>AssemblerMain</td>
+<td>tokenizer is used to tokenize through each line of source code.</td>
+</tr>
+<tr>
+<td>parser</td>
+<td>Parser</td>
+<td>AssemblerMain</td>
+<td>parser is used to parse the source code.</td>
+</tr>
+<tr>
+<td>endOfProgram</td>
+<td>boolean</td>
+<td>AssemblerMain</td>
+<td>endOfProgram holds whether or not the source code's program has terminated, true if terminated, false if running.</td>
+</tr>
+<tr>
+<td>lineNum</td>
+<td>int</td>
+<td>AssemblerMain</td>
+<td>lineNum is the current line number of the program.</td>
+</tr>
+<tr>
+<td>errorValue</td>
+<td>Properties</td>
+<td>ErrorTable</td>
+<td>errorValue contains the error code and error type of the errors in the error table file.</td>
+</tr>
+<tr>
+<td>errorMessage</td>
+<td>Properties</td>
+<td>ErrorTable</td>
+<td>errorMessage contains the error code and error message of the errors in the error table file.</td>
+</tr>
+<tr>
+<td>lineTokens</td>
+<td>StringTokenizer</td>
+<td>DirectiveTable</td>
+<td>lineTokens is used to tokenize the string from the input file to get the error code and error type in a constructor.</td>
+</tr>
+<tr>
+<td>errorCodes</td>
+<td>Properties</td>
+<td>ErrorTable</td>
+<td>errorCodes contains the error code and error message in reverse order.</td>
+</tr>
+<tr>
+<td>errorCode</td>
+<td>String</td>
+<td>ErrorTable</td>
+<td>errorCodeholds the value of the error code to be but into the error table.</td>
+</tr>
+<tr>
+<td>errorType</td>
+<td>String</td>
+<td>ErrorTable</td>
+<td>errorCodeholds the value of the error type to be but into the error table.</td>
+</tr>
+<tr>
+<td>input</td>
+<td>BufferedReader</td>
+<td>ErrorTable</td>
+<td>input gets input from the file error.tbl and loads in into scope of our program.</td>
+</tr>
+<tr>
+<td>newLine</td>
+<td>String</td>
+<td>ErrorTable</td>
+<td>newLine contains a line from the source file error.tbl and adds it into the representation in our program.</td>
+</tr>
+<tr>
+<td>source</td>
+<td>ArrayList of String</td>
+<td>InSourceCode</td>
+<td>source contains the source code line by line in an array.</td>
+</tr>
+<tr>
+<td>input</td>
+<td>BufferedReader</td>
+<td>InSourceCode</td>
+<td>input gets input from the source file and loads it into the source array.</td>
+</tr>
+<tr>
+<td>newLine</td>
+<td>String</td>
+<td>InSourceCode</td>
+<td>newLine contains the source code line by line after being fed by the buffered reader, for storing in the array.</td>
+</tr>
+<tr>
+<td>instructionType</td>
+<td>Properties</td>
+<td>InstructTable</td>
+<td>instructionType contains the instruction name and the instruction type as represented in the instruction table.</td>
+</tr>
+<tr>
+<td>instructionOpcode</td>
+<td>Properties</td>
+<td>InstructTable</td>
+<td>instructionOpcode contains the instruction name and opcode as represented in the instruction table.</td>
+</tr>
+<tr>
+<td>instructionFunctionCode</td>
+<td>Properties</td>
+<td>InstructTable</td>
+<td>instructionFunctionCode contains the instruction name and function code as represented in the instruction table.</td>
+</tr>
+<tr>
+<td>input</td>
+<td>BufferedReader</td>
+<td>InstructTable</td>
+<td>input gets input from the source file instructions.tbl.</td>
+</tr>
+<tr>
+<td>newLine</td>
+<td>String</td>
+<td>InstructTable</td>
+<td>newLine holds the input from the buffered reader and stores the data in the instrution fields.</td>
+</tr>
+<tr>
+<td>lineTokens</td>
+<td>StringTokenizer</td>
+<td>InstructTable</td>
+<td>lineTokens is used to tokenize the string from the input file to get the instruction type, opcode, function code and the instruction in a constructor.</td>
+</tr>
+<tr>
+<td>instructType</td>
+<td>String</td>
+<td>InstructTable</td>
+<td>instructType holds the value of the type of instruction to be but into the instruction table.</td>
+</tr>
+<tr>
+<td>instruction</td>
+<td>String</td>
+<td>InstructTable</td>
+<td>instruction holds the value of the instruction to be but into the instruction table.</td>
+</tr>
+<tr>
+<td>functionCode</td>
+<td>String</td>
+<td>InstructTable</td>
+<td>functionCode holds the value of the function code to be but into the instruction table.</td>
+</tr>
+<tr>
+<td>opcode</td>
+<td>String</td>
+<td>InstructTable</td>
+<td>opcode holds the value of the opcode to be but into the instruction table.</td>
+</tr>
+
+<tr>
+<td>label</td>
+<td>String</td>
+<td>Symbol</td>
+<td>label represents the label of a symbol in the source code.</td>
+</tr>
+<tr>
+<td>location</td>
+<td>int</td>
+<td>Symbol</td>
+<td>location holds the location in memory of the represented symbol.</td>
+</tr>
+<tr>
+<td>length</td>
+<td>int</td>
+<td>Symbol</td>
+<td>length holds the length in bits of the symbol, the default being one word.</td>
+</tr>
+<tr>
+<td>usage</td>
+<td>String</td>
+<td>Symbol</td>
+<td>usage represents how the symbol is used, be it label, execution point, etc.</td>
+</tr>
+<tr>
+<td>symTable</td>
+<td>ArrayList of Symbols</td>
+<td>SymbolTable</td>
+<td>symTable contains all of the symbols in the symbol table.</td>
+</tr>
+<tr>
+<td>label</td>
+<td>String</td>
+<td>SymbolTable</td>
+<td>label represents the label of a symbol in the source code.</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>int</td>
+<td>SymbolTable</td>
+<td>counter is incremented after one loop of a while loop, used to escape the loop.</td>
+</tr>
+<tr>
+<td>innerCounter</td>
+<td>int</td>
+<td>SymbolTable</td>
+<td>innerCounter is incremented after one loop of a while loop, used to escape the loop..</td>
+</tr>
+
+<tr>
+<td>exists</td>
+<td>boolean</td>
+<td>SymbolTable</td>
+<td>exists holds whether or not a specific symbol exists in the symbol table.</td>
+</tr>
+<tr>
+<td>returnValue</td>
+<td>int</td>
+<td>SymbolTable</td>
+<td>returnValue contains the value, be it length or location, of a specific symbol to be returned.</td>
+</tr>
+<tr>
+<td>sorter</td>
+<td>ArrayList of Symbols</td>
+<td>SymbolTable</td>
+<td>sorter sorts a SymbolTable based on the label name of the symbol.</td>
+</tr>
+<tr>
+<td>currentSymb</td>
+<td>Symbol</td>
+<td>SymbolTable</td>
+<td>currentSymb holds the current symbol in a symbol table, used to output its data.</td>
+</tr>
+<tr>
+<td>output</td>
+<td>String</td>
+<td>SymbolTable</td>
+<td>output holds the entire output of a symbol table, used to output the symbol table as text.</td>
+</tr>
+<tr>
+<td>tokenArray</td>
+<td>ArrayList of String</td>
+<td>Tokenizer</td>
+<td>tokenArray is the array list that will be passed back to the method caller.</td>
+</tr>
+<tr>
+<td>commentArray</td>
+<td>ArrayList of String</td>
+<td>Tokenizer</td>
+<td>commentArray is a temporary array list for storage of comment tokens.</td>
+</tr>
+<tr>
+<td>spaceArray</td>
+<td>ArrayList of String</td>
+<td>Tokenizer</td>
+<td>spaceArray is a temporary array list for storage of space tokens.</td>
+</tr>
+<tr>
+<td>commaArray</td>
+<td>ArrayList of String</td>
+<td>Tokenizer</td>
+<td>commaArray is a temporary array list for storage of comma tokens.</td>
+</tr>
+<tr>
+<td>i, j, k</td>
+<td>int</td>
+<td>Tokenizer</td>
+<td>i, j, and k are temporary variables used for storing positions in the arrays</td>
+</tr>
+
+<tr>
+<td>comma, space</td>
+<td>StringTokenizer</td>
+<td>Tokenizer</td>
+<td>comma and space are used to turn incoming lines of program code into tokens.</td>
+</tr>
+
+<tr>
+<td>temp</td>
+<td>String</td>
+<td>Tokenizer</td>
+<td>temp is a string object used to store tokens.</td>
+</tr>
+<tr>
+<td>delim</td>
+<td>String</td>
+<td>Tokenizer</td>
+<td>delim is a string object used to determine what is to be delimited in the tokenizer.</td>
+</tr>
+<tr>
+<td>i</td>
+<td>int</td>
+<td>UserReport</td>
+<td>i is used to determine the positioning of output in the UserReport</td>
+</tr>
+<tr>
+<td>errorEntry</td>
+<td>ErrorData</td>
+<td>UserReport</td>
+<td>errorEntry is used to hold new error messages.</td>
+</tr>
+<tr>
+<td>out</td>
+<td>PrintWriter</td>
+<td>UserReport</td>
+<td>out is used to get input from the file directives.tbl</td>
+</tr>
+<tr>
+
+<td>inDotText, inDotData, haveDotStart</td>
+<td>boolean</td>
+<td>SourceCodeParser</td>
+<td>These booleans are used to filter lines of tokens into which sections to parse.</td>
+</tr>
+<tr>
+<td>prgmName</td>
+<td>Symbol</td>
+<td>SourceCodeParser</td>
+<td>prgmName is used to hold the values of the program name necessary to put into the symbol table.</td>
+</tr>
+<tr>
+<td>locationCounter</td>
+<td>int</td>
+<td>SourceCodeParser</td>
+<td>this is used to keep track of the value of the location counter while parsing the program.</td>
+</tr>
+<tr>
+<td>lcConverter, lcToHex </td>
+<td>String </td>
+<td>SourceCodeParser</td>
+<td>These are used to convert lc values for storing into the symbol table.</td>
+</tr>			
+<tr>
+<td>errorsFound</td>
+<td>ErrorOut</td>
+<td>SourceCodeParser</td>
+<td>Keeps working record of all errors discovered during parsing of the program.</td>
+</tr>
+<tr>
+<td>programName</td>
+<td>String</td>
+<td>SourceCodeParser</td>
+<td>programName is used to hold the name of the program the user gives us.</td>
+</tr>
+<tr>
+<td>syntaxError, invalidString, etc.</td>
+<td>ErrorData </td>
+<td>SourceCodeParser</td>
+<td>Used to put error info into the errorOut to store errors.</td>
+</tr>
+<tr>
+<td>errors</td>
+<td>boolean</td>
+<td>SourceCodeParser</td>
+<td>an error flag for encoding purposes</td>
+</tr>
+<tr>
+<td>converter, dickables</td>
+<td>Converter</td>
+<td>SourceCodeParser</td>
+<td>converter is used to convert various data to different representations.</td>
+</tr>
+<tr>
+<td>stringHolder</td>
+<td>String</td>
+<td>SourceCodeParser</td>
+<td>A String object to hold the String data to be parsed.</td>
+</tr>
+<tr>
+<td>parameter</td>
+<td>String</td>
+<td>SourceCodeParser</td>
+<td>parameter is the string representing an operand of an operation.</td>
+</tr>
+<tr>
+<td>munchables, hexInteger</td>
+<td>int</td>
+<td>SourceCodeParser</td>
+<td>Used to check memory / numerical value for bounds errors.</td>
+</tr>
+<tr>
+<td>imm</td>
+<td>int</td>
+<td>SourceCodeParser</td>
+<td>holds the value of immediate-value operands to parse.</td>
+</tr>
+<tr>
+<td>toEncode</td>
+<td>String</td>
+<td>Encoder</td>
+<td>Used to store the value of the SAL560 program line to be encoded.</td>
+</tr>
+<tr>
+<td>converter</td>
+<td>Converter</td>
+<td>Encoder</td>
+<td>Used to do the conversion to binary.</td>
+</tr>
+<tr>
+<td>opCode, fnCode</td>
+<td>String</td>
+<td>Encoder</td>
+<td>holds the opcode / function code of the instruction to be encoded.</td>
+</tr>
+<tr>
+<td>reg1, reg2, reg3, addr</td>
+<td>String</td>
+<td>Encoder</td>
+<td>hold the values of the operands to be encoded.</td>
+</tr>
+
+<tr>
+<td>i</td>
+<td>int</td>
+<td>Encoder</td>
+<td>counting variable used during iteration.</td>
+</tr>
+<tr>
+<td>skip</td>
+<td>int</td>
+<td>Encoder</td>
+<td>In the mem.skip operation, tells the object file to skip the needed number of line of code.</td>
+</tr>
+<tr>
+<td>encoded</td>
+<td>String</td>
+<td>Encoder</td>
+<td>Used to hold the working value of the binary encoding of a SAL560 program line.</td>
+</tr>
+<tr>
+<td>binCode</td>
+<td>ArrayList of Strings</td>
+<td>IntermediateFile</td>
+<td>Holds the values of the binary encodings to be outputted into the intermediate file.</td>
+</tr>
+<tr>
+<td>out</td>
+<td>PrintWriter</td>
+<td>IntermediateFile</td>
+<td>out is used to print output to populate the intermediate file</td>
+</tr>
+<tr>
+<td>i</td>
+<td>int</td>
+<td>IntermediateFile</td>
+<td>Counting variable used during iteration.</td>
+</tr>
+<tr>
+<td>textLines, linkerLines</td>
+<td>ArrayList of type String</td>
+<td>ObjectFile</td>
+<td>used to store the values of the Text- or Linker-lines for the object file.</td>
+</tr>
+<tr>
+<td>headerLine, endLine</td>
+<td>String</td>
+<td>ObjectFile</td>
+<td>used to store the text for the header / end line of the object file.</td>
+</tr>
+<tr>
+<td>programLengthString</td>
+<td>String</td>
+<td>ObjectFile</td>
+<td>Used to create the value of the hex encoding for the program length.</td>
+</tr>
+<tr>
+<td>prgmLoadPoint</td>
+<td>String</td>
+<td>ObjectFile</td>
+<td>used to store the loading address of the program for the current line.</td>
+</tr>
+<tr>
+<td>totalRecords</td>
+<td>int</td>
+<td>ObjectFile</td>
+<td>used to hold the total number of records in the file, 1 for header 1 for end, then the rest.</td>
+</tr>
+</body>
+</html>

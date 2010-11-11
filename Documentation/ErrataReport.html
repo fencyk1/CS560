@@ -1,0 +1,12 @@
+<html>
+<body>
+
+<h1>Errata Report</h1>
+
+<p>This page contains all currently known errors with our assembler.</p>
+<p>As of writing, our assembler contains the following errors:</p>
+<ul>
+<li>User Report, userReport.txt, only displays one error per line no matter how many errors where found on that line.</li>
+<li>User Report improperly outputs the report: The lines that do not affect memory are not output. This can be fixed by removing the check that keeps them from being output. This will result in  having to properly index the object file to get the data that populates the user report.</li>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Testing"><h1 style="text-align:center">Testing Philosophy</h1></a>
+
+<p>Our main testing philosophy is geared around ensuring each part of the whole program works correctly 
+before connecting it to other parts. Also, we are testing intermediate connections between parts in order 
+to properly structure the testing. In order to execure this testing doctrine, we have chosen and agreed 
+to follow the following testing philosophies:</p>
+
+<h2>Bottom-Up</h2>
+
+<p>Overall, we choose to do bottom-up testing. This covers the overall structure of taking components that
+work individually and linking them to other components that work individually, then testing whether or not
+those parts can work together. </p>
+
+<h2>Black-Box</h2>
+
+<p>Black-box is part of our strategy in order to support increased efficiency of testing. We have noted in
+the test programs what we expect our output to be, but we will not be printing out any sort of intermediate results
+during the running of our tests. </p>
+
+<h2>Modular</h2>
+
+<p>Modular testing is mostly done by the author of the component while it is being built; we primarily do testing of each component
+before adding it to the whole machine of the program that we are building. This is intended to reduce the amount of 
+time [not to mention headache!] testing the entire system of components when they are linked together. We can more easily
+catch problems that are due to one component if we catch them while testing that single component by itself. </p>
+
+<h2>System-Wide</h2>
+
+<p>While we are using a lot of private modular testing, we still intend to use the system-wide testing convention to ensure that 
+everything works fluently and synergistically. We go this route with our testing in hopes that the fact that the parts and 
+connections work already will mean reduced testing time of the entire system.</p>
+
+
+
+<!--
+<pre>
+We will not be using JUnit officially to test our code. We will instead be using test programs with specific functionality to test each issue or non-issue.
+What I need from each person:
+Each test program should be a well commented SAL560 program. Along with the testing code, I need the following:
+<b>Program Name:</b> The program name needs to be meaningful to what you are testing. ie, if you are testing a register out of bounds error, call your program RegOutOfBounds or something that gives an indication as to the purpose of the test.
+<b>COMMENTS:</b> I need everyone to COMMENT their programs. This is not only for me to help know what you’re testing, but it will also be going into our testing documentation. Therefore, I ask that you comment as much as possible.
+<b>What to send to me:</b> I need the following sent to me for each test you do. I ask that you put all of the items for each test into a folder with an appropriate naming scheme relative to the test case so that I don’t have to dig through a bunch of files to see what matches up to what. Each folder should contain the following:
+<b>Test File:</b> Your test code (your program).
+<b>Results File:</b> This file will contain any results from your test. i.e. errors thrown etc. This is anything that happened as a result of your test.
+<b>Symbol Table:</b> A visual representation of the symbol table created.
+<b>Intermediate Version:</b> The intermediate version of the program you wrote after pass 1.
+<b>Explanation of test:</b> A short description of the test case. This should include what you are testing, how you tested it, the expected results and the actual results along with whether or not the expected results were replicated. This does not need to be extremely in detail, but please copy/paste the line where the error should occur so I don’t have to hunt it down.
+I made an example below of what I’m looking for.
+
+<h2>Example:</h2>
+Test File:
+.start:RegOutOfBounds,00
+.data
+XX	Int.data		20
+YY	Int.data		10
+.text
+LW	$1,XX		| Load 20 into register 1
+LW	$2.YY		| Load 10 into register 2
+ADD	$9,$1,$2	| Add register 1 and 2 and store in 9. Should throw register oob error.
+.end:RegOutOfBounds
+
+<b>Results:</b> Error [ ] Thrown. XX and YY added to symbol table. Intermediate version created.
+<b>Symbol Table:</b> (The resulting symbol table with XX and YY as members)
+<b>Intermediate Version:</b> (The intermediate version passed to Pass 2. I’m not going to hand assemble this example xD)
+<b>Explanation:</b>
+This program tests the register out of bounds error. The error should come from LC 04:
+ADD	$9,$1,$2	| Add register 1 and 2 and store in 9. Should throw register oob error.
+The destination register 9 is out of the available bounds for registers. Expected: Error [_] Thrown. Results: Error [_] Thrown.
+Test Case Validated
+</pre>-->
+
+</body>
+</html>
+

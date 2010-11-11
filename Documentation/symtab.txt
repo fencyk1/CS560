@@ -1,0 +1,5 @@
+			 Symbol Table 
+Label	|	Location		|	Length	|	Usage	|	Value
+A	|	0			|	32	|	Label	|	0
+C	|	0			|	32	|	Label	|	0
+b	|	0			|	32	|	Label	|	0

@@ -1,0 +1,10 @@
+.start,Altest_09,0   |Some Errors
+$$$      ADDs   $12,4099
+	   Muli   $5,$5,=9222212000000
+	   Divi   $4,$4'ccc'
+Xx       int.data  1,999
+         int.data  52,IR
+	   Muli   $1,$2,=-12
+.end,Altest_09   | should report instruction after end instruction ignored
+         ADD  1,Xx
+

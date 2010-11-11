@@ -1,0 +1,2 @@
+.start,Altest_08,65535 | program length 0 load point FFFF
+.end,Altest_08

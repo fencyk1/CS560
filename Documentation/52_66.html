@@ -1,0 +1,123 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="52_66"><h1 style="text-align:center">Instructions 52-66</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+ 
+ 
+<a name="explanation"><h2>Explanation</h2></a> 
+ 
+<p>The test is designed to test instructions 52-66 all at once, and does so without using lables in the .text section prior to a command</p> 
+	
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start, Test37to51, 00		| start of program that tests commands 37-51
+.data
+ten	int.data	10	| store int 10 in ten
+one	int.data	1	| store int 1 in one
+two	int.data	2	| store int 2 in two
+three 	int.data	3	| store int 3 in three
+four 	int.data	4	| store int 4 in four
+a	int.data	0	| store int 0 in a
+b	int.data	0	| store int 0 in b
+c	int.data	0	| store int 0 in c
+mem.skip 20		| skip 20 words of memory
+.text
+	
+	srv	$R1, $R2, 4
+	jr	$R1
+	dump	ten, ten, ten
+	inn	1, a
+	inc	1, b
+	outn	1, c
+	outc	1, c
+	outni	1, 5
+	outci	1, c
+	adds	$R7, $R1, ten
+	subs	$R3, $R1, ten
+	muls	$R1, $R2, ten
+	divs	$R1, $R2, ten
+.end, Test37to51
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<p>No errors were thrown, the symbol table is correct, the outputFile matches the source, and the intermediate file is complete.</p>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start, Test37to51, 00		| start of program that tests commands 37-51
+.data
+ten	int.data	10	| store int 10 in ten
+one	int.data	1	| store int 1 in one
+two	int.data	2	| store int 2 in two
+three 	int.data	3	| store int 3 in three
+four 	int.data	4	| store int 4 in four
+a	int.data	0	| store int 0 in a
+b	int.data	0	| store int 0 in b
+c	int.data	0	| store int 0 in c
+mem.skip 20		| skip 20 words of memory
+.text
+	srv	$R1, $R2, 4
+	jr	$R1
+	dump 	ten, ten, ten
+	inn	1, a
+	inc	1, b
+	outn 	1, c
+	outc 	1, c
+	outni 	1, 5
+	outci 	1, c
+	adds 	$R7, $R1, ten
+	subs 	$R3, $R1, ten
+	muls 	$R1, $R2, ten
+	divs 	$R1, $R2, ten
+.end, Test37to51</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label	|	Location	|	Length	|	Usage
+ten	|	0		|	32	|	Label
+one	|	1		|	32	|	Label
+two	|	2		|	32	|	Label
+three	|	3		|	32	|	Label
+four	|	4		|	32	|	Label
+a	|	5		|	32	|	Label
+b	|	6		|	32	|	Label
+c	|	7		|	32	|	Label
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>Line  LC    Binary
+1    0    1
+2    1    10
+3    2    11
+4    3    100
+5    4    0
+6    5    0
+7    6    0
+8    7    100000011001200100
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

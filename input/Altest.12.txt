@@ -1,0 +1,53 @@
+.start,Altest_12,0      |n/a
+.text
+|	ADDs TEST |result 14
+ADDs  Lw  $7,256        |0  ---100  
+      ADDs  $7,$7,257    |1  ---101	
+	Sw    $7,350      |2  ---15E
+|  Sub- storage		result -4
+Subs  Lw    $6,256      |3  ---100         
+	Subs  $6,$6,257   |4  ---101
+      Sw    $6,351      |5	---15F
+|   Multiply storage TeST	result 45
+MULS  Lw    $5,256      |6  ---100         
+      Muls  $5,$5,257   |7  ---101
+      Sw    $5,352      |8  ---160
+|   Divide storage teST 		result 0
+DIVS  Lw    $4,256      |9  ---100     
+      Divs  $4,$5,257   |A  ---101     
+      Sw    $4,353      |B  ---161     
+|	Read TeST
+inn   inn    1,354      |C  ---162  
+|	Write TeST
+Outn  outn   1,354      |D  ---162	
+|	AND TeST-ac
+ANA   Lw    $3,256      |E  ---100  
+**  ANd-ac  257         |F  ---101
+      Sw   $3,355       |10  ---163
+|   Logical OR TeST-ac
+OR    LD-ir  256        |11  ---100  
+      OR-ir  257        |12  ---101 
+      Sw    $2,356      |13  ---164
+| OR-IR
+LDAR  Lw   256          |14  ---100  
+      OR-IR 257         |15  ---101
+      SW   357          |16  ---165
+|
+LROT  Lw    256         |17  ---100  
+      LROT-ac   4       |18  ---004 
+      Sw    358         |19  ---166
+| Shift Left LOGICAL
+xx     skip-mem   3
+SLL   LW   256          |1D  ---100         
+	 SLL-ac  11       |1E  ---00B
+       Sw  1,360        |1F  ---168
+|     Shift Right Logical
+SLR Lw   256            |20  ---100  
+       SLR-ac   8       |21  ---008	
+       Sw   361         |22  ---169
+|  Read Character
+inc  inc  1,362         |23  ---16A 
+|  Write Character  	
+outc outc   1,362       |24  ---16A 
+OSU1 skip-mem 1000
+.END,Altest_12

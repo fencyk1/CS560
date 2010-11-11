@@ -1,0 +1,172 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="37_51"><h1 style="text-align:center">Instructions 37-51</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+ 
+ 
+<a name="explanation"><h2>Explanation</h2></a> 
+ 
+<pre>This test is for commands 37 through 51. The commands are all given in proper syntax and no errors should be thrown.
+
+
+There should be the following symbols:
+ten, one, two, three, four, a, b, c, hi
+
+
+The commands used are:
+addu, sub, subu, div, divu, pwr, sll, srl, sra, and, or, xor, nor, jr, srv
+
+also used are:
+la, sa, .start, .end, ext, ent, nop, mem.skip, .data, .text, int.data
+
+
+As expected, there were no errors.
+</pre> 
+	
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start, Test37to51, 00		| start of program that tests commands 37-51
+.data
+ten	int.data	10	| store int 10 in ten
+one	int.data	1	| store int 1 in one
+two	int.data	2	| store int 2 in two
+three int.data	3	| store int 3 in three
+four int.data	4	| store int 4 in four
+a	int.data	0	| store int 0 in a
+b	int.data	0	| store int 0 in b
+c	int.data	0	| store int 0 in c
+mem.skip 20			| skip 20 words of memory
+.text
+	la $R2, two		| load two into reg two	
+	la $R3, three		| load three into reg three	
+	la $R4, four		| load four into reg four	
+	addu $R5, $R2, $R3	| 37- addu R2 and R3 and store in R5	
+	sub $R1, $R3, $R2	| 39- sub R2 from R3 and store in R1	
+	sa $R1, a		| store R1 in a	
+	sa $R5, b		| store R5 in b	
+	subu $R1, $R4, $R3	| 39- subu R3 from R4 and store in R1	
+	div $R5, $R4, $R1	| 40- R4 / R1 = R5 div	
+	divu $R6, $R4, $R1	| 41- R4 / R1 = R5 divu	
+	pwr $R7, $R1, $R2	| 42- pwr R7 = R1^R2	
+	sll $R1, $R2, 45	| 43- sll R1 = R2 << two	
+	srl $R5, $R3, 100	| 44- srl R5 = R3 >> three	
+	sra $R6, $R4, 13	| 45- sra R6 = R4 >> four	
+	and $R1, $R6, $R3	| 46- and R1 = R6 & R3	
+	or $R1, $R2, $R3	| 47- or R1 = R2 or R3	
+	xor $R1, $R2, $R3	| 48- xor R1 = R2 ^ R3	
+	nor $R1, $R2, $R3	| 49- nor R1 = R2 nor R3	
+	jr $R3			| 50- jr to R3	
+	srv $R1, $R1, 0		| 51- srv R1:R1 = 0	
+	ent a, b, c		| ent make a, b, c go to linker	
+	ext cake, pie		| ext get ext labels cake and pie	
+hi	nop			| nop with label "hi"
+.end, Test37to51
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>There were no errors but through the testing several bugs were found:
+
+1. errors in the zero register will not be caught
+
+2. sll, srl, sra cannot currently have a variable repping an address
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start, Test37to51, 00		| start of program that tests commands 37-51
+.data
+ten	int.data	10	| store int 10 in ten
+one	int.data	1	| store int 1 in one
+two	int.data	2	| store int 2 in two
+three int.data	3	| store int 3 in three
+four int.data	4	| store int 4 in four
+a	int.data	0	| store int 0 in a
+b	int.data	0	| store int 0 in b
+c	int.data	0	| store int 0 in c
+mem.skip 20			| skip 20 words of memory
+.text
+	la $R2, two		| load two into reg two	
+	la $R3, three		| load three into reg three	
+	la $R4, four		| load four into reg four	
+	addu $R5, $R2, $R3	| 37- addu R2 and R3 and store in R5	
+	sub $R1, $R3, $R2	| 39- sub R2 from R3 and store in R1	
+	sa $R1, a		| store R1 in a	
+	sa $R5, b		| store R5 in b	
+	subu $R1, $R4, $R3	| 39- subu R3 from R4 and store in R1	
+	div $R5, $R4, $R1	| 40- R4 / R1 = R5 div	
+	divu $R6, $R4, $R1	| 41- R4 / R1 = R5 divu	
+	pwr $R7, $R1, $R2	| 42- pwr R7 = R1^R2	
+	sll $R1, $R2, 45	| 43- sll R1 = R2 << two	
+	srl $R5, $R3, 100	| 44- srl R5 = R3 >> three	
+	sra $R6, $R4, 13	| 45- sra R6 = R4 >> four	
+	and $R1, $R6, $R3	| 46- and R1 = R6 & R3	
+	or $R1, $R2, $R3	| 47- or R1 = R2 or R3	
+	xor $R1, $R2, $R3	| 48- xor R1 = R2 ^ R3	
+	nor $R1, $R2, $R3	| 49- nor R1 = R2 nor R3	
+	jr $R3			| 50- jr to R3	
+	srv $R1, $R1, 0		| 51- srv R1:R1 = 0	
+	ent a, b, c		| ent make a, b, c go to linker	
+	ext cake, pie		| ext get ext labels cake and pie	
+hi	nop			| nop with label "hi"
+.end, Test37to51
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label	|	Location	|	Length	|	Usage
+ten	|	0		|	32	|	Label
+one	|	1		|	32	|	Label
+two	|	2		|	32	|	Label
+three	|	3		|	32	|	Label
+four	|	4		|	32	|	Label
+a	|	5		|	32	|	Label
+b	|	6		|	32	|	Label
+c	|	7		|	32	|	Label
+cake	|	99999		|	32	|	ext
+pie	|	99999		|	32	|	ext
+hi	|	34		|	32	|	Label
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>Line  LC    Binary
+1    0    1
+2    1    10
+3    2    11
+4    3    100
+5    4    0
+6    5    0
+7    6    0
+8    7    1011001101200000100000
+9    29    1011001101300000100000
+10    30    1011001101400000100000
+11    31    1100001101100000100000
+12    32    1100001101500000100000
+13    33    1000000110011000
+14    34    00001000000000000000000000000000
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

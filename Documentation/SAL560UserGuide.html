@@ -1,0 +1,1712 @@
+<html>
+<body style="background-color:lightblue">
+<font face="Arial">
+<a href="DocumentationDirectory.html">Documentation Directory</a><br />
+<a href="developersguide.html">Developer's Guide</a><br />
+<a href="index.html">Module Descriptions</a><br />
+<a href="DataElement.html">Data Element Dictionary</a><br />
+<a href="TestingDocumentation.html">Test Plan Documentation</a><br />
+<a href="MeetingNotes.html">Meeting Notes</a><br />
+
+<a name="user"><h1 style="text-align:center">SAL560 User Guide</h1></a>
+
+<a name="top"><h1>Table of Contents</h1>
+
+<a href="#hardware"><h3>Description of Hardware</h3>
+<a href="#instructions"><h3>Description of Instructions</h3>
+<a href="#ops"><h3>Description of Directives</h3>
+<a href="#format"><h3>Input and Output Description & Format</h3>
+<a href="#sample"><h3>Sample Program and Actual Output</h3>
+<a href="#run"><h3>How to run the Assembler</h3>
+<a href="#error"><h3>Error Message List</h3>
+<a href="#limit"><h3>List of software Limitations</h3>
+
+<a name="hardware"><h2 style="text-align:center">Description of Hardware</h2></a> 
+
+<p>The SAL560 is an assembler machine with the following attributes: </p>
+	<li> 65,536 words of memory 
+	<ul>
+		<li> 4,096 directly addressable</li>
+	</ul>
+	</li>  
+	<li>  32-bit-length for each word.</li> 
+	<li>  Eight high-speed registers (labeled 0-7, respectively)
+	<ul>
+		<li> $0: $z0 / register zero - always holds the value zero</li>
+		<li> $1: $t1 / register one - register available to the user (e.g. value storage and altering, etc.)</li>
+		<li> $2: $t2 / register two - register available to the user </li>
+		<li> $3: $t3 / register three - register available to the user </li>
+		<li> $4: $t4 / register four - register available to the user </li>
+		<li> $5: $sp5 / register five - Overflow value for the upper bits</li>
+		<li> $6: $sp6 / register six - Status register</li>
+		<li> $7: $ra7 / register seven - always holds the value zero.</li>
+	</ul>
+	</li>
+	
+	<li> Four registers which are non-addressable (i.e. they assist in proper execution of the program):</li>
+	<ul>
+		<li>LC: Location Counter register; holds the addres of the current instruction</li>
+		<li>NIC: Next Instruction Counter: holds the address of the next instruction to be executed</li>
+		<li>EFFADDR: Effective Adress register: hlds the address of the data to be read from memory</li>
+		<li>IWD: instruction word register: holds current instruction being executed</li>
+	</ul>
+	
+	<ul>Notes on high-speed registers: </ul>
+	<ul type="square">
+	<li>In order to do arithmatic operations, data must be moved into the registers. </li> 
+	<li>Register 0 will always hold 0 regardless of the operation in which it is used; any value stored into it is essentially thrown away.</li>
+	<li>Register 1 is generally reserved for use by the assembler.</li>
+	<li>Register 7 is used as a link register for the jump and link instructions. </li> 
+	
+<h3>Attributes to note about the SAL560:</h3>
+	
+	<h4>Directives:</h4>
+		<p>The SAL560 can perform commands that act to predefine variables and labels, tell the assembler when to start and
+		end the program, and other special commands that the user may want to use. Directives are typically executed after the 
+		.data directive and before the .text directive. For a list of available directives, click <a href="#ops">here</a>. </p>
+	<h4>Instructions:</h4>
+		<p>Instructions compose the primary backbone of the SAL560, enabling a host of arithmetic, value-orienting, and IO-related functions.
+		These are typically executed after the .text directive. For a list of available instructions, click <a href="#instructions">here</a>. </p>
+	<h4>Operands:</h4>
+		<p>Operands are classified as any argument that can be passed into an instruction or directive. This includes [but is not limited to] 
+		registers, memory references, star notation, and immediate values. For a list of syntax rules regarding use of operands, click <a href="#syntax">here</a>. </p>
+	<h4>Labels:</h4>	
+	
+	<p>Labels can be defined and used as pointers to specific values that the user may want to reference to at a 
+	later time in the program. Syntactically, labels must start an alphabetical character, lower- or upper-case, and
+	preceding characters can include alphanumeric characters and underscores.</p>
+	<h4>The SAL560 supports four addressing modes:</h4>	
+	
+	<ul>
+		<li>00 - Local reference that is dependent upon the value of the starting address of the program [e.g. using labels or star notation].</li>
+		<li>01 - Indirect reference within the memory span of the program, often used as an offset to access an address value [e.g. addr($R1) type operands].</li>
+		<li>10 - Direct physical memory reference that uses a specific address in memory, whether inside or outside the bounds of the program in which the memory reference is used.</li>
+		<li>11 - Literal values that point to a specific address in memory.</li>
+	</ul>
+	
+<h4>Literals and Processing / Evaluation:</h4>	
+
+<p>Literal are classified as either numerical values within bounds of the allowed range of the operand or
+ASCII coded characters. Each operand is a total of 32 bits in length; this means that for ASCII characters
+the most that can be represented by one literal is four [e.g. 'AbcD' : 8 bits for each character]. Thus, 
+each word of memory can hold up to 16 characters.</p>
+
+<p>Literals, when asked to be evaluated arithmetically, are processed using a fixed point 2's complement algorithm.
+Any overflow of bits outside the 32-bit bounds will not affect the value of the processed literal. Attempting to 
+divide by zero will yield an error pushed out from the error table.</p>
+	
+<h4>Address types:</h4>		
+	
+	<p>The assembler has the role to share information with the linker so that the linker program does what
+the programmer had planned. Information is shared via the object file and the associated fields. One of the
+fields (A, R, or E) defines how the loader should adjust the address portion of the instruction.</p>
+
+	<ul>
+		<li>A == Absolute: no adjustment is required by the linker.</li>
+		<li>R == Relative: adjustment is needed, only by arithmetically adding or subtracting the address from where the program was loaded.</li>
+		<li>E == External: adjustment is needed by the address location the external symbol was assigned.</li>
+
+	</ul>
+	
+	
+	<p><a href="#top">Back To The Top</a> </p>
+	
+<a name="instructions"><h2>Description of Instructions</h2></a> 
+<a href="#rtype"><h3>Reg2Reg2Reg</h3></a> 
+<a href="#itype"><h3>Immediate</h3></a> 
+<a href="#stype"><h3>S-type</h3></a> 
+<a href="#iojtype"><h3>Input and Output Format/JUMP</h3></a> 
+<ul>
+<li>For fules on how to format each operand in the syntax section, refer to the syntax rules <a href="#syntax">here</a>.</li>
+<li>Unless otherwise specified, operations with <pre>reg1</pre> listed as an operand stores the resut [if valid] into the first register operand.</li>
+</ul>
+
+
+<!-- R type instructions  -->
+<a name="rtype"><h3>Register2Register2Register Instructions</h3></a>
+
+<h4>R-type instructions will follow this binary encoding format:</h4>
+
+<table border="1">
+<tr>
+<th>Opcode</th>
+<th>Unused</th>
+<th>Register 1</th>
+<th>Register 2</th>
+<th>Register 3</th>
+<th>Shift/Rotate Amount (where applicable)</th>
+<th>Unused</th>
+<th>Function code</th>
+<th>Total Bits</th>
+</tr>
+
+<tr>   
+
+<th>6 bits</th>
+<th>2 bits</th>
+<th>3 bits</th>
+<th>3 bits</th>
+<th>3 bits</th>
+<th>6 bits</th>
+<th>3 bits</th>
+<th>6 bits</th>
+<th>32 bits</th>
+
+</tr>
+</table>
+<h4>List of R-type instructions</h4>
+<p></p>
+<table border="1">
+<tr>
+<th>Type</th>
+<th>Opcode (binary)</th>
+<th>Function code</th>
+<th>Instruction</th>
+<th width=15%>Syntax</th>
+<th>Meaning</th>
+<th>Detail</th>
+<th width=13%>Example</th>
+</tr>
+
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0001 1000</td>
+<td>Multiply</td>
+<td>mul reg1, reg2, reg3</td>
+<td>reg1 = reg2 * reg3</td>
+<td>Multiplies the 2nd and 3rd register operands. If overflow results, set status register executes a trap on overflow.</td>
+<td>mul $1,$2,$3</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0001 1001</td>
+<td>Multiply unsigned</td>
+<td>mulu reg1, reg2, reg3</td>
+<td>reg1 = reg2 * reg3</td>
+<td>Multiplies the 2nd and 3rd register operands. Ignores overflow. </td>
+<td>mulu $1,$2,$3</td></tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0010 0000</td>
+<td>Add</td>
+<td>add reg1, reg2, reg3</td>
+<td>reg1 = reg2 + reg3</td>
+<td>Adds the 2nd and 3rd register operands. If overflow results, set status register executes a trap on overflow.</td>
+<td>add $2,$3,$4</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0010 0001</td>
+<td>Add unsigned</td>
+<td>addu reg1, reg2, reg3</td>
+<td>reg1 = reg2 + reg3</td>
+<td>Multiplies the 2nd and 3rd register operands. Overflow is ignored.</td>
+<td>addu $2,$3,$4</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0010 0010</td>
+<td>Subtract</td>
+<td>sub reg1, reg2, reg3</td>
+<td>reg1 = reg2 - reg3</td>
+<td>Subtracts the 3rd from the 2nd register operand. If overflow results, set status register executres a trap on overflow.</td>
+<td>sub $3,$4,$5</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0010 0011</td>
+<td>Subtract unsigned</td>
+<td>subu reg1, reg2, reg3</td>
+<td>reg1 = reg2 - reg3</td>
+<td>Subtracts the 3rd from the 2nd register operand. Ignores overflow.</td>
+<td>subu $3,$4,$5</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0001 1010</td>
+<td>Divide</td>
+<td>div reg1, reg2, reg3</td>
+<td>reg1 = reg2 / reg3</td>
+<td>Divides the 2nd by the 3rd register operand. If overflow results, set status register executres a trap on overflow.</td>
+<td>div $4,$5,$6</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0001 1011</td>
+<td>Divide unsigned</td>
+<td>divu reg1, reg2, reg3</td>
+<td>reg1 = reg2 / reg3</td>
+<td>Divides the 2nd by the 3rd register operand. Ignores overflow.</td>
+<td>divu $4,$5,$6</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0001</td>
+<td>0001 1100</td>
+<td>Power</td>
+<td>pwr reg1, reg2, reg3</td>
+<td>reg1 = reg2 ** reg3</td>
+<td>Raises contents of reg2 to the power specified in reg3. If overflow results, set status register executres a trap on overflow.</td>
+<td>pwr $1,$3,$5</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0000 0000</td>
+<td>Shift left logical</td>
+<td>sll reg1, reg2, amt</td>
+<td>reg1 = reg2 << amount</td>
+<td>Takes the binary value of the 2nd register operand and shifts it amt number of bits to the left (multiplies by 2CONST)</td>
+<td>sll $1,$2,Three</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0000 0020</td>
+<td>Shift right logical</td>
+<td>srl reg1, reg2, amt</td>
+<td>reg1 = reg2 >> amount</td>
+<td>Shifts the second reg operand value a number of bits to the right equal to amt - zeros are shifted in to fill (divides by 2's complement). Note: this instruction only works as division of a two's complement number if the value is positive.</td>
+<td>srl $2,$3,Four</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0000 0011</td>
+<td>Shift right arithmetic</td>
+<td>sra reg1, reg2, amt</td>
+<td>reg1 = reg2 >> amount</td>
+<td>Takes the binary value of the 2nd register operand and shifts it amt number of bits to the right - the sign bit is shifted in (divides 2's complement number by 2C)</td>
+<td>sra $3,$4,Five</td>
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0010 0100</td>
+<td>AND</td>
+<td>and reg1, reg2, reg3</td>
+<td>reg1 = reg2 & reg3</td>
+<td>Bitwise "and": changes the bits in the first register based on whether or not each respective bit in the second register is the same as the third register</td>
+<td>and $2,$4,$6</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0010 0101</td>
+<td>OR</td>
+<td>or reg1, reg2, reg3</td>
+<td>reg1 = reg2 | reg3</td>
+<td>Bitwise "or": changes the bits in the first register based on whether or not each respective bit in either the second register or the third register is "1"</td>
+<td>or $2,$4,$3</td>
+
+</tr>
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0010 0110</td>
+<td>Exclusive or</td>
+<td>xor reg1, reg2, reg3</td>
+<td>reg1 = reg2 ^ reg3</td>
+<td>Bitwise "xor": changes the bits in the first register based on whether or not each respective bit in either BUT NOT BOTH the second register or the third register is "1"</td>
+<td>xor $1,$5,$3</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>0000 0010</td>
+<td>0010 0111</td>
+<td>Nor</td>
+<td>nor reg1, reg2, reg3</td>
+<td>reg1 = ~(reg2 | reg3)</td>
+<td>Bitwise "nor": changes the bits in the first register based on the negation of the "or" command using the second and third register operands.</td>
+<td>nor $5,$3,$1</td>
+</tr>
+
+<tr>
+<td>R</td>
+<td>0000 0011</td>
+<td>0000 1000</td>
+<td>Jump register</td>
+<td>jr reg2</td>
+<td>goto address reg2</td>
+<td>Jumps to the address contained in the specified register</td>
+<td>jr $7</td>
+</tr>
+
+<td>R</td>
+<td>0011 1111</td>
+<td>-</td>
+<td>DUMP</td>
+<td>DUMP amt1, amt2, amt3</td>
+<td>*See detail*------></td>
+<td>If amt1 is 1 dump registers. If amt2 is 1: dump active memory (ie memory where data or instructions reside. If amt3 is 1: dump LC, EFFADDR</td>
+<td>dump 1,0,1</td>
+</tr>
+
+</table>
+
+<a href="#instructions"><h3>Back to Instruction Types</h3>
+<a name="itype"><h3>Immediate Instructions</h3></a>
+
+<h4>I-type instructions will follow this binary encoding format:</h4>
+
+<table border="1">
+<tr>
+<th>Opcode</th>
+<th>Unused</th>
+<th>Register 1</th>
+<th>Register 2</th>
+<th>Unused</th>
+<th>Immediate value</th>
+<th>Total Bits</th>
+</tr>
+
+<tr>   
+
+<th>6 bits</th>
+<th>2 bits</th>
+<th>3 bits</th>
+<th>3 bits</th>
+<th>2 bits</th>
+<th>16 bits</th>
+<th>32 bits</th>
+
+</tr>
+</table>
+<h4>List of I-type instructions</h4>
+
+
+<table border="1">
+<tr>
+<th>Type</th>
+<th>Opcode (binary)</th>
+<th>Instruction</th>
+<th width=15%>Syntax</th>
+<th>Meaning</th>
+<th>Detail</th>
+<th width=13%>Example</th>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0000</td>
+ 
+<td>Add immediate signed</td>
+<td>addi reg1, reg2, IM</td>
+<td>reg1 = reg2 + IM (signed)</td>
+<td>Adds immediate (IM) value to value in the second register operand.
+ If overflow results, set status register executes a trap on overflow.</td>
+<td>addi $1,$2,3</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0001</td>
+ 
+<td>Add immediate unsigned</td>
+<td>addiu reg1, reg2, IM</td>
+<td>reg1 = reg2 + IM (unsigned)</td>
+<td>Adds immediate (IM) value to value in the second register operand.
+ Overflow is ignored.</td>
+<td>addiu $1,$2,3</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0010</td>
+ 
+<td>Subtract immediate</td>
+<td>subi reg1, reg2, IM</td>
+<td>reg1 = reg2 - IM (signed)</td>
+<td>Subtracts immediate (IM) value from value in the second register operand.
+ If overflow results, set status register executes a trap on overflow.</td>
+<td>subi $3,$2,1</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0011</td>
+ 
+<td>Subtract immediate unsigned</td>
+<td>subiu reg1, reg2, IM</td>
+<td>reg1 = reg2 - IM (unsigned)</td>
+<td>Subtracts immediate (IM) value from value in the second register operand.
+ Ignores overflow. IM still sign-extended.</td>
+<td>subiu $3,$2,1</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0100</td>
+ 
+<td>Multiply immediate</td>
+<td>muli reg1, reg2, IM</td>
+<td>reg1 = reg2 * IM (signed)</td>
+<td>Multiplies immediate (IM) value by value in the second register operand.
+ If overflow set status register executes a trap on overflow.</td>
+<td>muli $2,$3,6</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0101</td>
+ 
+<td>Multiply immediate unsigned</td>
+<td>muliu reg1, reg2, IM</td>
+<td>reg1 = reg2 * IM (unsigned)</td>
+<td>Multiplies immediate (IM) value by value in the second register operand. Ignores overflow. IM still sign-extended.</td>
+<td>muliu $3,$2,6</td>
+</tr>
+
+<tr>
+<td>I</td>
+<td>0001 0110</td>
+ 
+<td>Divide immediate</td>
+<td>divi reg1, reg2, IM</td>
+<td>reg1 = reg2 / IM (signed)</td>
+<td>Divides value in the second register operand by immediate (IM) value.
+ If overflow set status register executes a trap on overflow.</td>
+<td>divi $6,$3,2</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0001 0111</td>
+ 
+<td>Divide immediate unsigned</td>
+<td>diviu reg1, reg2, IM</td>
+<td>reg1 = reg2 / IM (unsigned)</td>
+<td>Divides value in the second register operand by immediate (IM) value.
+Ignores overflow. IM still sign-extended.</td>
+<td>diviu $6,$3,2</td>
+</tr>
+
+
+<tr>
+<td>I</td>
+<td>0011 0011</td>
+ 
+<td>Load immediate</td>
+<td>lui reg1, IM</td>
+<td>reg1 = IM << 16</td>
+<td>Loads a 16-bit immediate operand into the upper 16-bits of the register specified</td>
+<td>lui $1,value</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0011 0100</td>
+ 
+<td>OR immediate</td>
+<td>ori reg1, reg2, IM</td>
+<td>reg1 = reg2 | IM</td>
+<td>Bitwise "or": changes the bits in the first register based on whether or not each respective bit in either the second register or the IM value is "1"</td>
+
+<td>ori $1,$4,switches</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0011 0101</td>
+ 
+<td>Exclusive OR immediate</td>
+<td>xori reg1, reg2, IM</td>
+<td>reg1 = reg2 ^ IM</td>
+<td>Bitwise "xor": changes the bits in the first register based on whether or not each respective bit in either BUT NOT BOTH the second register or the IM value is "1"</td>
+<td>xori $1,$3,switches</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0011 0110</td>
+ 
+<td>NOR immediate</td>
+<td>nori reg1, reg2, IM</td>
+<td>reg1 =  ~( reg2 | IM)</td>
+<td>Bitwise "nor": changes the bits in the first register based on the negation of the "or" command using the second register and IM value operands.</td>
+<td>ori $1,$2,negaters</td>
+</tr>
+<tr>
+<td>I</td>
+<td>0011 0111</td>
+ 
+<td>AND immediate</td>
+<td>andi reg1, reg2, IM</td>
+<td>reg1 = reg2 & IM</td>
+<td>Bitwise "and": changes the bits in the first register based on whether or not each respective bit in the second register is the same as the IM value</td>
+<td>ori $2,$1,agreements</td>
+</tr>
+
+<tr>
+<td>I</td>
+<td>0011 1101</td>
+ 
+<td>Set Register Values</td>
+<td>SRV reg1, reg2, IM</td>
+<td>reg1:R2=IM</td>
+<td>Registers reg1 through reg2 set to IM value. (Note: R1 and R2 can be the same register. This would load the single register with the value IM)</td>
+<td>srv $3,$5,newval</td>
+</tr>
+
+
+<tr>
+<td>I</td>
+<td>0001 1110</td>
+ 
+<td>Outni</td>
+<td>outni num, IM</td>
+<td>*See detail*------></td>
+<td>Immediate value number is displayed to user</td>
+<td>outni 3,displayed</td>
+</tr>
+
+<tr>
+<td>I</td>
+<td>0001 1111</td>
+ 
+<td>Outci</td>
+<td>outci num, IM</td>
+<td>*See detail*------></td>
+<td>Immediate char. or string is dispalyed to user</td>
+<td>outni 6,storedChar</td>
+</tr>
+</table>
+<a href="#instructions"><h3>Back to Instruction Types</h3>
+
+<a name="stype"><h3>S-Type Instructions</h3></a>
+
+<h4>S-type instructions will follow this binary encoding format:</h4>
+
+<table border="1">
+<tr>
+<th>Opcode</th>
+<th>Address Code</th>
+<th>Register 1</th>
+<th>Register 2</th>
+<th>Unused</th>
+<th>Memory Reference</th>
+<th>Total Bits</th>
+</tr>
+
+<tr>   
+
+<th>6 bits</th>
+<th>2 bits</th>
+<th>3 bits</th>
+<th>3 bits</th>
+<th>2 bits</th>
+<th>16 bits</th>
+<th>32 bits</th>
+
+</tr>
+</table>
+<h4>List of I-type instructions</h4>
+
+<table border="1">
+<tr>
+<th>Type</th>
+<th>Opcode (binary)</th>
+<th>Instruction</th>
+<th width=15%>Syntax</th>
+<th>Meaning</th>
+<th>Detail</th>
+<th width=13%>Example</th>
+</tr>
+<tr>
+
+<td>S</td>
+<td>0001 1010</td>
+ 
+<td>Add Register and Storage</td>
+<td>adds reg1, reg2, addr (can't use an index register)</td>
+<td>reg1=reg2+addr (memory reference based on addr)</td>
+<td>adds one register with the contents of a memory reference. if valied, reg1 = results. if overflow, set status register executes a trap on overflow. reg1 = LO $R5 = HI</td>
+<td>adds $6,$4,cats</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>0001 1011</td>
+ 
+<td>Subtract Register and Storage</td>
+<td>subs reg1, reg2, addr (can't use an index register)</td>
+<td>reg1=reg2-addr (memory reference based on addr)</td>
+<td>Subtracts one register with the contents of a memory reference. if valid, reg1= results. if overflow, set status register executes a trap on overflow. reg1 = LO $R5 = HI</td>
+<td>subs $5,$3,dogs</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0100 1100</td>
+ 
+<td>Multiply Register and Storage</td>
+<td>muls reg1, reg2, addr (can't use an index register)</td>
+<td>reg1=reg2 * addr (memory reference based on addr)</td>
+<td>Multiplies one register with the contents of a memory reference. if valid, reg1 = results. if overflow, set status register executes a trap on overflow. reg1 = LO $R5 = HI</td>
+<td>adds $4,$2,wolves</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0100 1101</td>
+ 
+<td>Divide Register and Storage</td>
+<td>divs reg1, reg2, addr (can't use an index register)</td>
+<td>reg1=reg2 / addr (memory reference based on addr)</td>
+<td>Divides one register with the contents of a memory reference. if valid, reg1 = results. if overflow, set status register executes a trap on overflow. reg1 = LO $R5 = HI</td>
+<td>adds $3,$1,hunters</td>
+</tr>
+
+
+<tr>
+<td>S</td>
+<td>0010 0000</td>
+ 
+<td>Jump on equal</td>
+<td>jeq reg1, reg2, addr</td>
+<td>if (reg1==reg2) go to PC=addr</td>
+<td>Goes to the instruction at the specified address if the values in the two registers are equal</td>
+<td>jeq $1,$2,grasshopper</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>0010 0001</td>
+ 
+<td>Jump on not equal</td>
+<td>jne reg1, reg2, addr</td>
+<td>if (reg1 != reg2) go to PC=addr</td>
+<td>Goes to the instruction at the specified address if the values in the two registers are not equal</td>
+<td>jne $1,$3,frog</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>0010 0010</td>
+ 
+<td>Jump greater than</td>
+<td>jgt reg1, reg2, addr</td>
+<td>if (reg1 > reg2) go to PC=addr</td>
+<td>Goes to the instruction at the specified address if the value in register 1 is greater than the value in register 2</td>
+<td>jgt $1,$4,kitty</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0010 0011</td>
+ 
+<td>Jump less than</td>
+<td>jlt reg1, reg2, addr</td>
+<td>if (reg1 < reg2) go to PC=addr</td>
+<td>Goes to the instruction at the specified address if the value in register 1 is less than the value in register 2</td>
+<td>jlt $1,$5,lion</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0010 0100</td>
+ 
+<td>Jump less than or equal</td>
+<td>jle reg1, reg2, addr</td>
+<td>if (reg1 <= reg2) go to PC=addr</td>
+<td>Goes to the instruction at the specified address if the value in register 1 is less than or equal to the value in register 2</td>
+<td>jle $1,$6,tiger</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0010 0111</td>
+ 
+<td>Store word address</td>
+<td>sw reg1, addr(reg2)</td>
+<td>Memory[reg2 + IM] = reg1</td>
+<td>Stores the value in the register into: MEM[$s+C]</td>
+<td>sw $5,pidgey($2)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0011 0000</td>
+ 
+<td>Load word address</td>
+<td>lw reg1, addr(reg2)</td>
+<td>reg1 = Memory[reg2 + addr]</td>
+<td>Loads the word value stored from: MEM[$s+C]</td>
+<td>lw $6,pidgeotto($2)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0011 0001</td>
+ 
+<td>Load negative word</td>
+<td>lnw reg1, addr(reg2)</td>
+<td>reg1 = -Memory[reg2 + addr]</td>
+<td>Loads negative value stored from: MEM[$s+C]</td>
+<td>lnw $1,pidgeot($3)</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>0011 0010</td>
+ 
+<td>Load word immediate</td>
+<td>lwi reg1, addr(reg2)</td>
+<td>reg1 = Memory[reg2 + addr]</td>
+<td>Loads register with immediate value</td>
+<td>lwi $2,charmander($3)</td>
+</tr>
+
+<tr>
+<td>S</td>
+<td>0011 1000</td>
+ 
+<td>Load address of word into Register</td>
+<td>la reg1, addr(reg2)</td>
+<td>reg1 = addr(reg2)</td>
+<td>The address of the memory location + the contents of the index register is placed in reg1</td>
+<td>la $3,charmeleon($3)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0011 1001</td>
+ 
+<td>Store address in word</td>
+<td>sa reg1, addr(reg2)</td>
+<td>addr(reg2) = reg1</td>
+<td>stores a register value into: MEM[$s+C]</td>
+<td>sa $4,charizard($3)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0011 1010</td>
+ 
+<td>And register to storage</td>
+<td>ands reg1, addr(reg2)</td>
+<td>reg1 = reg1 & addr(reg2)</td>
+<td>ands one register with the contents of a memory reference, bitwise</td>
+<td>ands $5,growlithe($3)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0011 0111</td>
+ 
+<td>OR register to storage</td>
+<td>ors reg1, addr(reg2)</td>
+<td>reg1 = reg1 | addr(reg2)</td>
+<td>ors one register with the contents of a memory reference, bitwise</td>
+<td>ors $6,arcanine($3)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0000 0110</td>
+ 
+<td>Jump</td>
+<td>j addr(reg1)</td>
+<td>PC = addr</td>
+<td>Uncontionally jumps to the instruction at the specified address</td>
+<td>j mew($1)</td>
+</tr>
+<tr>
+<td>S</td>
+<td>0000 0111</td>
+ 
+<td>Jump and link</td>
+<td>jal reg1, reg2, addr</td>
+<td>PC=addr</td>
+<td>For procedure call - used to call a subroutine, $15 holds the return address; returning from a subroutine is done by: jr $15. Return address is PC + 1.  reg1 holds the address of the first element of the parameter list.</td>
+<td>jal $1,$4,squirtle</td>
+</tr>
+</table>
+
+<a href="#instructions"><h3>Back to Instruction Types</h3>
+<a name="iojtype"><h3>IO Format and JUMP Instructions</h3></a>
+
+<h4>IO-type instructions will follow this binary encoding format:</h4>
+
+<table border="1">
+<tr>
+<th>Opcode</th>
+<th>Address Code</th>
+<th>Register 1</th>
+<th>Quantity in Words</th>
+<th>Memory Reference</th>
+<th>Total Bits</th>
+</tr>
+
+<tr>   
+
+<th>6 bits</th>
+<th>2 bits</th>
+<th>3 bits</th>
+<th>5 bits</th>
+<th>16 bits</th>
+<th>32 bits</th>
+
+</tr>
+</table>
+
+<h4>J-type instructions will follow this binary encoding format:</h4>
+
+<table border="1">
+<tr>
+<th>Opcode</th>
+<th>Address Code</th>
+<th>Unused</th>
+<th>Destination Address</th>
+<th>Total Bits</th>
+</tr>
+
+<tr>   
+
+<th>6 bits</th>
+<th>2 bits</th>
+<th>8 bits</th>
+<th>16 bits</th>
+<th>32 bits</th>
+
+</tr>
+</table>
+<h4>List of J- and IO-type instructions</h4>
+
+<table border="1">
+<tr>
+<th>Type</th>
+<th>Opcode (binary)</th>
+<th>Function code</th>
+<th>Instruction</th>
+<th width=15%>Syntax</th>
+<th>Meaning</th>
+<th>Detail</th>
+<th width=13%>Example</th>
+</tr>
+<tr>
+<td>IO</td>
+<td>0000 1010</td>
+<td>-</td>
+<td>Inn</td>
+<td>inn num, addr(reg1)</td>
+<td>*See detail*------></td>
+<td>A number from the keyboard is stored into memory</td>
+<td>inn 4,Houou($4)</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>0000 1011</td>
+<td>-</td>
+<td>Inc</td>
+<td>inc num, addr(reg1)</td>
+<td>*See detail*------></td>
+<td>A Char. or String from keyboard is stored into memory</td>
+<td>inc 3,Moltres($3)</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>0000 1100</td>
+<td>-</td>
+<td>Outn</td>
+<td>outn num, addr(reg1)</td>
+<td>*See detail*------></td>
+<td>Number from memory is displayed to user</td>
+<td>outn 2,Zapdos($2)</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>0000 1101</td>
+<td>-</td>
+<td>Outc</td>
+<td>outc num, addr(reg1)</td>
+<td>*See detail*------></td>
+<td>A Char. or String from memory is displayed to user</td>
+<td>outc 5,Articuno($1)</td>
+</tr>
+
+<tr>
+<td>J</td>
+<td>0000 1000</td>
+<td>-</td>
+<td>HALT</td>
+<td>halt n</td>
+<td>n ranges 0 to 255</td>
+<td>Halt execution display user define code.</td>
+<td>halt mewtwo</td>
+</tr>
+</tr>
+</table> 
+
+<a href="#instructions"><h3>Back to Instruction Types</h3>
+<p><a href="#top">Back To The Top</a> </p>
+
+<a name="ops"><h2>Description of Ops/Directives</h2></a> 
+
+<table border="1">
+<tr>
+<th>Directives</th>
+<th>Syntax</th>
+<th>Meaning</th>
+<th>Section</th>
+<th width=20%>Example</th>
+</tr>
+<tr>
+<td>.start</td>
+<td>.start:program_name initial_LC</td>
+<td>Indicates the start of the source code(nothing may come before this), the name of the program, and the inital value for the LC</td>
+<td>.start</td>
+<td>.start,POKEMON,151</td>
+</tr>
+<tr>
+<td>.end</td>
+<td>.end,program_name</td>
+<td>Indicates the end of the program. The program_name must match the program_name from the start directive</td>
+<td>.end</td>
+<td>.end,POKEMON</td>
+</tr>
+<tr>
+<td>.data</td>
+<td>none</td>
+<td>Indicates the start of a section that defines data values. You can have multiple .data's per source program</td>
+<td>.data</td>
+<td>	.data</td>
+</tr>
+<tr>
+<td>.text</td>
+<td>none</td>
+<td>Indicates the start of the section where source code is entered. You can have multiple .text's per source program</td>
+<td>.text</td>
+<td>	.text</td>
+</tr>
+<tr>
+<td>Int.data</td>
+<td>ol int.data min_max</td>
+<td>Assigns an LC and consumes a word of memory with a value between -231 to (+231-1)</td>
+<td>.data</td>
+<td>Bulbasaur	Int.data	001</td>
+</tr>
+<tr>
+<td>Str.data</td>
+<td>ol str.data char_str</td>
+<td>A string of characters starting with a single quote and ending with a single quote. The string is divided into groups of four and those four are each assigned a word</td>
+<td>.data</td>
+<td>Two	Str.data	'Ivysaur'</td>
+</tr>
+<tr>
+<td>Hex.data</td>
+<td>ol hex.data min_max.hex</td>
+<td>Hex string in single quote. 1 to 8 hex digits 80000000 to 7FFFFFFF</td>
+<td>.data</td>
+<td>Mewtwo	hex.data	'0096'</td>
+</tr>
+<tr>
+<td>Bin.data</td>
+<td>ol bin.data min_max.bin</td>
+<td>Binary string in single quotes. 1 to 32 digits</td>
+<td>.data</td>
+<td>Blastoise	bin.data	'1001'</td>
+</tr>
+<tr>
+<td>ADR.DATA</td>
+<td>ol adr.data label</td>
+<td>Inter-l or exter-l</td>
+<td>.data</td>
+<td>Lugia	adr.data	Mewtwo</td>
+</tr>
+<tr>
+<td>adr.exp</td>
+<td>ol adr.exp expression</td>
+<td>Address arithmetic expression. Can contain constants, previously equated strings prepresenting numbers, local or exter-l label references. Supports multiply, add, divide, and subtract. The programmer is allowed 1 level of nesting. The number of labels and exter-l references are limited to 3.</td>
+<td>.data</td>
+<td>Mew		adr.exp		Mewtwo+1</td>
+</tr>
+<tr>
+<td>Ent</td>
+<td>nl ent. label_reference, label_reference, label_reference, label_reference</td>
+<td>Up to four valided labels that must be defined within this program</td>
+<td>.text</td>
+<td>	ent bulba,char,squirt,pika</td>
+</tr>
+<tr>
+<td>Ext</td>
+<td>nl ext. label_reference, label_reference, label_reference, label_reference</td>
+<td>Up to four valid lables</td>
+<td>.info</td>
+<td>       ext bulba,char,squirt,pika</td>
+</tr>
+<tr>
+<td>NOP</td>
+<td>ol nop</td>
+<td>No operand field; generates the equivalent of sll $0,$0,0</td>
+<td>.text</td>
+<td>	 nop</td>
+</tr>
+<tr>
+<td>Exec.start</td>
+<td>nl exec.start label_reference</td>
+<td>Indicates to the assembler the beginning of processing instructions. Execution start address may be different than the first physical instruction</td>
+<td>.text</td>
+<td>       exec.start	missingNo</td>
+</tr>
+<tr>
+<td>Mem.skip</td>
+<td>ol mem.skip nnnn</td>
+<td>Reserves space in memory for user-specific allocation and action.</td>
+<td>.data</td>
+<td>     mem.skip 	136</td>
+</tr>
+<tr>
+<td>Equ</td>
+<td>rl EQU str</td>
+<td>Equates given label to reference the value of a string; str is a string up to 32 characters. It cannot have expressions.</td>
+<td>.text</td>
+<td>Pikachu 	EQU 	'thirtyTwo'</td>
+</tr>
+<tr>
+<td>Equ.exp</td>
+<td>rl Equ.EXP nnnn</td>
+<td>Equates a symbol to an arithmetic expression</td>
+<td>.text</td>
+<td>Suicune 	EQU.EXP	 250-1</td>
+</tr>
+<tr>
+<td>Reset.lc</td>
+<td>rl RESET.lc</td>
+<td>Resets the LC value. Must be greater than the last LC assigned</td>
+<td>.text</td>
+<td>Entei	RESET.lc	250</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>none debug n</td>
+<td>The number indicates whether or not to turn on the debug flag 0 -- off 1 -- on, all other numbers are invalid</td>
+<td>.text</td>
+<td>debug	1</td>
+</tr>
+</table> 
+
+<p><a href="#top">Back To The Top</a> </p>
+
+<a name="format"><h2 style="text-align:center">Input and Output Description & Format</h2>
+<h3>Input</h3>
+<p>There is only one source of input required from the user: an attempt at a SAL560 program formatted as a .txt file containing the code for the program.</p>
+<a name="syntax"><p> This file must adhere to the following syntactical standards:</p>
+
+<ul>
+		<li>All text in the assembly program is non-case-sensitive unless otherwise noted.</li>
+		<li> The language is column-oriented, and executed instructions and directives adhereing to the following standard:</li>
+		
+		<ul>
+		<li> Column one: Labels [<i>Labels are case sensitive!</i>]</li>
+		<li> Column two: name of instructions / directives</li>
+		<li> Column three: operands [each separated by a comma] followed by comments.</li>
+		
+		<p> Follow these guidelines regarding each operand: </p>
+			<ul>
+			<h4>Registers</h4>
+			<li>"reg1", "reg2", and "reg3" operands are to follow the register format: a dollar sign symbol [$] followed immedaitely by a single digit in the range 0 - 7.</li>
+				<ul>
+				<li>Example: $3, $1, and $0 are all legal operands</li>
+				<li>Example: $reg3, $ 1 [white space inbetween], and $00 are all <i>ILLEGAL</i> operands</li>
+				</ul>
+			</ul>
+			<ul>
+			<h4>Addresses</h4>
+			<li>"addr" operands are to follow the address format: a [previously defined] label representing a valid address location or an actual number for the address.</li>
+				<ul>
+				<li>Example: "ivysaur"[previously defined], 450, and 0000000 are legal operands.</li>
+				<li>Example: 70546, "PLUTO" [not previously defined], and -450 are all <i>ILLEGAL</i> operands</li>
+				</ul>
+			</ul>
+			<ul>
+			<h4>Register-indexed addressing</h4>
+			<li>"addr($rx)" <i>[where x is valid digit syntax for registers]</i> operands are to follow the address-index-register format:</li>
+			<li>If an index register is used, it MUST be in parentheses!</li>	
+			<li>If an address is used, it should follow the address format listed above.</li>
+			<li>If both are used, the addr portion comes before the ($rx) portion; however, at least one of the two MUST be present for a valid operand!</li>	
+				<ul>
+				<li>Example: ivysaur($1), ($1), and ivysaur are legal operands.</li>
+				<li>Example: $1, ($1)ivysaur, and ivysaur$1 are all <i>ILLEGAL</i> operands</li>
+				</ul>
+				
+			</ul>
+			<ul>
+			<h4>Immediate values</h4>
+			<li>"IM" operands are to follow the immediate-value format: integers in base 10; no labels can be substituted for specifically-required immediate values.</li>
+			<li>Range of values that can be used: -2 ^ 15 to +(2 ^ 15)-1</li>
+			<!--<li>   </li>-->
+				<ul>
+				<li>Example: 20345, -450, and 0000000 are legal operands.</li>
+				<li>Example: 50432, squirtle [previously-defined label], and -450.34694383 are all <i>ILLEGAL</i> operands</li>
+				</ul>
+			</ul>
+		</ul>
+		
+		<li> ALL programs MUST start with a .start directive and end with a .end directive.</li>
+		<li> All labels being defined must have an instruction or directive following it.</li>
+		<li><b> Star notation </b>may be used </li>
+		
+		<ul>
+		<li> This essentially allows the user to use an asterisk [ * ] to reference the current address of the location counter.</li>
+		<li> Only one arithmetical operation is allowed to augment the actual address used in reference to the location counter.</li>
+		<li> The only arithmetical operations allowed for use are + and - .</li>
+		<li> Example: *+20 is an allowable expression.</li>
+		<li> Example: */20 is NOT an allowable expression.</li>
+		</ul>
+		
+		<li> The memory limit must be adhered to at all times, including star notation.</li>
+		<li> When developing mathematical expressions, numerical expressions can have at max three operands to be evaluated as values [e.g. in the expression 1+2-3, the numbers are the operands].</li>
+</ul>
+
+<h3>Output</h3>
+<p>After running a program, there are three output files which are available to the user:</p>
+
+<h4>Symbol Table</h4>
+<p>This table shows all of the labels that were created or used in the program, along with their location, type of symbol, and if it was equated to another value or label in the program.</p>
+
+<h4>User Report</h4>
+<p>The user report displays the errors that were detected by the assembler. All the source code will be printed out first, and that source will be followed by a list [by line] of errors found after the end of the program.</p>
+
+<h4>Object File for SP-3</h4>
+
+<p>This file contains all of the needed output for the linker to start its processing work. There are four types of records the linker will use:</p>
+
+<h4>Header Records (one for each program assembled)</h4>
+
+<table border="1">
+<tr>
+<th>H</th>
+<th>Module Name</th>
+<th>Program Length [hhhh]</th>
+<th>Assembler assigned program load address[hhhh]</th>
+<th>Date of Compilation [yyyy:ddd]</th>
+<th>Time of Compilation [hh:mm:ss]</th>
+<th>Number of linking records [hhhh]</th>
+<th>Number of text records [hhhh]</th>
+<th>Execution start address for this module[hhhh]</th>
+<th>SAL</th>
+<th>Version #</th>
+<th>Revision #</th>
+<th>Program Name</th>
+
+</tr>
+</table>
+
+<ul>
+		<li> Module Name: the name of the program assembled</li>
+		<li> Program Length: how long the program is in terms of lines used [hexadecimal]</li>
+		<li> Assembler assigned program load address: location in memory the linker places the module.</li>
+		<li> Date and Time of compilation: yyyy = year, ddd = day of the year [out of 365], [hh:mm:ss] == [hour:minutes:seconds]</li>
+		<li> Number of linking records: how many linking records are associated with this module</li>
+		<li> Number of text records: how many text records are associated with this module</li>
+		<li> Execution start address of this module: location in memory in which the program is to start executing instructions.</li>
+</ul>
+
+<h4>Linking Records</h4>
+
+<table border="1">
+<tr>
+<th>L</th>
+<th>Entry Name</th>
+<th>Entry address [input == HEX]</th>
+<th>Type of entry</th>
+<th>Program Name</th>
+
+</tr>
+</table>
+
+<ul>
+		<li> Entry Name: the name of the symbol</li>
+		<li> Entry Address: location in memory to which the symbol is assigned.</li>
+		<li> Type of Entry: Label, external, .data identifier, etc.</li>
+</ul>
+
+<h4>Text Records</h4>
+
+<table border="1">
+<tr>
+<th>T</th>
+<th>Address [hhhh]</th>
+<th>Debug Code</th>
+<th>data Word [hhhhhhhh]</th>
+<th>N of adjustments required [for a value N between 0 and 4 inclusive]</th>
+<th>Type and Action of adjustment [R, E, or A]</th>
+<th>Label reference if needed [not used with Type A]</th>
+<th>*Up to 3 repetitions of The type, Action and Label reference*</th>
+<th>Execution start address for this module[hhhh]</th> 
+<th>Program Name</th>
+
+</tr>
+</table>
+
+<ul>
+		<li> Address: location in memory in which the text record is located</li>
+		<li> Debug Code: if debug command was used, value is placed here</li>
+		<li> Data Word: hexadecimal encoding for the text entry.</li>
+		<li> N of adjustments required: if an expression was used, how many adjustments needed to get intended value.</li>
+		<li> Type and Action of adjustment: tells the linker what method of value-adjusting to use</li>
+		<li> Label reference if needed: name of the label defining the value to be used</li>
+		<li><i>*if there are any other adjustments needed, they will follow the first, if there is a first adjustment.*</i></li>
+		<li> Execution start address of this module: location in memory in which the line of code is to be executed.</li>
+</ul>
+
+<h4>End Record (only one for each assembly)</h4>
+
+<table border="1">
+<tr>
+<th>E</th>
+<th>Total number of records [hhhh]</th>
+<th>Program name</th>
+</tr>
+</table>
+
+<p> Total number of records = = the total number of Text records and Linking records in the assembly</p> 
+<!-- If needed this will be put back in -->
+<!--
+<h4>Intermediate File for SP-2</h4>
+<p>The intermediate file that will be used by SP-2 is one that will contain three pieces of information regarding each of the lines in the program:</p>
+<ul>
+<li>Line number,</li>
+<li>The value of the location counter at that line, and</li>
+<li>The binary encoding for that line of code.</li>
+</ul>
+
+-->
+<p><i>For visual examples of the output, refer to the next section.</i></p>
+
+
+
+<p><a href="#top">Back To The Top</a> </p>
+
+<a name="sample"><h2 style="text-align:center">Sample Program and Output from the Assembler</h2></a>
+
+
+<p> The purpose of this section is to show a typical template of a program, along with the correlating results.</p>
+
+<p>This example program will compute the following and output the result to the screen:   varD = 2 * varA + varB - varC</p>
+<p>The format of the program is column-oriented: </p>
+
+<li>All labels are to be in the first column</li> 
+<li>directives and instructions are to be in the second column</li>
+<li>Operands for the directives and instructions are to be in the third column</li> 
+
+<pre>
+.start,exampleOne,00
+	.data
+varA	Int.data	0
+varB	Int.data	0
+varC	Int.data	0
+varD	Int.data	0
+	.text
+	INN		$2,varA		| variables are given values, this line gives an error
+	LW		$2,varA		| according to user input
+	LW		$3,varB
+	LW		$R4,varC	|this line throws an error
+	MUL		$2,$2,$2	| reg2 = 2 * varA
+	ADD		$1,$2,$3	| reg1 = 2 * varA + varB
+	SUB		$R1,$R1,$R4	| reg1 = varD = 2 * varA + varB - varC
+	SW		$4,varC		| last line throws an error
+	OUTN		1,varC
+	HALT		0		| 4 errors are reported in the user report
+.end,example1
+</pre>
+
+
+<p> As the program runs, it begins to keep track of where symbols are located in memory.</p>
+<p>The following is an example symbol table that would be outputted as a result of running the preceding program:</p>
+
+<pre>
+			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+exampleOne	|	0			|	0		|	Program Name	|	00
+varA			|	0			|	1		|	int.data	|	0
+varB			|	1			|	1		|	int.data	|	0
+varC			|	2			|	1		|	int.data	|	0
+varD			|	3			|	1		|	int.data	|	0
+
+
+</pre>
+
+<p>The following is an example user report that would be outputted as a result of running the preceding program: </p>
+
+<pre>
+.start,exampleOne,00
+	.data
+varA	Int.data	0
+varB	Int.data	0
+varC	Int.data	0
+varD	Int.data	0
+	.text
+	INN		$2,varA		| variables are given values
+***Error 20 at line 8: Value must be a decimal integer***
+	LW		$2,varA		| according to user input
+	LW		$3,varB
+	LW		$R4,varC	|this line throws an error
+***Error 25 at line 11: Invalid register syntax. Correct format is "$X", where X is a number from [0-7]***
+	MUL		$2,$2,$2	| reg2 = 2 * varA
+	ADD		$1,$2,$3	| reg1 = 2 * varA + varB
+	SUB		$R1,$R1,$R4	| reg1 = varD = 2 * varA + varB - varC
+***Error 25 at line 14: Invalid register syntax. Correct format is "$X", where X is a number from [0-7]***
+	SW		$4,varC		| last line throws an error
+	OUTN		1,varC
+	HALT		0		| 2 errors are reported in the user report
+.end,example1
+***Error 4 at line 18: Program Names do not match up***
+
+
+</pre>
+<p>The following is an object file that would be outputted as a result of running the preceding program: </p>
+
+<pre>
+H	|	exampleOne	|	000e	|	00	|	2010:11:08	|	00:17:35	|	0001	|	e	|	00	|	SAL	|	Version # 2.03	|	Revision # 3	|	exampleOne
+T	|	0ffb	|	N	|	00000000	|	1	|	A	|	exampleOne
+T	|	0002	|	N	|	00000000	|	1	|	A	|	exampleOne
+T	|	0003	|	N	|	00000000	|	1	|	A	|	exampleOne
+T	|	0004	|	N	|	00000000	|	1	|	A	|	exampleOne
+T	|	0005	|	N	|	02000000	|	1	|	A	|	exampleOne
+T	|	0006	|	N	|	c03fffff	|	1	|	A	|	exampleOne
+T	|	0007	|	N	|	c05fffff	|	1	|	A	|	exampleOne
+T	|	0008	|	N	|	02000000	|	1	|	A	|	exampleOne
+T	|	0009	|	N	|	04490018	|	1	|	A	|	exampleOne
+T	|	000a	|	N	|	04298020	|	1	|	A	|	exampleOne
+T	|	000b	|	N	|	02000000	|	1	|	A	|	exampleOne
+T	|	000c	|	N	|	9c7fffff	|	1	|	A	|	exampleOne
+T	|	000d	|	N	|	fffff7f7	|	1	|	A	|	exampleOne
+T	|	000e	|	N	|	20000000	|	1	|	A	|	exampleOne
+L	|texampleOne	|	0	|	Program Name	|	exampleOne
+E	|	17	|	exampleOne
+</pre>
+<p><a href="#top">Back To The Top</a> </p>
+
+<a name="run"><h2 style="text-align:center">How to run the Assembler</h2>
+<p>this assembler is designed to be run on windows-based machines, preferable operating system being either Windows XP or Windows Vista; [unable to confirm full functionality on Windows 7 or non-windows systems.]</p>
+<p>To execute the assembler itself:</p>
+<ol>
+
+<li>Navigate to the directory where the Lab2.jar file is located.</li>
+<li>Extract the tablesAndPrep.rar file's contents into the same directory that Lab2.jar is located in.</li>
+<li> Place the source code you wish to assemble using Lab2.jar into the newly extracted "input" folder.</li>
+
+<li>From the command line/command prompt, navigate to the directory where our .jar is located.</li>
+<p>Here is an example, where our .jar file is located in z:/eclipse/workspace/ .</p>
+<p><img src="runBStep1.jpg" width="1000" height="800" /></p>
+
+<li>Enter the following command from the terminal/command prompt where [jarname] is the name of the .jar file to be run, and [sourcecode] is your source code name:</li>
+<pre>java -jar [jarname].jar [sourcecode]</pre>
+<p>Here is an example, where our .jar file is called FooJar.jar and our sourcecode is called Foo.txt .</p>
+ <p><img src="runBStep2.jpg" width="1000" height="800" /></p>
+ 
+  <li>In the console window, you will see a series of assembler-perogative lines being printed. Stand by until you see the following line in the console:</li>
+  <pre>>>>>>>>>>>>>>>>Ending assembling process.</pre>
+	 <p>When the above prompt is seen, the assembler is done and your output files are complete!</p>
+</ol>
+<p>The assembler can also be run from the IDE that runs the programming language Java, Eclipse. Currently the Galileo update (v.3.5) is the most recommended version to run the assembler on.</p>
+<ol> 
+<p>To run your program, the name of the file must be passed as an argument in the AssemblerMain class, in the format of a .txt file, done by following the proper steps:</p>
+<li>You will first have to unjar the .jar file and import the source code into eclipse, if you wish to run it that way. It is imported here as CSE560.</li>
+<li>Once Eclipse is opened and the main directory [here titled "CSE560"] is visible, make sure your program is saved as a .txt file and is saved under the "input" folder in the CS560 directory <i>[For purpose of this example, the desired program file will be called Foo.txt .]</i>.</li>
+<p><img src="runAStep1.jpg" width="1000" height="800" /></p>
+
+<li><i>You shouldn't need to, but you may want to create a new folder titled "output" [all lower-case] in the main directory to prevent runtime issues with the compiler.</i></li>
+  <li>At the main bar at the top of the screen, left-click "Run", then choose "Run Configurations".</li>
+  <p><img src="runAStep3.jpg" width="1000" height="800" /></p>
+
+  <li>In the selection menu in the window that appears, select "Java Application".In the text box under Project, make sure the text reads the same as the main directory; 
+  In the text box uner Main Class, make sure the text reads "AssemblerMain".</li>
+  <p><img src="runAStep2.jpg" width="1000" height="800" /></p>
+  
+  <li>Left-click the "Arguments" tab, then in the text box under Program Arguments, type the name of your program file, proper case, and with the .txt at the end.</li>
+   <p><img src="runAStep4.jpg" width="1000" height="800" /></p>
+  
+  <li>Choose the "Apply" button toward the bottom [if clickable], then choose the "Run" button underneath that button. </li>
+  <li>In the console window, you will see a series of assembler-perogative lines being printed. Stand by until you see the following line in the console:</li>
+  <pre>>>>>>>>>>>>>>>>Ending assembling process.</pre>
+  
+     <p><img src="runAStep5.jpg" width="1000" height="800" /></p>
+	 <p>When the above prompt is seen, the assembler is done and your output files are complete!</p>
+</ol>
+
+<p><a href="#top">Back To The Top</a> </p>
+<a name="error"><h2 style="text-align:center">Error Message List</h2>
+<p>
+<table border="2">
+<tr>
+<th>Error #</th>
+<th>Error Name</th>
+<th>Cause / Error Msg</th>
+<th>Corrective Action</th>
+</tr>
+
+<tr>
+<td>0</td>
+<td>duplicateStart</td>
+<td>"Duplicate start directive detected"</td>
+<td>Remove extra start directive</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>invalidStartingLocation</td>
+<td>"Staring location is not valid"</td>
+<td>Input correct starting location</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>largeStartingLocation</td>
+<td>"Starting location must be between 0 and 65535 decimal value"</td>
+<td>Input correct start location</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>rogueLine</td>
+<td>".data and/or .text and/or .start never defined"</td>
+<td>Define required directives</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>programNameIncorrect</td>
+<td>"Program Names do not match up"</td>
+<td>Ensure that .start and .end program namesare the same <i>[case sensitive!]</i></td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>dotDataExtra</td>
+<td>".data line should stand alone"</td>
+<td>Place .data directive on its own line</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>invalidDirective</td>
+<td>"directive syntax invalid"</td>
+<td>Correct directive syntax</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>dotTextExtra</td>
+<td>".text line should stand alone"</td>
+<td>Place .data directive on its own line</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>syntaxError</td>
+<td>"Syntax error"</td>
+<td>Correct syntax error</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>invalidLine</td>
+<td>"instruction syntax invalid"</td>
+<td>Correct instruction syntax</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>invalidInteger</td>
+<td>"Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)"</td>
+<td>Use a correct integer value</td>
+</tr>
+
+<tr>
+<td>11</td>
+<td>integerOutOfBounds</td>
+<td>"Integers must be between -65536 and 65535"</td>
+<td>Use a correct integer value</td>
+</tr>
+
+<tr>
+<td>12</td>
+<td>invalidString</td>
+<td>"String value is not valid (Must start and end with a ' character)"</td>
+<td>Verify syntax of String</td>
+</tr>
+
+<tr>
+<td>13</td>
+<td>singleQuoteError</td>
+<td>"String cannot contain a ' character in its content"</td>
+<td>Correct syntax of String</td>
+</tr>
+
+<tr>
+<td>14</td>
+<td>invalidHexSyntax</td>
+<td>"Hex value is not valid (Must start and end with a ' character)"</td>
+<td>Verify syntax of hex input</td>
+</tr>
+
+<tr>
+<td>15</td>
+<td>nestedExpression</td>
+<td>"Too many nested expressions"</td>
+<td>Remove nested expresstions or evaluate expressions individually</td>
+</tr>
+
+<tr>
+<td>16</td>
+<td>noNestedTerimination</td>
+<td>"The nested expression was never terminated"</td>
+<td>Add end value to complete expression</td>
+</tr>
+
+<tr>
+<td>17</td>
+<td>noNestedStart</td>
+<td>"Nested expression terminates without being initialized"</td>
+<td>Input initial value for expression</td>
+</tr>
+
+<tr>
+<td>18</td>
+<td>extraOperands</td>
+<td>"Too many operands"</td>
+<td>Eliminate unneeded operands</td>
+</tr>
+
+<tr>
+<td>19</td>
+<td>doubleOperation</td>
+<td>"Invalid junction of operations"</td>
+<td>Correct the operation syntax</td>
+</tr>
+<tr>
+<td>20</td>
+<td>nonIntegerValue</td>
+<td>"Value must be a decimal integer"</td>
+<td>Verify and correct integer syntax</td>
+</tr>
+<tr>
+<td>21</td>
+<td>stringTooLong</td>
+<td>"String is too long"</td>
+<td>shorten string to acceptable length</td>
+</tr>
+<tr>
+<td>22</td>
+<td>lowerLocationCounter</td>
+<td>"New Location Counter must be greater than previous value"</td>
+<td>Verify location counter offset</td>
+</tr>
+<tr>
+<td>23</td>
+<td>falseDebug</td>
+<td>"Value must be 0, or 1 only"</td>
+<td>Use correct values</td>
+</tr>
+<tr>
+<td>24</td>
+<td>invalidParameterCount</td>
+<td>"Invalid number of parameters"</td>
+<td>Verify and correct number of parameters</td>
+</tr>
+<tr>
+<td>25</td>
+<td>invalidRegisterSyntax</td>
+<td>"Invalid register syntax. Correct format is "$X", where X is a number from [0-7]</td>
+<td>Verify and correct register syntax</td>
+</tr>
+<tr>
+<td>26</td>
+<td>divideByZero</td>
+<td>"Divide by zero error"</td>
+<td>Use different value for divisor</td>
+</tr>
+<tr>
+<td>27</td>
+<td>invalidAmount</td>
+<td>"Invalid amount. Must be a 0 or 1"</td>
+<td>Use correct and acceptable values</td>
+</tr>
+<tr>
+<td>28</td>
+<td>invalidAddress</td>
+<td>"Address is not valid"</td>
+<td>Verify and use correct address</td>
+</tr>
+<tr>
+<td>29</td>
+<td>addressOutOfBounds</td>
+<td>"Address must be between 0 and 65535 decimal value"</td>
+<td>Verify and use correct address value</td>
+</tr>
+<tr>
+<td>30</td>
+<td>invalidAddressLabel</td>
+<td>"Address or label is invalid"</td>
+<td>Verify and correct address or label syntax [<i>labels are case-sensitive!</i>]</td>
+</tr>
+<tr>
+<td>31</td>
+<td>invalidHalt</td>
+<td>"Halt number must range from 0 to 255 inclusive"</td>
+<td>Verify and correct register syntax</td>
+</tr>
+<tr>
+<td>32</td>
+<td>invalidAddressing</td>
+<td>"Invalid addressing syntax"</td>
+<td>Verify and correct addressing syntax</td>
+</tr>
+<tr>
+<td>33</td>
+<td>invalidQuantity</td>
+<td>"Quantity must be between 0 and 31 for IO formats"</td>
+<td>Use correct and acceptable quantity</td>
+</tr>
+
+<tr>
+<td>34</td>
+<td>hexOutOfBounds</td>
+<td>"Hex quantity is out of bounds [80000000,7FFFFFFF]"</td>
+<td>Use correct and acceptable hex quantity</td>
+</tr>
+
+<tr>
+<td>35</td>
+<td>invalidLabel</td>
+<td>"Label has not been added to the symbol table"</td>
+<td>Define label in .data section of program to ensure it will be aded to symbol table</td>
+</tr>
+
+<tr>
+<td>36</td>
+<td>expressionEndFault</td>
+<td>"Expressions may not end with operands"</td>
+<td>Modify expression to end with valid input</td>
+</tr>
+
+
+</table>
+</p>
+
+<p><a href="#top">Back To The Top</a> </p>
+<a name="limit"><h2 style="text-align:center">List of Software Limitations</h2>
+<p>Our implementation of the SAL560 assembler has evolved quite a bit since the one-pass machine we've put together. 
+With a one-pass system we were restricted to checking for mostly syntax and formatting errors among others. The first
+pass was also built to keep track of the location counter throughout the program, generating a basic symbol table with which
+the assembler kept track of labels and other related literals, and built an intermediate file that we would eventually 
+use for the second pass. At this first pass we also were able to process some of the directives in the program as well.</p>
+
+<p>Once we implemented the second pass, the assembler gained the ability to generate actual instructions and reports of errors
+and other such outputs from the program to the user. There also is a file that is generated for the next pass that we implement, 
+which as we mentioned above is the Object File. </p>
+
+<p>As we add passes to the assembler and increase its versatility, one ultimate truth is that in order for this machine to 
+be more functional than is currently is, performance speed must be sacrificed in the process. Also, developing this assembler
+in modules and multiple scans through the software is more efficient than attempting to design a program that does everything in
+ one fell swoop. It's better for structural programming. </p>
+
+<p>One definite thing that is a limitation is the amount of information that is storable in the symbol table. Bigger assemblers are
+capable of storing more information that is passable to other parts of the overall machine [e.g. data type, length (words/bits), where 
+in te coe it is used, etc.] 
+Other limiters include code optimization and error detection; as good as error detecting can be in a two-pass assembler, more passes
+means more and better chances to detect errors as the code is transferred and evolves into a form that is more efficient to process.
+The ability of a machine to make the code better to process and make it faster is vastly limited by the number of passes available.
+One good thing about the assembler not being as big is that the asembler runs faster as it is not doing as much as it would for the 
+bigger assemblers.</p>
+ 
+ 
+ 
+ 
+ <p>   </p>
+<p><a href="#top">Back To The Top</a></p>
+</body>
+</html>

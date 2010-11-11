@@ -1,0 +1,7 @@
+.start,Altest_15,0   | should produce just an H and E object file record
+.text
+Oak   reset.lc 100
+Elm   reset.lc 1000
+              exec.start  1001
+Maple reset.lc 2047
+.end,Altest_15  

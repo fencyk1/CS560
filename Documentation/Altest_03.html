@@ -1,0 +1,162 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Altest_03"><h1 style="text-align:center">Altest 03</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3>
+<a href="#object"><h3>Object File</h3> 
+ 
+ 
+<a name="explanation"><h2>Explanation</h2></a> 
+ 
+<pre>Tests a correct program to see if the object file, intermediate file, and symbol table are correctly outputted, as well as the User Report (should show no errors).
+
+This test is designed to test for a general program, that is to say what is expected from a grading session test, and a wide variety of instructions (R/J/S type etc.)
+
+This program should produce the symbols:
+YY, ZZ, XX, Err, ERROR, altest03, exec.start
+
+This program uses the directives:
+.start, .data, int.data, str.data, .text, ent, exec.start, .end
+
+This program uses the commands:
+inn, lw, jeq, lw, mul, muli, div, sw, outn, halt, outc
+
+As expected, this program produced no errors.
+</pre> 
+	
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,altest03,A 
+.data               
+YY     int.data     0
+ZZ     int.data     0
+XX     int.data     0
+Err     str.data    'ZZ=' 
+.text               
+     ENT     XX         | Another program may come looking for the result
+     exec.start * 
+     inn     2,YY       |read in 2 numbers into locations YY and ZZ
+     LW      $3,YY     
+     JEQ     $3,$0,ERROR 
+     LW      $2,ZZ     
+     mul     $4,$3,$2    | place intermediate result in reg 4
+     muli    $5,$4,20    | place intermediate result in reg 5
+     Div     $5,$5,$3    | Final result is in reg 5
+     sw      $5,XX 
+     outn    1,XX        | output 1 word at location XX
+     HALT    0 
+ERROR outc   1,Err 
+     HALT    250        | Halt and display error code 250
+.end,altest03
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The results were as expected. There were no errors and the output was correct.
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,altest03,A 
+.data               
+YY     int.data     0
+ZZ     int.data     0
+XX     int.data     0
+Err     str.data    'ZZ=' 
+.text               
+     ENT     XX         | Another program may come looking for the result
+     exec.start * 
+     inn     2,YY       |read in 2 numbers into locations YY and ZZ
+     LW      $3,YY     
+     JEQ     $3,$0,ERROR 
+     LW      $2,ZZ     
+     mul     $4,$3,$2    | place intermediate result in reg 4
+     muli    $5,$4,20    | place intermediate result in reg 5
+     Div     $5,$5,$3    | Final result is in reg 5
+     sw      $5,XX 
+     outn    1,XX        | output 1 word at location XX
+     HALT    0 
+ERROR outc   1,Err 
+     HALT    250        | Halt and display error code 250
+.end,altest03
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+altest03	|	a			|	0		|	Program Name	|	A
+Err			|	d			|	1		|	str.data	|	'ZZ='
+ERROR	|	19			|	1		|	label	|	N/A
+exec.start	|	e			|	1		|	exec.start	|	e
+XX			|	c			|	1		|	int.data	|	0
+YY			|	a			|	1		|	int.data	|	0
+ZZ			|	b			|	1		|	int.data	|	0
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+01011010010110100011110100100000
+0010100000000010[YY]
+1100000001100000[YY]
+1000000001100000[ERROR]
+1100000001000000[ZZ]
+00000100100011010000000000011000
+00000100101100000000000000011001
+00000100101101011000000000011010
+1001110010100000[XX]
+0011000000000001[XX]
+00100000000000000000000000000000
+0011010000000001[Err]
+00100000000000000000000011111010 
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	altest03	|	0010	|	e	|	2010:11:06	|	16:18:29	|	0001	|	10	|	e	|	SAL	|	Version # 2.03	|	Revision # 3	|	altest03
+T	|	0ffb	|	N	|	00000000	|	1	|	A	|	altest03
+T	|	000c	|	N	|	00000000	|	1	|	A	|	altest03
+T	|	000d	|	N	|	00000000	|	1	|	A	|	altest03
+T	|	000e	|	N	|	5a5a3d20	|	1	|	A	|	altest03
+T	|	000f	|	N	|	28020000	|	1	|	A	|	altest03
+T	|	0010	|	N	|	c05fffff	|	1	|	A	|	altest03
+T	|	0011	|	N	|	80600018	|	1	|	R	|	+	|	e	|	altest03
+T	|	0012	|	N	|	c03fffff	|	1	|	A	|	altest03
+T	|	0013	|	N	|	048d0018	|	1	|	A	|	altest03
+T	|	0014	|	N	|	04b00019	|	1	|	A	|	altest03
+T	|	0015	|	N	|	04b5801a	|	1	|	A	|	altest03
+T	|	0016	|	N	|	9c9fffff	|	1	|	A	|	altest03
+T	|	0017	|	N	|	30010000	|	1	|	A	|	altest03
+T	|	0018	|	N	|	20000000	|	1	|	A	|	altest03
+T	|	0019	|	N	|	5a5a3d23	|	1	|	A	|	altest03
+T	|	001a	|	N	|	200000fa	|	1	|	A	|	altest03
+L	|taltest03	|	a	|	Program Name	|	altest03
+E	|	19	|	altest03
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

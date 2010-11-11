@@ -1,0 +1,190 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="ErrorTier2"><h1 style="text-align:center">ErrorTier2</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This test was designed to throw specific errors as noted in the comments.
+
+This program has the symbols:
+errorTier2, ff, gg, hh, raichu, next, mess, stilrong, charzard, exec.start, Suicune
+
+This program uses the directives:
+.start, int.data, str.data, equ.exp, adr.exp, equ, .text, exec.start, reset.lc, .end
+
+This program uses the commands:
+lw, lpw, la, lwi, addiu, aubiu, muls, diviu, xori, nori, sw, halt
+
+The errors being tested for are 2, 6, 8, 9, 11, 13, 15, 16, 17, 21, 22, and 28.
+
+ </pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,errorTier2,74085		|should throw error code 2
+	.data
+ff	integer.data	20		|intended error code is 6
+gg	int.data	40
+hh	str.data	'riteous	|intended error code is 8
+raichu	str.data	'isn't right'	|should throw error code 13
+next	equ.exp		1+2-3+4-5+6		|should throw error code 15
+mess	adr.exp		1+2-3+4-5+		|should throw error code 16
+stilrong	equ		+20-40+8		|should throw error code 17
+charzard	str.data	'thisIsAVeryLongString'		|should throw error code 21
+	.text
+	exec.start	label
+	lw $3, ff
+	lpw $4, gg				| should throw error code 9
+	la $5, char
+	lwi $6, ii($4)
+	addiu $2, $3, 80000		| should throw error code 11
+	subiu $2, $3, 40 
+	muls $1, $3, 80765		| intended error code is 28
+	diviu $6, $1, 14
+	xori $7, $6, 30
+	nori $6, $7, 14
+	sw $2, bulba
+Suicune 	RESET.lc 	1	|should throw error code 22
+	HALT 0
+.end,errorTier2	
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The inconsistent errors are:
+line 1- threw error 1 instead of 2
+line 5- threw error 12 instead of 8
+line 6- threw error 12 instead of 13
+line 7- threw error 6 instead of 15
+line 8- threw error 19 instead of 16
+line 9- threw error 6 instead of 17
+line 16- threw an error not predicted
+line 19- error not thrown although predicted
+line 24- error not thrown although predicted
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,errorTier2,74085		|should throw error code 2
+***Error 1 at line 1: Staring location is not valid***
+	.data
+ff	integer.data	20		|intended error code is 6
+***Error 6 at line 3: directive syntax invalid***
+gg	int.data	40
+hh	str.data	'riteous	|intended error code is 8
+***Error 12 at line 5: String value is not valid (Must start and end with a ' character)***
+raichu	str.data	'isn't right'	|should throw error code 13
+***Error 12 at line 6: String value is not valid (Must start and end with a ' character)***
+next	equ.exp		1+2-3+4-5+6		|should throw error code 15
+***Error 6 at line 7: directive syntax invalid***
+mess	adr.exp		1+2-3+4-5+		|should throw error code 16
+***Error 19 at line 8: Too many labels***
+stilrong	equ		+20-40+8		|should throw error code 17
+***Error 6 at line 9: directive syntax invalid***
+charzard	str.data	'thisIsAVeryLongString'		|should throw error code 21
+	.text
+	exec.start	label
+	lw $3, ff
+	lpw $4, gg				| should throw error code 9
+***Error 9 at line 14: instruction syntax invalid***
+	la $5, char
+	lwi $6, ii($4)
+***Error 10 at line 16: Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)***
+	addiu $2, $3, 80000		| should throw error code 11
+***Error 11 at line 17: Integers must be between -65536 and 65535***
+	subiu $2, $3, 40 
+	muls $1, $3, 80765		| intended error code is 28
+	diviu $6, $1, 14
+	xori $7, $6, 30
+	nori $6, $7, 14
+	sw $2, bulba
+Suicune 	RESET.lc 	1	|should throw error code 22
+***Error 22 at line 24: New Location Counter must be greater than previous value***
+	HALT 0
+.end,errorTier2	
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+charzard	|	7			|	6		|	str.data	|	'thisIsAVeryLongString'
+errorTier2	|	0			|	0		|	Program Name	|	N/A
+exec.start	|	8			|	1		|	exec.start	|	label
+gg			|	1			|	1		|	int.data	|	40
+hh			|	2			|	2		|	str.data	|	'riteous
+mess			|	5			|	1		|	adr.exp	|	1+2-3+4-5+
+raichu	|	3			|	1		|	str.data	|	'isn't
+Suicune	|	5			|	1		|	label	|	N/A
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000000000000000000000000101000
+00000010000000000000000000000000
+00000010000000000000000000000000
+00000010000000000000000000000000
+011101000110100001101001011100110100100101110011010000010101011001100101011100100111100101001100011011110110111001100111010100110111010001110010011010010110111001100111
+1100000001100000[ff]
+1110000010100000[char]
+00000010000000000000000000000000
+00000010000000000000000000000000
+01001100010011000000000000101000
+011100000010110010011101101111101
+01011100110001000000000000001110
+11010100111110000000000000011110
+11011000110111000000000000001110
+1001110001000000[bulba]
+00000010000000000000000000000000
+00100000000000000000000000000000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	errorTier2	|	0011	|	label	|	2010:11:08	|	03:22:28	|	0000	|	11	|	label	|	SAL	|	Version # 2.03	|	Revision # 3	|	errorTier2
+T	|	0ffb	|	N	|	00000028	|	1	|	A	|	errorTier2
+T	|	0ffc	|	N	|	02000000	|	1	|	A	|	errorTier2
+T	|	0ffd	|	N	|	02000000	|	1	|	A	|	errorTier2
+T	|	0ffe	|	N	|	02000000	|	1	|	A	|	errorTier2
+T	|	0fff	|	N	|	72696e21	|	1	|	A	|	errorTier2
+T	|	1000	|	N	|	c05fffff	|	1	|	type	|		|	errorTier2
+T	|	1001	|	N	|	e09fffff	|	1	|	type	|		|	errorTier2
+T	|	1002	|	N	|	02000000	|	1	|	A	|	errorTier2
+T	|	1003	|	N	|	02000000	|	1	|	A	|	errorTier2
+T	|	1004	|	N	|	4c4c0028	|	1	|	A	|	errorTier2
+T	|	1005	|	N	|	e0593b7c	|	1	|	A	|	errorTier2
+T	|	1006	|	N	|	5cc4000e	|	1	|	A	|	errorTier2
+T	|	1007	|	N	|	d4f8001d	|	1	|	A	|	errorTier2
+T	|	1008	|	N	|	d8dc000d	|	1	|	A	|	errorTier2
+T	|	1009	|	N	|	9c3fffff	|	1	|	type	|		|	errorTier2
+T	|	100a	|	N	|	02000000	|	1	|	A	|	errorTier2
+T	|	100b	|	N	|	20000000	|	1	|	A	|	errorTier2
+E	|	19	|	errorTier2
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

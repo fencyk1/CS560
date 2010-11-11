@@ -1,0 +1,104 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Derptest"><h1 style="text-align:center">Jeff's Test</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This test was designed by Jeff to test basic parsing.
+
+This program has the symbols:
+jeff, X
+
+This program has the directives:
+.start, .data, int.data, .text, .end
+
+This program has the commands:
+sw, halt
+
+The halt command should have an error for an invalid integer.
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,jeff,0
+.data
+	int.data	10
+X	int.data	4
+.text
+	sw	$5,10
+	Halt	-1
+.end,jeff
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>This program was assembled correctly.
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,jeff,0
+.data
+	int.data	10
+X	int.data	4
+.text
+	sw	$5,10
+	Halt	-1
+***Error 31 at line 7: Halt number must range from 0 to 255 inclusive***
+.end,jeff
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+jeff			|	0			|	0		|	Program Name	|	0
+X			|	1			|	1		|	int.data	|	4
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000000000000000000000000001010
+00000000000000000000000000000100
+10011100101000001010
+00000010000000000000000000000000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	jeff	|	0004	|	0	|	2010:11:07	|	21:28:23	|	0001	|	4	|	0	|	SAL	|	Version # 2.03	|	Revision # 3	|	jeff
+T	|	0ffb	|	N	|	0000000a	|	1	|	A	|	jeff
+T	|	0002	|	N	|	00000004	|	1	|	A	|	jeff
+T	|	0003	|	N	|	0009ca0a	|	1	|	A	|	jeff
+T	|	0004	|	N	|	02000000	|	1	|	A	|	jeff
+L	|tjeff	|	0	|	Program Name	|	jeff
+E	|	7	|	jeff
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>
+

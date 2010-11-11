@@ -1,0 +1,10 @@
+.Start,Altest_03,0		|Start Location Counter at zero
+	 Lw  $7,DEC1	|Load Number
+	 ADDs $7,DEC2	|Add second number
+	 Sw	$7,SUM	|Store SUM
+	 Sw	$7,SUM+1	|Should be an error
+OUT	 NOP		
+HALT	 HALT	0	      |Stop execution
+SUM	 int.data	1000	
+	 int.data	1001	
+.end,Altest_03		|end of Altest03
