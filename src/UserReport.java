@@ -48,6 +48,7 @@ public class UserReport implements UserReportInterface {
 				thirdToken = sourceLine.nextToken();
 			}
 			
+			//TODO remove this check to deal add this to the userReport
 			//cant be a .data or .text
 			if ( !((firstToken.equalsIgnoreCase(".start") ||
 					firstToken.equalsIgnoreCase(".data") || 
@@ -302,6 +303,9 @@ public class UserReport implements UserReportInterface {
 					String firstToken = sourceCommaLine.nextToken();
 					String secondToken = "";
 					
+					
+					//TODO this no longer matters as instructions and directives that do not effect memory need to be in the user report
+					//also need to consider the flag as it may no longer be needed or at least change what happens when things get flagged.
 					//cant be a .data or .text
 					if ( !(firstToken.equalsIgnoreCase(".data") || 
 							firstToken.equalsIgnoreCase(".text") ||
