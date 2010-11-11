@@ -17,7 +17,7 @@ public class UserReport implements UserReportInterface {
 	 * The method doesnt return a value. Instead it stores the ArrayList<String>  as a member variable.
 	 */
 	@Override
-	public void createUserReport (InSourceCode sourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, InstructTable instructionsTable, DirectiveTable directivesTable)
+	public void createUserReport (InSourceCode sourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, InstructTable instructionsTable, DirectiveTable directivesTable) throws IOException
 	{
 		System.out.println(">>>>>>>>>>>>> 		Creating the user report file.");
 		//data structure =  array[5] (size 5, not an array list)
@@ -233,6 +233,35 @@ public class UserReport implements UserReportInterface {
 			}
 
 		}
+		
+		
+//////////////////////////////////////////////////////////////////////////////////////////////		
+		//output all the errors to for our own use
+		System.out.println(">>>>>>>>>>>>> 		Making error report");
+		PrintWriter out = new PrintWriter (new BufferedWriter(new FileWriter("output/errorReport.txt")));
+
+		int errorLine = 0;
+		while ( errorLine < 100)
+		{
+			if (foundErrorsTable.errorAtLine(errorLine) == true)
+			{
+	
+				//error object to hold error message
+				ErrorData errorEntry = new ErrorData();
+					
+				//the error entry at the line
+				errorEntry = foundErrorsTable.search(errorLine);
+	
+				//make new array to add to arrayList, this array has the errors
+				out.println("error:" + foundErrorsTable.output(errorEntry));
+					
+			}
+			errorLine++;
+		}
+		out.close();
+//////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
 		
 	}	
 

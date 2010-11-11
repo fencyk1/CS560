@@ -20,8 +20,9 @@ public interface UserReportInterface
 	 * This method creates an ArrayList of strings. Each index is associated with a line of output. That output will eventually be to a file in the second pass. It creates
 	 * this Array by merging the source code with the errors found in the source code. This maintains the source code in full but just adds the associated errors.
 	 * The method doesnt return a value. Instead it stores the ArrayList<String>  as a member variable.
+	 * @throws IOException 
 	 */
-	void createUserReport (InSourceCode SourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, InstructTable instructionsTable, DirectiveTable directivesTable);
+	void createUserReport (InSourceCode SourceCodeArray, ErrorOut foundErrorsTable, ObjectFile objectFile, InstructTable instructionsTable, DirectiveTable directivesTable) throws IOException;
 	
 	/**
 	 * 

@@ -85,7 +85,7 @@ public class AssemblerMain {
 		intermediateFile.outputIntermediateFile(new File ("intermediateFile.txt"));
 		
 		//Make our object file, has to get the debug flag, etc.
-		File objectFileName = new File ("output/objectFileName.txt");
+		File objectFileName = new File ("output/objectFile.txt");
 		ObjectFile objectFile = new ObjectFile();
 		objectFile.outputObjectFile(objectFileName, symbolsFound, intermediateFile, errorsFound, sourceCode);
 		
@@ -97,7 +97,7 @@ public class AssemblerMain {
 		//Sort the Symbol Table by label, and output it to a text file.
 		symbolsFound.sort();
 		symbolsFound.outputTable(new File ("symbolTable.txt"));		
-		
+	
 		
 		System.out.println(">>>>>>>>>>>>>>>Ending assembling process.");
 	}
