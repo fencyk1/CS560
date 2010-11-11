@@ -415,11 +415,25 @@ public class ObjectFile implements ObjectFileInterface {
 					//Then adding or subtracting that integer with the current value of the expression.
 					while (counter < expressionList.size())
 					{
+						
+						boolean integer = true;
+						
+						int tempInt = 0;
+						
+						try
+						{
+							tempInt = Integer.parseInt(expressionList.get(counter));
+						}
+						catch (NumberFormatException e)
+						{
+							integer = false;
+						}
+						
 						//Convert the label into an integer
 						if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("int.data"))
 						{
 							//Put the decimal value in a string
-							tempValue = symbolTable.GetLocation(expressionList.get(counter));
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
 						}
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("label"))
 						{
@@ -440,7 +454,7 @@ public class ObjectFile implements ObjectFileInterface {
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("bin.data"))
 						{
 							//Convert the binary into decimal.
-							tempValue = converter.binaryToDecimal(symbolTable.GetLocation(expressionList.get(counter)));
+							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
 
 						}
 						else if(symbolTable.GetUsage(expressionList.get(counter)).equalsIgnoreCase("EXT"))
@@ -461,7 +475,12 @@ public class ObjectFile implements ObjectFileInterface {
 						{
 							tempValue = converter.binaryToDecimal(converter.hexToBinary(symbolTable.GetLocation(expressionList.get(counter))));
 						}
-												
+						else if (integer)
+						{
+							tempValue = Integer.toString(tempInt);
+						}
+						
+						
 						
 						//If the expression is added
 						if (positive)
@@ -509,7 +528,7 @@ public class ObjectFile implements ObjectFileInterface {
 					//Create an expressionCounter
 					int expressionCounter = 0;
 					
-					//Create a string to temporarily hold the relocationtype for the adjustments
+					//Create a string to temporarily hold the relocation type for the adjustments
 					String tempRelocationType = new String();
 					
 					//For each adjustment, add another type/action/label reference column
@@ -582,10 +601,10 @@ public class ObjectFile implements ObjectFileInterface {
 					}
 					//Otherwise, check if it's an int.data
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("int.data"))
-					{	
+					{							
 						labelValue = symbolTable.GetLocation(label);
 						//If it is, convert the decimal integer to binary
-						labelValue = converter.decimalToBinary(labelValue);
+						labelValue = converter.hexToBinary(labelValue);
 						//Set the type as Relative
 						typeAndAction = "R|+";
 						//Set the label reference
@@ -622,9 +641,9 @@ public class ObjectFile implements ObjectFileInterface {
 					//Otherwise, check if it's a bin.data
 					else if (symbolTable.GetUsage(label).equalsIgnoreCase("bin.data"))
 					{
-						//If it is, it's fine as it is it's already in binary.
 						labelValue = symbolTable.GetLocation(label);
-						
+						//If it is, convert the hex into binary
+						labelValue = converter.hexToBinary(labelValue);
 						//Set the type as Relative
 						typeAndAction = "R|+";
 						//Set the label reference
@@ -717,6 +736,7 @@ public class ObjectFile implements ObjectFileInterface {
 					//Create the dataWord
 					dataWord = binary.substring(0, binary.indexOf('[')) + labelValue;
 					dataWord = converter.binaryToHex(dataWord);
+					
 					
 					//Extend the dataWord
 					while (dataWord.length() < 8)

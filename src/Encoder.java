@@ -181,7 +181,7 @@ public class Encoder implements EncoderInterface {
 		
 		String encoded = new String();
 		
-		while (i < skip)
+		while (i <= skip)
 		{
 			encoded = encoded + "00000000000000000000000000000000";
 			i++;
@@ -443,6 +443,8 @@ public class Encoder implements EncoderInterface {
 		
 		//TODO: addr code
 		
+		boolean hasLabel = false;
+		
 		Converter converter = new Converter();
 		
 		//Get the opCode
@@ -512,7 +514,7 @@ public class Encoder implements EncoderInterface {
 				//Get the shift amount
 				memoryRef = converter.decimalToBinary(line.get(3));
 				//Extend the shift amount
-				while(memoryRef.length() < 6)
+				while(memoryRef.length() < 16)
 				{
 					memoryRef = "0" + memoryRef;
 				}
@@ -520,6 +522,7 @@ public class Encoder implements EncoderInterface {
 			//Otherwise add brackets to the label, and put it in the encoded field.
 			else
 			{
+				hasLabel = true;
 				memoryRef = "[" +line.get(3) + "]";
 			}
 		}
@@ -542,7 +545,14 @@ public class Encoder implements EncoderInterface {
 				if (line.get(2).length() > 2)
 				{
 					//Get that relocation value
-					relocation = Integer.parseInt(line.get(2).substring(2, line.get(2).length()-1));
+					int firstSub = line.get(2).indexOf('+')+1;
+					if (firstSub == -1)
+					{
+						firstSub = line.get(2).indexOf('-')+1;
+					}
+					int secondSub = line.get(2).length();
+					
+					relocation = Integer.parseInt(line.get(2).substring(firstSub, secondSub));
 					//If it's negative, account for it
 					if (line.get(2).charAt(1) == '-')
 					{
@@ -601,6 +611,7 @@ public class Encoder implements EncoderInterface {
 					//Otherwise, put the label in that bitch.
 					else
 					{
+						hasLabel = true;
 						memoryRef = line.get(2).substring(0, line.get(2).indexOf('('));
 						memoryRef = "[" + memoryRef + "]";
 					}
@@ -639,6 +650,7 @@ public class Encoder implements EncoderInterface {
 				//Otherwise, put the label in that bitch.
 				else
 				{
+					hasLabel = true;
 					memoryRef = line.get(2);
 					memoryRef = "[" + memoryRef + "]";
 				}
@@ -716,6 +728,7 @@ public class Encoder implements EncoderInterface {
 					//Otherwise, put the label in that bitch.
 					else
 					{
+						hasLabel = true;
 						memoryRef = line.get(1).substring(0, line.get(1).indexOf('('));
 						memoryRef = "[" + memoryRef + "]";
 					}
@@ -745,21 +758,31 @@ public class Encoder implements EncoderInterface {
 					integer = false;
 				}
 				
+				
+				
 				//If it's an integer, store the int value in memoryRef
 				if (integer)
 				{
 					memoryRef = Integer.toString(address);
 					memoryRef = converter.decimalToBinary(memoryRef);
+					
 				}
 				//Otherwise, put the label in that bitch.
 				else
 				{
 					memoryRef = line.get(1);
 					memoryRef = "[" + memoryRef + "]";
+					hasLabel = true;
 				}
 			}
 		}
 
+		while (!hasLabel && memoryRef.length() < 16)
+		{
+			memoryRef = "0" + memoryRef;
+		}
+		
+		
 		String encode = opCode + addr + reg1 + reg2 + "00" + memoryRef;
 		
 		return encode;

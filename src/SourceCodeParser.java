@@ -97,7 +97,23 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			Converter dickables = new Converter();
 			
-			int munchables = Integer.parseInt(dickables.binaryToDecimal(dickables.hexToBinary(lcConverter)));
+			int munchables = 0;
+			
+			try
+			{
+				//munchables = Integer.parseInt(dickables.binaryToDecimal(dickables.hexToBinary(lcConverter)));
+				munchables = Integer.parseInt((lcConverter));
+			}
+			catch (NumberFormatException e)
+			{
+				//Create an error regarding invalid starting location.
+				ErrorData invalidStartingLocation = new ErrorData();
+				invalidStartingLocation.add(lineCounter, 1, "Staring location is not valid");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidStartingLocation);
+			}
+			
 			
 			//If the location in memory is too large, throw an error
 			if ((munchables > 65355) || (munchables < 0))
@@ -112,51 +128,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Otherwise check for hex syntax
 			else
 			{
-				//Create a new string for conversion purposes...again
-				String lcToHex = new String();
 				
-				//Check syntax for both potential digits
-				while (lcConverter.length() > i)
-				{
-					//Check for valid hex possibilities
-					if(!(lcConverter.substring(i, i + 1).equalsIgnoreCase("0")) 
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("1")) 
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("2"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("3"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("4"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("5"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("6"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("7"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("8"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("9"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("A"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("B"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("C"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("D"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("E"))
-							&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("F")))
-					{
-						//Create an error regarding invalid starting location.
-						ErrorData invalidStartingLocation = new ErrorData();
-						invalidStartingLocation.add(lineCounter, 1, "Staring location is not valid");
-						
-						//Add it to the ErrorOut table.
-						errorsFound.add(invalidStartingLocation);
-					}
-					else
-					{
-						//Concatenate the two digits together if they are syntactically correct
-						lcToHex = lcToHex + lcConverter.substring(i,i + 1);
-					}
-					//Increment the counter
-					i++;
-				}
-				Converter converter = new Converter();
-				
-				//Convert the location counter into binary, then convert that into decimal, then parse
-				//that into an integer and store it in the locationCounter.
-				locationCounter = Integer.parseInt(converter.binaryToDecimal(converter.hexToBinary(lcToHex)));
-				prgmName.setValue(lcToHex);
+				locationCounter = munchables;
+				prgmName.setValue(lcConverter);
 				
 				//This line has cooties.
 				startingLocation = locationCounter;
@@ -583,6 +557,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				
 				//Put it in the symbol table
 				symbolsFound.defineSymbol(equExp);
+				
 				//Remove the reset.lc label from the line
 				line.remove(0);
 				
@@ -3900,11 +3875,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errors = true;
 			}
 		}
-		//Check for * format
+		else if (line.get(3).contains("*") && line.get(3).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
 		else if (line.get(3).charAt(0) == '*')
 		{
-			if ((line.get(3).length() > 1) && !(line.get(3).length() == 2
-					&& (line.get(3).charAt(1) == '-' || line.get(3).charAt(1) == '+')))
+			//If there is only one thing after the *, there is an error.
+			if (line.get(3).length() == 2)
 			{
 				//Create an error regarding invalid number which is out of bounds.
 				ErrorData invalidAddressing = new ErrorData();
@@ -3914,6 +3898,94 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidAddressing);
 				errors = true;
 			}
+			//Check to see if it's just the star followed by the ($X)
+			else if ((line.get(3).length() > 1) && !(line.get(3).charAt(1) == '('))
+			{
+				//Check for valid operands after the *
+				if (!(line.get(3).charAt(1) == '+' || line.get(3).charAt(1) == '-'))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData invalidAddressing = new ErrorData();
+					invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressing);
+					errors = true;
+				}
+				else
+				{
+					int counter = 2;
+					String label = new String();
+					byte[] binary = new byte[1];
+					
+					int ascii = 0;
+					
+					while ((line.get(3).length() > counter) &&(line.get(3).charAt(counter) != '('))
+					{
+						//Move one character from the label into "label"
+						label = line.get(3).substring(counter, counter+1);
+						
+						//Use a try catch for syntactical correctness.
+						try 
+						{
+							//Convert the ascii string passed in, into
+							//an array of bytes containing their binary
+							//representation.
+							binary = label.getBytes("US-ASCII");
+						} 
+						//"US-ASCII" is a supported encoding, so this will never
+						//throw an error, but is required for syntax measures.
+						catch (UnsupportedEncodingException e) 
+						{
+							//Again, since this will never throw an error, this
+							//is here for syntax purposes, but the stack trace
+							//would just print out a trace of where the error
+							//occurred and halt the program.
+							e.printStackTrace();
+						}
+						
+						//Convert from a binary stream into an integer representation
+						ascii = binary[0];
+						
+						if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)
+								|| (ascii != 43) || (ascii != 45)))
+						{			
+							//Create an error regarding invalid address/label syntax.
+							ErrorData invalidAddressLabel = new ErrorData();
+							invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+							
+							//Add it to the ErrorOut table.
+							errorsFound.add(invalidAddressLabel);
+							errors = true;
+						}
+						
+						//Check if it's a plus or minus, that the next thing is not a plus or minus,
+						//and check to make sure the plus or minus isn't the last thing in the expression.
+						if ((ascii == 43 || ascii == 45) && ((line.get(3).length()-1 == counter) || (line.get(3).charAt(counter+1) == '(') ||
+								(line.get(3).charAt(counter+1) == '+' || line.get(3).charAt(counter+1) == '-')))
+						{
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
+						
+						counter++;
+					}
+				}
+			}
+			
+			//Replace the line with a *
+			if (!errors)
+			{
+				String starReplacement = locationCounter + line.get(3).substring(1, line.get(3).length());
+				
+				line.remove(3);
+				line.add(3, starReplacement);
+			}
+			
 		}
 		//Repeat alphanumeric stuff for label checking
 		else if (!(immediate))
@@ -4091,13 +4163,21 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			}
 			line.add("label or num");
 		}
-		//Check for * format
+		else if (line.get(2).contains("*") && line.get(2).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
 		else if (line.get(2).charAt(0) == '*')
 		{
-			if ((line.get(2).length() > 1) && (line.get(2).length() == 2
-					&& (line.get(2).charAt(1) == '-' || line.get(2).charAt(1) == '+')))
+			//If there is only one thing after the *, there is an error.
+			if (line.get(2).length() == 2)
 			{
-				//TODO make new error "+,- not allowed after *"
 				//Create an error regarding invalid number which is out of bounds.
 				ErrorData invalidAddressing = new ErrorData();
 				invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
@@ -4105,6 +4185,93 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				//Add it to the ErrorOut table.
 				errorsFound.add(invalidAddressing);
 				errors = true;
+			}
+			//Check to see if it's just the star followed by the ($X)
+			else if ((line.get(2).length() > 1) && !(line.get(2).charAt(1) == '('))
+			{
+				//Check for valid operands after the *
+				if (!(line.get(2).charAt(1) == '+' || line.get(2).charAt(1) == '-'))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData invalidAddressing = new ErrorData();
+					invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressing);
+					errors = true;
+				}
+				else
+				{
+					int counter = 2;
+					String label = new String();
+					byte[] binary = new byte[1];
+					
+					int ascii = 0;
+					
+					while ((line.get(2).length() > counter) &&(line.get(2).charAt(counter) != '('))
+					{
+						//Move one character from the label into "label"
+						label = line.get(2).substring(counter, counter+1);
+						
+						//Use a try catch for syntactical correctness.
+						try 
+						{
+							//Convert the ascii string passed in, into
+							//an array of bytes containing their binary
+							//representation.
+							binary = label.getBytes("US-ASCII");
+						} 
+						//"US-ASCII" is a supported encoding, so this will never
+						//throw an error, but is required for syntax measures.
+						catch (UnsupportedEncodingException e) 
+						{
+							//Again, since this will never throw an error, this
+							//is here for syntax purposes, but the stack trace
+							//would just print out a trace of where the error
+							//occurred and halt the program.
+							e.printStackTrace();
+						}
+						
+						//Convert from a binary stream into an integer representation
+						ascii = binary[0];
+						
+						if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)
+								|| (ascii != 43) || (ascii != 45)))
+						{			
+							//Create an error regarding invalid address/label syntax.
+							ErrorData invalidAddressLabel = new ErrorData();
+							invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+							
+							//Add it to the ErrorOut table.
+							errorsFound.add(invalidAddressLabel);
+							errors = true;
+						}
+						
+						//Check if it's a plus or minus, that the next thing is not a plus or minus,
+						//and check to make sure the plus or minus isn't the last thing in the expression.
+						if ((ascii == 43 || ascii == 45) && ((line.get(3).length()-1 == counter) || (line.get(2).charAt(counter+1) == '(') ||
+								(line.get(2).charAt(counter+1) == '+' || line.get(2).charAt(counter+1) == '-')))
+						{
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
+						
+						counter++;
+					}
+				}
+			}
+			
+			//Replace the line with a *
+			if (!errors)
+			{
+				String starReplacement = locationCounter + line.get(2).substring(1, line.get(2).length());
+				
+				line.remove(2);
+				line.add(2, starReplacement);
 			}
 			line.add("*");
 		}
@@ -4401,12 +4568,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errors = true;
 		}
 		//Check for * format
-		//TODO: fix up * addressing so that it works (with expressions?)
-		//TODO: replace the star with the location counter
+		else if (line.get(1).contains("*") && line.get(1).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
 		else if (line.get(1).charAt(0) == '*')
 		{
-			if ((line.get(1).length() > 1) && !(line.get(1).length() == 2
-					&& (line.get(1).charAt(1) == '-' || line.get(1).charAt(1) == '+')))
+			//If there is only one thing after the *, there is an error.
+			if (line.get(1).length() == 2)
 			{
 				//Create an error regarding invalid number which is out of bounds.
 				ErrorData invalidAddressing = new ErrorData();
@@ -4416,6 +4591,94 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidAddressing);
 				errors = true;
 			}
+			//Check to see if it's just the star followed by the ($X)
+			else if ((line.get(1).length() > 1) && !(line.get(1).charAt(1) == '('))
+			{
+				//Check for valid operands after the *
+				if (!(line.get(1).charAt(1) == '+' || line.get(1).charAt(1) == '-'))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData invalidAddressing = new ErrorData();
+					invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressing);
+					errors = true;
+				}
+				else
+				{
+					int counter = 2;
+					String label = new String();
+					byte[] binary = new byte[1];
+					
+					int ascii = 0;
+					
+					while ((line.get(1).length() > counter) &&(line.get(1).charAt(counter) != '('))
+					{
+						//Move one character from the label into "label"
+						label = line.get(1).substring(counter, counter+1);
+						
+						//Use a try catch for syntactical correctness.
+						try 
+						{
+							//Convert the ascii string passed in, into
+							//an array of bytes containing their binary
+							//representation.
+							binary = label.getBytes("US-ASCII");
+						} 
+						//"US-ASCII" is a supported encoding, so this will never
+						//throw an error, but is required for syntax measures.
+						catch (UnsupportedEncodingException e) 
+						{
+							//Again, since this will never throw an error, this
+							//is here for syntax purposes, but the stack trace
+							//would just print out a trace of where the error
+							//occurred and halt the program.
+							e.printStackTrace();
+						}
+						
+						//Convert from a binary stream into an integer representation
+						ascii = binary[0];
+						
+						if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)
+								|| (ascii != 43) || (ascii != 45)))
+						{			
+							//Create an error regarding invalid address/label syntax.
+							ErrorData invalidAddressLabel = new ErrorData();
+							invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+							
+							//Add it to the ErrorOut table.
+							errorsFound.add(invalidAddressLabel);
+							errors = true;
+						}
+						
+						//Check if it's a plus or minus, that the next thing is not a plus or minus,
+						//and check to make sure the plus or minus isn't the last thing in the expression.
+						if ((ascii == 43 || ascii == 45) && ((line.get(1).length()-1 == counter) || (line.get(1).charAt(counter+1) == '(') ||
+								(line.get(1).charAt(counter+1) == '+' || line.get(1).charAt(counter+1) == '-')))
+						{
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
+						
+						counter++;
+					}
+				}
+			}
+			
+			//Replace the line with a *
+			if (!errors)
+			{
+				String starReplacement = locationCounter + line.get(1).substring(1, line.get(1).length());
+				
+				line.remove(1);
+				line.add(1, starReplacement);
+			}
+			
 		}
 		//check for a parenthesis in the final index
 		else if (line.get(1).charAt(line.get(1).length()-1) == ')')
@@ -5143,11 +5406,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(invalidParameterCount);
 			errors = true;
 		}
-		//Check for * format
+		else if (line.get(2).contains("*") && line.get(2).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
 		else if (line.get(2).charAt(0) == '*')
 		{
-			if ((line.get(2).length() > 1) && !(line.get(2).length() == 2
-					&& (line.get(2).charAt(1) == '-' || line.get(2).charAt(1) == '+')))
+			//If there is only one thing after the *, there is an error.
+			if (line.get(2).length() == 2)
 			{
 				//Create an error regarding invalid number which is out of bounds.
 				ErrorData invalidAddressing = new ErrorData();
@@ -5157,8 +5429,96 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidAddressing);
 				errors = true;
 			}
-			//Add the type of operand onto the end of the array.
+			//Check to see if it's just the star followed by the ($X)
+			else if ((line.get(2).length() > 1) && !(line.get(2).charAt(1) == '('))
+			{
+				//Check for valid operands after the *
+				if (!(line.get(2).charAt(1) == '+' || line.get(2).charAt(1) == '-'))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData invalidAddressing = new ErrorData();
+					invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressing);
+					errors = true;
+				}
+				else
+				{
+					int counter = 2;
+					String label = new String();
+					byte[] binary = new byte[1];
+					
+					int ascii = 0;
+					
+					while ((line.get(2).length() > counter) &&(line.get(2).charAt(counter) != '('))
+					{
+						//Move one character from the label into "label"
+						label = line.get(2).substring(counter, counter+1);
+						
+						//Use a try catch for syntactical correctness.
+						try 
+						{
+							//Convert the ascii string passed in, into
+							//an array of bytes containing their binary
+							//representation.
+							binary = label.getBytes("US-ASCII");
+						} 
+						//"US-ASCII" is a supported encoding, so this will never
+						//throw an error, but is required for syntax measures.
+						catch (UnsupportedEncodingException e) 
+						{
+							//Again, since this will never throw an error, this
+							//is here for syntax purposes, but the stack trace
+							//would just print out a trace of where the error
+							//occurred and halt the program.
+							e.printStackTrace();
+						}
+						
+						//Convert from a binary stream into an integer representation
+						ascii = binary[0];
+						
+						if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)
+								|| (ascii != 43) || (ascii != 45)))
+						{			
+							//Create an error regarding invalid address/label syntax.
+							ErrorData invalidAddressLabel = new ErrorData();
+							invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+							
+							//Add it to the ErrorOut table.
+							errorsFound.add(invalidAddressLabel);
+							errors = true;
+						}
+						
+						//Check if it's a plus or minus, that the next thing is not a plus or minus,
+						//and check to make sure the plus or minus isn't the last thing in the expression.
+						if ((ascii == 43 || ascii == 45) && ((line.get(2).length()-1 == counter) || (line.get(2).charAt(counter+1) == '(') ||
+								(line.get(2).charAt(counter+1) == '+' || line.get(2).charAt(counter+1) == '-')))
+						{
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
+						
+						counter++;
+					}
+				}
+			}
+			
+			//Replace the line with a *
+			if (!errors)
+			{
+				String starReplacement = locationCounter + line.get(2).substring(1, line.get(2).length());
+				
+				line.remove(2);
+				line.add(2, starReplacement);
+			}
+			
 			line.add("*");
+			
 		}
 		else if (num < 0  || num > 31)
 		{
@@ -5436,6 +5796,9 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		//Create an errors flag for encoding purposes
 		boolean errors = false;
 		
+		//See if it's an immediate.
+		boolean imm = true;
+		
 		//Store the opName for encoding purposes
 		String opName = line.get(0);
 		
@@ -5458,57 +5821,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(invalidAddress);
 			errors = true;
 		}
-		//Otherwise check for hex syntax
-		else
+		
+		if (line.size() == 4)
 		{
-			//Create a new string for conversion purposes...again
-			String lcToHex = new String();
-			
-			//Check syntax for both potential digits
-			while (lcConverter.length() < i)
+			try
 			{
-				//Check for valid hex possibilities
-				if(!(lcConverter.substring(i, i + 1).equalsIgnoreCase("0")) 
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("1")) 
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("2"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("3"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("4"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("5"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("6"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("7"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("8"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("9"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("A"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("B"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("C"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("D"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("E"))
-						&& !(lcConverter.substring(i, i + 1).equalsIgnoreCase("F")))
-				{
-					//Create an error regarding invalid starting location.
-					ErrorData invalidStartingLocation = new ErrorData();
-					invalidStartingLocation.add(lineCounter, 1, "Staring location is not valid");
-					
-					//Add it to the ErrorOut table.
-					errorsFound.add(invalidStartingLocation);
-					errors = true;
-				}
-				else
-				{
-					//Concatenate the two digits together if they are syntactically correct
-					lcToHex = lcToHex + lcConverter.substring(i,i + 1);
-				}
-				//Increment the counter
-				i++;
+				Integer.parseInt(line.get(3));
 			}
-			Converter converter = new Converter();
-			
-			//Convert the location counter into binary, then convert that into decimal, then parse
-			//that into an integer and store it in the locationCounter.
-			locationCounter = Integer.parseInt(converter.binaryToDecimal(converter.hexToBinary(lcToHex)));
-			
-			//This line has cooties.
-			addr = locationCounter;
+			catch (NumberFormatException e)
+			{
+				imm = false;
+			}
 		}
 		
 		if (!(line.size() == 4))
@@ -5521,11 +5844,20 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(invalidParameterCount);
 			errors = true;
 		}
-		//Check for * format
+		else if (line.get(3).contains("*") && line.get(3).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
 		else if (line.get(3).charAt(0) == '*')
 		{
-			if ((line.get(3).length() > 1) && !(line.get(3).length() == 2
-					&& (line.get(3).charAt(1) == '-' || line.get(3).charAt(1) == '+')))
+			//If there is only one thing after the *, there is an error.
+			if (line.get(3).length() == 2)
 			{
 				//Create an error regarding invalid number which is out of bounds.
 				ErrorData invalidAddressing = new ErrorData();
@@ -5535,8 +5867,96 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				errorsFound.add(invalidAddressing);
 				errors = true;
 			}
+			//Check to see if it's just the star followed by the ($X)
+			else if ((line.get(3).length() > 1) && !(line.get(3).charAt(1) == '('))
+			{
+				//Check for valid operands after the *
+				if (!(line.get(3).charAt(1) == '+' || line.get(3).charAt(1) == '-'))
+				{
+					//Create an error regarding invalid number which is out of bounds.
+					ErrorData invalidAddressing = new ErrorData();
+					invalidAddressing.add(lineCounter, 32, "Invalid addressing syntax.");
+					
+					//Add it to the ErrorOut table.
+					errorsFound.add(invalidAddressing);
+					errors = true;
+				}
+				else
+				{
+					int counter = 2;
+					String label = new String();
+					byte[] binary = new byte[1];
+					
+					int ascii = 0;
+					
+					while ((line.get(3).length() > counter) &&(line.get(3).charAt(counter) != '('))
+					{
+						//Move one character from the label into "label"
+						label = line.get(3).substring(counter, counter+1);
+						
+						//Use a try catch for syntactical correctness.
+						try 
+						{
+							//Convert the ascii string passed in, into
+							//an array of bytes containing their binary
+							//representation.
+							binary = label.getBytes("US-ASCII");
+						} 
+						//"US-ASCII" is a supported encoding, so this will never
+						//throw an error, but is required for syntax measures.
+						catch (UnsupportedEncodingException e) 
+						{
+							//Again, since this will never throw an error, this
+							//is here for syntax purposes, but the stack trace
+							//would just print out a trace of where the error
+							//occurred and halt the program.
+							e.printStackTrace();
+						}
+						
+						//Convert from a binary stream into an integer representation
+						ascii = binary[0];
+						
+						if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)
+								|| (ascii != 43) || (ascii != 45)))
+						{			
+							//Create an error regarding invalid address/label syntax.
+							ErrorData invalidAddressLabel = new ErrorData();
+							invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+							
+							//Add it to the ErrorOut table.
+							errorsFound.add(invalidAddressLabel);
+							errors = true;
+						}
+						
+						//Check if it's a plus or minus, that the next thing is not a plus or minus,
+						//and check to make sure the plus or minus isn't the last thing in the expression.
+						if ((ascii == 43 || ascii == 45) && ((line.get(3).length()-1 == counter) || (line.get(3).charAt(counter+1) == '(') ||
+								(line.get(3).charAt(counter+1) == '+' || line.get(3).charAt(counter+1) == '-')))
+						{
+							//Create an error
+							ErrorData doubleOperation = new ErrorData();
+							doubleOperation.add(lineCounter, 19, "Invalid junction of operations");
+								
+							errorsFound.add(doubleOperation);
+							errors = true;
+						}
+						
+						counter++;
+					}
+				}
+			}
+			
+			//Replace the line with a *
+			if (!errors)
+			{
+				String starReplacement = locationCounter + line.get(3).substring(1, line.get(3).length());
+				
+				line.remove(3);
+				line.add(3, starReplacement);
+			}
+			
 		}
-		else if ((addr > 65535) || (addr < 0))
+		else if (imm && ((addr > 65535) || (addr < 0)))
 		{
 			//Create an error regarding invalid addressing.
 			ErrorData addressOutOfBounds = new ErrorData();
@@ -5572,7 +5992,58 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 					errors = true;
 				}
 			}
+		}		
+		
+		//Create a string to hold a single character in from the "label"
+		String label = new String();
+		
+		//Create a new byte array for the ascii conversion
+		byte[] binary = new byte[1];
+		
+		int ascii = 0;
+		
+		//Iterate through each character up until the first '(' checking
+		//for alphanumeracy 
+		while (i < line.get(3).length())
+		{
+			//Move one character from the label into "label"
+			label = line.get(3).substring(i, i+1);
+			
+			//Use a try catch for syntactical correctness.
+			try 
+			{
+				//Convert the ascii string passed in, into
+				//an array of bytes containing their binary
+				//representation.
+				binary = label.getBytes("US-ASCII");
+			} 
+			//"US-ASCII" is a supported encoding, so this will never
+			//throw an error, but is required for syntax measures.
+			catch (UnsupportedEncodingException e) 
+			{
+				//Again, since this will never throw an error, this
+				//is here for syntax purposes, but the stack trace
+				//would just print out a trace of where the error
+				//occurred and halt the program.
+				e.printStackTrace();
+			}
+			
+			//Convert from a binary stream into an integer representation
+			ascii = binary[0];
+			
+			if (!((ascii >= 48 && ascii <=57) || (ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122)))
+			{			
+				//Create an error regarding invalid address/label syntax.
+				ErrorData invalidAddressLabel = new ErrorData();
+				invalidAddressLabel.add(lineCounter, 30, "Address or label is invalid");
+				
+				//Add it to the ErrorOut table.
+				errorsFound.add(invalidAddressLabel);
+				errors = true;
+			}
+			i++;
 		}
+		
 		//If there are no errors, encode the line normally
 		if (!errors)
 		{

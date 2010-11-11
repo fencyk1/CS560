@@ -16,7 +16,14 @@ public class Converter implements ConverterInterface {
 	
 	@Override
 	public String binaryToHex(String binary) {
-		//Convert the binary string into a decimal value.		
+		//Convert the binary string into a decimal value.
+		
+		//Truncate the binary
+		while (binary.length() > 32)
+		{
+			binary = binary.substring(1, binary.length());
+		}
+		
 		long decimal = Long.parseLong(binary,2);
 		//Convert the decimal value into a hex value.
 		String hexOut = Long.toHexString(decimal);
