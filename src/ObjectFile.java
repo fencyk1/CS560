@@ -18,7 +18,7 @@ public class ObjectFile implements ObjectFileInterface {
 	String headerLine;
 	String endLine;
 	String prgmName;
-	ArrayList<String> textLines;
+	public ArrayList<String> textLines;
 	ArrayList<String> linkerLines;
 	String prgmLoadPoint;
 	
@@ -132,28 +132,39 @@ public class ObjectFile implements ObjectFileInterface {
 		String programLengthHex = programLengthString;
 		
 		//Create a string to store the program load address.
-		String programLoadAddress = new String();
+		String programLoadAddress = "0";
+		
+		
+		
+		//Otherwise go with the default .start value.
+		programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
+		//After getting the required symbol, reset the search counter
+		symbolTable.resetSymbolSearch();
+
+		
+		//Set the execution address equal to the program address, we aren't linking yet.
+		String execStartAddress = programLoadAddress;
 		
 		//If there's an exec.start, get that value
 		if (symbolTable.symbolIsDefined("exec.start"))
 		{
-			programLoadAddress = symbolTable.getSymbolGivenUsage("exec.start").getValue();
-			//After getting the required symbol, reset the search counter
-			symbolTable.resetSymbolSearch();
-		}
-		//Otherwise go with the default .start value.
-		else
-		{
-			programLoadAddress = symbolTable.getSymbolGivenUsage("Program Name").getValue();
+			execStartAddress = symbolTable.getSymbolGivenUsage("exec.start").getValue();
 			//After getting the required symbol, reset the search counter
 			symbolTable.resetSymbolSearch();
 		}
 		
+		
 		programLoadAddress = converter.decimalToHex(programLoadAddress);
+		execStartAddress = converter.decimalToHex(execStartAddress);
 		
 		while(programLoadAddress.length() < 4)
 		{
 			programLoadAddress = "0" + programLoadAddress;
+		}
+		
+		while (execStartAddress.length() < 4)
+		{
+			execStartAddress = "0" + execStartAddress;
 		}
 		
 		//Store it for the text record.
@@ -176,8 +187,7 @@ public class ObjectFile implements ObjectFileInterface {
 			numTextRecords = "0" + numTextRecords;
 		}
 		
-		//Set the execution address equal to the program address, we aren't linking yet.
-		String execStartAddress = programLoadAddress;
+		
 		
 		//Set the version and revision numbers
 		String version = "Version # 2.03";
@@ -261,7 +271,7 @@ public class ObjectFile implements ObjectFileInterface {
 			Converter converter = new Converter();
 			
 			//Get the program's starting address for the purpose of adding it to the current counter in the intermediate file.
-			int prgmStart = Integer.parseInt(converter.binaryToDecimal(converter.hexToBinary(programLoadAddress)));
+			int prgmStart = Integer.parseInt(programLoadAddress);
 			
 			//Get the hex address of where the operation exists in memory
 			String hexAddress = Integer.toHexString((lineInIntermediate-1)+prgmStart);

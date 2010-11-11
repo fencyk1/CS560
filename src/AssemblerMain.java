@@ -79,7 +79,7 @@ public class AssemblerMain {
 		
 		//Create intermediate file, symbol table, user report (src+errors)
 		UserReport report = new UserReport();
-		report.createUserReport(sourceCode, errorsFound);
+		report.createUserReport(sourceCode, errorsFound, objectFile, instructIn, directIn);
 		report.outputUserReport(sourceCode, new File ("userReport.txt"));
 		
 		//Sort the Symbol Table by label, and output it to a text file.
