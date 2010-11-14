@@ -159,7 +159,6 @@ public class ObjectFile implements ObjectFileInterface {
 			symbolTable.resetSymbolSearch();
 		}
 		
-		
 		programLoadAddress = converter.decimalToHex(programLoadAddress);
 		
 		while(programLoadAddress.length() < 4)

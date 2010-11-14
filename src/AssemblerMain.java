@@ -58,21 +58,26 @@ public class AssemblerMain {
 		{
 			if(sourceCode.source.get(i).charAt(0) == '|')
 			{
-				//Create an error regarding starting a line with a comment
-				ErrorData newLineComment = new ErrorData();
-				newLineComment.add(i+1, 38, "Cannot put comments on a new line");
+				//Do nothing, we don't care about the comments
+			}
+			//If we've reached the .end and found more stuff, throw an error
+			else if (parser.reachedDotEnd)
+			{
+				ErrorData linesAfterDotEnd = new ErrorData();
+				linesAfterDotEnd.add(i+1, 43, "No lines are allowed after .end");
 				
-				//Add it to the ErrorOut table.
-				errorsFound.add(newLineComment);
+				errorsFound.add(linesAfterDotEnd);
 			}
 			else
 			{
 				line = tokenizer.tokenizeLine(sourceCode.source.get(i));
+				if (line.size() > 0)
+				{
+					parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, intermediateFile);
+				}		
+				
 			}
-			if (line.size() > 0)
-			{
-				parser.parseLine(line, errorsFound, symbolsFound, errorIn, instructIn, directIn, i+1, intermediateFile);
-			}		
+			
 			i++;
 			
 		}

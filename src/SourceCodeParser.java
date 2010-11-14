@@ -1,9 +1,5 @@
 //Deal with ENTs
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -13,6 +9,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 	private boolean inDotText = false;
 	private boolean inDotData = false;
 	private boolean haveDotStart = false;
+	public boolean reachedDotEnd = false;
 	public int locationCounter = 0;
 	
 	
@@ -23,6 +20,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			IntermediateFile intermediateFile) {
 	
 		System.out.println("Parsing line : " + line);
+		
+		//Make sure the location counter has not exceeded our available memory
+		if(this.locationCounter > 65535)
+		{
+			//Create an error regarding exceeded memory
+			ErrorData memoryExceed = new ErrorData();
+			memoryExceed.add(lineCounter, 42, "Critical error, virtual memory has been exceeded!");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(memoryExceed);
+		}
 		
 		//Check the first token of each line for the .data or .text flags
 		if (line.get(0).equalsIgnoreCase(".data") && haveDotStart)
@@ -44,6 +52,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//If it's a .end flag, we're no longer in either section
 			this.inDotData = false;
 			this.inDotText = false;
+			this.reachedDotEnd = true;
 		}
 				
 		
@@ -86,23 +95,18 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			prgmName.setLength(0);
 			prgmName.setUsage("Program Name");
 			prgmName.setLocation("0");
+			prgmName.setValue("0");
 			
 			//declare the starting location
 			int startingLocation = locationCounter;
-			
-			int i = 0;
-			
-			//Create string object for converting purposes
-			String lcConverter = line.get(2);
-			
-			Converter dickables = new Converter();
+
 			
 			int munchables = 0;
 			
 			try
 			{
 				//munchables = Integer.parseInt(dickables.binaryToDecimal(dickables.hexToBinary(lcConverter)));
-				munchables = Integer.parseInt((lcConverter));
+				munchables = Integer.parseInt((line.get(2)));
 			}
 			catch (NumberFormatException e)
 			{
@@ -116,7 +120,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			
 			
 			//If the location in memory is too large, throw an error
-			if ((munchables > 65355) || (munchables < 0))
+			if ((munchables > 65535) || (munchables < 0))
 			{
 				//Create an error regarding invalid starting location.
 				ErrorData invalidStartingLocation = new ErrorData();
@@ -128,9 +132,8 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Otherwise check for hex syntax
 			else
 			{
-				
 				locationCounter = munchables;
-				prgmName.setValue(lcConverter);
+				prgmName.setValue(Integer.toString(munchables));
 				
 				//This line has cooties.
 				startingLocation = locationCounter;
@@ -4485,17 +4488,6 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		
 		//Store the opName for encoding purposes
 		String opName = line.get(0);
-		
-		if (Integer.parseInt(line.get(3)) == 0 )
-		{
-			//Create an error regarding invalid number which is out of bounds.
-			ErrorData divideByZero = new ErrorData();
-			divideByZero.add(lineCounter, 26, "Divide by zero error");
-			
-			//Add it to the ErrorOut table.
-			errorsFound.add(divideByZero);
-			errors = true;
-		}
 
 		//immediate value
 		int imm = 0; 
@@ -4516,7 +4508,17 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			//Add it to the ErrorOut table.
 			errorsFound.add(nonIntegerValue);
 			errors = true;
+		}
+		
+		if (imm == 0 )
+		{
+			//Create an error regarding invalid number which is out of bounds.
+			ErrorData divideByZero = new ErrorData();
+			divideByZero.add(lineCounter, 26, "Divide by zero error");
 			
+			//Add it to the ErrorOut table.
+			errorsFound.add(divideByZero);
+			errors = true;
 		}
 		
 		if (!(line.size() == 4))
@@ -6570,7 +6572,23 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		int i = 0;
 		
 		//Create string object for converting purposes
-		String lcConverter = line.get(3);
+		String lcConverter = "0";
+		
+		//Check to make sure the number of parameters is correct
+		if (line.size() == 4)
+		{
+			lcConverter = line.get(3);
+		}
+		else
+		{
+			//Create an error regarding invalid number of parameters.
+			ErrorData invalidParameterCount = new ErrorData();
+			invalidParameterCount.add(lineCounter, 24, "Invalid number of parameters");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(invalidParameterCount);
+			errors = true;
+		}
 		
 		//If the location in memory is too large, throw an error
 		if (lcConverter.length() > 8)
@@ -6708,7 +6726,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 				}
 			}
 			
-			//Replace the line with a *
+			//Replace the line's * with the correct location
 			if (!errors)
 			{
 				String starReplacement = locationCounter + line.get(3).substring(1, line.get(3).length());
@@ -6766,7 +6784,7 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 		
 		//Iterate through each character up until the first '(' checking
 		//for alphanumeracy 
-		while (i < line.get(3).length())
+		while ((line.size() == 4) && (i < line.get(3).length()))
 		{
 			//Move one character from the label into "label"
 			label = line.get(3).substring(i, i+1);
