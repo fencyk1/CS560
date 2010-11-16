@@ -10,7 +10,7 @@ package source;
  */
 public interface ObjectFileSourceInterface 
 {
-	
+	//********************************************************
 	////////////////////////////linking record methods////////////////////////
 	
 	/**
@@ -27,6 +27,7 @@ public interface ObjectFileSourceInterface
 	
 	String getTypeFromLinkingAtLine (int lineNumberOfObjectFile);
 	
+	//********************************************************
 	////////////////////////////text record methods////////////////////////
 	
 	String getAddressInHexFromTextAtLine (int lineNumberOfObjectFile);
@@ -41,10 +42,12 @@ public interface ObjectFileSourceInterface
 	
 	String getLabelReferenceTextAtLine (int lineNumberOfObjectFile);
 	
+	//********************************************************
 	//////////////////////end record methods//////////////////////////
 	
 	String getTotalrecordsFromEnd (int lineNumberOfObjectFile);
 	
+	//********************************************************
 	//////////////////////header methods//////////////////////////
 	
 	String getModuleNameFromHeader();
