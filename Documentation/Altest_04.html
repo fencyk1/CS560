@@ -1,0 +1,129 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Altest_04"><h1 style="text-align:center">Al's Test Number 04</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This program was designed by Professor Al. It tests the bounds of integers, the nop directive, undefined variables, and addressing.
+
+This program has the variables:
+altest04, exec.start, OUT, Sum
+
+This program has two undefined variables:
+DEC1, DEC
+
+This program uses the directives:
+.start, .text, exec.start, nop, .data, int.data, .end
+
+This program uses the commands:
+lw, adds, sw, add, halt
+
+The assembler should catch the undefined variables as errors and also the errors at lines 4, 7, 8, and 9.
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,altest04,0       | Start Location Counter at zero
+.text
+    exec.start *
+     LW     $1,DEC1+10     | Load Number
+     ADDs   $1,$1,DEC   | Add second number
+     Sw     $1,SUM      | Store SUM
+OUT  NOP    $12,$11,oops
+     ADD    $0000,$2,$2
+     HALT   1500        | Stop execution
+.data
+SUM  int.data     0 
+     Int.data     0 
+.end,altest04           |end of Altest00
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The assembler did not catch the undefined errors, but it did catch the other errors.
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,altest04,0       | Start Location Counter at zero
+.text
+    exec.start *
+     LW     $1,DEC1+10     | Load Number
+***Error 30 at line 4: Address or label is invalid***
+     ADDs   $1,$1,DEC   | Add second number
+     Sw     $1,SUM      | Store SUM
+OUT  NOP    $12,$11,oops
+***Error 18 at line 7: Too many operands***
+     ADD    $0000,$2,$2
+***Error 25 at line 8: Invalid register syntax. Correct format is "$X", where X is a number from [0-7]***
+     HALT   1500        | Stop execution
+***Error 31 at line 9: Halt number must range from 0 to 255 inclusive***
+.data
+SUM  int.data     0 
+     Int.data     0 
+.end,altest04           |end of Altest00
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+altest04	|	0			|	0		|	Program Name	|	0
+exec.start	|	0			|	1		|	exec.start	|	0
+OUT			|	2			|	1		|	label	|	N/A
+SUM			|	5			|	1		|	int.data	|	0
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000010000000000000000000000000
+0110100000100100[DEC]
+1001110000100000[SUM]
+00000010000000000000000000000000
+00000010000000000000000000000000
+00000010000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	altest04	|	0008	|	0	|	2010:11:07	|	20:59:15	|	0001	|	8	|	0	|	SAL	|	Version # 2.03	|	Revision # 3	|	altest04
+T	|	0ffb	|	N	|	02000000	|	1	|	A	|	altest04
+T	|	0002	|	N	|	68240000	|	1	|	type	|		|	altest04
+T	|	0003	|	N	|	9c1fffff	|	1	|	A	|	altest04
+T	|	0004	|	N	|	02000000	|	1	|	A	|	altest04
+T	|	0005	|	N	|	02000000	|	1	|	A	|	altest04
+T	|	0006	|	N	|	02000000	|	1	|	A	|	altest04
+T	|	0007	|	N	|	00000000	|	1	|	A	|	altest04
+T	|	0008	|	N	|	00000000	|	1	|	A	|	altest04
+L	|taltest04	|	0	|	Program Name	|	altest04
+E	|	11	|	altest04
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

@@ -1,0 +1,42 @@
+.Start,Altest_7,15     |0F	n/a
+.text
+ADD     int.data  12        |0F	0000000C	A
+Test07a str.data  '16'      |10	00F1F620	A
+        EXT       ZX        |11  n/a
+Test07b reset.lc	127     
+x1a   adr.exp     *+ADD     |007E 0000008D	C  
+x2a   adr.exp     *+ZX      |0080 00000080	C
+x2b   adr.exp     ZX+*      |0081 00000081	C   Should be an error chk 
+x3a   adr.exp     ADD+ZX    |0082 0000000F	C
+x3b   adr.exp     ZX+ADD    |0083 0000000F	C
+x4a   adr.exp     100+ADD   |0084 00000073	C
+x4b   adr.exp     ADD+100   |0085 00000073	C
+x5a   adr.exp     100+ZX    |0086 00000064	C
+x5b   adr.exp     ZX+100    |0087 00000064	C
+x6a   adr.exp     *+100     |0088 000000EC	C
+x6b   adr.exp     100+*     |0089 000000ED	C Should be an error chk 
+|
+RESET RESET.LC    200          |00c8
+y1a   equ.exp     *+ADD      |00C8  200+15=	0215	in hex=	D7	
+y1b   equ.exp     ADD+*      |00C8  15+200=	0215	in hex=	D7	
+y2a   equ.exp     100+ADD    |00C8  100+15=	0115	in hex=	73	
+y2b   equ.exp     ADD+100    |00C8  15+100=	0115	in hex=	73	
+y3a   equ.exp     *+100      |00C8  200+15=	0215	in hex=	D7	
+y3b   equ.exp     100+*      |00C8  15+200=	0215	in hex=	D7
+|
+x1a2   adr.exp     *-ADD    |00C8 000000B9  A
+x1b2   adr.exp     ADD-*    |00C9 000000BA  A Should be an error chk docs 
+x2a2   adr.exp     *-ZX     |00CA 000000CA  C
+x2b2   adr.exp     ZX-*     |00CB 000000CB  C Should be an error chk docs 
+x3a2   adr.exp     ADD-ZX   |00CC 0000000F  C
+x3b2   adr.exp     ZX-ADD   |00CD 00000000  C Should be an error NEG ADDR
+x4a2   adr.exp     100-ADD  |00CE 00000055  A
+x4b2   adr.exp     ADD-10   |00CF 00000005  A
+x5a2   adr.exp     10-ZX    |00D0 0000000A  C
+x5b2   adr.exp     ZX-10    |00D1 00000000  C Should be an error NEG ADDR 
+x6a2   adr.exp     *-10     |00D2 000000C8  A
+x6b2   adr.exp     300-*    |00D3 00000059  A
+|
+SQR    equ     15     
+zero   equ     0     
+.END,Altest_7 |Altest.07

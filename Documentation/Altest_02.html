@@ -1,0 +1,203 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Altest_02"><h1 style="text-align:center">Al's Test Number 02</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This program was designed by Professor Al. It primarily tests for invalid amounts of operands and missing labels.
+It also tests index registers.
+
+
+This program has the symbols:
+altest02, exec.start
+
+This program uses the directives:
+.start, .data, int.data, .text, reset.lc, exec.start, .end
+
+This program uses the commands:
+lw, muls, sw, divs, ands, ors, subs, sll, jal, adds, halt
+
+There are several operand errors in this program, as well as missing labels. They should produce errors at line 9, 15, 18, and 26.
+
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,altest02,0
+.data
+   int.data 17
+   int.data  9
+.text
+ RESET.LC 22
+   Exec.start *
+   lw   $5,4
+   muls $5,$5,5
+   sw   $5,10
+   lw   $1,4
+   DIVs $1,$1,5
+   sw   $1,11
+   lw   $2,4
+   ands $2,$2,5
+   sw   $2,12
+   lw   $3,4
+   ORs  $3,$3,5
+   sw   $3,13
+   lw   $4,4
+   subs $4,$4,5
+   sw   $4,14
+   lw   $0,4
+   SlL  $0,$0,2
+   sw   $0,15
+   JAL  36
+   adds $6,$6,0($1)
+   halt 200
+.end,altest02
+
+
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The assembler spotted the errors at lines 6, 15, 18, and 26.
+These were:
+6- reset.lc
+15- ands
+18- ors
+26- jal
+
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,altest02,0
+.data
+   int.data 17
+   int.data  9
+.text
+ RESET.LC 22
+***Error 9 at line 6: instruction syntax invalid***
+   Exec.start *
+   lw   $5,4
+   muls $5,$5,5
+   sw   $5,10
+   lw   $1,4
+   DIVs $1,$1,5
+   sw   $1,11
+   lw   $2,4
+   ands $2,$2,5
+***Error 24 at line 15: Invalid number of parameters***
+   sw   $2,12
+   lw   $3,4
+   ORs  $3,$3,5
+***Error 24 at line 18: Invalid number of parameters***
+   sw   $3,13
+   lw   $4,4
+   subs $4,$4,5
+   sw   $4,14
+   lw   $0,4
+   SlL  $0,$0,2
+   sw   $0,15
+   JAL  36
+***Error 24 at line 26: Invalid number of parameters***
+   adds $6,$6,0($1)
+   halt 200
+.end,altest02
+
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+altest02	|	0			|	0		|	Program Name	|	0
+exec.start	|	3			|	1		|	exec.start	|	3
+
+
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000000000000000000000000010001
+00000000000000000000000000001001
+1100000010100000100
+0111000010110100000101
+10011100101000001010
+1100000000100000100
+0111010000100100000101
+10011100001000001011
+1100000001000000100
+00000010000000000000000000000000
+10011100010000001100
+1100000001100000100
+00000010000000000000000000000000
+10011100011000001101
+1100000010000000100
+0110110010010000000101
+10011100100000001110
+1100000000000000100
+00001000000000000000010000000000
+10011100000000001111
+00000010000000000000000000000000
+0110100011011000[0($1)]
+00100000000000000000000011001000
+
+
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	altest02	|	0017	|	3	|	2010:11:07	|	20:57:32	|	0001	|	17	|	3	|	SAL	|	Version # 2.03	|	Revision # 3	|	altest02
+T	|	0ffb	|	N	|	00000011	|	1	|	A	|	altest02
+T	|	0002	|	N	|	00000009	|	1	|	A	|	altest02
+T	|	0003	|	N	|	00060504	|	1	|	A	|	altest02
+T	|	0004	|	N	|	001c2d05	|	1	|	A	|	altest02
+T	|	0005	|	N	|	0009ca0a	|	1	|	A	|	altest02
+T	|	0006	|	N	|	00060104	|	1	|	A	|	altest02
+T	|	0007	|	N	|	001d0905	|	1	|	A	|	altest02
+T	|	0008	|	N	|	0009c20b	|	1	|	A	|	altest02
+T	|	0009	|	N	|	00060204	|	1	|	A	|	altest02
+T	|	000a	|	N	|	02000000	|	1	|	A	|	altest02
+T	|	000b	|	N	|	0009c40c	|	1	|	A	|	altest02
+T	|	000c	|	N	|	00060304	|	1	|	A	|	altest02
+T	|	000d	|	N	|	02000000	|	1	|	A	|	altest02
+T	|	000e	|	N	|	0009c60d	|	1	|	A	|	altest02
+T	|	000f	|	N	|	00060404	|	1	|	A	|	altest02
+T	|	0010	|	N	|	001b2405	|	1	|	A	|	altest02
+T	|	0011	|	N	|	0009c80e	|	1	|	A	|	altest02
+T	|	0012	|	N	|	00060004	|	1	|	A	|	altest02
+T	|	0013	|	N	|	08000400	|	1	|	A	|	altest02
+T	|	0014	|	N	|	0009c00f	|	1	|	A	|	altest02
+T	|	0015	|	N	|	02000000	|	1	|	A	|	altest02
+T	|	0016	|	N	|	68d80000	|	1	|	type	|		|	altest02
+T	|	0017	|	N	|	200000c8	|	1	|	A	|	altest02
+L	|taltest02	|	0	|	Program Name	|	altest02
+E	|	26	|	altest02
+
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

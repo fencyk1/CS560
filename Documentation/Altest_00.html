@@ -1,0 +1,121 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Altest_00"><h1 style="text-align:center">Al's Test Number 00</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This is a test written by Professor Al to aid us in testing our assembler.
+It is very simple and tests letter case variety and mobility of the .data section.
+
+This program has the symbols:
+altest00, exec.start, OUT, SUM
+It also contains DEC1 and DEC which are not defined and should cause an error.
+
+This program uses the directives:
+.start, .text, exec.start, nop, .data, int.data, .end
+
+This program uses the commands:
+lw, adds, sw, halt
+
+The assembler did not catch the undefined variables.
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,altest00,0       | Start Location Counter at zero
+.text
+    exec.start  0
+     LW     $1,DEC1     | Load Number
+     ADDs   $1,$1,DEC   | Add second number
+     Sw     $1,SUM      | Store SUM
+OUT  NOP 
+     HALT   0           | Stop execution
+.data
+SUM  int.data     0 
+     Int.data     0 
+.end,altest00           |end of Altest00
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The undefined variables did not produce an error.
+
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,altest00,0       | Start Location Counter at zero
+.text
+    exec.start  0
+     LW     $1,DEC1     | Load Number
+     ADDs   $1,$1,DEC   | Add second number
+     Sw     $1,SUM      | Store SUM
+OUT  NOP 
+     HALT   0           | Stop execution
+.data
+SUM  int.data     0 
+     Int.data     0 
+.end,altest00           |end of Altest00
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+altest00	|	0			|	0		|	Program Name	|	0
+exec.start	|	0			|	1		|	exec.start	|	0
+OUT			|	2			|	1		|	label	|	N/A
+SUM			|	4			|	1		|	int.data	|	0
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>1100000000100000[DEC1]
+0110100000100100[DEC]
+1001110000100000[SUM]
+00000010000000000000000000000000
+00100000000000000000000000000000
+00000000000000000000000000000000
+00000000000000000000000000000000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	altest00	|	0007	|	0	|	2010:11:07	|	20:50:53	|	0001	|	7	|	0	|	SAL	|	Version # 2.03	|	Revision # 3	|	altest00
+T	|	0ffb	|	N	|	c01fffff	|	1	|	type	|		|	altest00
+T	|	0002	|	N	|	68240000	|	1	|	type	|		|	altest00
+T	|	0003	|	N	|	9c1fffff	|	1	|	A	|	altest00
+T	|	0004	|	N	|	02000000	|	1	|	A	|	altest00
+T	|	0005	|	N	|	20000000	|	1	|	A	|	altest00
+T	|	0006	|	N	|	00000000	|	1	|	A	|	altest00
+T	|	0007	|	N	|	00000000	|	1	|	A	|	altest00
+L	|taltest00	|	0	|	Program Name	|	altest00
+E	|	10	|	altest00
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

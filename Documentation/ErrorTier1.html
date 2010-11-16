@@ -1,0 +1,170 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="ErrorTier1"><h1 style="text-align:center">Error Tier 1</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>The purpose of this test was to ensure that the assembler would catch errors at the said lines.
+
+This program has the symbols:
+errorTier1, punch, slap, raichu, ii, joust, charzard, growl, purr, roar, label, kick, Entei
+
+This program has the directives:
+.start, mem.skip, int.data, str.data, hex.data, bin.data, adr.data, ent, exec.start, debug, reset.ls, .end
+
+This program has the commands:
+lw, lnw, la, addi, subs, lwi, muls, jal, divs, ands, ors, jgt, jlt, dump, outn, halt
+
+This program was made to test test the several of the error cases.
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,errorTier1,-100	| should throw error code 1
+	mem.skip	500		| should throw error code 3
+punch	int.data	-0.2058	|should throw error code 10
+.data 	kick	int.data	40	|should throw error code 5
+slap	str.data	riteous	| should throw error code 12
+raichu	EQUALS		slap	
+.start,errorTier1,100	| should throw error code 0
+ii	hex.data	afe00123	| should throw error code 14
+joust	bin.data	'01111010'
+charzard	adr.data	ii
+.text	ent		growl,purr,roar | should throw error code 7
+	exec.start	label
+	lw $3, punch
+	lnw $4, kick
+	la $5, char($7)
+	addi $2,$3,0xA5f32 	| should throw error code 20
+	subs $2,$3,ii 
+	lwi $6, ii($4)
+	muls $1,$3,$5,ii	| should throw error code 18
+	jal $1,$6,raichu
+	divs $6,$1,ii
+	ands $7,($6)
+	ors $6,charzard($1)
+	jgt $2,$4,roar
+	jlt $3,$3,growl
+	debug 15061		|should throw error code 23
+Entei 	RESET.lc 	250
+	dump 1,0,0
+	outn 10, purr($4)
+	HALT 0
+.end,errorTier1Test		|should throw error code 4
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The assembler caught all of the errors we programmed in.
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,errorTier1,-100	| should throw error code 1
+***Error 1 at line 1: Staring location is not valid***
+	mem.skip	500		| should throw error code 3
+***Error 3 at line 2: .data and/or .text and/or .start never defined***
+punch	int.data	-0.2058	|should throw error code 10
+***Error 3 at line 3: .data and/or .text and/or .start never defined***
+.data 	kick	int.data	40	|should throw error code 5
+***Error 5 at line 4: .data line should stand alone***
+slap	str.data	riteous	| should throw error code 12
+***Error 12 at line 5: String value is not valid (Must start and end with a ' character)***
+raichu	EQUALS		slap	
+***Error 6 at line 6: directive syntax invalid***
+.start,errorTier1,100	| should throw error code 0
+***Error 6 at line 7: directive syntax invalid***
+ii	hex.data	afe00123	| should throw error code 14
+***Error 14 at line 8: Hex value is not valid (Must start and end with a ' character)***
+charzard	adr.data	ii
+.text	ent		growl,purr,roar | should throw error code 7
+***Error 7 at line 10: .text line should stand alone***
+	exec.start	label
+	lw $3, punch
+	lnw $4, kick
+	la $5, char
+	addi $2,$3,0xA5f32 	| should throw error code 20
+***Error 20 at line 15: Value must be a decimal integer***
+	subs $2,$3,ii 
+	lwi $6, ii($4)
+***Error 10 at line 17: Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)***
+	muls $1,$3,$5,ii	| should throw error code 18
+***Error 24 at line 18: Invalid number of parameters***
+	jal $1,$6,raichu
+	divs $6,$1,i
+	ors $6,charzard($1)
+	jgt $2,$4,roar
+	jlt $3,$3,growl
+	debug 15061		|should throw error code 23
+***Error 23 at line 24: Value must be 0, or 1 only***
+Entei 	RESET.lc 	250
+	dump 1,0,0
+***Error 27 at line 26: Invalid amount. Must be a 0 or 1.***
+	outn 10, purr
+	HALT 0
+.end,errorTier1Test		|should throw error code 4
+***Error 4 at line 29: Program Names do not match up***
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+charzard	|	105			|	1		|	adr.data	|	ii
+Entei	|	4			|	1		|	label	|	N/A
+errorTier1	|	100			|	0		|	Program Name	|	100
+exec.start	|	107			|	1		|	exec.start	|	label
+ii			|	104			|	1		|	hex.data	|	afe00123
+slap			|	101			|	2		|	str.data	|	riteous
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	errorTier1	|	0013	|	label	|	2010:11:08	|	01:14:47	|	0001	|	13	|	label	|	SAL	|	Version # 2.03	|	Revision # 3	|	errorTier1
+T	|	0ffb	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	0102	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	0103	|	N	|	7fffffff	|	1	|	A	|	errorTier1
+T	|	0104	|	N	|	c05fffff	|	1	|	type	|		|	errorTier1
+T	|	0105	|	N	|	c47fffff	|	1	|	type	|		|	errorTier1
+T	|	0106	|	N	|	e09fffff	|	1	|	type	|		|	errorTier1
+T	|	0107	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	0108	|	N	|	fffffff8	|	1	|	A	|	errorTier1
+T	|	0109	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	010a	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	010b	|	N	|	1c380000	|	1	|	type	|		|	errorTier1
+T	|	010c	|	N	|	74c40000	|	1	|	type	|		|	errorTier1
+T	|	010d	|	N	|	884fffff	|	1	|	type	|		|	errorTier1
+T	|	010e	|	N	|	8c6bffff	|	1	|	type	|		|	errorTier1
+T	|	010f	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	0110	|	N	|	000000fa	|	1	|	A	|	errorTier1
+T	|	0111	|	N	|	02000000	|	1	|	A	|	errorTier1
+T	|	0112	|	N	|	300a0000	|	1	|	type	|		|	errorTier1
+T	|	0113	|	N	|	20000000	|	1	|	A	|	errorTier1
+L	|terrorTier1	|	100	|	Program Name	|	errorTier1
+E	|	22	|	errorTier1
+
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

@@ -1,0 +1,98 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Altest_05"><h1 style="text-align:center">Al's Test Number 05</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This program was designed by Professor Al. It is designed to test the capability of the assembler to deal with str.data longer than 1 word.
+
+This program has the symbols:
+altest05, xx, yy
+
+This program has the directives:
+.start, .data, int.data, str.data, .end
+
+This program has no commands.
+
+The object and intermediate files should have a total of 3 words of data.
+Ther should also be an error for invalid integer size.
+
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,altest05,500
+.data
+xx  int.data 40000000000000
+yy  str.data 'ABCDEFGH'    | will this generate 2 words?
+.end,altest05
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>While the intermediate file does have the correct amount of data, it is stacked improperly.
+The object file does not have the full amount of data.
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,altest05,500
+.data
+xx  int.data 40000000000000
+***Error 10 at line 3: Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)***
+yy  str.data 'ABCDEFGH'    | will this generate 2 words?
+.end,altest05
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+altest05	|	500			|	0		|	Program Name	|	500
+xx			|	500			|	1		|	int.data	|	40000000000000
+yy			|	501			|	2		|	str.data	|	'ABCDEFGH'
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000010000000000000000000000000
+0100000101000010010000110100010001000101010001100100011101001000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	altest05	|	0002	|	500	|	2010:11:07	|	21:01:41	|	0001	|	2	|	500	|	SAL	|	Version # 2.03	|	Revision # 3	|	altest05
+T	|	0ffb	|	N	|	02000000	|	1	|	A	|	altest05
+T	|	0502	|	N	|	c546473f	|	1	|	A	|	altest05
+L	|taltest05	|	500	|	Program Name	|	altest05
+E	|	5	|	altest05
+
+
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

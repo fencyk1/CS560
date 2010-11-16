@@ -1,0 +1,147 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="AlteredJeffTest"><h1 style="text-align:center">Altered Jeff Test</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This test is a modified version of the midterm test, also known as Altest_03. There should not be any errors thrown.
+Tests a correct program to see if the object file, intermediate file, and symbol table are correctly outputted, as well as the User Report (should show no errors).
+
+Specifically, this test targets adr.exp to see if the expression is properly encoded.
+
+This program should have the symbols:
+Altest_03, exec.start, Jupiter, Saturn, Pluto, Rage, and Mars
+
+This program uses the directives:
+.start, .data, int.data, str.data, adr.exp, .text, ext, exec.start, and .end
+
+
+This program uses the commands:
+lw, mul, addi, divs, srl, sw and halt
+
+There was an error at line five involving an opening single quote not being recognized.
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,Altest_03,14    |E  midterm program
+.data
+Jupiter int.data 128   |E  00000080     A
+Saturn  int.data 100   |F  00000064     A
+Pluto   str.data ‘DOG’ |10 444F4720     A
+Rage	adr.exp	Jupiter-Saturn
+.text
+   EXT mars
+   Exec.start *
+   LW    $1,Jupiter    |S-type  11   C020000E     R
+   MUL   $1,$1,$1      |R-type  12   04248018     A
+   Addi  $1,$1,28      |I-type  13   4024001C     A
+   DIVs  $2,$1,mars    |S-type  14   77440000     E
+   Srl   $2,$2,4       |R-type  15   08480802     A
+   Sw    $2,Saturn     |S-type  16   9C40000F     R
+   Halt  0             |J-type  17   20000000     A
+.end,Altest_03
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>This test produced an error on line 5. It showed us that if the user utilizes an opening quote it will be called an error.
+
+
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,Altest_03,14    |E  midterm program
+.data
+Jupiter int.data 128   |E  00000080     A
+Saturn  int.data 100   |F  00000064     A
+Pluto   str.data ‘DOG’ |10 444F4720     A
+***Error 12 at line 5: String value is not valid (Must start and end with a ' character)***
+Rage	adr.exp	Jupiter-Saturn
+.text
+   EXT mars
+   Exec.start *
+   LW    $1,Jupiter    |S-type  11   C020000E     R
+   MUL   $1,$1,$1      |R-type  12   04248018     A
+   Addi  $1,$1,28      |I-type  13   4024001C     A
+   DIVs  $2,$1,mars    |S-type  14   77440000     E
+   Srl   $2,$2,4       |R-type  15   08480802     A
+   Sw    $2,Saturn     |S-type  16   9C40000F     R
+   Halt  0             |J-type  17   20000000     A
+.end,Altest_03
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+Altest_03	|	14			|	0		|	Program Name	|	14
+exec.start	|	18			|	1		|	exec.start	|	18
+Jupiter	|	14			|	1		|	int.data	|	128
+Pluto	|	16			|	1		|	str.data	|	‘DOG’
+Rage			|	17			|	1		|	adr.exp	|	Jupiter-Saturn
+Saturn	|	15			|	1		|	int.data	|	100
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000000000000000000000010000000
+00000000000000000000000001100100
+00000010000000000000000000000000
+[Jupiter-Saturn]
+1100000000100000[Jupiter]
+00000100001001001000000000011000
+111111111111111111111111111111100001001000000000000011100
+0111010001000100[mars]
+00001000010010000000100000000010
+1001110001000000[Saturn]
+00100000000000000000000000000000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	Altest_03	|	000b	|	18	|	2010:11:06	|	16:06:29	|	0001	|	b	|	18	|	SAL	|	Version # 2.03	|	Revision # 3	|	Altest_03
+T	|	0ffb	|	N	|	00000080	|	1	|	A	|	Altest_03
+T	|	0016	|	N	|	00000064	|	1	|	A	|	Altest_03
+T	|	0017	|	N	|	02000000	|	1	|	A	|	Altest_03
+T	|	0018	|	N	|	0000001c	|	2	|	R	|	+	|	18	|	R	|	+	|	18	|	Altest_03
+T	|	0019	|	N	|	c020007f	|	1	|	A	|	Altest_03
+T	|	001a	|	N	|	04248018	|	1	|	A	|	Altest_03
+T	|	001b	|	N	|	7c240002	|	1	|	A	|	Altest_03
+T	|	001c	|	N	|	74440000	|	1	|	type	|		|	Altest_03
+T	|	001d	|	N	|	08480802	|	1	|	A	|	Altest_03
+T	|	001e	|	N	|	9c400063	|	1	|	A	|	Altest_03
+T	|	001f	|	N	|	20000000	|	1	|	A	|	Altest_03
+L	|tAltest_03	|	14	|	Program Name	|	Altest_03
+E	|	14	|	Altest_03
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>
+
+

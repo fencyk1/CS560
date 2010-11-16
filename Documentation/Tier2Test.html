@@ -1,0 +1,171 @@
+<html> 
+<body style="background-color:lightblue"> 
+ 
+<a name="Tier2Test"><h1 style="text-align:center">Tier 2 Test</h1></a> 
+ 
+<a name="top"><h1>Table of Contents</h1> 
+ 
+<a href="#explanation"><h3>Explanation</h3> 
+<a href="#code"><h3>Test Program</h3> 
+<a href="#results"><h3>Results</h3> 
+<a href="#userrep"><h3>User Report</h3> 
+<a href="#symbol"><h3>Symbol Table</h3> 
+<a href="#interm"><h3>Intermediate File</h3> 
+<a href="#object"><h3>Object File</h3>
+
+<a name="explanation"><h2>Explanation</h2></a>
+
+<pre>This program was designed to test more of the s-type and i-type instructions.
+
+This program has the symbols:
+tier2Test, ff, gg, hh, raichu, exec.start
+
+This program uses the directives:
+.start, .data, int.data, str.data, equ, .text, exec.start, .end
+
+This program uses the commands:
+lw, lnw, la, lwi, addiu, subiu, muliu, diviu, xori, nori, sw, sa, dump, outn, halt
+
+There were not any errors expected in this program.
+</pre>
+
+	<p><a href="#top">Back To The Top</a> </p> 
+	
+<a name="code"><h2>Test Program</h2></a> 
+
+<pre>.start,tier2Test,100
+	.data
+ff	int.data	20
+gg	int.data	40
+hh	str.data	'riteous'	
+raichu	EQU		hh
+	.text		
+	exec.start	label	
+	lw $3, ff
+	lnw $4, gg
+	la $5, char
+	lwi $6, ii($4)
+	addiu $2, $3, 80
+	subiu $2, $3, 40 	
+	muliu $1, $3, 28
+	diviu $6, $1, 14
+	xori $7, $6, 30
+	nori $6, $7, 14
+	sw $2, bulba
+	sa $3, squirtle		
+	dump 1,0,0
+	outn 10, charzard
+	HALT 0
+.end,tier2Test	
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="results"><h2>Results</h2></a> 
+ 
+<pre>The following errors were found in this program:
+line 6- invalid syntax for the directive equ
+line 12- invalid integer syntax for an immediate
+line 21- invalid amount for the dump command
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="userrep"><h2>User Report</h2> 
+ 
+<pre>.start,tier2Test,100
+	.data
+ff	int.data	20
+gg	int.data	40
+hh	str.data	'riteous'	
+raichu	EQU		hh
+***Error 6 at line 6: directive syntax invalid***
+	.text		
+	exec.start	label	
+	lw $3, ff
+	lnw $4, gg
+	la $5, char
+	lwi $6, ii($4)
+***Error 10 at line 12: Integer value is not valid (Can only start with a '+' or '-' followed by numeric characters)***
+	addiu $2, $3, 80
+	subiu $2, $3, 40 	
+	muliu $1, $3, 28
+	diviu $6, $1, 14
+	xori $7, $6, 30
+	nori $6, $7, 14
+	sw $2, bulba
+	sa $3, squirtle		
+	dump 1,0,0
+***Error 27 at line 21: Invalid amount. Must be a 0 or 1.***
+	outn 10, charzard
+	HALT 0
+.end,tier2Test	
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="symbol"><h2>Symbol Table</h2></a> 
+ 
+<pre>			 Symbol Table 
+Label		|	Location	|	Length	|	Usage		|	Value
+exec.start	|	104			|	1		|	exec.start	|	label
+ff			|	100			|	1		|	int.data	|	20
+gg			|	101			|	1		|	int.data	|	40
+hh			|	102			|	2		|	str.data	|	'riteous'
+tier2Test	|	100			|	0		|	Program Name	|	100
+</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="interm"><h2>Intermediate File</h2> 
+
+<pre>00000000000000000000000000010100
+00000000000000000000000000101000
+01110010011010010111010001100101011011110111010101110011
+1100000001100000[ff]
+1100010010000000[gg]
+1110000010100000[char]
+00000010000000000000000000000000
+01000100010011000000000001010000
+01001100010011000000000000101000
+01010100001011000000000000011100
+01011100110001000000000000001110
+11010100111110000000000000011110
+11011000110111000000000000001110
+1001110001000000[bulba]
+1110010001100000[squirtle]
+00000010000000000000000000000000
+0011000000001010[charzard]
+00100000000000000000000000000000
+</pre>
+
+<p><a href="#top">Back To The Top</a> </p> 
+ 
+<a name="object"><h2>Object File</h2> 
+
+<pre>H	|	tier2Test	|	0012	|	label	|	2010:11:08	|	03:36:01	|	0001	|	12	|	label	|	SAL	|	Version # 2.03	|	Revision # 3	|	tier2Test
+T	|	0ffb	|	N	|	00000014	|	1	|	A	|	tier2Test
+T	|	0102	|	N	|	00000028	|	1	|	A	|	tier2Test
+T	|	0103	|	N	|	656f7567	|	1	|	A	|	tier2Test
+T	|	0104	|	N	|	c0600013	|	1	|	A	|	tier2Test
+T	|	0105	|	N	|	c4800027	|	1	|	A	|	tier2Test
+T	|	0106	|	N	|	e09fffff	|	1	|	type	|		|	tier2Test
+T	|	0107	|	N	|	02000000	|	1	|	A	|	tier2Test
+T	|	0108	|	N	|	444c0050	|	1	|	A	|	tier2Test
+T	|	0109	|	N	|	4c4c0028	|	1	|	A	|	tier2Test
+T	|	010a	|	N	|	542c001c	|	1	|	A	|	tier2Test
+T	|	010b	|	N	|	5cc4000e	|	1	|	A	|	tier2Test
+T	|	010c	|	N	|	d4f8001d	|	1	|	A	|	tier2Test
+T	|	010d	|	N	|	d8dc000d	|	1	|	A	|	tier2Test
+T	|	010e	|	N	|	9c3fffff	|	1	|	type	|		|	tier2Test
+T	|	010f	|	N	|	e45fffff	|	1	|	type	|		|	tier2Test
+T	|	0110	|	N	|	02000000	|	1	|	A	|	tier2Test
+T	|	0111	|	N	|	300a0000	|	1	|	type	|		|	tier2Test
+T	|	0112	|	N	|	20000000	|	1	|	A	|	tier2Test
+L	|ttier2Test	|	100	|	Program Name	|	tier2Test
+E	|	21	|	tier2Test
+<</pre>
+ 
+<p><a href="#top">Back To The Top</a> </p> 
+</body> 
+</html>

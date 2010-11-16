@@ -1,0 +1,10 @@
+.start,Altest_11,350    |15E program length 0
+| should only have H,L, and E record
+.text
+r2     EQU    255       |15E 
+r3     equ    0         |15E 
+       DEBUG  on        |15E 
+       DEBUG  off       |15E 
+       ENT    r2        |15E 
+       Ext    ex1       |15E 
+.end,Altest_11          |test11

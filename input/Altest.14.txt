@@ -1,0 +1,4 @@
+.start,Altest_14,65535
+.data
+       hex.data 'FFFF'
+.end  | Altest14
