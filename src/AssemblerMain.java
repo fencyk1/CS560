@@ -90,7 +90,7 @@ public class AssemblerMain {
 		intermediateFile.outputIntermediateFile(new File ("intermediateFile.txt"));
 		
 		//Make our object file, has to get the debug flag, etc.
-		File objectFileName = new File ("output/objectFile.txt");
+		File objectFileName = new File ("output/" + args[0] + "ObjectFile.txt");
 		ObjectFile objectFile = new ObjectFile();
 		objectFile.outputObjectFile(objectFileName, symbolsFound, intermediateFile, errorsFound, sourceCode);
 		
