@@ -1,6 +1,8 @@
 package lab3_source;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * 
@@ -23,8 +25,9 @@ public class LoaderLinkingMain {
 
 	/**
 	 * @param args
+	 * @throws IO Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
 		System.out.println("Starting linking loading process.");
@@ -36,8 +39,8 @@ public class LoaderLinkingMain {
 	    File[] listOfFiles = folder.listFiles();
 		
 		int i = 0;
-		//while there are still object files in the folder do the following
-		while (i < listOfFiles.length)
+		//while there are still object files in the folder do the following. insure that we do not get any inviable files
+		while (i < listOfFiles.length && listOfFiles[i].toString().endsWith(".txt"))
 		{
 			//create a tokenized and parsed object file
 			ObjectFileSource objectFile = new ObjectFileSource(listOfFiles[i]);

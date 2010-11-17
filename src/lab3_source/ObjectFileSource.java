@@ -1,6 +1,10 @@
 package lab3_source;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ObjectFileSource implements ObjectFileSourceInterface {
@@ -19,10 +23,10 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	/*
 	 * this is the data structure that will have all linking records modeled over it
 	 */
-	private ArrayList<String[]> linkingREcords = new ArrayList<String[]>();
+	private ArrayList<String[]> linkingRecords = new ArrayList<String[]>();
 	
 	//constructors
-	public ObjectFileSource (File objectFileName)
+	public ObjectFileSource (File objectFileName) throws IOException 
 	{
 		this.importObjectFile(objectFileName);
 	}
@@ -32,8 +36,56 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	 * records and add them to the member variable. do the same for the linking records and then do it for the end record
 	 * 
 	 */
-	private void importObjectFile (File objectFileName)
+	private void importObjectFile (File objectFileName) throws IOException 
 	{
+		System.out.println("Importing object file : " + objectFileName);
+		
+		//clear data structure
+		headerEndRecords.clear();
+		textRecords.clear();
+		linkingRecords.clear();
+		
+		//get input from file, set up initial variables 
+		BufferedReader input = new BufferedReader(new FileReader(objectFileName));
+		String newLine = new String();
+		int numberOfLinkingRecords  = 0;
+		int numberOfTextRecords = 0;
+		
+		//get the header record TODO
+		
+		
+		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
+		//do this for text files
+		int i = 0;
+		while (i < numberOfLinkingRecords)
+		{
+			
+			//TODO
+			
+			numberOfLinkingRecords++;
+		}
+		
+		
+		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
+		//do this for linking files
+		i = 0;
+		while (i < numberOfTextRecords)
+		{
+		
+			
+			//TODO
+			numberOfTextRecords++;
+		}
+		
+		//get end record TODO
+		
+		
+		
+		
+		
+		//close the input
+		input.close();
+		
 		
 	}
 	
