@@ -122,14 +122,12 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 
 		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
 		//do this for text files
-		int i = 0;
-		while (i < numberOfTextRecords)
+		String textRecordCheck = input.readLine();
+		while (textRecordCheck.charAt(0) == 'T' || textRecordCheck.charAt(0) == 't')
 		{
-			//get the header file from the object file
-			newLine = input.readLine();
 			
 			//tokenize it
-			StringTokenizer textTokens = new StringTokenizer (newLine, "|");
+			StringTokenizer textTokens = new StringTokenizer (textRecordCheck, "|");
 						
 			//make an array to add those tokens to
 			String[] text = new String [textTokens.countTokens() -1];
@@ -207,7 +205,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			textRecords.add(text);
 			
 			//get next text record
-			numberOfTextRecords++;
+			textRecordCheck = input.readLine();
 		}
 		
 /////////////////////////////////////////////////////////////////////////
@@ -216,15 +214,11 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 
 		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
 		//do this for linking files
-		i = 0;
-		while (i < numberOfLinkingRecords)
+		while (textRecordCheck.charAt(0) == 'L' || textRecordCheck.charAt(0) == 'l')
 		{
-		
-			//get the header file from the object file
-			newLine = input.readLine();
-			
+	
 			//tokenize it
-			StringTokenizer linkingTokens = new StringTokenizer (newLine, "|");
+			StringTokenizer linkingTokens = new StringTokenizer (textRecordCheck, "|");
 			
 			//make an array to add those tokens to
 			String[] linking = new String [3];
@@ -245,7 +239,8 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			linkingRecords.add(linking);
 			
 			//get next linking record
-			numberOfLinkingRecords++;
+			textRecordCheck = input.readLine();
+			
 		}
 
 /////////////////////////////////////////////////////////////////////////
@@ -253,8 +248,8 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 /////////////////////////////////////////////////////////////////////////		
 		
 		//get end record 
-		//get the end record from the object file
-		newLine = input.readLine();
+		//we already have the end record from the object file
+
 		
 		//tokenize it
 		StringTokenizer endTokens = new StringTokenizer (newLine, "|");
