@@ -1,7 +1,5 @@
 package lab3_source;
 
-import ErrorTable;
-
 import java.io.File;
 
 /**
@@ -31,20 +29,25 @@ public class LoaderLinkingMain {
 
 		System.out.println("Starting linking loading process.");
 		
-		//get all the files in a directory 
+		//get all the files in the objectFiles directory 
+		//user has to add all object files into the objectFiles directory
 		//only object files can be in the directory
+		File folder = new File("objectFiles/");
+	    File[] listOfFiles = folder.listFiles();
 		
-		
+		int i = 0;
 		//while there are still object files in the folder do the following
-		while ()
+		while (i < listOfFiles.length)
 		{
 			//create a tokenized and parsed object file
-			ObjectFileSource errorIn = new ErrorTable(new File ("error.tbl"));
+			ObjectFileSource objectFile = new ObjectFileSource(listOfFiles[i]);
 		
 			
-			//make the load file
+			//adjuct the load file
 			
-			//make the global symbol table
+			//adjust the global symbol table
+			
+			i++;
 		}
 		
 		//correct the external symbols in the load object
