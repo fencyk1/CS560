@@ -87,34 +87,124 @@ public interface ObjectFileSourceInterface
 	String getAdjustmentsFromTextAtLine (int lineNumberOfObjectFile);
 	
 	/**
-	 * gets the appropriate Type from the line
+	 * gets the appropriate first Type from the line
 	 * 
 	 * @param lineNumberOfObjectFile
 	 * line to get the data from
 	 * @return 
 	 * the Type to return
 	 */
-	String getTypeFromTextAtLine (int lineNumberOfObjectFile);
+	String getFirstTypeFromTextAtLine (int lineNumberOfObjectFile);
 	
 	/**
-	 * gets the appropriate LabelReference from the line
+	 * gets the appropriate first LabelReference from the line
 	 * 
 	 * @param lineNumberOfObjectFile
 	 * line to get the data from
 	 * @return 
 	 * the LabelReference to return
 	 */
-	String getLabelReferenceFromTextAtLine (int lineNumberOfObjectFile);
+	String getFirstLabelReferenceFromTextAtLine (int lineNumberOfObjectFile);
 	
 	/**
-	 * gets the appropriate ActionTypeLabel from the line
+	 * gets the appropriate first Action from the line
 	 * 
 	 * @param lineNumberOfObjectFile
 	 * line to get the data from
 	 * @return 
-	 * the ActionTypeLabel to return
+	 * the Action to return
 	 */
-	String getActionTypeLabelFromTextAtLine(int lineNumberOfObjectFile);
+	String getFirstActionFromTextAtLine(int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate Second Type from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the Type to return
+	 */
+	String getSecondTypeFromTextAtLine (int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate Second LabelReference from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the LabelReference to return
+	 */
+	String getSecondLabelReferenceFromTextAtLine (int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate first Second from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the Action to return
+	 */
+	String getSecondActionFromTextAtLine(int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate Third Type from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the Type to return
+	 */
+	String getThirdTypeFromTextAtLine (int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate Third LabelReference from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the LabelReference to return
+	 */
+	String getThirdLabelReferenceFromTextAtLine (int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate first Third from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the Action to return
+	 */
+	String getThirdActionFromTextAtLine(int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate Fourth Type from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the Type to return
+	 */
+	String getFourthTypeFromTextAtLine (int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate Fourth LabelReference from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the LabelReference to return
+	 */
+	String getFourthLabelReferenceFromTextAtLine (int lineNumberOfObjectFile);
+	
+	/**
+	 * gets the appropriate first Fourth from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the Action to return
+	 */
+	String getFourthActionFromTextAtLine(int lineNumberOfObjectFile);
 	
 	//********************************************************
 	//////////////////////end record methods//////////////////////////

@@ -153,18 +153,55 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			text[4] = textTokens.nextToken();
 			
 			//if there are tokens left because of a label, if greater than 1 then the next token must be a label reference
-			if (textTokens.countTokens() > 1)
+			if (text[4].equalsIgnoreCase("R") || text[4].equalsIgnoreCase("E"))
 			{
-				//get label reference if it exists
+				//get action
 				text[5] = textTokens.nextToken();
+				
+				//get label reference
+				text[6] = textTokens.nextToken();
 							
 			}
 			
-			//TODO how many of the action, label, or type tokens can we have in object file??????? Currently do not get this data
-			//for now 
-			//get type,action, or label
-			text[6] = textTokens.nextToken();
+			//get other adjustments if they exist
+			//get other labels and if the number of adjustments is 2
+			if (Integer.parseInt(text[3]) == 2)
+			{
+				//get type
+				text[7] = textTokens.nextToken();
+				
+				//get action
+				text[8] = textTokens.nextToken();
+				
+				//get label reference
+				text[9] = textTokens.nextToken();
+			}
 			
+			//get other labels and if the number of adjustments is 3
+			if (Integer.parseInt(text[3]) == 3)
+			{
+				//get type
+				text[10] = textTokens.nextToken();
+				
+				//get action
+				text[11] = textTokens.nextToken();
+				
+				//get label reference
+				text[12] = textTokens.nextToken();
+			}
+			
+			//get other labels and if the number of adjustments is 4
+			if (Integer.parseInt(text[3]) == 4)
+			{
+				//get type
+				text[13] = textTokens.nextToken();
+				
+				//get action
+				text[14] = textTokens.nextToken();
+				
+				//get label reference
+				text[15] = textTokens.nextToken();
+			}
 			
 			//add the array to the list of text Records
 			textRecords.add(text);
@@ -309,7 +346,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	}
 
 	@Override
-	public String getTypeFromTextAtLine(int lineNumberOfObjectFile) {
+	public String getFirstTypeFromTextAtLine(int lineNumberOfObjectFile) {
 
 		//subtract 1 for header record, minus 1 for index
 		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
@@ -318,7 +355,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	}
 
 	@Override
-	public String getLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) 
+	public String getFirstActionFromTextAtLine(int lineNumberOfObjectFile) 
 	{
 
 		//subtract 1 for header record, minus 1 for index
@@ -328,13 +365,98 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	}
 	
 	@Override
-	public String getActionTypeLabelFromTextAtLine(int lineNumberOfObjectFile) 
+	public String getFirstLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) 
 	{
 
 		//subtract 1 for header record, minus 1 for index
 		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
 
 		return textRecords.get(lineNumberOfObjectFile)[6];
+	}
+	
+	@Override
+	public String getSecondTypeFromTextAtLine(int lineNumberOfObjectFile) {
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[7];
+	}
+
+	@Override
+	public String getSecondActionFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[8];
+	}
+	
+	@Override
+	public String getSecondLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[9];
+	}
+	@Override
+	public String getThirdTypeFromTextAtLine(int lineNumberOfObjectFile) {
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[10];
+	}
+
+	@Override
+	public String getThirdActionFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[11];
+	}
+	
+	@Override
+	public String getThirdLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[12];
+	}
+	@Override
+	public String getFourthTypeFromTextAtLine(int lineNumberOfObjectFile) {
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[13];
+	}
+
+	@Override
+	public String getFourthActionFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[14];
+	}
+	
+	@Override
+	public String getFourthLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[15];
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
