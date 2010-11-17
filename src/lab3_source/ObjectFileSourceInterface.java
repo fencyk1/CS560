@@ -106,6 +106,16 @@ public interface ObjectFileSourceInterface
 	 */
 	String getLabelReferenceFromTextAtLine (int lineNumberOfObjectFile);
 	
+	/**
+	 * gets the appropriate ActionTypeLabel from the line
+	 * 
+	 * @param lineNumberOfObjectFile
+	 * line to get the data from
+	 * @return 
+	 * the ActionTypeLabel to return
+	 */
+	String getActionTypeLabelFromTextAtLine(int lineNumberOfObjectFile);
+	
 	//********************************************************
 	//////////////////////end record methods//////////////////////////
 	

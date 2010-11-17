@@ -31,6 +31,10 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	 */
 	private ArrayList<String[]> linkingRecords = new ArrayList<String[]>();
 	
+	//number of text and linking records
+	private int numberOfLinkingRecords  = 0;
+	private int numberOfTextRecords = 0;
+	
 	//constructors
 	public ObjectFileSource (File objectFileName) throws IOException 
 	{
@@ -40,6 +44,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	/*
 	 * import the object file. tokenize on '|' and the header record to the member variable. iterate over the text 
 	 * records and add them to the member variable. do the same for the linking records and then do it for the end record
+	 * assumes that the text records come before the linking records
 	 * 
 	 */
 	private void importObjectFile (File objectFileName) throws IOException 
@@ -55,8 +60,6 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 		//get input from file, set up initial variables 
 		BufferedReader input = new BufferedReader(new FileReader(objectFileName));
 		String newLine = new String();
-		int numberOfLinkingRecords  = 0;
-		int numberOfTextRecords = 0;
 		
 /////////////////////////////////////////////////////////////////////////
 //get the header record
@@ -101,6 +104,18 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 		//get execution start address
 		header[7] = headerTokens.nextToken();
 		
+		//skip the 'SAL"
+		headerTokens.nextToken();
+		
+		//skip the 'Version"
+		headerTokens.nextToken();
+		
+		//skip the 'Revision"
+		headerTokens.nextToken();
+		
+		//get program name
+		header[8] = headerTokens.nextToken();
+		
 /////////////////////////////////////////////////////////////////////////
 //get the text record		
 /////////////////////////////////////////////////////////////////////////
@@ -120,33 +135,37 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			String[] text = new String [textTokens.countTokens() -1];
 			
 			//skip "T"
-			text[0] = textTokens.nextToken();
+			textTokens.nextToken();
 			
 			//get address in hex
-			text[1] = textTokens.nextToken();
+			text[0] = textTokens.nextToken();
 			
 			//get debug code
-			text[2] = textTokens.nextToken();
+			text[1] = textTokens.nextToken();
 			
 			//get data word in hex
-			text[3] = textTokens.nextToken();
+			text[2] = textTokens.nextToken();
 			
 			//get number of adjustments
-			text[4] = textTokens.nextToken();
+			text[3] = textTokens.nextToken();
 			
 			//get type
-			text[5] = textTokens.nextToken();
+			text[4] = textTokens.nextToken();
 			
 			//if there are tokens left because of a label, if greater than 1 then the next token must be a label reference
 			if (textTokens.countTokens() > 1)
 			{
 				//get label reference if it exists
-				text[0] = textTokens.nextToken();
+				text[5] = textTokens.nextToken();
 							
 			}
 			
 			//TODO how many of the action, label, or type tokens can we have in object file??????? Currently do not get this data
-
+			//for now 
+			//get type,action, or label
+			text[6] = textTokens.nextToken();
+			
+			
 			//add the array to the list of text Records
 			textRecords.add(text);
 			
@@ -220,117 +239,165 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 /////////////////////////////////////////////////////////////////////////
 	
 	@Override
-	public String getEntryNameFromLinkingAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getEntryNameFromLinkingAtLine(int lineNumberOfObjectFile) 
+	{
+		
+		//subtract all the text records, minus 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - numberOfTextRecords - 2;
+
+		return linkingRecords.get(lineNumberOfObjectFile)[0];
 	}
 
 	@Override
 	public String getAddressInHexFromLinkingAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//subtract all the text records, minus 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - numberOfTextRecords - 2;
+
+		return linkingRecords.get(lineNumberOfObjectFile)[1];		
 	}
 
 	@Override
-	public String getTypeFromLinkingAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTypeFromLinkingAtLine(int lineNumberOfObjectFile) 
+
+
+		//subtract all the text records, minus 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - numberOfTextRecords - 2;
+
+		return linkingRecords.get(lineNumberOfObjectFile)[2];
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	@Override
+	public String getAddressInHexFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[0];
 	}
 
 	@Override
-	public String getAddressInHexFromTextAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDebugCodeFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[1];
 	}
 
 	@Override
-	public String getDebugCodeFromTextAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDataWordFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[2];
 	}
 
 	@Override
-	public String getDataWordFromTextAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public String getAdjustmentsFromTextAtLine(int lineNumberOfObjectFile) 
+	{
 
-	@Override
-	public String getAdjustmentsFromTextAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[3];
 	}
 
 	@Override
 	public String getTypeFromTextAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[4];
 	}
 
 	@Override
-	public String getLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getLabelReferenceFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[5];
+	}
+	
+	@Override
+	public String getActionTypeLabelFromTextAtLine(int lineNumberOfObjectFile) 
+	{
+
+		//subtract 1 for header record, minus 1 for index
+		lineNumberOfObjectFile = lineNumberOfObjectFile - 2;
+
+		return textRecords.get(lineNumberOfObjectFile)[6];
+	}
+	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	@Override
+	public String getTotalRecordsFromEnd() 
+	{
+
+		return endRecord[0];
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	@Override
+	public String getModuleNameFromHeader() 
+	{
+		return header[0];
 	}
 
 	@Override
-	public String getTotalRecordsFromEnd() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProgramLengthInHexFromHeader() 
+	{
+		return header[1];
 	}
 
 	@Override
-	public String getModuleNameFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProgramLoadAddressInHexfromHeader() 
+	{
+		return header[2];
 	}
 
 	@Override
-	public String getProgramLengthInHexFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getDateFromHeader() 
+	{
+		return header[3];
 	}
 
 	@Override
-	public String getProgramLoadAddressInHexfromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getTimeFromHeader() 
+	{
+		return header[4];
 	}
 
 	@Override
-	public String getDateFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNumberOfLinkingRecoredsFromHeader() 
+	{
+		return header[5];
 	}
 
 	@Override
-	public String getTimeFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNumberOfTextRecordsFromHeader() 
+	{
+		return header[6];
 	}
 
 	@Override
-	public String getNumberOfLinkingRecoredsFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getExecutionStartAddressFromHeader() 
+	{
+		return header[7];
 	}
 
 	@Override
-	public String getNumberOfTextRecordsFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getExecutionStartAddressFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getProgramNameFromHeader() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getProgramNameFromHeader() 
+	{
+		return header[8];
 	}
 
 }
