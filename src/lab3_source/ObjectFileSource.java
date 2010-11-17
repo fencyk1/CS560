@@ -259,7 +259,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 
 	@Override
 	public String getTypeFromLinkingAtLine(int lineNumberOfObjectFile) 
-
+	{
 
 		//subtract all the text records, minus 1 for header record, minus 1 for index
 		lineNumberOfObjectFile = lineNumberOfObjectFile - numberOfTextRecords - 2;
