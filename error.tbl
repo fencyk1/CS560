@@ -42,3 +42,5 @@
 39	dataInDotText			"Data directive detected in .text"
 40	textInDotData			"Text instruction/directive in .data"
 41	bailingOut				"Bailing out! An invalid integer was passed!"
+42	memoryExceed			"Critical error, virtual memory has been exceeded!"
+43	linesAfterDotEnd		"No lines are allowed after .end"
