@@ -14,7 +14,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	/*
 	 * this is the data structure that will have all header and end records modeled over it
 	 */
-	private	String[] header = new String [8];
+	private	String[] header = new String [9];
 	
 	/*
 	 * this is the data structure for the end record
@@ -50,12 +50,6 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	private void importObjectFile (File objectFileName) throws IOException 
 	{
 		System.out.println("Importing object file : " + objectFileName);
-		
-		//clear data structure, not really needed and im not sure that "= null" will work
-		header = null;
-		textRecords.clear();
-		linkingRecords.clear();
-		endRecord = null;
 		
 		//get input from file, set up initial variables 
 		BufferedReader input = new BufferedReader(new FileReader(objectFileName));
@@ -122,12 +116,12 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 
 		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
 		//do this for text files
-		String textRecordCheck = input.readLine();
-		while (textRecordCheck.charAt(0) == 'T' || textRecordCheck.charAt(0) == 't')
+		newLine = input.readLine();
+		while (newLine.charAt(0) == 'T' || newLine.charAt(0) == 't')
 		{
 			
 			//tokenize it
-			StringTokenizer textTokens = new StringTokenizer (textRecordCheck, "|");
+			StringTokenizer textTokens = new StringTokenizer (newLine, "|");
 						
 			//make an array to add those tokens to
 			String[] text = new String [textTokens.countTokens() -1];
@@ -160,10 +154,15 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 				text[6] = textTokens.nextToken();
 							
 			}
+			else
+			{
+				//get action
+				text[5] = textTokens.nextToken();
+			}
 			
 			//get other adjustments if they exist
 			//get other labels and if the number of adjustments is 2
-			if (Integer.parseInt(text[3]) == 2)
+			if (Integer.parseInt(text[3]) >= 2)
 			{
 				//get type
 				text[7] = textTokens.nextToken();
@@ -176,7 +175,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			}
 			
 			//get other labels and if the number of adjustments is 3
-			if (Integer.parseInt(text[3]) == 3)
+			if (Integer.parseInt(text[3]) >= 3)
 			{
 				//get type
 				text[10] = textTokens.nextToken();
@@ -189,7 +188,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			}
 			
 			//get other labels and if the number of adjustments is 4
-			if (Integer.parseInt(text[3]) == 4)
+			if (Integer.parseInt(text[3]) >= 4)
 			{
 				//get type
 				text[13] = textTokens.nextToken();
@@ -205,7 +204,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			textRecords.add(text);
 			
 			//get next text record
-			textRecordCheck = input.readLine();
+			newLine = input.readLine();
 		}
 		
 /////////////////////////////////////////////////////////////////////////
@@ -214,11 +213,11 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 
 		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
 		//do this for linking files
-		while (textRecordCheck.charAt(0) == 'L' || textRecordCheck.charAt(0) == 'l')
+		while (newLine.charAt(0) == 'L' || newLine.charAt(0) == 'l')
 		{
 	
 			//tokenize it
-			StringTokenizer linkingTokens = new StringTokenizer (textRecordCheck, "|");
+			StringTokenizer linkingTokens = new StringTokenizer (newLine, "|");
 			
 			//make an array to add those tokens to
 			String[] linking = new String [3];
@@ -239,7 +238,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 			linkingRecords.add(linking);
 			
 			//get next linking record
-			textRecordCheck = input.readLine();
+			newLine = input.readLine();
 			
 		}
 
