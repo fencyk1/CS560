@@ -38,26 +38,39 @@ public class LoaderLinkingMain {
 		File folder = new File("objectFiles/");
 	    File[] listOfFiles = folder.listFiles();
 		
+	    //Create the load interface
+	    Loader loadFile = new Loader();
+	    
+	    //Create the GEST
+	    GlobalSymbolTable globalSymbolTable = new GlobalSymbolTable();
+	    
 		int i = 0;
-		//while there are still object files in the folder do the following. insure that we do not get any inviable files
+		//while there are still object files in the folder do the following. ensure that we do not get any invisible files
 		while (i < listOfFiles.length && listOfFiles[i].toString().endsWith(".txt"))
 		{
 			//create a tokenized and parsed object file
 			ObjectFileSource objectFile = new ObjectFileSource(listOfFiles[i]);
 		
+			//create the checking component
+			ObjectFileChecker checkingComponent = new ObjectFileChecker();
+			
+			//TODO: this is where we will call a method to check the object file syntax
+			
+			
+			//Pass the object file to the symbol table to create symbols in it
+			globalSymbolTable.createSymbolTable(objectFile);
 			
 			//adjuct the load file
-			
-			//adjust the global symbol table
+			loadFile.createInitialLoadFile();
 			
 			i++;
 		}
 		
 		//correct the external symbols in the load object
-		
+		loadFile.correctSymbolAddresses();
 		
 		//print out the load file
-		
+		loadFile.output();
 		
 		
 		System.out.println("Ending linking loading process.");

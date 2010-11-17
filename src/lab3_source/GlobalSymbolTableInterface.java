@@ -13,6 +13,13 @@ package lab3_source;
 public interface GlobalSymbolTableInterface {
 
 	/**
+	 * Create the symbol table given an object file with all the externals in it.
+	 * 
+	 * @param objectFile The file to reference when creating the symbol table.
+	 */
+	void createSymbolTable(ObjectFileSource objectFile);
+	
+	/**
 	 * Adds a new symbol to the table, given the fully qualified symbol.
 	 * 
 	 * @param newSymbol The already defined symbol to be added to the table.
