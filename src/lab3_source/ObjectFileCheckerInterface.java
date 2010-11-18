@@ -11,29 +11,34 @@ package lab3_source;
 public interface ObjectFileCheckerInterface {
 
 	/**
+	 * We'll check everything.
+	 */
+	Boolean checkEverything(ObjectFileSource objectFile);
+	
+	/**
 	 * Checks that the syntax given is valid hex code.
 	 * @param lineNumber The number of the line being checked.
 	 * @return The result of the check.
 	 */
-	public Boolean CheckHexSyntax (int lineNumber);
+	Boolean checkHexSyntax (String hexData);
 	
 	/**
 	 * Check that the start address in the header is within our memory bounds.
 	 * @return The result of the check.
 	 */
-	public Boolean CheckStartAddress();
+	Boolean checkStartAddress(String programLoadAddress);
 	
 	/**
 	 * Check that any labels in the line are of correct syntax.
 	 * @param lineNumber The number of the line to be checked.
 	 * @return The result of the check.
 	 */
-	public Boolean CheckLabels(int lineNumber);
+	Boolean checkLabels(String label);
 	
 	/**
 	 * Check that the amount of text records are less than or equal to the
 	 * lenght of the program.
 	 * @return The result of the check.
 	 */
-	public Boolean CheckRecordLength();
+	Boolean checkRecordLength(String recordLength, int i);
 }

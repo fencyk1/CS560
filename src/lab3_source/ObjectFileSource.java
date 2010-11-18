@@ -24,7 +24,7 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	/*
 	 * this is the data structure that will have all text records modeled over it
 	 */
-	private ArrayList<String[]> textRecords = new ArrayList<String[]>();
+	public ArrayList<String[]> textRecords = new ArrayList<String[]>();
 	
 	/*
 	 * this is the data structure that will have all linking records modeled over it

@@ -55,7 +55,7 @@ public class LoaderLinkingMain {
 			ObjectFileChecker checkingComponent = new ObjectFileChecker();
 			
 			//TODO: this is where we will call a method to check the object file syntax
-			
+			Boolean errorsExist = checkingComponent.checkEverything();			
 			
 			//Pass the object file to the symbol table to create symbols in it
 			globalSymbolTable.createSymbolTable(objectFile);
