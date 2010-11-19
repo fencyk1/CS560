@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  */
 public class SymbolTable implements SymbolTableInterface {
-	private ArrayList<SymbolInterface> symTable;
+	public ArrayList<SymbolInterface> symTable;
 	private int getSymCounter;
 	
 	//Default constructor initializes the representation record.

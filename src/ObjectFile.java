@@ -24,6 +24,7 @@ public class ObjectFile implements ObjectFileInterface {
 	String prgmLoadAddress;
 	boolean resetted;
 	int resetLocation;
+	int resetLineInInt;
 	
 	//constructor
 	public ObjectFile ()
@@ -38,6 +39,7 @@ public class ObjectFile implements ObjectFileInterface {
 		this.prgmLoadAddress = "0";
 		this.resetted = false;
 		this.resetLocation = 0;
+		this.resetLineInInt = 0;
 	}
 	
 	
@@ -84,7 +86,11 @@ public class ObjectFile implements ObjectFileInterface {
 			i++;
 		}
 		
+		symbolTable.resetSymbolSearch();
+		
 		Symbol entOrStart = symbolTable.getSymbolGivenUsage("Program Name");
+		
+		symbolTable.resetSymbolSearch();
 		
 		//output the linking record
 		while (!entOrStart.getValue().equalsIgnoreCase("N/A"))
@@ -98,7 +104,7 @@ public class ObjectFile implements ObjectFileInterface {
 		symbolTable.resetSymbolSearch();
 		
 		//Remove all the ents in the symbolTable
-		symbolTable.removeEnts();
+		//symbolTable.removeEnts();
 		
 		//output header file 
 		printHeaderRecord(objectFileName, symbolTable,   intermediateFile);
@@ -159,7 +165,7 @@ public class ObjectFile implements ObjectFileInterface {
 			symbolTable.resetSymbolSearch();
 		}
 		
-		
+		execStartAddress = converter.decimalToHex(execStartAddress);
 		programLoadAddress = converter.decimalToHex(programLoadAddress);
 		
 		while(programLoadAddress.length() < 4)
@@ -187,7 +193,7 @@ public class ObjectFile implements ObjectFileInterface {
 		String numTextRecords = converter.decimalToHex(Integer.toString(this.textLines.size()));
 		
 		//Extend it to 4 hex digits
-		while (numLinkingRecords.length() < 4)
+		while (numTextRecords.length() < 4)
 		{
 			numTextRecords = "0" + numTextRecords;
 		}
@@ -288,13 +294,14 @@ public class ObjectFile implements ObjectFileInterface {
 			int prgmStart = Integer.parseInt(programLoadAddress);
 			
 			//Set the symbol equal to the program's start plus the spot we are at in the intermediate array
-			Symbol reset = symbolTable.getSymbolGivenLocation(Integer.toHexString(prgmStart+lineInIntermediate-1));
+			Symbol reset = symbolTable.getSymbolGivenLocation(Integer.toHexString((prgmStart+lineInIntermediate-1)-this.resetLineInInt));
 			
 			//Gets the location of the symbol in question
 			String resetHex = reset.getLocation();
 			
 			
 			String currentLocation = "0";
+			
 			
 			if (!resetted)
 			{
@@ -312,19 +319,18 @@ public class ObjectFile implements ObjectFileInterface {
 			//Get the value of the reset, and set it equal to the program load address from this point forward.
 			if (resetHex.equalsIgnoreCase(currentLocation) && reset.getUsage().equalsIgnoreCase("reset.lc"))
 			{
+				//Set the resetLineInInt variable so that we know how many intermediate file lines to subtract for location.
+				this.resetLineInInt = lineInIntermediate-1;
+				
+				//Reset the resetLocation counter since we found a new reset.lc
+				this.resetLocation = 0;
+				
 				prgmStart = Integer.parseInt(reset.getValue());
 				this.prgmLoadAddress = Integer.toString(prgmStart);
 				this.resetted = true;
+				currentLocation = Integer.toHexString((Integer.parseInt(this.prgmLoadAddress) + this.resetLocation));
+				this.resetLocation++;
 			}
-			
-			//TODO: or not to do
-//			Symbol reset = symbolTable.getSymbolGivenUsage("reset.lc");
-//			System.err.println(reset.getValue());
-//			if (Integer.toHexString(prgmStart+lineInIntermediate-1).equalsIgnoreCase(reset.getLocation()))
-//			{
-//				prgmStart = Integer.parseInt(reset.getValue());
-//			}
-//			symbolTable.resetSymbolSearch();
 			
 			//Get the hex address of where the operation exists in memory
 			String hexAddress = currentLocation;
@@ -578,7 +584,7 @@ public class ObjectFile implements ObjectFileInterface {
 						counter = counter+2;		
 					}
 					
-					
+					//TODO: if it's a negative value here (currentVal) and an adr.exp, throw an error
 					
 					
 					//Decrement the number of adjustments once to reflect the fact that it was already 1
