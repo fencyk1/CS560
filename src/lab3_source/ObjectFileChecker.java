@@ -2,8 +2,6 @@ package lab3_source;
 
 import java.io.UnsupportedEncodingException;
 
-import ErrorData;
-
 public class ObjectFileChecker implements ObjectFileCheckerInterface {
 
 	@Override

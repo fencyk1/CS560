@@ -32,11 +32,9 @@ public class LoaderLinkingMain {
 
 		System.out.println("Starting linking loading process.");
 		
-		//get all the files in the objectFiles directory 
 		//user has to add all object files into the objectFiles directory
 		//only object files can be in the directory
-		File folder = new File("objectFiles/");
-	    File[] listOfFiles = folder.listFiles();
+		//user needs to list them in the args array in the order in which they would like them to be done
 		
 	    //Create the load interface
 	    Loader loadFile = new Loader();
@@ -46,21 +44,21 @@ public class LoaderLinkingMain {
 	    
 		int i = 0;
 		//while there are still object files in the folder do the following. ensure that we do not get any invisible files
-		while (i < listOfFiles.length && listOfFiles[i].toString().endsWith(".txt"))
+		while (i < args.length && args[i].toString().endsWith(".txt"))
 		{
 			//create a tokenized and parsed object file
-			ObjectFileSource objectFile = new ObjectFileSource(listOfFiles[i]);
+			ObjectFileSource objectFile = new ObjectFileSource(new File (args[i]));
 		
 			//create the checking component
 			ObjectFileChecker checkingComponent = new ObjectFileChecker();
 			
 			//TODO: this is where we will call a method to check the object file syntax
-			Boolean errorsExist = checkingComponent.checkEverything();			
+			Boolean errorsExist = checkingComponent.checkEverything(objectFile);			
 			
 			//Pass the object file to the symbol table to create symbols in it
 			globalSymbolTable.createSymbolTable(objectFile);
 			
-			//adjuct the load file
+			//pass 2, adjust added all records to the load file that have symbols 
 			loadFile.createInitialLoadFile();
 			
 			i++;
