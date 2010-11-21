@@ -14,17 +14,17 @@ import java.text.SimpleDateFormat;
 public class ObjectFile implements ObjectFileInterface {
 
 	// member variables
-	boolean inDebugMode;
-	String headerLine;
-	String endLine;
-	String prgmName;
+	private boolean inDebugMode;
+	public String headerLine;
+	private String endLine;
+	private String prgmName;
 	public ArrayList<String> textLines;
-	ArrayList<String> linkerLines;
-	String prgmLoadPoint;
-	String prgmLoadAddress;
-	boolean resetted;
-	int resetLocation;
-	int resetLineInInt;
+	public ArrayList<String> linkerLines;
+	private String prgmLoadPoint;
+	private String prgmLoadAddress;
+	private boolean resetted;
+	private int resetLocation;
+	private int resetLineInInt;
 	
 	//constructor
 	public ObjectFile ()

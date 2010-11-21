@@ -300,7 +300,7 @@ public class UserReport implements UserReportInterface {
 	 * 
 	 */
 	@Override
-	public void outputUserReport (InSourceCode SourceCodeArray, File outputFileName) throws IOException
+	public void outputUserReport (InSourceCode SourceCodeArray, ErrorOut foundErrorsTable,  File outputFileName) throws IOException
 	{
 		
 		System.out.println(">>>>>>>>>>>>> 		Outputting the User Report file.");

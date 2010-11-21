@@ -56,6 +56,7 @@ public class AssemblerMain {
 		//Tokenize the source code and send to the Parser.
 		while (sourceCode.source.size() > i)
 		{
+			//TODO: tokenize the line first to get the | to the front.
 			if(sourceCode.source.get(i).charAt(0) == '|')
 			{
 				//Do nothing, we don't care about the comments
@@ -95,9 +96,9 @@ public class AssemblerMain {
 		objectFile.outputObjectFile(objectFileName, symbolsFound, intermediateFile, errorsFound, sourceCode);
 		
 		//Create intermediate file, symbol table, user report (src+errors)
-		UserReport report = new UserReport();
+		UserReportTwo report = new UserReportTwo();
 		report.createUserReport(sourceCode, errorsFound, objectFile, instructIn, directIn);
-		report.outputUserReport(sourceCode, new File ("userReport.txt"));
+		report.outputUserReport(sourceCode, errorsFound, new File ("userReport.txt"));
 		
 		//Sort the Symbol Table by label, and output it to a text file.
 		symbolsFound.sort();
