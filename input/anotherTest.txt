@@ -4,7 +4,7 @@
    int.data 17        |04   00000011
    int.data  9        |05 00000005
 .text
-   RESET.LC 16
+RS   RESET.LC 16
    Exec.start *       |10
    lw   $5,$4          |10   78000004
    muls $5,5,5       |11   70000005
@@ -28,4 +28,3 @@
    adds $6,$6,$5       |23   68040005
    halt $200           |24   200000C8
 .end,altest_02
-

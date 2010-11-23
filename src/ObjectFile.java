@@ -235,6 +235,12 @@ public class ObjectFile implements ObjectFileInterface {
 		//Create a new string for the type of the entry
 		String entryType = entOrStart.getUsage();
 		
+		//Swap ProgramName with Start
+		if (entryType.equalsIgnoreCase("Program Name"))
+		{
+			entryType = "Start";
+		}
+		
 		this.linkerLines.add("L|" + entryName + "|" + entryAddress + "|" + entryType + "|" + this.prgmName);
 	}
 	
@@ -585,6 +591,45 @@ public class ObjectFile implements ObjectFileInterface {
 					}
 					
 					//TODO: if it's a negative value here (currentVal) and an adr.exp, throw an error
+					if(currentVal < 0)
+					{
+						
+						//Create a variable to hold where the error takes place
+						int lineCounterNeg = 0;
+						
+						//Check to find any instance of the undefined symbol
+						while (lineCounterNeg < sourceCode.source.size())
+						{
+							//Make a new tokenizer for this line
+							Tokenizer tokenizerNeg = new Tokenizer();
+							
+							//Create a counter for the tokenizer
+							int tokenizerCounterNeg = 0;
+							
+							//Create a new array of tokens for the tokenizer
+							ArrayList<String> tokensNeg = new ArrayList<String>();
+							
+							//Get the full line at the lineCounter
+							tokensNeg = tokenizerNeg.tokenizeLine(sourceCode.source.get(lineCounterNeg));
+							
+							while (tokenizerCounterNeg < tokensNeg.size())
+							{
+								if (tokensNeg.get(tokenizerCounterNeg).equals(label))
+								{
+									//Create an error regarding invalid register syntax.
+									ErrorData negativeAddress = new ErrorData();
+									negativeAddress.add(lineCounterNeg+1, 45, "May not have a negative address.");
+									
+									//Add it to the ErrorOut table.
+									errorsFound.add(negativeAddress);	
+								}
+								tokenizerCounterNeg++;
+							}
+							lineCounterNeg++;
+						}
+						currentVal = 0;
+						
+					}
 					
 					
 					//Decrement the number of adjustments once to reflect the fact that it was already 1

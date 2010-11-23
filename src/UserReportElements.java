@@ -9,8 +9,8 @@ public class UserReportElements implements UserReportElementsInterface {
 	
 	public UserReportElements() {
 		this.hexLocation = "none";
-		this.dataWord = "none";
-		this.type = "none";
+		this.dataWord = "--------";
+		this.type = "-";
 		this.lineNumber = "none";
 		this.sourceCode = "none";
 	}

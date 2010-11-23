@@ -1,0 +1,15 @@
+LOC(HEX)|OBJ CODE(HEX)|A/R/E|STMT LINE (DEC)|SOURCE STATEMENT
+0	--------	-	1	.start,altest00,0       | Start Location Counter at zero
+0	--------	-	2	.text
+0	--------	-	3	    exec.start  0
+0	08000000	A	4	     LW     $1,DEC1     | Load Number
+Error 35 at line 4: Label has not been added to the symbol table
+1	08000000	A	5	     ADDs   $1,$1,DEC   | Add second number
+Error 35 at line 5: Label has not been added to the symbol table
+2	9c200005	R	6	     Sw     $1,SUM      | Store SUM
+3	02000000	A	7	OUT  NOP 
+4	20000000	A	8	     HALT   0           | Stop execution
+5	--------	-	9	.data
+5	00000000	A	10	SUM  int.data     0 
+6	00000000	A	11	     Int.data     0 
+7	--------	-	12	.end,altest00           |end of Altest00

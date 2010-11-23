@@ -4006,6 +4006,16 @@ public class SourceCodeParser implements SourceCodeParserInterface {
 			errorsFound.add(extraOperands);
 			errors = true;
 		}
+		else if (line.get(1).contains("*") && line.get(1).indexOf('*') != 0)
+		{
+			//Create an error regarding star addressing
+			ErrorData starMustComeFirst = new ErrorData();
+			starMustComeFirst.add(lineCounter, 37, "When using star addressing, the star must come first");
+			
+			//Add it to the ErrorOut table.
+			errorsFound.add(starMustComeFirst);
+			errors = true;
+		}
 		//Otherwise, parse the expression for correctness
 		else
 		{

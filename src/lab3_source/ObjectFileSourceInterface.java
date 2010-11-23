@@ -1,5 +1,8 @@
 package lab3_source;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * 
  * @author damicoac
@@ -11,6 +14,15 @@ package lab3_source;
 public interface ObjectFileSourceInterface 
 {
 	//********************************************************
+	
+	/**
+	 * Import the object source code into an ArrayList<Sting>. This will be a member variable. This is where code can be before it is tokenized as an option. Each line of input will be associated with
+	 * an index in the ArrayList (ie line 1 will be at index [0] of the array). The method will also clear out the previous source code just to be sure that when source code is imported
+	 * it is on a fresh data structure.
+	 * @throws IOException 
+	 */
+	void importSourceCode (File objectFileName) throws IOException;
+	
 	////////////////////////////linking record methods////////////////////////
 	
 	/**

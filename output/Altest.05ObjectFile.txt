@@ -1,0 +1,13 @@
+H|midterm_04|000a|000e|2010:11:22|20:32:02|0001|000a|000b|SAL|Version # 2.03|Revision # 3|midterm_04
+T|000e|N|00000080|1|A|midterm_04
+T|000f|N|00000064|1|A|midterm_04
+T|0010|N|444f4720|1|A|midterm_04
+T|0011|N|c020000e|1|R|+|000e|midterm_04
+T|0012|N|04248018|1|A|midterm_04
+T|0013|N|4024001c|1|A|midterm_04
+T|0014|N|77440000|1|E|+|mars|midterm_04
+T|0015|N|08480802|1|A|midterm_04
+T|0016|N|9c40000f|1|R|+|000e|midterm_04
+T|0017|N|20000000|1|A|midterm_04
+L|midterm_04|e|Start|midterm_04
+E|13|midterm_04

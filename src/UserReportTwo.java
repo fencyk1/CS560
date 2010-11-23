@@ -39,7 +39,7 @@ public class UserReportTwo implements UserReportInterface {
 		int headerCounter = 0;
 		
 		//Get ready to deal with the location starting token
-		while (headerCounter < 2)
+		while (headerCounter < 3)
 		{
 			headerTokenizer.nextToken();
 			headerCounter++;
@@ -114,24 +114,228 @@ public class UserReportTwo implements UserReportInterface {
 			//Check if one of the tokens is a directive
 			else if(directivesTable.hasDirective(tokenOne) || directivesTable.hasDirective(tokenTwo))
 			{
+				
 				//Check if either of the tokens impact memory, as one may be a label
-				if(directivesTable.impactsMemory(tokenOne) || directivesTable.impactsMemory(tokenTwo))
+				if(directivesTable.hasDirective(tokenOne))
 				{
-					//They impact memory, so set the user elements properly.
-					
-					
-					
-					//Increment the decimal location in memory.
-					decimalLocationInMemory++;
+					if(directivesTable.impactsMemory(tokenOne))
+					{
+						//They impact memory, so set the user elements properly.
+						
+						//Get the data word of the last entry with the right location in memory.
+						//That one will be the directive that impacts memory.
+						
+						//Set a counter for our searching operation.
+						int dataWordMemCounter = 0;
+						
+						//Go through each line of the object file searching for the right location
+						while (dataWordMemCounter < objectFile.textLines.size())
+						{
+							//Get the location of whatever is the the current text line has in hex
+							String location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+							//Convert it into a decimal integer.
+							int locationInt = Integer.parseInt(location, 16);
+							
+							//If this location is the same as the location of our directive
+							if(locationInt == decimalLocationInMemory)
+							{
+								//Set the original location.
+								String originalLocation = location;
+								
+								//Increment the dataWord to check the next thing.
+								dataWordMemCounter++;
+								
+								//Parse through the next thing(s) until we find a location that differs, or reach the end of the text file
+								while(dataWordMemCounter < objectFile.textLines.size() &&
+										location.equalsIgnoreCase(originalLocation))
+								{
+									location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+									//Only increment the dataword counter if we aren't at a new location.
+									if(location.equalsIgnoreCase(originalLocation))
+									{
+										dataWordMemCounter++;
+									}
+									
+								}
+								
+								//Get the data word of the directive
+								reportLine.setDataWord(objectFile.textLines.get(dataWordMemCounter-1).substring(9,17));
+								//Get the A/R/E type as well
+								reportLine.setType(objectFile.textLines.get(dataWordMemCounter-1).substring(20,21));
+							}
+							
+							dataWordMemCounter++;
+						}
+						
+						//Increment the decimal location in memory.
+						decimalLocationInMemory++;
+					}
+				}
+				else if (directivesTable.hasDirective(tokenTwo))
+				{
+					if(directivesTable.impactsMemory(tokenTwo))
+					{
+						//They impact memory, so set the user elements properly.
+						
+						//Get the data word of the last entry with the right location in memory.
+						//That one will be the directive that impacts memory.
+						
+						//Set a counter for our searching operation.
+						int dataWordMemCounter = 0;
+						
+						//Go through each line of the object file searching for the right location
+						while (dataWordMemCounter < objectFile.textLines.size())
+						{
+							//Get the location of whatever is the the current text line has in hex
+							String location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+							//Convert it into a decimal integer.
+							int locationInt = Integer.parseInt(location, 16);
+							
+							//If this location is the same as the location of our directive
+							if(locationInt == decimalLocationInMemory)
+							{
+								//Set the original location.
+								String originalLocation = location;
+								
+								//Increment the dataWord to check the next thing.
+								dataWordMemCounter++;
+								
+								//Parse through the next thing(s) until we find a location that differs, or reach the end of the text file
+								while(dataWordMemCounter < objectFile.textLines.size() &&
+										location.equalsIgnoreCase(originalLocation))
+								{
+									location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+									//Only increment the dataword counter if we aren't at a new location.
+									if(location.equalsIgnoreCase(originalLocation))
+									{
+										dataWordMemCounter++;
+									}
+									
+								}
+								
+								//Get the data word of the directive
+								reportLine.setDataWord(objectFile.textLines.get(dataWordMemCounter-1).substring(9,17));
+								//Get the A/R/E type as well
+								reportLine.setType(objectFile.textLines.get(dataWordMemCounter-1).substring(20,21));
+							}
+							
+							dataWordMemCounter++;
+						}
+						
+						//Increment the decimal location in memory.
+						decimalLocationInMemory++;
+					}
 				}
 				
 				//If it's a directive that doesn't impact memory, do nothing.
 			}
 			else if(instructionsTable.hasInstruction(tokenOne) || instructionsTable.hasInstruction(tokenTwo))
 			{
-				//If it's an instruction, set the user elements properly.
-				
-				
+				//Check if either of the tokens impact memory, as one may be a label
+				if(instructionsTable.hasInstruction(tokenOne))
+				{
+
+					//They impact memory, so set the user elements properly.
+
+					//Get the data word of the last entry with the right location in memory.
+					//That one will be the directive that impacts memory.
+
+					//Set a counter for our searching operation.
+					int dataWordMemCounter = 0;
+
+					//Go through each line of the object file searching for the right location
+					while (dataWordMemCounter < objectFile.textLines.size())
+					{
+						//Get the location of whatever is the the current text line has in hex
+						String location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+						//Convert it into a decimal integer.
+						int locationInt = Integer.parseInt(location, 16);
+
+						//If this location is the same as the location of our directive
+						if(locationInt == decimalLocationInMemory)
+						{
+							//Set the original location.
+							String originalLocation = location;
+
+							//Increment the dataWord to check the next thing.
+							dataWordMemCounter++;
+
+							//Parse through the next thing(s) until we find a location that differs, or reach the end of the text file
+							while(dataWordMemCounter < objectFile.textLines.size() &&
+									location.equalsIgnoreCase(originalLocation))
+							{
+								location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+								//Only increment the dataword counter if we aren't at a new location.
+								if(location.equalsIgnoreCase(originalLocation))
+								{
+									dataWordMemCounter++;
+								}
+
+							}
+
+							//Get the data word of the directive
+							reportLine.setDataWord(objectFile.textLines.get(dataWordMemCounter-1).substring(9,17));
+							//Get the A/R/E type as well
+							reportLine.setType(objectFile.textLines.get(dataWordMemCounter-1).substring(20,21));
+						}
+
+						dataWordMemCounter++;
+					}
+
+				}
+				else if(instructionsTable.hasInstruction(tokenTwo))
+				{
+
+					//They impact memory, so set the user elements properly.
+
+					//Get the data word of the last entry with the right location in memory.
+					//That one will be the directive that impacts memory.
+
+					//Set a counter for our searching operation.
+					int dataWordMemCounter = 0;
+
+					//Go through each line of the object file searching for the right location
+					while (dataWordMemCounter < objectFile.textLines.size())
+					{
+						//Get the location of whatever is the the current text line has in hex
+						String location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+						//Convert it into a decimal integer.
+						int locationInt = Integer.parseInt(location, 16);
+
+						//If this location is the same as the location of our directive
+						if(locationInt == decimalLocationInMemory)
+						{
+							//Set the original location.
+							String originalLocation = location;
+
+							//Increment the dataWord to check the next thing.
+							dataWordMemCounter++;
+
+							//Parse through the next thing(s) until we find a location that differs, or reach the end of the text file
+							while(dataWordMemCounter < objectFile.textLines.size() &&
+									location.equalsIgnoreCase(originalLocation))
+							{
+								location = objectFile.textLines.get(dataWordMemCounter).substring(2,6);
+								//Only increment the dataword counter if we aren't at a new location.
+								if(location.equalsIgnoreCase(originalLocation))
+								{
+									dataWordMemCounter++;
+								}
+
+							}
+
+							//Get the data word of the directive
+							reportLine.setDataWord(objectFile.textLines.get(dataWordMemCounter-1).substring(9,17));
+							//Get the A/R/E type as well
+							reportLine.setType(objectFile.textLines.get(dataWordMemCounter-1).substring(20,21));
+						}
+
+						dataWordMemCounter++;
+					}
+
+				}
+
+
 				//Increment the decimal location in memory.
 				decimalLocationInMemory++;
 			}
