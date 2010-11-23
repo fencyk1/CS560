@@ -1,4 +1,4 @@
-H|altest00|0007|0000|2010:11:22|23:11:15|0001|0007|0000|SAL|Version # 2.03|Revision # 3|altest00
+H|altest00|0007|0000|2010:11:22|23:19:09|0001|0007|0000|SAL|Version # 2.03|Revision # 3|altest00
 T|0000|N|08000000|1|A|altest00
 T|0001|N|08000000|1|A|altest00
 T|0002|N|9c200005|1|R|+|0000|altest00

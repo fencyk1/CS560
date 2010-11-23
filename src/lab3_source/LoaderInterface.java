@@ -15,12 +15,12 @@ public interface LoaderInterface {
 	/**
 	 * add object file to the load file
 	 */
-	void addObjectToLoadFile();
+	void addObjectToLoadFile(ObjectFileSource objectFile);
 	
 	/**
 	 * adjust the memory addresses from the global symbol table
 	 */
-	void correctSymbolAddresses();
+	void correctSymbolAddresses(GlobalSymbolTable globalSymbolTable);
 	
 	/**
 	 * output the load file
@@ -31,5 +31,5 @@ public interface LoaderInterface {
 	/**
 	 * make and add header to load file
 	 */
-	void addHeaderToLoadFile();
+	void addHeaderToLoadFile(ObjectFileSource objectFile);
 }

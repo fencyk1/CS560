@@ -44,6 +44,9 @@ public class LoaderLinkingMain {
 	    //error boolean
 	    Boolean errorsExist = false;
 	    
+	    //Header boolean
+	    Boolean headerAdded = false;
+	    
 		int i = 0;
 		//while there are still object files in the folder do the following. ensure that we do not get any invisible files
 		while (i < args.length && args[i].toString().endsWith(".txt"))
@@ -63,8 +66,17 @@ public class LoaderLinkingMain {
 				//Pass the object file to the symbol table to create symbols in it
 				globalSymbolTable.createSymbolTable(objectFile);
 				
+				//If there is not already a header in the load file, add it
+				if (!headerAdded)
+				{
+					loadFile.addHeaderToLoadFile(objectFile);
+					
+					//Set the flag appropriately
+					headerAdded = true;
+				}
+				
 				//pass 2, adjust added all records to the load file that have symbols 
-				loadFile.addObjectToLoadFile();
+				loadFile.addObjectToLoadFile(objectFile);
 			}
 			
 			i++;
@@ -75,7 +87,7 @@ public class LoaderLinkingMain {
 		{
 			
 			//correct the external symbols in the load object
-			loadFile.correctSymbolAddresses();
+			loadFile.correctSymbolAddresses(globalSymbolTable);
 			
 			//print out the load file
 			loadFile.output();
