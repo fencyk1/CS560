@@ -2,8 +2,6 @@ package lab3_source;
 
 import java.io.UnsupportedEncodingException;
 
-import ErrorData;
-
 public class ObjectFileChecker implements ObjectFileCheckerInterface {
 
 	@Override
@@ -97,12 +95,14 @@ public class ObjectFileChecker implements ObjectFileCheckerInterface {
 			i++;
 		}
 		
-		// Check that the number of text records is less than or equal to the
-		// length of the program.
-		if (checkRecordLength(objectFile.getProgramLengthInHexFromHeader(), i))
+		// Check the lenght of the text/linking records compared to what is in the header
+		// and check that the number of text records + linking records = the number in
+		// the end record.
+		if (checkRecordLength(objectFile))
 		{
 			errorsExist = true;
 		}
+		
 		
 		return errorsExist;
 		
@@ -232,18 +232,40 @@ public class ObjectFileChecker implements ObjectFileCheckerInterface {
 	}
 
 	@Override
-	public Boolean checkRecordLength(String recordLength, int i) {
+	public Boolean checkRecordLength(ObjectFileSource objectFile) {
 		// TODO Auto-generated method stub
 		Boolean errorsExist = false;
 		
-		// Check that the number of text records is less than or equal to the
-		// length of the program.
-		if (!((i-1) <= Integer.parseInt(recordLength)))
+		// Check the number of text records vs. the header
+		if (objectFile.textRecords.size() > objectFile.numberOfTextRecords)
+		{
+			errorsExist = true;
+		}
+		
+		// Check the number of linking records vs. the header
+		if (objectFile.linkingRecords.size() > objectFile.numberOfLinkingRecords)
+		{
+			errorsExist = true;
+		}
+		
+		int totalRecords = 0;
+		
+		// Attempt to turn the totral records from end into an integer
+		try
+		{
+			totalRecords = Integer.parseInt(objectFile.getTotalRecordsFromEnd());
+		}
+		catch (NumberFormatException e)
+		{
+			//Throw error
+		}
+		
+		// Check to make sure that the text records + linking records = the total records
+		if ((objectFile.linkingRecords.size() + objectFile.textRecords.size()) != totalRecords)
 		{
 			errorsExist = true;
 		}
 		
 		return errorsExist;
 	}
-
 }

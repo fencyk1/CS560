@@ -5,7 +5,7 @@
    int.data  9        |05 00000005
    ext QQ
 .text
-   RESET.LC 16
+RS   RESET.LC 16
    Exec.start *       |10
    SW     $2,QQ($1)   | STORE RESULT
    lw   $5,$4          |10   78000004
@@ -28,6 +28,11 @@
    sw   $0,$15         |21   9C00000F
    JAL  $R36            |22   1C00000F 
    adds $6,$6,$5       |23   68040005
+<<<<<<< HEAD
    halt 0           |24   200000C8
 .end,altest
 
+=======
+   halt $200           |24   200000C8
+.end,altest_02
+>>>>>>> b859a6673a4a59bcd952b91987350ed7ab43fa4d

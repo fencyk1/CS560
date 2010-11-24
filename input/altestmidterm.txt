@@ -8,9 +8,10 @@ Pluto   str.data 'DOG' |10 444F4720     A
    Exec.start *
    LW    $1,Jupiter    |S-type  11   C020000E     R
    MUL   $1,$1,$1      |R-type  12   04248018     A
-   Addi  $1,$1,28      |I-type  13   4424001C     A
-   DIVs  $2,$1,mars    |S-type  14   6C440000     E
+   Addi  $1,$1,28      |I-type  13   4024001C     A
+   DIVs  $2,$1,mars    |S-type  14   77440000     E
    Srl   $2,$2,4       |R-type  15   08480802     A
    Sw    $2,Saturn     |S-type  16   9C40000F     R
    Halt  0             |J-type  17   20000000     A
 .end,Altest_03
+

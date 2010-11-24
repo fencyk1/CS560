@@ -1,0 +1,2 @@
+H|Altest_06|0000|0000|2010:11:19|12:44:57|0000|0|0000|SAL|Version # 2.03|Revision # 3|Altest_06
+E|2|Altest_06

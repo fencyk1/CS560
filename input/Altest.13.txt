@@ -1,0 +1,31 @@
+.start,Altest_13,120
+.text
+              skip.mem     100
+myDec         int.data     10
+myHex         int.data     33
+myOct         str.data     ' 77'
+              adds         $1,$1,myDec
+              subi         $1,$1,7
+              Sw           $1,result
+              Ent          myVar
+              J            *+2      |JUMP
+              NOP
+              SLL          $2,$2,0          | a nop
+              Lw           $3,result
+.data
+newVar        int.data     4
+.text
+               Lw          $4,newVar
+               Mul         $5,$5       |missing OPERAND
+               Sw          $6,resultTwo
+myEqu          EQU.exp     resutlTwo + result
+|comment
+               HALT        2
+|consts and temps
+.data
+str1           str.data    'This is my'  program
+               str.data    'test pgm'
+myVar          int.data     42
+result         int.data     0
+resultTwo      int.data     0
+.end,Altest_13

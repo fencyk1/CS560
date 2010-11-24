@@ -10,8 +10,8 @@ b	int.data	0	| store int 0 in b
 c	int.data	0	| store int 0 in c
 mem.skip 20			| skip 20 words of memory
 .text
-	srv	$R1, $R2, 4
-	jr	$R1
+	srv	$1, $2, 4
+	jr	$1
 	dump ten, ten, ten
 	inn	1, a
 	inc	1, b
@@ -19,8 +19,8 @@ mem.skip 20			| skip 20 words of memory
 	outc 1, c
 	outni 1, 5
 	outci 1, c
-	adds $R7, $R1, ten
-	subs $R3, $R1, ten
-	muls $R1, $R2, ten
-	divs $R1, $R2, ten
+	adds $7, $1, ten
+	subs $3, $1, ten
+	muls $1, $2, ten
+	divs $1, $2, ten
 .end, Test37to51

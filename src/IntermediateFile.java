@@ -9,6 +9,7 @@ import java.util.*;
 public class IntermediateFile implements IntermediateFileInterface {
 	public ArrayList<String> binCode;
 	
+	//constructor
 	public IntermediateFile() 
 	{
 		this.binCode = new ArrayList<String>();

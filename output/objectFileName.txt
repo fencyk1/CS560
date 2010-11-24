@@ -1,0 +1,10 @@
+H|midterm_04|000d|000e|2010:11:11|01:17:54|0001|d|000b|SAL|Version # 2.03|Revision # 3|midterm_04
+T|000e|N|c020000e|1|R|+|000e|midterm_04
+T|000f|N|04248018|1|A|midterm_04
+T|0010|N|4024001c|3|E|+|mars|E|+|alps|E|+|dicks|midterm_04
+T|0011|N|77440000|2|E|+|mars|E|+|alps|midterm_04
+T|0012|N|08480802|1|A|midterm_04
+T|0013|N|9c40000f|4|R|+|000e|R|+|000f|R|+|0010|R|+|0011|midterm_04
+T|0014|N|20000000|1|A|midterm_04
+L|midterm_04|e|Program Name|midterm_04
+E|16|midterm_04

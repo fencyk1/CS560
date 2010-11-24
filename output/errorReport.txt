@@ -1,0 +1,2 @@
+error:Error 20 at line 6: Value must be a decimal integer
+error:Error 20 at line 7: Value must be a decimal integer

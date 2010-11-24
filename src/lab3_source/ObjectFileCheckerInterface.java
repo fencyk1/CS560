@@ -40,5 +40,5 @@ public interface ObjectFileCheckerInterface {
 	 * lenght of the program.
 	 * @return The result of the check.
 	 */
-	Boolean checkRecordLength(String recordLength, int i);
+	Boolean checkRecordLength(ObjectFileSource objectFile);
 }

@@ -29,17 +29,52 @@ public class ObjectFileSource implements ObjectFileSourceInterface {
 	/*
 	 * this is the data structure that will have all linking records modeled over it
 	 */
-	private ArrayList<String[]> linkingRecords = new ArrayList<String[]>();
+	public ArrayList<String[]> linkingRecords = new ArrayList<String[]>();
+	
+	public ArrayList<String> source = new ArrayList<String>();
+	
 	
 	//number of text and linking records
-	private int numberOfLinkingRecords  = 0;
-	private int numberOfTextRecords = 0;
+	public int numberOfLinkingRecords  = 0;
+	public int numberOfTextRecords = 0;
 	
 	//constructors
 	public ObjectFileSource (File objectFileName) throws IOException 
 	{
 		this.importObjectFile(objectFileName);
+		this.importSourceCode(objectFileName);
+		
 	}
+	
+	/*
+	 * Import the source code into an ArrayList<Sting>. This will be a member variable. This is where code can be before it is tokenized as an option. Each line of input will be associated with
+	 * an index in the ArrayList (ie line 1 will be at index [0] of the array). The method will also clear out the previous source code just to be sure that when source code is imported
+	 * it is on a fresh data structure.
+	 */
+	public void importSourceCode (File objectFileName) throws IOException
+	{
+		System.out.println("Importing source code file : " + objectFileName);
+		
+		//clear data structure
+		source.clear();
+		
+		//get input from file, 
+		BufferedReader input = new BufferedReader(new FileReader(objectFileName));
+		String newLine;
+		
+		//keep getting lines of from the file and add them to the properties objects until the file and been completely traversed
+		while ((newLine = input.readLine()) != null)
+		{
+			source.add(newLine);
+		}
+		
+		//close the input
+		input.close();
+	}
+	
+	
+	
+	
 	
 	/*
 	 * import the object file. tokenize on '|' and the header record to the member variable. iterate over the text 

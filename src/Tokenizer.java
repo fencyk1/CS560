@@ -129,7 +129,10 @@ public class Tokenizer implements TokenizerInterface {
 		commentArray = new ArrayList<String>(1);
 			
 		// Adds a token to the array in the order they appear in the input.
-		commentArray.add(comment.nextToken());
+		if (comment.hasMoreTokens())
+		{
+			commentArray.add(comment.nextToken());
+		}
 	}
 
 	// Takes in a string and tokenizes the string by spaces.

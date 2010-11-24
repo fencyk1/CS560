@@ -28,15 +28,12 @@ public class LoaderLinkingMain {
 	 * @throws IO Exception 
 	 */
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 
 		System.out.println("Starting linking loading process.");
 		
-		//get all the files in the objectFiles directory 
 		//user has to add all object files into the objectFiles directory
 		//only object files can be in the directory
-		File folder = new File("objectFiles/");
-	    File[] listOfFiles = folder.listFiles();
+		//user needs to list them in the args array in the order in which they would like them to be done
 		
 	    //Create the load interface
 	    Loader loadFile = new Loader();
@@ -44,33 +41,70 @@ public class LoaderLinkingMain {
 	    //Create the GEST
 	    GlobalSymbolTable globalSymbolTable = new GlobalSymbolTable();
 	    
+	    //error boolean
+	    Boolean errorsExist = false;
+	    
+	    //Header boolean
+	    Boolean headerAdded = false;
+	    
+	    //user report
+	    UserReport userReport = new UserReport ();
+	    
 		int i = 0;
 		//while there are still object files in the folder do the following. ensure that we do not get any invisible files
-		while (i < listOfFiles.length && listOfFiles[i].toString().endsWith(".txt"))
+		while (i < args.length && args[i].toString().endsWith(".txt"))
 		{
 			//create a tokenized and parsed object file
-			ObjectFileSource objectFile = new ObjectFileSource(listOfFiles[i]);
+			ObjectFileSource objectFile = new ObjectFileSource(new File (args[i]));
 		
 			//create the checking component
 			ObjectFileChecker checkingComponent = new ObjectFileChecker();
 			
-			//TODO: this is where we will call a method to check the object file syntax
-			Boolean errorsExist = checkingComponent.checkEverything();			
+			//this is where we will call a method to check the object file syntax
+			errorsExist = checkingComponent.checkEverything(objectFile);			
 			
-			//Pass the object file to the symbol table to create symbols in it
-			globalSymbolTable.createSymbolTable(objectFile);
+			//if errors then dont bother with load file
+			if (!errorsExist)
+			{
+				//Pass the object file to the symbol table to create symbols in it
+				globalSymbolTable.createSymbolTable(objectFile);
+				
+				//If there is not already a header in the load file, add it
+				if (!headerAdded)
+				{
+					loadFile.addHeaderToLoadFile(objectFile);
+					
+					//Set the flag appropriately
+					headerAdded = true;
+				}
+				
+				//pass 2, adjust added all records to the load file that have symbols 
+				loadFile.addObjectToLoadFile(objectFile);
+			}
 			
-			//adjuct the load file
-			loadFile.createInitialLoadFile();
+			//add source and error to user report
+			userReport.addSourceAndErrorsToUserReport();
 			
 			i++;
 		}
 		
-		//correct the external symbols in the load object
-		loadFile.correctSymbolAddresses();
+		//if errors then dont bother with load file
+		if (!errorsExist)
+		{
+			
+			//correct the external symbols in the load object
+			loadFile.correctSymbolAddresses(globalSymbolTable);
+			
+			//print out the load file
+			loadFile.output();
+		}
+		else
+		{
+			System.out.println("Errors in object files");
+		}
 		
-		//print out the load file
-		loadFile.output();
+		//output userReport TODO: double check if you make a user report for every object file or only one
+		userReport.outputUserReport();
 		
 		
 		System.out.println("Ending linking loading process.");

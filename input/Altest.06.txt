@@ -1,0 +1,4 @@
+.start,Altest_06,0   |should overflow memory fatal error
+.text
+Arr	EQU.exp	*+5
+.end,Altest_06  	   

@@ -44,3 +44,4 @@
 41	bailingOut				"Bailing out! An invalid integer was passed!"
 42	memoryExceed			"Critical error, virtual memory has been exceeded!"
 43	linesAfterDotEnd		"No lines are allowed after .end"
+44	duplicateLabel			"May not have multiple symbols with the same label."

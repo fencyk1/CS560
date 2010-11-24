@@ -33,6 +33,6 @@ public interface UserReportInterface
 	 * @throws IOException 
 	 * 
 	 */
-	void outputUserReport (InSourceCode SourceCodeArray, File outputFileName) throws IOException;
+	void outputUserReport (InSourceCode SourceCodeArray,ErrorOut foundErrorsTable, File outputFileName) throws IOException;
 	
 }

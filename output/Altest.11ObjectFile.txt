@@ -1,0 +1,4 @@
+H|Altest_11|0000|015e|2010:11:22|19:30:59|0002|0000|015e|SAL|Version # 2.03|Revision # 3|Altest_11
+L|Altest_11|15e|Start|Altest_11
+L|r2|15e|ENT|Altest_11
+E|4|Altest_11

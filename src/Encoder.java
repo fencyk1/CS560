@@ -958,6 +958,12 @@ public class Encoder implements EncoderInterface {
 			{
 				memoryRef = Integer.toString(address);
 				memoryRef = converter.decimalToBinary(memoryRef);
+				
+				//Extend the memory reference.
+				while (memoryRef.length() < 16)
+				{
+					memoryRef = "0" + memoryRef;
+				}
 			}
 			//Otherwise, put the label in that bitch.
 			else
