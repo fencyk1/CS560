@@ -1,11 +1,13 @@
-.start,altest_02,0
+.start,altest,0
 .data
    mem.skip 4         |00
    int.data 17        |04   00000011
    int.data  9        |05 00000005
+   ext QQ
 .text
    RESET.LC 16
    Exec.start *       |10
+   SW     $2,QQ($1)   | STORE RESULT
    lw   $5,$4          |10   78000004
    muls $5,5,5       |11   70000005
    sw   $5,$10         |12   9C00000A
@@ -26,6 +28,6 @@
    sw   $0,$15         |21   9C00000F
    JAL  $R36            |22   1C00000F 
    adds $6,$6,$5       |23   68040005
-   halt $200           |24   200000C8
-.end,altest_02
+   halt 0           |24   200000C8
+.end,altest
 
