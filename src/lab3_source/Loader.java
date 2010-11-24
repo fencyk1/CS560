@@ -47,15 +47,15 @@ public class Loader implements LoaderInterface {
 		//add to the array
 		loadFile.add(header);
 		
-		//TODO add all the text records from the first object file without adding the delta
-		//steal this from below
-		
-		
-		//correct the delta
-		//add load address to the length 
-		int loadAddress = Integer.parseInt(objectFile.getProgramLoadAddressInHexfromHeader(),16);
-		int programLength = Integer.parseInt(objectFile.getProgramLengthInHexFromHeader(),16);
-		delta = loadAddress + programLength;
+//		//TODO add all the text records from the first object file without adding the delta
+//		//steal this from below
+//		
+//		
+//		//correct the delta
+//		//add load address to the length 
+//		int loadAddress = Integer.parseInt(objectFile.getProgramLoadAddressInHexfromHeader(),16);
+//		int programLength = Integer.parseInt(objectFile.getProgramLengthInHexFromHeader(),16);
+//		delta = loadAddress + programLength;
 		
 	}
 	
@@ -71,9 +71,7 @@ public class Loader implements LoaderInterface {
 		{
 			String linkerText = new String ();;
 			
-			//TODO compute the proper addresses by adding the delta to the address in hex
-			
-			linkerText = "LT|" + objectFile.getAddressInHexFromTextAtLine(i)
+			//TODO
 			
 			
 			loadFile.add(linkerText);

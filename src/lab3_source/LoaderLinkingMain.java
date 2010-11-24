@@ -47,6 +47,9 @@ public class LoaderLinkingMain {
 	    //Header boolean
 	    Boolean headerAdded = false;
 	    
+	    //user report
+	    UserReport userReport = new UserReport ();
+	    
 		int i = 0;
 		//while there are still object files in the folder do the following. ensure that we do not get any invisible files
 		while (i < args.length && args[i].toString().endsWith(".txt"))
@@ -79,6 +82,9 @@ public class LoaderLinkingMain {
 				loadFile.addObjectToLoadFile(objectFile);
 			}
 			
+			//add source and error to user report
+			userReport.addSourceAndErrorsToUserReport();
+			
 			i++;
 		}
 		
@@ -98,7 +104,7 @@ public class LoaderLinkingMain {
 		}
 		
 		//output userReport TODO: double check if you make a user report for every object file or only one
-		UserReport userReport.outputUserReport();
+		userReport.outputUserReport();
 		
 		
 		System.out.println("Ending linking loading process.");
